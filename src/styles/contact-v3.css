@@ -1,0 +1,532 @@
+/* ─── CONTACT PAGE V3.1 (Text-Above-Map Layout) ─── */
+.contact-v3-root {
+    background: var(--bg-parchment);
+    color: var(--dark);
+    min-height: 100vh;
+}
+
+/* Hero Section — Cinematic Image */
+.contact-v3-hero {
+    position: relative;
+    min-height: 55vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+}
+
+.v3-hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.v3-hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.v3-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(13, 13, 11, 0.6) 0%, rgba(13, 13, 11, 0.85) 100%);
+}
+
+.v3-hero-container {
+    position: relative;
+    z-index: 1;
+    padding-top: 160px;
+    padding-bottom: 80px;
+}
+
+.v3-hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.v3-eyebrow {
+    display: block;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    margin-bottom: 20px;
+}
+
+.v3-main-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 7vw, 5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: white;
+}
+
+.v3-main-title em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--gold);
+}
+
+.v3-title-line {
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin: 30px auto 0;
+}
+
+/* Hub Section */
+.contact-v3-hub-section {
+    padding-bottom: 100px;
+    margin-top: -40px;
+}
+
+.v3-inquiry-hub {
+    background: white;
+    display: grid;
+    grid-template-columns: 480px 1fr;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 50px 100px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(201, 168, 76, 0.1);
+}
+
+/* Hub Left: Info */
+.v3-hub-info {
+    background: #121210;
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.v3-info-inner {
+    padding: 80px 50px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Hub Logo */
+.v3-hub-logo {
+    margin-bottom: 40px;
+}
+
+.v3-hub-logo img {
+    height: 120px;
+    width: auto;
+    opacity: 0.9;
+}
+
+.v3-section-tag {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    margin-bottom: 24px;
+}
+
+.v3-section-tag.dark {
+    color: var(--dark-muted);
+}
+
+.v3-info-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.v3-info-heading span {
+    color: var(--gold);
+    display: block;
+}
+
+.v3-info-text {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 50px;
+}
+
+.v3-contact-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.v3-contact-item {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.v3-contact-icon {
+    width: 44px;
+    height: 44px;
+    background: rgba(201, 168, 76, 0.05);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    flex-shrink: 0;
+    border: 1px solid rgba(201, 168, 76, 0.1);
+}
+
+.v3-contact-icon.wa {
+    color: #25D366;
+    background: rgba(37, 211, 102, 0.04);
+}
+
+.v3-data-label {
+    display: block;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.3);
+    margin-bottom: 4px;
+}
+
+.v3-data-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.v3-data-value.link:hover {
+    color: var(--gold);
+}
+
+.v3-social-wrap {
+    margin-top: auto;
+    padding-top: 60px;
+}
+
+.v3-social-title {
+    display: block;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.2);
+    margin-bottom: 20px;
+}
+
+.v3-social-grid {
+    display: flex;
+    gap: 24px;
+}
+
+.v3-social-grid a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: white;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.8rem;
+    opacity: 0.5;
+    transition: all 0.3s;
+}
+
+.v3-social-grid a:hover {
+    opacity: 1;
+    color: var(--gold);
+}
+
+/* Hub Right: Form */
+.v3-hub-form {
+    padding: 80px 80px;
+    display: flex;
+    flex-direction: column;
+}
+
+.v3-form-header {
+    margin-bottom: 50px;
+}
+
+.v3-form-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 12px;
+}
+
+.v3-form-subtitle {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.1rem;
+    color: var(--dark-muted);
+}
+
+.v3-form-body {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+.v3-field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.v3-field {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+}
+
+.v3-field label {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--dark-muted);
+}
+
+.v3-field input,
+.v3-field select,
+.v3-field textarea {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 12px 0;
+    background: transparent;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.2rem;
+    color: var(--dark);
+    transition: all 0.3s;
+}
+
+.v3-field select {
+    cursor: pointer;
+    appearance: none;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath stroke='%23C9A84C' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M1 1l4 4 4-4'/%3E%3C/svg%3E") no-repeat right 10px center;
+}
+
+.v3-field textarea {
+    resize: none;
+}
+
+.v3-field-focus {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gold);
+    transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.v3-field input:focus~.v3-field-focus,
+.v3-field select:focus~.v3-field-focus,
+.v3-field textarea:focus~.v3-field-focus {
+    width: 100%;
+}
+
+.v3-field input:focus,
+.v3-field select:focus,
+.v3-field textarea:focus {
+    outline: none;
+    border-bottom-color: transparent;
+}
+
+.v3-submit-trigger {
+    margin-top: 20px;
+    background: var(--dark);
+    color: var(--white);
+    border: none;
+    padding: 24px 40px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.v3-submit-trigger:hover {
+    background: #222;
+    color: var(--gold);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+}
+
+.v3-form-footer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: var(--dark-muted);
+    opacity: 0.6;
+}
+
+
+/* ─── LOCATION SECTION (Centered, Text Above Map) ─── */
+.contact-v4-location {
+    padding: 120px 0 80px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.v4-loc-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.v4-eyebrow-center {
+    justify-content: center;
+}
+
+.v4-loc-title {
+    margin-top: 16px;
+    margin-bottom: 24px;
+}
+
+.v4-loc-desc {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-style: italic;
+    line-height: 1.7;
+    color: var(--cream-dim);
+    margin-bottom: 50px;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.v4-address-row {
+    display: flex;
+    gap: 60px;
+    justify-content: center;
+}
+
+.v4-addr-item {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.v4-icon {
+    color: var(--gold);
+    flex-shrink: 0;
+    margin-top: 3px;
+}
+
+.v4-addr-data {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.v4-label {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--cream-dim);
+    margin-bottom: 4px;
+}
+
+.v4-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--dark);
+}
+
+.v4-city {
+    font-size: 0.9rem;
+    color: var(--cream-dim);
+}
+
+/* Full-Width Map Frame */
+.v4-map-hub {
+    width: 100%;
+}
+
+.v4-map-frame {
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(201, 168, 76, 0.1);
+}
+
+.v4-map-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    box-shadow: inset 0 0 100px rgba(13, 13, 11, 0.05);
+}
+
+/* Footer Background visual */
+.v3-footer-visual {
+    height: 350px;
+    background: url('https://images.unsplash.com/photo-1547970810-dc1eac37d174?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat;
+    position: relative;
+    z-index: -1;
+    margin-top: -100px;
+}
+
+.v3-visual-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, #0D0D0B 0%, transparent 100%),
+        linear-gradient(to bottom, var(--bg-parchment) 0%, transparent 100%);
+}
+
+/* Media Queries */
+@media (max-width: 1100px) {
+    .v3-inquiry-hub {
+        grid-template-columns: 1fr;
+    }
+
+    .v3-hub-info {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+}
+
+@media (max-width: 640px) {
+    .v3-field-row {
+        grid-template-columns: 1fr;
+    }
+
+    .v3-hub-form {
+        padding: 40px 24px;
+    }
+
+    .v3-info-inner {
+        padding: 60px 24px;
+    }
+
+    .v4-address-row {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .v4-loc-heading {
+        font-size: 2.2rem;
+    }
+}
