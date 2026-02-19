@@ -35,7 +35,7 @@ export const Extensions = () => {
           <div className="extension-content">
             <h3 className="extension-name">Wilderness Safaris</h3>
             <p className="extension-desc">From the endless plains of the Serengeti to the "Eden" of Ngorongoro. Experience the Great Migration in unparalleled luxury.</p>
-            <a href="#" className="extension-link">Explore Safaris</a>
+            <a href="/safaris" className="extension-link">Explore Safaris</a>
           </div>
         </div>
 

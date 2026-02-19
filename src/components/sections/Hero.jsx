@@ -1,11 +1,12 @@
 import React from 'react';
+import heroBg from '../../assets/hero.jpg';
 
 export const Hero = () => {
   return (
     <section className="hero">
       <div className="hero-bg">
         <img
-          src="https://images.unsplash.com/photo-1621414050946-1b936a78b5e6?q=80&w=2000&auto=format&fit=crop"
+          src={heroBg}
           alt="Kilimanjaro at Sunrise"
           className="hero-bg-img"
         />

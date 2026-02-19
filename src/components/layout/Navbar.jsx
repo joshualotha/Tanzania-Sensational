@@ -100,12 +100,12 @@ export const Navbar = () => {
             </ul>
           </li>
           <li className="dropdown">
-            <a href="/#extensions" className="dropdown-toggle">
+            <Link to="/safaris" className="dropdown-toggle">
               Safaris
               <svg viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-            </a>
+            </Link>
             <ul className="dropdown-menu">
-              <li><a href="#">Destinations</a></li>
+              <li><Link to="/safaris">Destinations</Link></li>
               <li><a href="#">Itineraries / Packages</a></li>
               <li className="has-submenu">
                 <div className="dropdown-toggle">Safari Guide</div>

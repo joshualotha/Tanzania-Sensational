@@ -1,4 +1,7 @@
 import React, { useEffect, useRef } from 'react';
+import route1 from '../../assets/route-1.jpg';
+import route2 from '../../assets/route-2.jpg';
+import route3 from '../../assets/route-3.jpg';
 
 export const Routes = () => {
   const sectionRef = useRef(null);
@@ -42,7 +45,7 @@ export const Routes = () => {
       <div className="routes-grid reveal">
         {/* Lemosho */}
         <a href="#" className="route-card">
-          <div className="route-card-img" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1621414050946-1b936a78b5e6?w=1000&q=80&auto=format&fit=crop')" }}></div>
+          <div className="route-card-img" style={{ backgroundImage: `url(${route1})` }}></div>
           <div className="route-card-overlay"></div>
           <div className="route-arrow">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -62,7 +65,7 @@ export const Routes = () => {
         </a>
         {/* Machame */}
         <a href="#" className="route-card">
-          <div className="route-card-img" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=700&q=80&auto=format&fit=crop')" }}></div>
+          <div className="route-card-img" style={{ backgroundImage: `url(${route2})` }}></div>
           <div className="route-card-overlay"></div>
           <div className="route-arrow">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -81,7 +84,7 @@ export const Routes = () => {
         </a>
         {/* Rongai */}
         <a href="#" className="route-card">
-          <div className="route-card-img" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1597149186837-de4d4ee60571?w=700&q=80&auto=format&fit=crop')" }}></div>
+          <div className="route-card-img" style={{ backgroundImage: `url(${route3})` }}></div>
           <div className="route-card-overlay"></div>
           <div className="route-arrow">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
