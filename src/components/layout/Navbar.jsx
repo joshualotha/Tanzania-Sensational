@@ -4,6 +4,7 @@ import logo from '../../assets/tanzaniasensetional-logo.png';
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -21,6 +22,17 @@ export const Navbar = () => {
     }
   }, [location.pathname]);
 
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsMobileOpen(false);
+  }, [location]);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = isMobileOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [isMobileOpen]);
+
   return (
     <>
       {/* The Logo Crest — lives outside the nav, overlaps it */}
@@ -28,7 +40,23 @@ export const Navbar = () => {
         <img src={logo} alt="Tanzania Sensational" />
       </Link>
 
-      <nav id="navbar" className={isScrolled ? 'scrolled' : ''}>
+      {/* Hamburger Toggle — mobile only */}
+      <button
+        className={`mobile-hamburger ${isMobileOpen ? 'open' : ''} ${isScrolled ? 'scrolled' : ''}`}
+        onClick={() => setIsMobileOpen(!isMobileOpen)}
+        aria-label="Toggle navigation menu"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      {/* Mobile Overlay */}
+      {isMobileOpen && (
+        <div className="mobile-overlay" onClick={() => setIsMobileOpen(false)}></div>
+      )}
+
+      <nav id="navbar" className={`${isScrolled ? 'scrolled' : ''} ${isMobileOpen ? 'mobile-open' : ''}`}>
         <ul className="nav-links nav-links--left">
           <li className="dropdown">
             <a href="/#routes" className="dropdown-toggle">
