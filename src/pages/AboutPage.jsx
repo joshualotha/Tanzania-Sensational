@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Mountain, Shield, Users, Star, Award, Compass, ArrowRight, Heart, Globe, TreePine } from 'lucide-react';
-import logo from '../assets/tanzaniasensetional-logo.png';
+import logo from '../assets/logo.png';
 
 const CountUp = ({ to, prefix = "", suffix = "", duration = 2 }) => {
     const ref = React.useRef(null);

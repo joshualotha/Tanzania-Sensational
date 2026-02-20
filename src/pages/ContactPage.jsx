@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, MessageSquare, Instagram, Facebook, Youtube, ShieldCheck, Navigation } from 'lucide-react';
-import logo from '../assets/tanzaniasensetional-logo.png';
+import logo from '../assets/logo.png';
 
 export const ContactPage = () => {
     useEffect(() => {

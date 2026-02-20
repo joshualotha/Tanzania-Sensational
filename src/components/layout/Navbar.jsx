@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import logo from '../../assets/tanzaniasensetional-logo.png';
+import logo from '../../assets/logo.png';
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [activeDropdowns, setActiveDropdowns] = useState([]);
   const location = useLocation();
 
+  // Scroll logic
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 60);
@@ -25,6 +27,7 @@ export const Navbar = () => {
   // Close mobile menu on route change
   useEffect(() => {
     setIsMobileOpen(false);
+    setActiveDropdowns([]);
   }, [location]);
 
   // Prevent body scroll when mobile menu is open
@@ -32,6 +35,18 @@ export const Navbar = () => {
     document.body.style.overflow = isMobileOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [isMobileOpen]);
+
+  // Toggle dropdown on mobile
+  const handleToggle = (e, name) => {
+    if (window.innerWidth <= 900) {
+      e.preventDefault();
+      setActiveDropdowns(prev =>
+        prev.includes(name) ? prev.filter(n => n !== name) : [...prev, name]
+      );
+    }
+  };
+
+  const isDropdownActive = (name) => activeDropdowns.includes(name);
 
   return (
     <>
@@ -58,14 +73,20 @@ export const Navbar = () => {
 
       <nav id="navbar" className={`${isScrolled ? 'scrolled' : ''} ${isMobileOpen ? 'mobile-open' : ''}`}>
         <ul className="nav-links nav-links--left">
-          <li className="dropdown">
-            <a href="/#routes" className="dropdown-toggle">
+          <li className={`dropdown ${isDropdownActive('trekking') ? 'mobile-active' : ''}`}>
+            <a
+              href="/#routes"
+              className="dropdown-toggle"
+              onClick={(e) => handleToggle(e, 'trekking')}
+            >
               Trekking
               <svg viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
             </a>
             <ul className="dropdown-menu">
-              <li className="has-submenu">
-                <div className="dropdown-toggle">Kilimanjaro</div>
+              <li className={`has-submenu ${isDropdownActive('kili') ? 'mobile-active' : ''}`}>
+                <div className="dropdown-toggle" onClick={(e) => handleToggle(e, 'kili')}>
+                  Kilimanjaro
+                </div>
                 <ul className="submenu">
                   <li><a href="#">Lemosho Route</a></li>
                   <li><a href="#">Machame Route</a></li>
@@ -75,18 +96,24 @@ export const Navbar = () => {
                   <li><a href="#">Umbwe Route</a></li>
                 </ul>
               </li>
-              <li className="has-submenu">
-                <div className="dropdown-toggle">Mt. Meru</div>
+              <li className={`has-submenu ${isDropdownActive('meru') ? 'mobile-active' : ''}`}>
+                <div className="dropdown-toggle" onClick={(e) => handleToggle(e, 'meru')}>
+                  Mt. Meru
+                </div>
                 <ul className="submenu">
                   <li><a href="#">4-Day Trek</a></li>
                   <li><a href="#">3-Day Trek</a></li>
                 </ul>
               </li>
-              <li className="has-submenu">
-                <div className="dropdown-toggle">Trekking Preparation</div>
+              <li className={`has-submenu ${isDropdownActive('prep') ? 'mobile-active' : ''}`}>
+                <div className="dropdown-toggle" onClick={(e) => handleToggle(e, 'prep')}>
+                  Trekking Preparation
+                </div>
                 <ul className="submenu">
-                  <li className="has-submenu">
-                    <div className="dropdown-toggle">Health &amp; Safety</div>
+                  <li className={`has-submenu ${isDropdownActive('health') ? 'mobile-active' : ''}`}>
+                    <div className="dropdown-toggle" onClick={(e) => handleToggle(e, 'health')}>
+                      Health &amp; Safety
+                    </div>
                     <ul className="submenu">
                       <li><a href="#">Vaccinations</a></li>
                       <li><a href="#">Altitude Sickness</a></li>
@@ -94,8 +121,10 @@ export const Navbar = () => {
                       <li><a href="#">Oxygen Supplement</a></li>
                     </ul>
                   </li>
-                  <li className="has-submenu">
-                    <div className="dropdown-toggle">Before You Book</div>
+                  <li className={`has-submenu ${isDropdownActive('before-book') ? 'mobile-active' : ''}`}>
+                    <div className="dropdown-toggle" onClick={(e) => handleToggle(e, 'before-book')}>
+                      Before You Book
+                    </div>
                     <ul className="submenu">
                       <li><a href="#">Best Routes</a></li>
                       <li><a href="#">Best Time to Climb</a></li>
@@ -105,8 +134,10 @@ export const Navbar = () => {
                       <li><a href="#">Kilimanjaro Park Fees</a></li>
                     </ul>
                   </li>
-                  <li className="has-submenu">
-                    <div className="dropdown-toggle">After You Arrive</div>
+                  <li className={`has-submenu ${isDropdownActive('after-arrive') ? 'mobile-active' : ''}`}>
+                    <div className="dropdown-toggle" onClick={(e) => handleToggle(e, 'after-arrive')}>
+                      After You Arrive
+                    </div>
                     <ul className="submenu">
                       <li><a href="#">Training for Kilimanjaro</a></li>
                       <li><a href="#">Gear you will Need</a></li>
@@ -114,8 +145,10 @@ export const Navbar = () => {
                       <li><a href="#">Getting Tanzania Visa</a></li>
                     </ul>
                   </li>
-                  <li className="has-submenu">
-                    <div className="dropdown-toggle">During the Trek</div>
+                  <li className={`has-submenu ${isDropdownActive('during-trek') ? 'mobile-active' : ''}`}>
+                    <div className="dropdown-toggle" onClick={(e) => handleToggle(e, 'during-trek')}>
+                      During the Trek
+                    </div>
                     <ul className="submenu">
                       <li><a href="#">Daily Routine</a></li>
                       <li><a href="#">Food &amp; Drinks</a></li>
@@ -127,16 +160,22 @@ export const Navbar = () => {
               </li>
             </ul>
           </li>
-          <li className="dropdown">
-            <Link to="/safaris" className="dropdown-toggle">
+          <li className={`dropdown ${isDropdownActive('safaris') ? 'mobile-active' : ''}`}>
+            <Link
+              to="/safaris"
+              className="dropdown-toggle"
+              onClick={(e) => handleToggle(e, 'safaris')}
+            >
               Safaris
               <svg viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
             </Link>
             <ul className="dropdown-menu">
-              <li><Link to="/safaris">Destinations</Link></li>
+              <li><Link to="/safaris">Destinations Overview</Link></li>
               <li><a href="#">Itineraries / Packages</a></li>
-              <li className="has-submenu">
-                <div className="dropdown-toggle">Safari Guide</div>
+              <li className={`has-submenu ${isDropdownActive('safari-guide') ? 'mobile-active' : ''}`}>
+                <div className="dropdown-toggle" onClick={(e) => handleToggle(e, 'safari-guide')}>
+                  Safari Guide
+                </div>
                 <ul className="submenu">
                   <li><a href="#">Local Custom</a></li>
                   <li><a href="#">What to Wear</a></li>

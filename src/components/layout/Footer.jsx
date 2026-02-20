@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../assets/tanzaniasensetional-logo.png';
+import logo from '../../assets/logo.png';
 
 export const Footer = () => {
   return (
