@@ -1,0 +1,403 @@
+/* ════════════════════════════════════════════
+   THE OUTPOST - LUXURY CONTACT PAGE
+   World-class split-screen layout inspired by 
+   editorial design and ultra-premium hospitality.
+   ════════════════════════════════════════════ */
+
+.contact-luxury-root {
+    background: var(--bg-parchment);
+    color: var(--dark);
+    min-height: 100vh;
+}
+
+/* ─── DESKTOP SPLIT LAYOUT ─── */
+.luxury-split-container {
+    display: grid;
+    grid-template-columns: 45% 55%;
+    min-height: 100vh;
+}
+
+/* ─── LEFT PANEL (The Outpost) ─── */
+.luxury-panel-left {
+    position: relative;
+    background: #0D0D0B;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 120px 60px 80px;
+    border-right: 1px solid rgba(201, 168, 76, 0.15);
+}
+
+.luxury-panel-left::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat;
+    opacity: 0.15;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.luxury-panel-content {
+    position: sticky;
+    top: 120px;
+    /* Accounts for header */
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.luxury-eyebrow {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    margin-bottom: 30px;
+}
+
+.luxury-main-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 5vw, 5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    color: white;
+    margin-bottom: 40px;
+}
+
+.luxury-main-title em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--gold);
+}
+
+.luxury-intro-text {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 400px;
+    margin-bottom: 60px;
+}
+
+/* Contact List */
+.luxury-contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-top: auto;
+    /* Pushes to bottom if space allows */
+}
+
+.luxury-contact-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.luxury-contact-label {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.luxury-contact-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: color 0.3s;
+}
+
+.luxury-contact-value.wa {
+    color: #25D366;
+}
+
+.luxury-contact-value:hover {
+    color: var(--gold);
+}
+
+/* ─── RIGHT PANEL (The Planner) ─── */
+.luxury-panel-right {
+    background: white;
+    padding: 140px 100px 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.luxury-form-header {
+    margin-bottom: 60px;
+}
+
+.luxury-form-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 15px;
+}
+
+.luxury-form-desc {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.2rem;
+    color: var(--dark-muted);
+}
+
+/* Form Fields */
+.luxury-form {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.luxury-input-group {
+    position: relative;
+}
+
+.luxury-input-group label {
+    display: block;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--dark-muted);
+    margin-bottom: 15px;
+}
+
+.luxury-input,
+.luxury-select,
+.luxury-textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    padding: 15px 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    /* Oversized for luxury feel */
+    color: var(--dark);
+    transition: border-color 0.4s;
+    border-radius: 0;
+    /* Override iOS */
+}
+
+.luxury-input:focus,
+.luxury-select:focus,
+.luxury-textarea:focus {
+    outline: none;
+    border-bottom-color: var(--gold);
+}
+
+.luxury-input::placeholder,
+.luxury-textarea::placeholder {
+    color: rgba(0, 0, 0, 0.2);
+    font-weight: 400;
+    font-style: italic;
+}
+
+.luxury-select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='8' fill='none'%3E%3Cpath stroke='%23C9A84C' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M1 1l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0 center;
+}
+
+.luxury-textarea {
+    resize: vertical;
+    min-height: 120px;
+    font-family: 'Outfit', sans-serif;
+    /* Keep body text readable */
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+/* Submit Action */
+.luxury-submit-wrap {
+    margin-top: 20px;
+}
+
+.luxury-submit-btn {
+    width: 100%;
+    background: var(--dark);
+    color: white;
+    border: none;
+    padding: 30px 40px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.luxury-submit-btn:hover {
+    background: #1a1a1a;
+    color: var(--gold);
+    padding-left: 30px;
+    padding-right: 50px;
+}
+
+.luxury-submit-icon {
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.luxury-submit-btn:hover .luxury-submit-icon {
+    transform: translateX(10px);
+}
+
+.luxury-trust-badge {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.8rem;
+    color: var(--dark-muted);
+}
+
+.luxury-trust-badge svg {
+    color: var(--gold);
+}
+
+
+/* ════════════════════════════════════════════
+   OUTFIT RESPONSIVE (TABLET & MOBILE)
+   ════════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+    .luxury-split-container {
+        grid-template-columns: 1fr;
+    }
+
+    .luxury-panel-left {
+        padding: 140px 40px 80px;
+        min-height: 60vh;
+        border-right: none;
+    }
+
+    .luxury-panel-content {
+        position: relative;
+        top: 0;
+    }
+
+    .luxury-panel-right {
+        padding: 80px 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .luxury-main-title {
+        font-size: 3.5rem;
+    }
+
+    .luxury-form-title {
+        font-size: 2.5rem;
+    }
+
+    .luxury-input,
+    .luxury-select {
+        font-size: 1.4rem;
+    }
+}
+
+/* ─── PREMIUM MOBILE (Samsung Galaxy / iPhone) ─── */
+@media (max-width: 480px) {
+    .luxury-panel-left {
+        padding: 120px 20px 60px;
+        min-height: auto;
+    }
+
+    .luxury-eyebrow {
+        font-size: 0.65rem;
+        margin-bottom: 20px;
+    }
+
+    .luxury-main-title {
+        font-size: 2.8rem;
+        margin-bottom: 30px;
+    }
+
+    .luxury-intro-text {
+        font-size: 1rem;
+        margin-bottom: 40px;
+    }
+
+    .luxury-contact-list {
+        gap: 30px;
+    }
+
+    .luxury-contact-value {
+        font-size: 1.25rem;
+    }
+
+    /* Form Area Mobile */
+    .luxury-panel-right {
+        padding: 60px 20px 80px;
+    }
+
+    .luxury-form-header {
+        margin-bottom: 40px;
+    }
+
+    .luxury-form-title {
+        font-size: 2.2rem;
+    }
+
+    .luxury-form-desc {
+        font-size: 1rem;
+    }
+
+    .luxury-form {
+        gap: 40px;
+    }
+
+    .luxury-input-group label {
+        font-size: 0.65rem;
+        margin-bottom: 8px;
+    }
+
+    .luxury-input,
+    .luxury-select {
+        font-size: 1.2rem;
+        padding: 12px 0;
+        border-bottom-width: 1.5px;
+    }
+
+    .luxury-textarea {
+        font-size: 1.05rem;
+        min-height: 100px;
+    }
+
+    .luxury-submit-btn {
+        padding: 24px 20px;
+        font-size: 0.85rem;
+    }
+
+    .luxury-trust-badge {
+        font-size: 0.75rem;
+        text-align: left;
+        align-items: flex-start;
+        line-height: 1.4;
+    }
+
+    .luxury-trust-badge svg {
+        flex-shrink: 0;
+        margin-top: 3px;
+    }
+}

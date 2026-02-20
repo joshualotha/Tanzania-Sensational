@@ -511,14 +511,19 @@
 @media (max-width: 640px) {
     .v3-field-row {
         grid-template-columns: 1fr;
+        gap: 25px;
     }
 
     .v3-hub-form {
-        padding: 40px 24px;
+        padding: 40px 20px;
     }
 
     .v3-info-inner {
-        padding: 60px 24px;
+        padding: 60px 20px;
+    }
+
+    .v3-form-title {
+        font-size: 2.2rem;
     }
 
     .v4-address-row {
@@ -528,5 +533,153 @@
 
     .v4-loc-heading {
         font-size: 2.2rem;
+    }
+}
+
+/* ═══════════════════════════════════════════
+   PREMIUM MOBILE CONTACT FORM (< 480px)
+   ═══════════════════════════════════════════ */
+@media (max-width: 480px) {
+    .contact-v3-root {
+        overflow-x: hidden;
+    }
+
+    .v3-hero-container {
+        padding-top: 120px;
+        padding-bottom: 40px;
+    }
+
+    .v3-main-title {
+        font-size: 2.8rem;
+    }
+
+    /* The Inquiry Hub - Mobile Card */
+    .v3-inquiry-hub {
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+        box-shadow: none;
+        background: transparent;
+    }
+
+    .v3-hub-info {
+        background: #0D0D0B;
+        padding: 40px 20px;
+    }
+
+    .v3-info-inner {
+        padding: 0;
+    }
+
+    .v3-hub-logo img {
+        height: 80px;
+    }
+
+    .v3-info-heading {
+        font-size: 1.8rem;
+    }
+
+    .v3-info-text {
+        font-size: 0.95rem;
+        margin-bottom: 30px;
+    }
+
+    .v3-contact-stack {
+        gap: 20px;
+    }
+
+    .v3-data-value {
+        font-size: 1rem;
+    }
+
+    .v3-social-wrap {
+        padding-top: 40px;
+    }
+
+    /* The Form - Refined tactile experience */
+    .v3-hub-form {
+        background: white;
+        padding: 60px 20px;
+        border-top: 1px solid rgba(201, 168, 76, 0.1);
+    }
+
+    .v3-form-header {
+        margin-bottom: 30px;
+        text-align: left;
+    }
+
+    .v3-form-title {
+        font-size: 2rem;
+        line-height: 1.1;
+    }
+
+    .v3-form-subtitle {
+        font-size: 0.95rem;
+        opacity: 0.8;
+    }
+
+    .v3-form-body {
+        gap: 30px;
+    }
+
+    .v3-field label {
+        font-size: 0.65rem;
+        letter-spacing: 0.2em;
+        margin-bottom: 8px;
+    }
+
+    .v3-field input,
+    .v3-field select,
+    .v3-field textarea {
+        font-size: 1.1rem;
+        padding: 14px 0;
+        /* Prevent iOS zoom */
+        border-bottom: 1.5px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .v3-field textarea {
+        min-height: 100px;
+    }
+
+    .v3-submit-trigger {
+        padding: 22px;
+        margin-top: 10px;
+        font-size: 0.85rem;
+        letter-spacing: 0.2em;
+        width: 100%;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .v3-form-footer {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+        padding: 0 10px;
+        line-height: 1.5;
+    }
+
+    /* Presence section */
+    .contact-v4-location {
+        padding: 80px 20px;
+    }
+
+    .v4-loc-title {
+        font-size: 2.2rem !important;
+    }
+
+    .v4-address-row {
+        gap: 40px;
+    }
+
+    .v4-value {
+        font-size: 1.05rem;
+    }
+
+    .v4-map-hub {
+        margin-top: 30px;
+    }
+
+    .v4-map-frame iframe {
+        height: 350px;
     }
 }
