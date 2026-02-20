@@ -2034,3 +2034,89 @@ footer {
     border-top: none !important;
   }
 }
+/* ═══════════════════════════════════════════
+   NARROW MOBILE OPTIMIZATION (< 480px)
+   Targeting Samsung Galaxy, iPhone SE, etc.
+   ═══════════════════════════════════════════ */
+@media (max-width: 480px) {
+  section {
+    padding: 60px 20px !important;
+  }
+
+  /* Hero Section Refinement */
+  .hero-content {
+    padding: 0 20px 60px !important;
+  }
+
+  .hero-title {
+    font-size: clamp(2.2rem, 10vw, 3.2rem) !important;
+    line-height: 1.1 !important;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem !important;
+    margin-bottom: 32px !important;
+  }
+
+  .hero-actions {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 15px !important;
+    width: 100% !important;
+  }
+
+  .btn-primary, .btn-secondary {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  .hero-scroll, .hero-badge {
+    display: none !important;
+  }
+
+  /* Stats Strip - Single Column */
+  .stats {
+    grid-template-columns: 1fr !important;
+    padding: 20px !important;
+  }
+
+  .stat-item {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(201, 165, 90, 0.1) !important;
+    padding: 30px 0 !important;
+  }
+
+  .stat-item:last-child {
+    border-bottom: none !important;
+  }
+
+  .stat-item::after {
+    display: none !important;
+  }
+
+  /* Content Spacing */
+  .section-title {
+    font-size: clamp(1.8rem, 8vw, 2.4rem) !important;
+  }
+
+  .routes-header {
+    margin-bottom: 40px !important;
+  }
+
+  /* Footer Adjustment */
+  .footer-top {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+  }
+
+  .footer-brand {
+    padding-bottom: 20px !important;
+    border-bottom: 1px solid rgba(201, 165, 90, 0.1) !important;
+  }
+
+  /* Logo adjustment */
+  .logo-crest img {
+    height: 44px !important;
+  }
+}
