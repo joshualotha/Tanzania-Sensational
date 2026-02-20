@@ -124,6 +124,34 @@
     color: var(--dark);
 }
 
+.premium-section-footer {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 80px;
+    width: 100%;
+}
+
+.premium-btn-outline-dark {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    color: var(--dark);
+    padding: 18px 40px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.premium-btn-outline-dark:hover {
+    border-color: var(--dark);
+    background-color: var(--dark);
+    color: white;
+}
+
 /* ─── 2. THE DESTINATIONS (DARK GALLERY) ─── */
 .premium-dest-section {
     background-color: #1a221f;

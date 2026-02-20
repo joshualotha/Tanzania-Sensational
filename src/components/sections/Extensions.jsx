@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 export const Extensions = () => {
   const sectionRef = useRef(null);
@@ -45,7 +46,7 @@ export const Extensions = () => {
           <div className="extension-content">
             <h3 className="extension-name">Zanzibar Escapes</h3>
             <p className="extension-desc">Trade the mountain air for the Indian Ocean breeze. Pristine white sands, turquoise waters, and ancient Stone Town history.</p>
-            <a href="#" className="extension-link">Island Extensions</a>
+            <Link to="/zanzibar" className="extension-link">Island Extensions</Link>
           </div>
         </div>
       </div>

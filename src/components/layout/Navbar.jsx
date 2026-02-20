@@ -187,7 +187,7 @@ export const Navbar = () => {
               </li>
             </ul>
           </li>
-          <li><a href="/#extensions">Zanzibar</a></li>
+          <li><Link to="/zanzibar">Zanzibar</Link></li>
         </ul>
 
         {/* Center spacer where the logo crest sits */}

@@ -160,6 +160,11 @@ export const SafarisPage = () => {
                         );
                     })}
                 </div>
+
+                <div className="premium-section-footer">
+                    <Link to="/safaris" className="premium-btn-outline">Explore All Destinations</Link>
+                    <Link to="/contact" className="premium-btn-outline" style={{ background: 'white', color: 'var(--dark)' }}>Plan a Custom Route</Link>
+                </div>
             </section>
 
             {/* ─── 3. CURATED JOURNEYS (PARCHMENT CARDS) ─── */}
@@ -199,6 +204,11 @@ export const SafarisPage = () => {
                         </motion.div>
                     ))}
                 </motion.div>
+
+                <div className="premium-section-footer" style={{ marginTop: '60px' }}>
+                    <Link to="/contact" className="premium-btn-outline-dark">Build Custom Safari</Link>
+                    <Link to="/safaris" className="premium-btn-outline-dark" style={{ background: 'var(--dark)', color: 'white' }}>Explore Full Collection</Link>
+                </div>
             </section>
 
             {/* ─── 4. REVIEWS (EDITORIAL SPREAD) ─── */}
