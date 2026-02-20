@@ -1,0 +1,633 @@
+/* ════════════════════════════════════════════
+   THE CURATION - LUXURY SAFARIS PAGE
+   Immersive, Safari-Luxe aesthetic matching the Contact & About pages.
+   ════════════════════════════════════════════ */
+
+.safari-premium-root {
+    background-color: var(--bg-parchment);
+    color: var(--dark);
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* ─── 1. CINEMATIC EYEBROW HERO ─── */
+.premium-safari-hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+.premium-safari-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.premium-safari-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 60%;
+}
+
+.premium-safari-overlay {
+    position: absolute;
+    inset: 0;
+    /* Soft vignette that darkens towards the bottom to blend into the next section */
+    background: linear-gradient(to bottom, rgba(18, 22, 20, 0.3) 0%, rgba(18, 22, 20, 0.8) 80%, rgba(26, 34, 31, 1) 100%);
+}
+
+.premium-safari-content {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    padding: 0 40px;
+}
+
+.premium-safari-eyebrow {
+    display: block;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    margin-bottom: 25px;
+}
+
+.premium-safari-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.8rem, 7vw, 7rem);
+    font-weight: 500;
+    line-height: 1.05;
+    margin-bottom: 25px;
+}
+
+.premium-safari-title em {
+    font-style: italic;
+    color: var(--gold);
+}
+
+.premium-safari-subtitle {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 650px;
+    margin: 0 auto 40px;
+}
+
+.premium-safari-actions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.premium-btn-solid {
+    background-color: var(--gold);
+    color: white;
+    padding: 18px 40px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.premium-btn-solid:hover {
+    background-color: #b5953f;
+}
+
+.premium-btn-outline {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 18px 40px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.premium-btn-outline:hover {
+    border-color: white;
+    background-color: white;
+    color: var(--dark);
+}
+
+/* ─── 2. THE DESTINATIONS (DARK GALLERY) ─── */
+.premium-dest-section {
+    background-color: #1a221f;
+    /* Seamless transition from hero overlay */
+    color: white;
+    padding: 100px 0 160px;
+    position: relative;
+    z-index: 2;
+}
+
+.premium-dest-head {
+    text-align: center;
+    margin-bottom: 80px;
+    padding: 0 40px;
+}
+
+.premium-dest-eyebrow {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: block;
+}
+
+.premium-dest-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    color: white;
+}
+
+.premium-dest-title em {
+    font-style: italic;
+    color: var(--gold);
+}
+
+/* Vertical Stacking Destinations instead of Tabs */
+.premium-dest-list {
+    display: flex;
+    flex-direction: column;
+    gap: 120px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.premium-dest-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.premium-dest-item.reverse {
+    grid-template-columns: 1fr 1fr;
+}
+
+.premium-dest-item.reverse .premium-dest-image-wrap {
+    order: 2;
+}
+
+.premium-dest-item.reverse .premium-dest-info {
+    order: 1;
+}
+
+.premium-dest-image-wrap {
+    position: relative;
+    aspect-ratio: 4/5;
+    overflow: hidden;
+}
+
+.premium-dest-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.premium-dest-img-badge {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: var(--gold);
+    color: white;
+    padding: 15px 30px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+}
+
+.premium-dest-info {
+    padding: 40px 0;
+}
+
+.premium-dest-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    line-height: 1;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.premium-dest-subtitle {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.1rem;
+    color: var(--gold);
+    margin-bottom: 30px;
+    display: block;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.premium-dest-desc {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 40px;
+}
+
+.premium-dest-highlights {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 40px;
+}
+
+.premium-highlight {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 10px 20px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.8rem;
+    color: white;
+    letter-spacing: 0.1em;
+}
+
+.premium-dest-meta {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-family: 'Outfit', sans-serif;
+}
+
+.meta-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.meta-value {
+    font-size: 1.5rem;
+    color: white;
+}
+
+/* ─── 3. CURATED JOURNEYS (PARCHMENT CARDS) ─── */
+.premium-pkg-section {
+    padding: 160px 40px;
+    background-color: var(--bg-parchment);
+    position: relative;
+    z-index: 3;
+}
+
+.premium-pkg-head {
+    text-align: center;
+    margin-bottom: 100px;
+}
+
+.premium-pkg-eyebrow {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: block;
+}
+
+.premium-pkg-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    color: var(--dark);
+}
+
+.premium-pkg-title em {
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 400;
+}
+
+.premium-pkg-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.premium-pkg-card {
+    background: #ffffff;
+    border-radius: 4px;
+    /* Slight softening for the brochure feel */
+    overflow: hidden;
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.05),
+        0 5px 15px rgba(0, 0, 0, 0.02);
+    display: flex;
+    flex-direction: column;
+    /* Parchment Noise */
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.98)),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.premium-pkg-card:hover {
+    transform: translateY(-10px);
+    box-shadow:
+        0 30px 60px rgba(0, 0, 0, 0.08),
+        0 10px 20px rgba(0, 0, 0, 0.04);
+}
+
+.premium-pkg-img-wrap {
+    position: relative;
+    height: 350px;
+    overflow: hidden;
+}
+
+.premium-pkg-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.premium-pkg-card:hover .premium-pkg-img-wrap img {
+    transform: scale(1.05);
+}
+
+.premium-pkg-badge {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: white;
+    color: var(--dark);
+    padding: 8px 15px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    z-index: 2;
+}
+
+.premium-pkg-content {
+    padding: 40px 40px 50px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.premium-pkg-routing {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.8rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.premium-pkg-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    line-height: 1.1;
+    color: var(--dark);
+    margin-bottom: 25px;
+}
+
+.premium-pkg-includes {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 40px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.premium-pkg-includes li {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.premium-pkg-includes li::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    background-color: var(--gold);
+    border-radius: 50%;
+}
+
+.premium-pkg-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: auto;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding-top: 30px;
+}
+
+.premium-pkg-price-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.premium-price-label {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #888;
+    margin-bottom: 5px;
+}
+
+.premium-price-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--dark);
+}
+
+.premium-pkg-enquire {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--dark);
+    text-decoration: none;
+    border-bottom: 1px solid var(--dark);
+    padding-bottom: 5px;
+    transition: color 0.3s, border-color 0.3s;
+}
+
+.premium-pkg-enquire:hover {
+    color: var(--gold);
+    border-color: var(--gold);
+}
+
+
+/* ─── 4. REVIEWS (EDITORIAL SPREAD) ─── */
+.premium-reviews-section {
+    padding: 100px 40px;
+    background-color: #ffffff;
+    text-align: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.premium-reviews-head {
+    margin-bottom: 80px;
+}
+
+.premium-reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 60px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.premium-review-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.premium-review-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 6rem;
+    line-height: 0.5;
+    color: rgba(201, 168, 76, 0.2);
+    margin-bottom: 20px;
+}
+
+.premium-review-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    line-height: 1.6;
+    font-style: italic;
+    color: var(--dark);
+    margin-bottom: 30px;
+}
+
+.premium-review-author {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.premium-review-loc {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: #888;
+    margin-top: 5px;
+    letter-spacing: 0.05em;
+}
+
+
+/* ════════════════════════════════════════════
+   RESPONSIVE (TABLET & MOBILE)
+   ════════════════════════════════════════════ */
+
+@media (max-width: 1200px) {
+
+    .premium-dest-item,
+    .premium-dest-item.reverse {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .premium-dest-image-wrap {
+        aspect-ratio: 16/9;
+    }
+
+    .premium-dest-item.reverse .premium-dest-image-wrap {
+        order: 1;
+    }
+
+    .premium-dest-item.reverse .premium-dest-info {
+        order: 2;
+    }
+
+    .premium-pkg-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .premium-reviews-grid {
+        grid-template-columns: 1fr;
+        gap: 80px;
+    }
+}
+
+@media (max-width: 640px) {
+    .premium-safari-hero {
+        height: 85vh;
+    }
+
+    .premium-safari-title {
+        font-size: 3.5rem;
+    }
+
+    .premium-safari-actions {
+        flex-direction: column;
+    }
+
+    .premium-dest-section {
+        padding: 80px 0;
+    }
+
+    .premium-dest-title {
+        font-size: 2.8rem;
+    }
+
+    .premium-dest-name {
+        font-size: 3rem;
+    }
+
+    .premium-dest-list {
+        padding: 0 20px;
+        gap: 80px;
+    }
+
+    .premium-pkg-section {
+        padding: 80px 20px;
+    }
+
+    .premium-pkg-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .premium-pkg-img-wrap {
+        height: 280px;
+    }
+
+    .premium-pkg-content {
+        padding: 30px 20px;
+    }
+
+    .premium-pkg-name {
+        font-size: 2rem;
+    }
+}

@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
-import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Mountain, Shield, Users, Star, Award, Compass, ArrowRight, Heart, Globe, TreePine } from 'lucide-react';
-import logo from '../assets/logo.png';
+import { Mountain, Compass, Star, Shield, Heart, Globe, TreePine, ArrowRight } from 'lucide-react';
+import '../styles/about-premium.css';
 
-const CountUp = ({ to, prefix = "", suffix = "", duration = 2 }) => {
-    const ref = React.useRef(null);
-    const isInView = useInView(ref, { once: true, margin: "-100px" });
-    const [count, setCount] = React.useState(0);
+const PremiumCountUp = ({ to, prefix = "", suffix = "", duration = 2 }) => {
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true, margin: "-50px" });
+    const [count, setCount] = useState(0);
 
     useEffect(() => {
         if (isInView) {
@@ -21,7 +21,10 @@ const CountUp = ({ to, prefix = "", suffix = "", duration = 2 }) => {
             let timer = setInterval(() => {
                 start += 1;
                 setCount(start);
-                if (start === end) clearInterval(timer);
+                if (start >= end) {
+                    setCount(end);
+                    clearInterval(timer);
+                }
             }, incrementTime);
 
             return () => clearInterval(timer);
@@ -34,7 +37,7 @@ const CountUp = ({ to, prefix = "", suffix = "", duration = 2 }) => {
 
     return (
         <span ref={ref}>
-            {prefix}{formatNumber(count)}{suffix}
+            {prefix}{formatNumber(count)}<span>{suffix}</span>
         </span>
     );
 };
@@ -44,42 +47,15 @@ export const AboutPage = () => {
         window.scrollTo(0, 0);
     }, []);
 
-    const pageVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: { staggerChildren: 0.12, delayChildren: 0.1 }
-        }
-    };
-
     const { scrollYProgress } = useScroll();
-    const heroY = useTransform(scrollYProgress, [0, 0.3], [0, 200]);
-    const whyY = useTransform(scrollYProgress, [0.7, 1], [-100, 100]);
+    const heroY = useTransform(scrollYProgress, [0, 0.3], [0, 150]);
 
     const fadeInUp = {
-        hidden: { opacity: 0, y: 60 },
+        hidden: { opacity: 0, y: 40 },
         visible: {
             opacity: 1,
             y: 0,
-            transition: { duration: 1, ease: [0.22, 1, 0.36, 1] }
-        }
-    };
-
-    const fadeInHeader = {
-        hidden: { opacity: 0, y: 30 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: { duration: 0.8, ease: "easeOut" }
-        }
-    };
-
-    const imageReveal = {
-        hidden: { clipPath: "inset(0 100% 0 0)", opacity: 0 },
-        visible: {
-            clipPath: "inset(0 0% 0 0)",
-            opacity: 1,
-            transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] }
+            transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
         }
     };
 
@@ -91,277 +67,234 @@ export const AboutPage = () => {
         }
     };
 
-    const values = [
-        { icon: <Shield size={28} />, title: "Safety First", desc: "Every expedition is meticulously planned with certified guides, premium equipment, and emergency protocols that exceed international standards." },
-        { icon: <Heart size={28} />, title: "Authentic Experiences", desc: "We go beyond tourism. Each journey is crafted to create genuine connections with Tanzania's landscapes, wildlife, and communities." },
-        { icon: <Globe size={28} />, title: "Responsible Travel", desc: "We limit group sizes, support local economies, and invest in conservation to ensure Tanzania's wilderness thrives for generations." },
-        { icon: <TreePine size={28} />, title: "Conservation Legacy", desc: "A portion of every expedition funds reforestation, wildlife corridors, and community education programs across the Kilimanjaro region." }
-    ];
-
-    const stats = [
-        { to: "15", suffix: "+", label: "Years of Excellence" },
-        { to: "5000", suffix: "+", label: "Summits Reached" },
-        { to: "98", suffix: "%", label: "Success Rate" },
-        { to: "50", suffix: "+", label: "Expert Guides" }
-    ];
-
-
     return (
-        <motion.div
-            className="about-root"
-            initial="hidden"
-            animate="visible"
-            variants={pageVariants}
-        >
-            {/* ─── CINEMATIC HERO ─── */}
-            <section className="about-hero">
-                <motion.div className="about-hero-bg" style={{ y: heroY }}>
+        <div className="about-premium-root">
+
+            {/* ─── 1. CINEMATIC HERO ─── */}
+            <section className="premium-about-hero">
+                <motion.div className="premium-about-bg" style={{ y: heroY }}>
                     <img
-                        src="https://images.unsplash.com/photo-1609198092458-38a293c7ac4b?q=80&w=2000&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1621414050946-1b936a78490b?q=80&w=2000&auto=format&fit=crop"
                         alt="Kilimanjaro Summit at Dawn"
                     />
-                    <div className="about-hero-overlay"></div>
+                    <div className="premium-about-overlay"></div>
                 </motion.div>
-                <div className="container about-hero-container">
-                    <motion.div
-                        className="about-hero-content"
-                        variants={fadeInUp}
-                        initial="hidden"
-                        animate="visible"
-                    >
-                        <span className="about-eyebrow">Our Story</span>
-                        <h1 className="about-hero-title">Born from the <em>Mountain</em></h1>
-                        <p className="about-hero-subtitle">
-                            We didn't start a travel company. We inherited a calling — to share the majesty of Tanzania with the world.
-                        </p>
-                        <div className="about-title-line"></div>
-                    </motion.div>
 
-                    {/* Integrated Stats Strip */}
+                <div className="container">
                     <motion.div
-                        className="about-hero-stats"
-                        variants={fadeInUp}
+                        className="premium-about-content"
                         initial="hidden"
                         animate="visible"
-                        transition={{ delay: 0.4 }}
+                        variants={staggerContainer}
                     >
-                        <div className="about-stats-row hero-integrated">
-                            {stats.map((s, i) => (
-                                <div key={i} className="about-stat">
-                                    <span className="about-stat-num">
-                                        <CountUp to={s.to} suffix={s.suffix} duration={2} />
-                                    </span>
-                                    <span className="about-stat-label">{s.label}</span>
-                                </div>
-                            ))}
-                        </div>
+                        <motion.span className="premium-eyebrow" variants={fadeInUp}>Our Origins</motion.span>
+                        <motion.h1 className="premium-hero-title" variants={fadeInUp}>Born from the <em>Mountain.</em></motion.h1>
+                        <motion.p className="premium-hero-subtitle" variants={fadeInUp}>
+                            We didn't just start an expedition company. We inherited a calling—to share the incredible majesty of East Africa with the world.
+                        </motion.p>
                     </motion.div>
                 </div>
+
+                {/* Integrated Stats Strip over the hero */}
+                <motion.div
+                    className="premium-stats-strip"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6, duration: 0.8 }}
+                >
+                    <div className="premium-stats-grid">
+                        <div className="premium-stat-item">
+                            <span className="premium-stat-num"><PremiumCountUp to="15" suffix="+" /></span>
+                            <span className="premium-stat-label">Years of Mastery</span>
+                        </div>
+                        <div className="premium-stat-item">
+                            <span className="premium-stat-num"><PremiumCountUp to="5000" suffix="+" /></span>
+                            <span className="premium-stat-label">Summits Achieved</span>
+                        </div>
+                        <div className="premium-stat-item">
+                            <span className="premium-stat-num"><PremiumCountUp to="98" suffix="%" /></span>
+                            <span className="premium-stat-label">Success Rate</span>
+                        </div>
+                        <div className="premium-stat-item">
+                            <span className="premium-stat-num"><PremiumCountUp to="50" suffix="+" /></span>
+                            <span className="premium-stat-label">Elite Guides</span>
+                        </div>
+                    </div>
+                </motion.div>
             </section>
 
-
-            {/* ─── ORIGIN STORY ─── */}
-            <section className="about-story">
-                <div className="container about-story-grid">
-                    <motion.div
-                        className="about-story-image"
-                        variants={imageReveal}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: "-50px" }}
-                    >
+            {/* ─── 2. THE LEGACY CARD ─── */}
+            <section className="premium-story-section">
+                <motion.div
+                    className="premium-story-card"
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                >
+                    <div className="premium-story-image">
                         <img
                             src="https://images.unsplash.com/photo-1631646109206-4919df38eb68?q=80&w=800&auto=format&fit=crop"
                             alt="Kilimanjaro Trail"
                         />
-                        <div className="about-story-badge">
-                            <Mountain size={24} />
-                            <span>Est. 2010</span>
+                        <div className="premium-story-badge">
+                            <Mountain size={28} />
+                            <span>Established 2010</span>
                         </div>
-                    </motion.div>
-                    <motion.div
-                        className="about-story-text"
-                        variants={fadeInUp}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: "-50px" }}
-                    >
-                        <div className="section-eyebrow">
-                            <span className="section-eyebrow-line"></span>
-                            <span className="section-eyebrow-text">The Beginning</span>
-                        </div>
-                        <h2 className="section-title">From a Single Trail to a <em>Legacy</em></h2>
-                        <p className="about-body-text">
-                            Tanzania Sensational was born from a simple belief: that the mountains and savannas of East Africa
-                            deserve to be experienced at the highest standard of excellence. What began as a single guide leading
-                            treks on the Marangu Route has evolved into Tanzania's most trusted expedition company.
+                    </div>
+                    <div className="premium-story-content">
+                        <span className="premium-eyebrow">The Beginning</span>
+                        <h2 className="premium-story-title">From a single trail to a <em>Legacy.</em></h2>
+                        <p className="premium-story-body">
+                            Tanzania Sensational was born from a simple belief: that the mountains and savannas of East Africa deserve to be experienced at the absolute highest standard of excellence.
                         </p>
-                        <p className="about-body-text">
-                            Our founder, Emmanuel Kimaro, grew up in the shadow of Kilimanjaro. His deep respect for the mountain
-                            and its ecosystems became the foundation of everything we do. Today, we operate across Kilimanjaro,
-                            Mount Meru, the Serengeti, Ngorongoro, and Zanzibar — always with the same principle: <strong>excellence without compromise.</strong>
+                        <p className="premium-story-body">
+                            Our founder grew up in the shadow of Kilimanjaro. That deep, inherent respect for the mountain became the foundation of our entire operation. Today, we architect luxury expeditions across Kilimanjaro, Mount Meru, the Serengeti, and Zanzibar—always with one principle: excellence without compromise.
                         </p>
-                    </motion.div>
-                </div>
-            </section>
-
-            {/* ─── MISSION / VISION SPLIT ─── */}
-            <section className="about-mission">
-                <div className="container about-mission-grid">
-                    <motion.div
-                        className="about-mission-card"
-                        variants={fadeInUp}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: "-50px" }}
-                    >
-                        <div className="about-mission-icon">
-                            <Compass size={32} />
-                        </div>
-                        <h3 className="about-mission-title">Our Mission</h3>
-                        <p className="about-mission-text">
-                            To deliver transformative travel experiences that connect people with East Africa's
-                            greatest natural wonders — safely, sustainably, and unforgettably.
-                        </p>
-                    </motion.div>
-                    <motion.div
-                        className="about-mission-card"
-                        variants={fadeInUp}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: "-50px" }}
-                    >
-                        <div className="about-mission-icon">
-                            <Star size={32} />
-                        </div>
-                        <h3 className="about-mission-title">Our Vision</h3>
-                        <p className="about-mission-text">
-                            To be recognized globally as the gold standard in East African expedition travel,
-                            setting new benchmarks for safety, service, and environmental stewardship.
-                        </p>
-                    </motion.div>
-                </div>
-            </section>
-
-            {/* ─── VALUES ─── */}
-            <section className="about-values">
-                <div className="container">
-                    <motion.div
-                        className="about-values-header"
-                        variants={fadeInHeader}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                    >
-                        <div className="section-eyebrow about-eyebrow-center">
-                            <span className="section-eyebrow-line"></span>
-                            <span className="section-eyebrow-text">What Guides Us</span>
-                            <span className="section-eyebrow-line"></span>
-                        </div>
-                        <h2 className="section-title about-center-title">The Principles Behind Every <em>Expedition</em></h2>
-                    </motion.div>
-                    <motion.div
-                        className="about-values-grid"
-                        variants={staggerContainer}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                    >
-                        {values.map((v, i) => (
-                            <motion.div key={i} className="about-value-card" variants={fadeInUp}>
-                                <div className="about-value-icon">{v.icon}</div>
-                                <h4 className="about-value-title">{v.title}</h4>
-                                <p className="about-value-desc">{v.desc}</p>
-                            </motion.div>
-                        ))}
-                    </motion.div>
-                </div>
-            </section>
-
-            {/* ─── EXPERIENCE THE DIFFERENCE ─── */}
-            <section className="about-experience">
-                <div className="container about-experience-grid">
-                    <motion.div
-                        className="about-exp-image"
-                        variants={imageReveal}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: "-50px" }}
-                    >
-                        <img
-                            src="https://images.unsplash.com/photo-1650668302197-7f556c34cb91?q=80&w=800&auto=format&fit=crop"
-                            alt="Kilimanjaro Trekking Group"
-                        />
-                    </motion.div>
-                    <motion.div
-                        className="about-exp-content"
-                        variants={staggerContainer}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                    >
-                        <motion.div className="section-eyebrow" variants={fadeInHeader}>
-                            <span className="section-eyebrow-line"></span>
-                            <span className="section-eyebrow-text">The Difference</span>
-                        </motion.div>
-                        <motion.h2 className="section-title" variants={fadeInUp}>Experience That <em>Speaks</em></motion.h2>
-                        <div className="about-exp-list">
-                            {[
-                                { num: "01", title: "Locally Born, Globally Trusted", text: "Our team was raised in the Kilimanjaro region. We don't read about the mountain — we live it, breathe it, and protect it." },
-                                { num: "02", title: "Precision-Planned Itineraries", text: "Every detail is considered — from acclimatization schedules to camp cuisine. Nothing is left to chance on your adventure." },
-                                { num: "03", title: "Summit Success, Not Just Attempts", text: "Our 98% success rate isn't luck — it's the result of expert route selection, superior guides, and an obsession with client wellbeing." }
-                            ].map((item, idx) => (
-                                <motion.div key={idx} className="about-exp-item" variants={fadeInUp}>
-                                    <span className="about-exp-num">{item.num}</span>
-                                    <div>
-                                        <h4 className="about-exp-item-title">{item.title}</h4>
-                                        <p className="about-exp-item-text">{item.text}</p>
-                                    </div>
-                                </motion.div>
-                            ))}
-                        </div>
-                    </motion.div>
-                </div>
-            </section>
-
-            {/* ─── WHY CHOOSE US / CINEMATIC BAND ─── */}
-            <section className="about-why">
-                <motion.div className="about-why-bg" style={{ y: whyY }}>
-                    <img
-                        src="https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=2000&auto=format&fit=crop"
-                        alt="African Safari Landscape"
-                    />
-                    <div className="about-why-overlay"></div>
+                    </div>
                 </motion.div>
-                <div className="container about-why-container">
+            </section>
+
+            {/* ─── 3. MISSION & VISION TWINS ─── */}
+            <section className="premium-mv-section">
+                <div className="premium-mv-grid">
                     <motion.div
-                        className="about-why-content"
-                        variants={fadeInUp}
+                        className="premium-mv-card"
                         initial="hidden"
                         whileInView="visible"
-                        viewport={{ once: true }}
+                        viewport={{ once: true, margin: "-50px" }}
+                        variants={fadeInUp}
                     >
-                        <span className="about-why-eyebrow">Why Tanzania Sensational</span>
-                        <h2 className="about-why-title">Your Journey Deserves <em>the Best</em></h2>
-                        <div className="about-why-features">
-                            {[
-                                { icon: <Award size={22} />, text: "KPAP & TALA Certified Operator" },
-                                { icon: <Users size={22} />, text: "Small Groups, Personal Attention" },
-                                { icon: <Shield size={22} />, text: "Premium Safety & Equipment Standards" }
-                            ].map((f, i) => (
-                                <div key={i} className="about-why-feature">
-                                    {f.icon}
-                                    <span>{f.text}</span>
-                                </div>
-                            ))}
+                        <div className="premium-mv-inner">
+                            <Compass size={40} className="premium-mv-icon" strokeWidth={1.5} />
+                            <h3 className="premium-mv-title">The Mission</h3>
+                            <p className="premium-mv-text">
+                                To engineer transformative travel experiences that connect the world's most discerning adventurers with East Africa's greatest natural wonders—safely, sustainably, and unforgettably.
+                            </p>
                         </div>
-                        <Link to="/contact" className="about-why-cta">
-                            <span>Start Your Expedition</span>
-                            <ArrowRight size={18} />
-                        </Link>
+                    </motion.div>
+                    <motion.div
+                        className="premium-mv-card"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "-50px" }}
+                        variants={fadeInUp}
+                    >
+                        <div className="premium-mv-inner">
+                            <Star size={40} className="premium-mv-icon" strokeWidth={1.5} />
+                            <h3 className="premium-mv-title">The Vision</h3>
+                            <p className="premium-mv-text">
+                                To be universally recognized as the gold standard in bespoke expedition travel, continually setting incredible new benchmarks for uncompromising safety, service, and environmental stewardship.
+                            </p>
+                        </div>
                     </motion.div>
                 </div>
             </section>
-        </motion.div>
+
+            {/* ─── 4. THE PRINCIPLES ─── */}
+            <section className="premium-values-section">
+                <div className="premium-values-container">
+                    <motion.div
+                        className="premium-values-head"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={staggerContainer}
+                    >
+                        <motion.span className="premium-eyebrow" variants={fadeInUp}>What Guides Us</motion.span>
+                        <motion.h2 className="premium-values-title" variants={fadeInUp}>The Principles Behind Every <em>Expedition.</em></motion.h2>
+                    </motion.div>
+
+                    <motion.div
+                        className="premium-values-grid"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "-50px" }}
+                        variants={staggerContainer}
+                    >
+                        <motion.div className="premium-value-card" variants={fadeInUp}>
+                            <div className="premium-value-icon"><Shield size={24} /></div>
+                            <h4 className="premium-value-title">Safety Ascendant</h4>
+                            <p className="premium-value-desc">Every expedition is meticulously engineered with certified elite guides, cutting-edge equipment, and rapid-response protocols that exceed international standards.</p>
+                        </motion.div>
+                        <motion.div className="premium-value-card" variants={fadeInUp}>
+                            <div className="premium-value-icon"><Heart size={24} /></div>
+                            <h4 className="premium-value-title">Authentic Immersion</h4>
+                            <p className="premium-value-desc">We go beyond the traditional tourist veil. Each journey is carefully crafted to create genuine, profound connections with Tanzania's landscapes and people.</p>
+                        </motion.div>
+                        <motion.div className="premium-value-card" variants={fadeInUp}>
+                            <div className="premium-value-icon"><Globe size={24} /></div>
+                            <h4 className="premium-value-title">Responsible Travel</h4>
+                            <p className="premium-value-desc">We mandate strict group sizes, actively drive local economies, and respect carrying capacities to ensure Tanzania's pristine wilderness thrives.</p>
+                        </motion.div>
+                        <motion.div className="premium-value-card" variants={fadeInUp}>
+                            <div className="premium-value-icon"><TreePine size={24} /></div>
+                            <h4 className="premium-value-title">Conservation Legacy</h4>
+                            <p className="premium-value-desc">A portion of every expedition directly funds proactive reforestation, critical wildlife corridors, and vital community education programs.</p>
+                        </motion.div>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* ─── 5. FINAL EXPERIENCE BAND ─── */}
+            <section className="premium-exp-section">
+                <div className="premium-exp-bg">
+                    <img
+                        src="https://images.unsplash.com/photo-1650668302197-7f556c34cb91?q=80&w=2000&auto=format&fit=crop"
+                        alt="Kilimanjaro Trekking Group"
+                    />
+                    <div className="premium-exp-overlay"></div>
+                </div>
+                <div className="premium-exp-container">
+                    <motion.div
+                        className="premium-exp-left"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={staggerContainer}
+                    >
+                        <motion.span className="premium-eyebrow" style={{ color: 'white' }} variants={fadeInUp}>The Difference</motion.span>
+                        <motion.h2 className="premium-exp-title" variants={fadeInUp}>Experience That <em>Speaks.</em></motion.h2>
+                        <motion.div variants={fadeInUp}>
+                            <Link to="/contact" className="premium-exp-cta">
+                                <span>Initialize Your Expedition</span>
+                                <ArrowRight size={18} />
+                            </Link>
+                        </motion.div>
+                    </motion.div>
+
+                    <motion.div
+                        className="premium-exp-list"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={staggerContainer}
+                    >
+                        <motion.div className="premium-exp-item" variants={fadeInUp}>
+                            <span className="premium-exp-num">01</span>
+                            <div>
+                                <h4 className="premium-exp-item-title">Locally Born, Globally Trusted</h4>
+                                <p className="premium-exp-item-text">Our architects were raised in the Kilimanjaro region. We don't just guide on the mountain—we live it, breathe it, and protect it.</p>
+                            </div>
+                        </motion.div>
+                        <motion.div className="premium-exp-item" variants={fadeInUp}>
+                            <span className="premium-exp-num">02</span>
+                            <div>
+                                <h4 className="premium-exp-item-title">Precision-Planned Itineraries</h4>
+                                <p className="premium-exp-item-text">Every detail is painstakingly considered—from specialized acclimatization schedules to high-altitude luxury cuisine. Nothing is left to chance.</p>
+                            </div>
+                        </motion.div>
+                        <motion.div className="premium-exp-item" variants={fadeInUp}>
+                            <span className="premium-exp-num">03</span>
+                            <div>
+                                <h4 className="premium-exp-item-title">Summit Success, Not Attempts</h4>
+                                <p className="premium-exp-item-text">Our unparalleled 98% success rate isn't luck—it's the direct result of expert route selection, superior guide training, and an absolute obsession with client wellbeing.</p>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                </div>
+            </section>
+
+        </div>
     );
 };

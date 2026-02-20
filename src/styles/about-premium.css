@@ -1,0 +1,615 @@
+/* ════════════════════════════════════════════
+   THE LEGACY - LUXURY ABOUT PAGE
+   Immersive, Safari-Luxe aesthetic matching the Contact desk.
+   ════════════════════════════════════════════ */
+
+.about-premium-root {
+    background-color: var(--bg-parchment);
+    color: var(--dark);
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* ─── 1. CINEMATIC HERO ─── */
+.premium-about-hero {
+    position: relative;
+    min-height: 85vh;
+    /* Taller hero for epic feel */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+}
+
+.premium-about-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.premium-about-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+}
+
+.premium-about-overlay {
+    position: absolute;
+    inset: 0;
+    /* Richer, darker vignette leading down */
+    background: linear-gradient(to bottom, rgba(18, 22, 20, 0.4) 0%, rgba(18, 22, 20, 0.95) 100%);
+}
+
+.premium-about-content {
+    position: relative;
+    z-index: 1;
+    padding-top: 140px;
+    padding-bottom: 200px;
+    /* Space for the floating story card */
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.premium-eyebrow {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    margin-bottom: 30px;
+    display: block;
+}
+
+.premium-hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 6vw, 6rem);
+    font-weight: 500;
+    line-height: 1.05;
+    margin-bottom: 30px;
+}
+
+.premium-hero-title em {
+    font-style: italic;
+    color: var(--gold);
+}
+
+.premium-hero-subtitle {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ─── INTEGRATED STATS STRIP ─── */
+.premium-stats-strip {
+    position: absolute;
+    bottom: 220px;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+}
+
+.premium-stats-grid {
+    display: flex;
+    gap: 80px;
+    padding: 0 40px;
+}
+
+.premium-stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.premium-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: white;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 10px;
+}
+
+.premium-stat-num span {
+    color: var(--gold);
+}
+
+.premium-stat-label {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* ─── 2. THE LEGACY CARD (STORY) ─── */
+.premium-story-section {
+    position: relative;
+    z-index: 10;
+    margin-top: -120px;
+    /* Overlap hero */
+    padding: 0 40px 140px;
+    display: flex;
+    justify-content: center;
+}
+
+.premium-story-card {
+    width: 100%;
+    max-width: 1200px;
+    background: #ffffff;
+    /* Subtle parchment noise */
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.98)),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    border-radius: 4px;
+    box-shadow:
+        0 40px 100px rgba(0, 0, 0, 0.1),
+        0 15px 35px rgba(0, 0, 0, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 1);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+}
+
+.premium-story-image {
+    position: relative;
+    min-height: 600px;
+}
+
+.premium-story-image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.premium-story-badge {
+    position: absolute;
+    bottom: 40px;
+    right: -30px;
+    background: #1a221f;
+    color: var(--gold);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    z-index: 2;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.premium-story-badge span {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: white;
+}
+
+.premium-story-content {
+    padding: 80px 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.premium-story-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.2rem;
+    line-height: 1.15;
+    color: var(--dark);
+    margin-bottom: 40px;
+}
+
+.premium-story-title em {
+    font-style: italic;
+    color: var(--gold);
+}
+
+.premium-story-body {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: #555;
+    margin-bottom: 25px;
+}
+
+/* ─── 3. MISSION & VISION TWIN CARDS ─── */
+.premium-mv-section {
+    padding: 0 40px 140px;
+    display: flex;
+    justify-content: center;
+}
+
+.premium-mv-grid {
+    width: 100%;
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.premium-mv-card {
+    background: #1a221f;
+    padding: 60px 80px;
+    color: white;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+}
+
+.premium-mv-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(201, 168, 76, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.premium-mv-inner {
+    position: relative;
+    z-index: 1;
+}
+
+.premium-mv-icon {
+    color: var(--gold);
+    margin-bottom: 35px;
+}
+
+.premium-mv-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+}
+
+.premium-mv-text {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* ─── 4. THE PRINCIPLES (VALUES) ─── */
+.premium-values-section {
+    padding: 120px 40px;
+    background: #ffffff;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.premium-values-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.premium-values-head {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.premium-values-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    color: var(--dark);
+    margin-top: 20px;
+}
+
+.premium-values-title em {
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 400;
+}
+
+.premium-values-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+}
+
+.premium-value-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.premium-value-icon {
+    width: 60px;
+    height: 60px;
+    border: 1px solid rgba(201, 168, 76, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    margin-bottom: 30px;
+    background: rgba(201, 168, 76, 0.03);
+}
+
+.premium-value-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    color: var(--dark);
+}
+
+.premium-value-desc {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #666;
+}
+
+/* ─── 5. EXPERIENCE DIFFERENCE & FINAL BAND ─── */
+.premium-exp-section {
+    position: relative;
+    padding: 160px 40px;
+    color: white;
+}
+
+.premium-exp-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.premium-exp-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.premium-exp-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(18, 22, 20, 0.95) 0%, rgba(18, 22, 20, 0.7) 100%);
+}
+
+.premium-exp-container {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 80px;
+}
+
+.premium-exp-left {
+    max-width: 500px;
+}
+
+.premium-exp-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    line-height: 1.1;
+    margin: 20px 0 40px;
+}
+
+.premium-exp-title em {
+    font-style: italic;
+    color: var(--gold);
+}
+
+.premium-exp-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 40px;
+    background: white;
+    color: var(--dark);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    text-decoration: none;
+    transition: all 0.4s ease;
+}
+
+.premium-exp-cta:hover {
+    background: var(--gold);
+    color: white;
+    padding-left: 30px;
+    padding-right: 50px;
+}
+
+.premium-exp-list {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    flex: 1;
+    max-width: 500px;
+}
+
+.premium-exp-item {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.premium-exp-num {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--gold);
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 5px;
+}
+
+.premium-exp-item-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+}
+
+.premium-exp-item-text {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+
+/* ════════════════════════════════════════════
+   RESPONSIVE (TABLET & MOBILE)
+   ════════════════════════════════════════════ */
+
+@media (max-width: 1100px) {
+    .premium-story-content {
+        padding: 60px;
+    }
+
+    .premium-mv-card {
+        padding: 60px;
+    }
+
+    .premium-values-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 60px;
+    }
+}
+
+@media (max-width: 850px) {
+    .premium-stats-grid {
+        gap: 40px;
+    }
+
+    .premium-story-card {
+        grid-template-columns: 1fr;
+    }
+
+    .premium-story-image {
+        min-height: 400px;
+    }
+
+    .premium-story-badge {
+        right: 40px;
+        bottom: -30px;
+    }
+
+    .premium-mv-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .premium-exp-container {
+        flex-direction: column;
+        gap: 60px;
+    }
+
+    .premium-exp-title {
+        font-size: 3.5rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .premium-about-hero {
+        min-height: 70vh;
+    }
+
+    .premium-hero-title {
+        font-size: 3rem;
+    }
+
+    .premium-about-content {
+        padding-top: 100px;
+        padding-bottom: 140px;
+    }
+
+    .premium-stats-strip {
+        bottom: 160px;
+    }
+
+    .premium-stats-grid {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+        padding: 0 20px;
+    }
+
+    .premium-stat-num {
+        font-size: 2.2rem;
+    }
+
+    .premium-story-section {
+        margin-top: -80px;
+        padding: 0 20px 100px;
+    }
+
+    .premium-story-card {
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        border-radius: 0;
+    }
+
+    .premium-story-image {
+        min-height: 300px;
+    }
+
+    .premium-story-badge {
+        right: 20px;
+        padding: 20px;
+    }
+
+    .premium-story-content {
+        padding: 60px 30px;
+    }
+
+    .premium-story-title {
+        font-size: 2.4rem;
+    }
+
+    .premium-mv-section {
+        padding: 0 20px 100px;
+    }
+
+    .premium-mv-card {
+        padding: 50px 30px;
+        border-radius: 0;
+    }
+
+    .premium-mv-title {
+        font-size: 2rem;
+    }
+
+    .premium-values-section {
+        padding: 80px 20px;
+    }
+
+    .premium-values-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+
+    .premium-values-title {
+        font-size: 2.6rem;
+    }
+
+    .premium-exp-section {
+        padding: 100px 30px;
+    }
+
+    .premium-exp-overlay {
+        background: rgba(18, 22, 20, 0.9);
+    }
+
+    .premium-exp-title {
+        font-size: 2.8rem;
+    }
+
+    .premium-exp-item {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
