@@ -1,366 +1,317 @@
 /* ════════════════════════════════════════════
-   THE SPICE ISLAND - BESPOKE ZANZIBAR LAYOUT
-   Airy, Asymmetrical, Coastal-Breeze aesthetic.
-   Distinct from the dramatic Safari pages.
+   THE SPICE ISLAND - SAFARI-SCOPE MIDNIGHT REEF
+   Perfectly aligned with the Safari-Luxe aesthetic.
+   Midnight Navy base, Coral Sand text, Playfair typography.
    ════════════════════════════════════════════ */
 
-.zanzibar-custom-root {
-    background-color: #faf9f6;
-    /* Very light sand/pearl color */
-    color: var(--dark);
-    position: relative;
+.zan-midnight-root {
+    background-color: #0B131D;
+    /* Midnight Navy */
+    color: #EAE5DB;
+    /* Coral Sand */
+    font-family: 'Outfit', sans-serif;
     overflow-x: hidden;
 }
 
-/* ─── 1. ASYMMETRICAL SPLIT HERO ─── */
-.zan-asym-hero {
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: 45% 55%;
-    background-color: #faf9f6;
-    padding-top: 100px;
-    /* Accounts for fixed navbar */
-}
-
-.zan-hero-text-col {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0 80px 0 120px;
-    z-index: 2;
-}
-
-.zan-eyebrow {
-    font-family: 'Outfit', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.3em;
-    color: var(--gold);
-    margin-bottom: 30px;
-    display: block;
-}
-
-.zan-hero-title {
+/* Base Safari-Style Typography */
+.zan-m-title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(4rem, 6vw, 6.5rem);
-    line-height: 1.05;
-    color: var(--dark);
-    margin-bottom: 40px;
+    color: #EAE5DB;
 }
 
-.zan-hero-title em {
-    font-style: italic;
-    color: var(--gold);
-    font-weight: 400;
-}
-
-.zan-hero-desc {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.4rem;
+.zan-m-text {
+    font-family: 'Outfit', sans-serif;
+    color: rgba(234, 229, 219, 0.8);
     line-height: 1.7;
-    color: #555;
-    margin-bottom: 50px;
-    max-width: 450px;
 }
 
-.zan-hero-actions {
-    display: flex;
-    gap: 30px;
+/* Safari-Style Buttons */
+.zan-m-btn-solid {
+    display: inline-flex;
     align-items: center;
-}
-
-.zan-btn-solid {
-    background-color: var(--dark);
-    color: white;
-    padding: 18px 40px;
+    justify-content: center;
+    background-color: #EAE5DB;
+    color: #0B131D;
+    padding: 18px 45px;
     font-family: 'Outfit', sans-serif;
     font-size: 0.8rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.25em;
     text-decoration: none;
-    transition: background-color 0.3s;
+    transition: background-color 0.4s ease, transform 0.4s ease;
 }
 
-.zan-btn-solid:hover {
-    background-color: var(--gold);
+.zan-m-btn-solid:hover {
+    background-color: #ffffff;
+    transform: translateY(-2px);
 }
 
-.zan-btn-text {
+.zan-m-btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    color: #EAE5DB;
+    padding: 18px 45px;
     font-family: 'Outfit', sans-serif;
     font-size: 0.8rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: var(--dark);
+    letter-spacing: 0.25em;
     text-decoration: none;
-    border-bottom: 1px solid var(--dark);
-    padding-bottom: 5px;
-    transition: color 0.3s, border-color 0.3s;
+    border: 1px solid rgba(234, 229, 219, 0.3);
+    transition: border-color 0.4s ease, background-color 0.4s ease;
 }
 
-.zan-btn-text:hover {
-    color: var(--gold);
-    border-color: var(--gold);
+.zan-m-btn-outline:hover {
+    border-color: #ffffff;
+    background-color: rgba(234, 229, 219, 0.05);
 }
 
-.zan-hero-img-col {
+/* Shared Section Layout */
+.zan-m-section {
+    padding: 150px 0;
+    max-width: 1400px;
+    margin: 0 auto;
     position: relative;
-    padding: 40px 40px 40px 0;
 }
 
-.zan-hero-img-wrap {
-    width: 100%;
-    height: 100%;
-    border-radius: 4px 0 0 100px;
-    /* Soft coastal sweeping curve */
-    overflow: hidden;
-    box-shadow: -20px 20px 60px rgba(0, 0, 0, 0.1);
-}
-
-.zan-hero-img-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-
-/* ─── 2. THE ARCHIPELAGO (MASONRY/OFFSET GRID) ─── */
-.zan-regions-sec {
-    padding: 180px 120px;
-    background-color: #ffffff;
-    /* Clean white background for contrast against the sand */
-}
-
-.zan-section-header {
+.zan-m-section-header {
     text-align: center;
-    margin-bottom: 120px;
+    margin-bottom: 100px;
+}
+
+.zan-m-eyebrow {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    color: rgba(234, 229, 219, 0.6);
+    margin-bottom: 25px;
+    display: block;
+}
+
+.zan-m-section-title {
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    margin: 0 auto 30px;
     max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
-.zan-section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 4rem;
-    color: var(--dark);
-}
 
-.zan-section-title em {
-    font-style: italic;
-    color: var(--gold);
-    font-weight: 400;
-}
-
-.zan-masonry {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 120px 60px;
-    align-items: center;
-}
-
-/* Feature the first item (Stone Town) as a large horizontal block */
-.zan-region-large {
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: 55% 45%;
-    gap: 80px;
-    align-items: center;
-    margin-bottom: 60px;
-}
-
-.zan-region-large .zan-region-img {
-    aspect-ratio: 16/9;
-}
-
-/* Smaller polaroid style items for the rest */
-.zan-region-polaroid {
+/* ─── 1. THE CINEMATIC HERO ─── */
+.zan-m-hero {
+    height: 100vh;
+    position: relative;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    /* Push content to bottom */
+    padding-bottom: 80px;
+    text-align: center;
 }
 
-/* Offset the second polaroid slightly to create masonry feel */
-.zan-region-polaroid:nth-child(even) {
-    margin-top: 150px;
+.zan-m-hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
 }
 
-.zan-region-img {
-    width: 100%;
-    aspect-ratio: 3/4;
-    overflow: hidden;
-    position: relative;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
-}
-
-.zan-region-img img {
+.zan-m-hero-bg img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.8s ease;
 }
 
-.zan-region-card:hover .zan-region-img img {
-    transform: scale(1.03);
+.zan-m-hero-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(11, 19, 29, 0.2) 0%, rgba(11, 19, 29, 0.9) 90%, #0B131D 100%);
 }
 
-.zan-region-info {
-    padding-top: 50px;
+.zan-m-hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    padding: 0 40px;
 }
 
-.zan-region-large .zan-region-info {
-    padding-top: 0;
-}
-
-.zan-region-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 3.5rem;
-    line-height: 1.1;
-    color: var(--dark);
+.zan-m-hero-title {
+    font-size: clamp(4rem, 10vw, 8rem);
+    line-height: 1;
     margin-bottom: 20px;
 }
 
-.zan-region-desc {
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.1rem;
-    line-height: 1.7;
-    color: #666;
-    margin-bottom: 30px;
+.zan-m-hero-title em {
+    font-style: italic;
+    color: rgba(234, 229, 219, 0.7);
 }
 
-.zan-region-badge {
-    position: absolute;
-    bottom: -20px;
-    right: 40px;
-    background: var(--gold);
-    color: white;
-    padding: 15px 30px;
-    font-family: 'Outfit', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    z-index: 2;
-    box-shadow: 0 10px 20px rgba(201, 168, 76, 0.3);
+.zan-m-hero-desc {
+    font-size: 1.15rem;
+    max-width: 600px;
+    margin: 0 auto 50px;
 }
 
-.zan-region-polaroid .zan-region-badge {
-    bottom: -20px;
-    left: 40px;
-    right: auto;
-}
-
-
-/* ─── 3. ISLAND EXPERIENCES (MINIMALIST LIST ROW) ─── */
-.zan-exp-sec {
-    padding: 160px 120px;
-    background-color: #faf9f6;
-}
-
-.zan-exp-list {
-    max-width: 1200px;
+/* The delicate line dropped down into the next section */
+.zan-m-hero-line {
+    width: 1px;
+    height: 80px;
+    background-color: rgba(234, 229, 219, 0.3);
     margin: 0 auto;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.zan-exp-row {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    padding: 60px 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    align-items: center;
-    gap: 40px;
-    position: relative;
-    overflow: hidden;
-}
 
-/* Hover reveal image effect */
-.zan-exp-hover-img {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%) translateX(20px);
-    width: 350px;
-    height: 250px;
-    object-fit: cover;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-    z-index: 0;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-}
-
-.zan-exp-row:hover .zan-exp-hover-img {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(-50%) translateX(0);
-}
-
-.zan-exp-data {
-    position: relative;
-    z-index: 1;
-    background: transparent;
-    transition: transform 0.3s ease;
-}
-
-.zan-exp-row:hover .zan-exp-data {
-    transform: translateX(20px);
-}
-
-.zan-exp-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 3rem;
-    color: var(--dark);
-    margin-bottom: 15px;
-    transition: color 0.3s;
-}
-
-.zan-exp-row:hover .zan-exp-title {
-    color: var(--gold);
-}
-
-.zan-exp-desc {
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #666;
-    max-width: 500px;
-}
-
-.zan-exp-meta {
-    position: relative;
-    z-index: 1;
+/* ─── 2. ALTERNATING CINEMATIC PANELS (REGIONS) ─── */
+.zan-m-panel-list {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    gap: 15px;
-    transition: opacity 0.3s;
+    gap: 180px;
+    padding: 0 40px;
 }
 
-/* Hide the meta info when revealing image */
-.zan-exp-row:hover .zan-exp-meta {
-    opacity: 0;
+.zan-m-panel {
+    display: flex;
+    align-items: center;
+    position: relative;
 }
 
-.zan-exp-price {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    color: var(--dark);
+.zan-m-panel.reverse {
+    flex-direction: row-reverse;
 }
 
-.zan-exp-duration {
-    font-family: 'Outfit', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: var(--gold);
+/* The Massive Image */
+.zan-m-panel-img-wrap {
+    width: 75%;
+    /* Deliberately wide, cinematic */
+    height: 600px;
+    position: relative;
+    z-index: 1;
 }
 
-.zan-footer-ctas {
+.zan-m-panel-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.zan-m-panel-img-scrim {
+    position: absolute;
+    inset: 0;
+    background: rgba(11, 19, 29, 0.2);
+    transition: background 0.5s ease;
+}
+
+.zan-m-panel:hover .zan-m-panel-img-scrim {
+    background: rgba(11, 19, 29, 0);
+}
+
+/* The Floating Text Box */
+.zan-m-panel-content {
+    background-color: #0B131D;
+    padding: 60px;
+    position: absolute;
+    z-index: 2;
+    width: 45%;
+    max-width: 550px;
+    border: 1px solid rgba(234, 229, 219, 0.1);
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.zan-m-panel:not(.reverse) .zan-m-panel-content {
+    right: 0;
+}
+
+.zan-m-panel.reverse .zan-m-panel-content {
+    left: 0;
+}
+
+.zan-m-panel-title {
+    font-size: 3.5rem;
+    margin-bottom: 25px;
+}
+
+
+/* ─── 3. PORTRAIT OVERLAY CARDS (EXPERIENCES) ─── */
+.zan-m-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    padding: 0 40px;
+}
+
+.zan-m-card {
+    height: 550px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border: 1px solid rgba(234, 229, 219, 0.1);
+}
+
+.zan-m-card-img {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.zan-m-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.zan-m-card:hover .zan-m-card-img img {
+    transform: scale(1.05);
+    /* Slow cinemtic zoom */
+}
+
+/* Beautiful dark gradient bleeding from the bottom up */
+.zan-m-card-grad {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(11, 19, 29, 0.95) 0%, rgba(11, 19, 29, 0.6) 40%, rgba(11, 19, 29, 0) 100%);
+    z-index: 1;
+}
+
+.zan-m-card-content {
+    position: relative;
+    z-index: 2;
+    padding: 40px;
+}
+
+.zan-m-card-title {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+}
+
+.zan-m-card-desc {
+    font-size: 0.95rem;
+    margin-bottom: 25px;
+}
+
+.zan-m-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(234, 229, 219, 0.2);
+    padding-top: 20px;
+}
+
+.zan-m-card-price {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* ─── 4. BOTTOM CTAS ─── */
+.zan-m-cta-group {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 30px;
     margin-top: 100px;
 }
 
@@ -369,93 +320,76 @@
    RESPONSIVE (TABLET & MOBILE)
    ════════════════════════════════════════════ */
 
-@media (max-width: 1200px) {
-    .zan-asym-hero {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto 50vh;
-        min-height: auto;
+@media (max-width: 1024px) {
+    .zan-m-panel {
+        flex-direction: column !important;
+        /* Force stack on tablet */
     }
 
-    .zan-hero-text-col {
-        padding: 80px 40px;
+    .zan-m-panel-img-wrap {
+        width: 100%;
+        height: 450px;
     }
 
-    .zan-hero-img-col {
-        padding: 0;
+    .zan-m-panel-content {
+        position: relative;
+        width: 90%;
+        max-width: 100%;
+        top: -60px;
+        /* Pull it up over the image */
+        transform: none;
+        margin: 0 auto;
     }
 
-    .zan-hero-img-wrap {
-        border-radius: 0;
-    }
-
-    .zan-regions-sec {
-        padding: 120px 40px;
-    }
-
-    .zan-masonry {
-        grid-template-columns: 1fr;
-        gap: 80px;
-    }
-
-    .zan-region-large {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-
-    .zan-region-polaroid:nth-child(even) {
-        margin-top: 0;
-    }
-
-    .zan-exp-sec {
-        padding: 120px 40px;
+    .zan-m-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 768px) {
-    .zan-hero-title {
-        font-size: 3.5rem;
+    .zan-m-section {
+        padding: 80px 0;
     }
 
-    .zan-hero-actions {
-        flex-direction: column;
-        align-items: flex-start;
+    .zan-m-hero {
+        padding-bottom: 40px;
     }
 
-    .zan-section-title {
-        font-size: 3rem;
+    .zan-m-hero-title {
+        font-size: 4rem;
     }
 
-    .zan-region-name {
+    .zan-m-panel-list {
+        gap: 60px;
+        padding: 0 20px;
+    }
+
+    .zan-m-panel-content {
+        width: 100%;
+        top: 0;
+        border-top: none;
+        padding: 40px 20px;
+    }
+
+    .zan-m-panel-title {
         font-size: 2.5rem;
     }
 
-    .zan-exp-row {
+    .zan-m-cards-grid {
         grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 40px 0;
-        transform: none !important;
-    }
-
-    .zan-exp-row:hover .zan-exp-data {
-        transform: none;
-    }
-
-    .zan-exp-meta {
-        align-items: flex-start;
-    }
-
-    .zan-exp-row:hover .zan-exp-hover-img {
-        display: none;
-        /* Disable hover images on mobile */
-    }
-
-    .zan-exp-row:hover .zan-exp-meta {
-        opacity: 1;
-        /* Keep meta visible */
-    }
-
-    .zan-footer-ctas {
-        flex-direction: column;
         padding: 0 20px;
+    }
+
+    .zan-m-card {
+        height: 450px;
+    }
+
+    .zan-m-cta-group {
+        flex-direction: column;
+        padding: 0 40px;
+    }
+
+    .zan-m-hero-desc {
+        font-size: 1rem;
     }
 }

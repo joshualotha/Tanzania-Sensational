@@ -5,168 +5,165 @@ import '../styles/zanzibar-premium.css';
 
 const regions = [
     {
-        name: "Stone Town",
-        tag: "WORLD HERITAGE",
-        desc: "Lose yourself in the labyrinthine alleys of Stone Town. Discover a rich tapestry of Swahili, Arab, Persian, and Indian influences reflected in intricately carved wooden doors and vibrant bazaars.",
-        img: "https://images.unsplash.com/photo-1590089855523-a55d49646b97?w=1600&q=85&auto=format&fit=crop",
-        isLarge: true
+        name: "Stone Town.",
+        tag: "THE ANCIENT HEART",
+        desc: "Lose yourself in the labyrinthine alleys. Discover a rich tapestry of Swahili, Arab, Persian, and Indian influences reflected in intricately carved wooden doors and vibrant spice bazaars.",
+        img: "https://images.unsplash.com/photo-1590089855523-a55d49646b97?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+        reverse: false
     },
     {
-        name: "Nungwi & Kendwa",
+        name: "Nungwi Shores.",
         tag: "THE PRISTINE NORTH",
-        desc: "Experience the quintessential tropical paradise. The northern tip boasts powdery white beaches, tide-independent swimming, and the most spectacular ocean sunsets.",
-        img: "https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?w=1200&q=85&auto=format&fit=crop",
-        isLarge: false
+        desc: "Experience the quintessential tropical paradise. Powdery white beaches, tide-independent swimming, and the most spectacular, unobstructed Indian Ocean sunsets.",
+        img: "https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+        reverse: true
     },
     {
-        name: "Paje & Jambiani",
-        tag: "THE BREEZY SOUTHEAST",
-        desc: "A stretched-out coastline where the rhythm of tides commands the day. Famous for kite surfing, this laid-back region offers authentic encounters with local fishermen.",
-        img: "https://plus.unsplash.com/premium_photo-1661963242691-030612dbf378?w=1200&q=85&auto=format&fit=crop",
-        isLarge: false
+        name: "Paje & Jambiani.",
+        tag: "THE BREEZY COAST",
+        desc: "A stretched-out coastline where the rhythm of tides commands the day. Famous world-wide for kite surfing, this laid-back region offers authentic encounters with a local coastal lifestyle.",
+        img: "https://images.unsplash.com/photo-1595304604924-f7a9af316fa7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+        reverse: false
     }
 ];
 
 const experiences = [
     {
-        title: "The Spice Tour",
-        duration: "Half Day Expedition",
-        desc: "Awaken your senses on a guided walking tour through lush spice farms. Discover the origins of cloves, nutmeg, cinnamon, and pepper that gave Zanzibar its legendary nickname.",
-        price: "45",
-        img: "https://images.unsplash.com/photo-1605333527581-fd1367069c9b?w=800&q=80&auto=format&fit=crop"
+        title: "The Spice Masterclass",
+        desc: "Awaken your senses on a private walking tour. Discover the origins of cloves, nutmeg, cinnamon, and pepper.",
+        img: "https://images.unsplash.com/photo-1596649811094-1a221f573af4?ixlib=rb-4.0.3&auto=format&fit=crop&h=800&q=80",
+        price: "$45 pp"
     },
     {
-        title: "The Safari Blue",
-        duration: "Full Day Sailing",
-        desc: "Sail on a traditional mahogany dhow to the idyllic Menai Bay Conservation Area. Snorkel amidst brilliant marine life, feast on a seafood barbecue, and relax on vanished sandbanks.",
-        price: "120",
-        img: "https://images.unsplash.com/photo-1563177651-40348f06f52e?w=800&q=80&auto=format&fit=crop"
+        title: "Safari Blue Sailing",
+        desc: "Board a bespoke mahogany dhow to the Menai Bay area. Snorkel, dine on a seafood BBQ, and relax on vanished sandbanks.",
+        img: "https://images.unsplash.com/photo-1509515091-e40798cd317d?ixlib=rb-4.0.3&auto=format&fit=crop&h=800&q=80",
+        price: "$120 pp"
     },
     {
-        title: "Prison Island Sanctuary",
-        duration: "Half Day Escape",
-        desc: "Take a short boat ride to Changuu Island. Mingle with the giant Aldabra tortoises—some over a century old—and snorkel the spectacular coral fringes surrounding the historic ruins.",
-        price: "60",
-        img: "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?w=800&q=80&auto=format&fit=crop"
+        title: "Prison Island Retreat",
+        desc: "Take a short boat ride to Changuu Island. Mingle with giant Aldabra tortoises and snorkel the spectacular coral fringes.",
+        img: "https://images.unsplash.com/photo-1527715694-82ea466ae78a?ixlib=rb-4.0.3&auto=format&fit=crop&h=800&q=80",
+        price: "$60 pp"
     }
 ];
 
 export const ZanzibarPage = () => {
     useEffect(() => { window.scrollTo(0, 0); }, []);
 
-    const fadeInUp = {
+    const fadeUp = {
         hidden: { opacity: 0, y: 50 },
-        visible: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.22, 1, 0.36, 1] } }
-    };
-
-    const staggerContainer = {
-        hidden: { opacity: 0 },
-        visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.1 } }
+        visible: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.16, 1, 0.3, 1] } }
     };
 
     return (
-        <div className="zanzibar-custom-root">
+        <div className="zan-midnight-root">
 
-            {/* ─── 1. ASYMMETRICAL EDITORIAL HERO ─── */}
-            <section className="zan-asym-hero">
+            {/* ─── 1. CINEMATIC HERO (Matched to Safaris) ─── */}
+            <section className="zan-m-hero">
+                <div className="zan-m-hero-bg">
+                    <img src="https://images.unsplash.com/photo-1548502395-50e599bdf993?ixlib=rb-4.0.3&auto=format&fit=crop&w=2400&q=80" alt="Zanzibar Ocean" />
+                    <div className="zan-m-hero-scrim"></div>
+                </div>
+
                 <motion.div
-                    className="zan-hero-text-col"
+                    className="zan-m-hero-content"
                     initial="hidden"
                     animate="visible"
-                    variants={staggerContainer}
+                    variants={{
+                        hidden: { opacity: 0 },
+                        visible: { opacity: 1, transition: { staggerChildren: 0.2, delayChildren: 0.3 } }
+                    }}
                 >
-                    <motion.span className="zan-eyebrow" variants={fadeInUp}>The Spice Island</motion.span>
-                    <motion.h1 className="zan-hero-title" variants={fadeInUp}>Tropical<br /><em>Escape.</em></motion.h1>
-                    <motion.p className="zan-hero-desc" variants={fadeInUp}>
-                        Trade the mountain air for the Indian Ocean breeze. Discover pristine white sands, turquoise waters, and ancient Stone Town history.
+                    <motion.span className="zan-m-eyebrow" variants={fadeUp}>— The Tropical Extension —</motion.span>
+                    <motion.h1 className="zan-m-hero-title zan-m-title" variants={fadeUp}>
+                        Zanzibar <em>Archipelago</em>.
+                    </motion.h1>
+                    <motion.p className="zan-m-hero-desc zan-m-text" variants={fadeUp}>
+                        Trade the mountain air for the Indian Ocean breeze. Discover pristine coral reefs, ancient coastal history, and ultra-high-end island luxury.
                     </motion.p>
-                    <motion.div className="zan-hero-actions" variants={fadeInUp}>
-                        <a href="#regions" className="zan-btn-solid">Explore the Coast</a>
-                        <Link to="/contact" className="zan-btn-text">Plan Island Retreat →</Link>
-                    </motion.div>
-                </motion.div>
-
-                <motion.div
-                    className="zan-hero-img-col"
-                    initial={{ opacity: 0, x: 100 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-                >
-                    <div className="zan-hero-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?w=1600&q=85&auto=format&fit=crop" alt="Zanzibar Coastline" />
-                    </div>
+                    <motion.div className="zan-m-hero-line" variants={fadeUp}></motion.div>
                 </motion.div>
             </section>
 
-            {/* ─── 2. THE ARCHIPELAGO (MASONRY GRID) ─── */}
-            <section id="regions" className="zan-regions-sec">
-                <div className="zan-section-header">
-                    <span className="zan-eyebrow">The Archipelago</span>
-                    <h2 className="zan-section-title">Coastal <em>Regions.</em></h2>
+
+            {/* ─── 2. ALTERNATING CINEMATIC PANELS ─── */}
+            <section className="zan-m-section">
+                <div className="zan-m-section-header">
+                    <span className="zan-m-eyebrow">The Regions</span>
+                    <h2 className="zan-m-section-title zan-m-title">Corners of the Spice Island.</h2>
                 </div>
 
-                <motion.div
-                    className="zan-masonry"
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-100px" }}
-                    variants={staggerContainer}
-                >
+                <div className="zan-m-panel-list">
                     {regions.map((region, i) => (
-                        <motion.div
-                            key={i}
-                            className={`zan-region-card ${region.isLarge ? 'zan-region-large' : 'zan-region-polaroid'}`}
-                            variants={fadeInUp}
-                        >
-                            <div className="zan-region-img">
+                        <div key={i} className={`zan-m-panel ${region.reverse ? 'reverse' : ''}`}>
+                            <motion.div
+                                className="zan-m-panel-img-wrap"
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                                viewport={{ once: true, margin: "-100px" }}
+                            >
                                 <img src={region.img} alt={region.name} />
-                                <div className="zan-region-badge">{region.tag}</div>
-                            </div>
-                            <div className="zan-region-info">
-                                <h3 className="zan-region-name">{region.name}</h3>
-                                <p className="zan-region-desc">{region.desc}</p>
-                            </div>
-                        </motion.div>
+                                <div className="zan-m-panel-img-scrim"></div>
+                            </motion.div>
+
+                            <motion.div
+                                className="zan-m-panel-content"
+                                initial={{ opacity: 0, y: 50 }}
+                                whileInView={{ opacity: 1, y: "-50%" }} /* maintain perfect center offset */
+                                transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
+                                viewport={{ once: true, margin: "-100px" }}
+                            >
+                                <span className="zan-m-eyebrow">{region.tag}</span>
+                                <h3 className="zan-m-panel-title zan-m-title">{region.name}</h3>
+                                <p className="zan-m-text mb-4">{region.desc}</p>
+                                <Link to="/contact" className="zan-m-btn-outline">Explore Region</Link>
+                            </motion.div>
+                        </div>
                     ))}
-                </motion.div>
+                </div>
             </section>
 
-            {/* ─── 3. ISLAND EXPERIENCES (MINIMALIST LIST ROW) ─── */}
-            <section className="zan-exp-sec">
-                <div className="zan-section-header">
-                    <span className="zan-eyebrow">Leisure & Expedition</span>
-                    <h2 className="zan-section-title">Island <em>Experiences.</em></h2>
+
+            {/* ─── 3. PORTRAIT OVERLAY CARDS ─── */}
+            <section className="zan-m-section">
+                <div className="zan-m-section-header">
+                    <span className="zan-m-eyebrow">Curated Moments</span>
+                    <h2 className="zan-m-section-title zan-m-title">Exclusive Island Escapes.</h2>
                 </div>
 
-                <div className="zan-exp-list">
+                <div className="zan-m-cards-grid">
                     {experiences.map((exp, i) => (
                         <motion.div
                             key={i}
-                            className="zan-exp-row"
-                            initial={{ opacity: 0, y: 30 }}
+                            className="zan-m-card"
+                            initial={{ opacity: 0, y: 60 }}
                             whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: i * 0.15, ease: "easeOut" }}
                             viewport={{ once: true, margin: "-50px" }}
-                            transition={{ duration: 0.8, delay: i * 0.1 }}
                         >
-                            <div className="zan-exp-data">
-                                <h3 className="zan-exp-title">{exp.title}</h3>
-                                <p className="zan-exp-desc">{exp.desc}</p>
+                            <div className="zan-m-card-img">
+                                <img src={exp.img} alt={exp.title} />
                             </div>
+                            <div className="zan-m-card-grad"></div>
 
-                            <div className="zan-exp-meta">
-                                <span className="zan-exp-duration">{exp.duration}</span>
-                                <span className="zan-exp-price">From ${exp.price}</span>
-                                <Link to="/contact" className="zan-btn-text">Enquire →</Link>
+                            <div className="zan-m-card-content">
+                                <h3 className="zan-m-card-title zan-m-title">{exp.title}</h3>
+                                <p className="zan-m-card-desc zan-m-text">{exp.desc}</p>
+
+                                <div className="zan-m-card-footer">
+                                    <span className="zan-m-card-price zan-m-text">{exp.price}</span>
+                                    <Link to="/contact" className="zan-m-eyebrow mb-0 text-[#EAE5DB]">Enquire ➝</Link>
+                                </div>
                             </div>
-
-                            <img src={exp.img} alt={exp.title} className="zan-exp-hover-img" />
                         </motion.div>
                     ))}
                 </div>
 
-                <div className="zan-footer-ctas">
-                    <Link to="/safaris" className="zan-btn-text" style={{ borderBottomColor: 'var(--gold)', color: 'var(--gold)' }}>← Back to Safaris</Link>
-                    <Link to="/contact" className="zan-btn-solid">Build Custom Retreat</Link>
+                <div className="zan-m-cta-group">
+                    <Link to="/safaris" className="zan-m-btn-outline">View Safari Pairings</Link>
+                    <Link to="/contact" className="zan-m-btn-solid">Commission Custom Trip</Link>
                 </div>
             </section>
 
