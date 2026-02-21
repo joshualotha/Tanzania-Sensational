@@ -115,10 +115,10 @@ export const Navbar = () => {
                       Health &amp; Safety
                     </div>
                     <ul className="submenu">
-                      <li><a href="#">Vaccinations</a></li>
-                      <li><a href="#">Altitude Sickness</a></li>
-                      <li><a href="#">Diamox for Acclimatization</a></li>
-                      <li><a href="#">Oxygen Supplement</a></li>
+                      <li><Link to="/trekking/health/vaccinations">Vaccinations</Link></li>
+                      <li><Link to="/trekking/health/altitude-sickness">Altitude Sickness</Link></li>
+                      <li><Link to="/trekking/health/diamox">Diamox for Acclimatization</Link></li>
+                      <li><Link to="/trekking/health/oxygen">Oxygen Supplement</Link></li>
                     </ul>
                   </li>
                   <li className={`has-submenu ${isDropdownActive('before-book') ? 'mobile-active' : ''}`}>
@@ -126,12 +126,12 @@ export const Navbar = () => {
                       Before You Book
                     </div>
                     <ul className="submenu">
-                      <li><a href="#">Best Routes</a></li>
-                      <li><a href="#">Best Time to Climb</a></li>
-                      <li><a href="#">Why Top Climbers</a></li>
-                      <li><a href="#">Tipping Guide</a></li>
-                      <li><a href="#">Toilets on Kilimanjaro</a></li>
-                      <li><a href="#">Kilimanjaro Park Fees</a></li>
+                      <li><Link to="/trekking/prep/best-routes">Best Routes</Link></li>
+                      <li><Link to="/trekking/prep/best-time">Best Time to Climb</Link></li>
+                      <li><Link to="/trekking/prep/why-us">Why Top Climbers</Link></li>
+                      <li><Link to="/trekking/prep/tipping-guide">Tipping Guide</Link></li>
+                      <li><Link to="/trekking/prep/toilets">Toilets on Kilimanjaro</Link></li>
+                      <li><Link to="/trekking/prep/park-fees">Kilimanjaro Park Fees</Link></li>
                     </ul>
                   </li>
                   <li className={`has-submenu ${isDropdownActive('after-arrive') ? 'mobile-active' : ''}`}>
@@ -139,10 +139,10 @@ export const Navbar = () => {
                       After You Arrive
                     </div>
                     <ul className="submenu">
-                      <li><a href="#">Training for Kilimanjaro</a></li>
-                      <li><a href="#">Gear you will Need</a></li>
-                      <li><a href="#">How to get to Kilimanjaro</a></li>
-                      <li><a href="#">Getting Tanzania Visa</a></li>
+                      <li><Link to="/trekking/after/training">Training for Kilimanjaro</Link></li>
+                      <li><Link to="/trekking/after/gear-list">Gear you will Need</Link></li>
+                      <li><Link to="/trekking/after/getting-there">How to get to Kilimanjaro</Link></li>
+                      <li><Link to="/trekking/after/visa">Getting Tanzania Visa</Link></li>
                     </ul>
                   </li>
                   <li className={`has-submenu ${isDropdownActive('during-trek') ? 'mobile-active' : ''}`}>

@@ -1,0 +1,189 @@
+/* ════════════════════════════════════════════
+   TREKKING INFO PAGES - SHARED STYLES
+   Minimalist, high-end, Safari-aligned.
+   ════════════════════════════════════════════ */
+
+.trek-info-root {
+    background-color: #fbfbf9;
+    /* Clean bone white */
+    color: #1a221f;
+    font-family: 'Outfit', sans-serif;
+}
+
+/* Hero Section */
+.trek-info-hero {
+    height: 60vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: white;
+    text-align: center;
+}
+
+.trek-info-hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.trek-info-hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.6);
+}
+
+.trek-info-hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 40px;
+    max-width: 900px;
+}
+
+.trek-info-eyebrow {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: #b5953f;
+    /* Gold accent */
+    margin-bottom: 20px;
+    display: block;
+}
+
+.trek-info-hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 6vw, 5rem);
+    line-height: 1.1;
+}
+
+/* Content Layout */
+.trek-info-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 100px 40px 150px;
+}
+
+.trek-info-article {
+    background: white;
+    padding: 80px 100px;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.03);
+    border: 1px solid #f0f0f0;
+}
+
+.trek-info-section {
+    margin-bottom: 80px;
+}
+
+.trek-info-section:last-child {
+    margin-bottom: 0;
+}
+
+.trek-info-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #1a221f;
+}
+
+.trek-info-section h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #1a221f;
+}
+
+.trek-info-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #444;
+}
+
+.trek-info-content p {
+    margin-bottom: 25px;
+}
+
+.trek-info-list {
+    list-style: none;
+    padding: 0;
+    margin: 30px 0;
+}
+
+.trek-info-list li {
+    padding-left: 30px;
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.trek-info-list li::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: #b5953f;
+}
+
+/* Dual CTAs at bottom */
+.trek-info-footer-ctas {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 100px;
+}
+
+.trek-info-btn-solid {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1a221f;
+    color: white;
+    padding: 18px 45px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.trek-info-btn-solid:hover {
+    background-color: #b5953f;
+    transform: translateY(-2px);
+}
+
+.trek-info-btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    color: #1a221f;
+    padding: 18px 45px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    text-decoration: none;
+    border: 1px solid rgba(26, 34, 31, 0.2);
+    transition: all 0.3s ease;
+}
+
+.trek-info-btn-outline:hover {
+    border-color: #1a221f;
+    background-color: #1a221f;
+    color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .trek-info-article {
+        padding: 40px 30px;
+    }
+
+    .trek-info-footer-ctas {
+        flex-direction: column;
+        padding: 0 20px;
+    }
+}

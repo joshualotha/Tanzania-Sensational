@@ -1,0 +1,498 @@
+/* ════════════════════════════════════════════
+   LUXURY EXPEDITION - TREKKING DESIGN SYSTEM
+   Authentic, Editorial, Immersive.
+   Colors: Savanna Dusk (Terracotta, Forest Green, Gold, Parchment)
+   ════════════════════════════════════════════ */
+
+:root {
+    --savanna-bg: #F9F7F2;
+    /* Parchment Background */
+    --savanna-border: rgba(0, 0, 0, 0.12);
+    --savanna-dark: #1A1A17;
+    /* Deep Ink */
+    --savanna-gold: #C9A84C;
+    /* Muted Gold */
+    --savanna-gold-dim: #A68A3D;
+    --savanna-earth: #A76B56;
+    /* Terracotta */
+    --savanna-green: #2D5A3D;
+    /* Forest Green */
+}
+
+.prep-savanna-root {
+    background-color: var(--savanna-bg);
+    color: var(--savanna-dark);
+    font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
+    padding-bottom: 120px;
+    overflow-x: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+/* ─── 0. LUXURY BROCHURE TEXTURE ─── */
+.prep-savanna-root::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.02'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0.5;
+}
+
+/* ─── 1. CINEMATIC HERO ─── */
+.prep-hero {
+    position: relative;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: var(--savanna-dark);
+}
+
+.prep-hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.prep-hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.6) contrast(1.1);
+}
+
+.prep-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(26, 26, 23, 0.4) 0%, rgba(26, 26, 23, 0.8) 100%);
+    z-index: 1;
+}
+
+.prep-hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 1400px;
+}
+
+.prep-eyebrow {
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--savanna-gold);
+    display: block;
+    margin-bottom: 25px;
+}
+
+.prep-hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.8rem, 8vw, 7.5rem);
+    font-weight: 500;
+    color: #FFFFFF;
+    line-height: 0.95;
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+.prep-hero-title em {
+    font-style: italic;
+    color: var(--savanna-gold);
+}
+
+/* ─── 2. ASYMMETRICAL EDITORIAL GRID ─── */
+.prep-grid-section {
+    padding: 120px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.prep-editorial-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 120px;
+    align-items: center;
+}
+
+.prep-editorial-text {
+    padding-right: 40px;
+}
+
+.prep-section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 4.5rem;
+    line-height: 1.05;
+    margin-bottom: 35px;
+    color: var(--savanna-dark);
+}
+
+.prep-section-title em {
+    font-style: italic;
+    color: var(--savanna-earth);
+}
+
+.prep-body-text {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.prep-editorial-img-wrap {
+    position: relative;
+}
+
+.prep-editorial-img {
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    border: 1px solid var(--savanna-border);
+}
+
+.prep-img-caption {
+    position: absolute;
+    bottom: -30px;
+    left: 0;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    color: var(--savanna-earth);
+}
+
+/* ─── 3. BOLD BORDERED GRIDS (No Slop, Pure Structure) ─── */
+.prep-info-grid {
+    max-width: 1400px;
+    margin: 140px auto;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    border: 1px solid var(--savanna-border);
+}
+
+.prep-info-card {
+    padding: 100px 80px;
+    border-right: 1px solid var(--savanna-border);
+    border-bottom: 1px solid var(--savanna-border);
+    background: #FFFFFF;
+}
+
+.prep-info-card:nth-child(even) {
+    border-right: none;
+}
+
+.prep-info-card-header {
+    margin-bottom: 60px;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.prep-info-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    margin: 0;
+    color: var(--savanna-dark);
+}
+
+.prep-info-list {
+    list-style: none;
+    padding: 0;
+}
+
+.prep-info-list li {
+    padding: 30px 0;
+    border-bottom: 1px solid var(--savanna-border);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.prep-info-list li:last-child {
+    border-bottom: none;
+}
+
+.prep-info-list li strong {
+    font-size: 1.4rem;
+    font-family: 'Playfair Display', serif;
+    color: var(--savanna-earth);
+}
+
+.prep-info-list li p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #444;
+}
+
+/* ─── 4. FULL IMPACT CALLOUTS ─── */
+.prep-highlight-box {
+    background: var(--savanna-green);
+    color: #FFFFFF;
+    padding: 140px 100px;
+    margin: 160px 40px;
+    max-width: 1320px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.prep-highlight-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    margin-bottom: 40px;
+    color: var(--savanna-gold);
+}
+
+.prep-highlight-text {
+    font-size: 1.6rem;
+    line-height: 1.7;
+    max-width: 900px;
+    margin: 0 auto;
+    font-weight: 300;
+}
+
+/* ─── 5. CTA SECTION ─── */
+.prep-cta-band {
+    padding: 140px 40px;
+    text-align: center;
+    background: var(--savanna-dark);
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.prep-cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    color: #FFFFFF;
+    margin-bottom: 60px;
+}
+
+.prep-cta-title em {
+    font-style: italic;
+    color: var(--savanna-gold);
+}
+
+.prep-btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.prep-btn-sand {
+    background: var(--savanna-gold);
+    color: #FFF;
+    padding: 22px 50px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.prep-btn-sand:hover {
+    background: var(--savanna-gold-dim);
+}
+
+.prep-btn-outline {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #FFF;
+    padding: 22px 50px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.prep-btn-outline:hover {
+    background: #FFF;
+    color: var(--savanna-dark);
+}
+
+/* ─── 6. RESPONSIVE REFINEMENT ─── */
+@media (max-width: 1200px) {
+
+    .prep-editorial-grid,
+    .prep-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .prep-info-card {
+        border-right: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .prep-hero-title {
+        font-size: 3.5rem;
+    }
+
+    .prep-section-title {
+        font-size: 3.2rem;
+    }
+
+    .prep-info-card {
+        padding: 60px 30px;
+    }
+
+    .prep-highlight-box {
+        padding: 80px 30px;
+    }
+}
+
+/* ─── 7. EXPEDITION MANIFEST (INTERACTIVE CHECKLIST) ─── */
+.manifest-section {
+    max-width: 1400px;
+    margin: 100px auto;
+    padding: 0 40px;
+}
+
+.manifest-hud {
+    background: var(--savanna-dark);
+    padding: 60px 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--savanna-gold);
+    margin-bottom: 80px;
+    color: #FFF;
+}
+
+.manifest-progress-col {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.manifest-counter {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    line-height: 1;
+    color: var(--savanna-gold);
+}
+
+.manifest-status-text {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    opacity: 0.7;
+}
+
+.manifest-bar-wrap {
+    width: 300px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.manifest-bar-fill {
+    position: absolute;
+    inset: 0;
+    background: var(--savanna-gold);
+    transform-origin: left;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.manifest-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+}
+
+.manifest-category {
+    background: #FFF;
+    border: 1px solid var(--savanna-border);
+    padding: 60px;
+}
+
+.manifest-cat-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    margin-bottom: 40px;
+    color: var(--savanna-dark);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-bottom: 2px solid var(--savanna-gold);
+    padding-bottom: 20px;
+}
+
+.manifest-item-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.manifest-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    cursor: pointer;
+    user-select: none;
+    padding: 15px 0;
+    transition: opacity 0.3s;
+}
+
+.manifest-item.checked {
+    opacity: 0.5;
+}
+
+.manifest-checkbox {
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--savanna-gold);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.manifest-item.checked .manifest-checkbox {
+    background: var(--savanna-gold);
+}
+
+.manifest-item-text {
+    flex: 1;
+}
+
+.manifest-item-label {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--savanna-dark);
+    margin-bottom: 5px;
+}
+
+.manifest-item.checked .manifest-item-label {
+    text-decoration: line-through;
+}
+
+.manifest-item-desc {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+    .manifest-hud {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+        padding: 40px 20px;
+    }
+
+    .manifest-grid {
+        grid-template-columns: 1fr;
+    }
+}

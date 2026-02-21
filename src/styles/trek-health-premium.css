@@ -1,0 +1,299 @@
+/* ════════════════════════════════════════════
+   TREKKING HEALTH & SAFETY - LEGACY AESTHETIC
+   Inspired by the About Page.
+   Parchment backgrounds, Overlapping Story Cards.
+   ════════════════════════════════════════════ */
+
+.trek-health-root {
+    background-color: #f7f3ed;
+    /* var(--bg-parchment) equivalent */
+    color: #1a221f;
+    font-family: 'Outfit', sans-serif;
+    overflow-x: hidden;
+}
+
+/* ─── 1. CINEMATIC HERO ─── */
+.trek-health-hero {
+    position: relative;
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+.trek-health-hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.trek-health-hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.trek-health-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(18, 22, 20, 0.4) 0%, rgba(18, 22, 20, 0.9) 100%);
+}
+
+.trek-health-hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 100px 40px;
+}
+
+.trek-health-eyebrow {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: #b5953f;
+    /* var(--gold) */
+    margin-bottom: 25px;
+    display: block;
+}
+
+.trek-health-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 6vw, 5.5rem);
+    font-weight: 500;
+    line-height: 1.1;
+}
+
+.trek-health-title em {
+    font-style: italic;
+    color: #b5953f;
+}
+
+/* ─── 2. OVERLAPPING STORY CARD ─── */
+.trek-health-story-section {
+    position: relative;
+    z-index: 10;
+    margin-top: -100px;
+    padding: 0 40px 100px;
+    display: flex;
+    justify-content: center;
+}
+
+.trek-health-card {
+    width: 100%;
+    max-width: 1200px;
+    background: #ffffff;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.08);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+.trek-health-card.reverse {
+    grid-template-columns: 1fr 1fr;
+}
+
+.trek-health-image {
+    position: relative;
+    min-height: 600px;
+}
+
+.trek-health-image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.trek-health-content {
+    padding: 80px 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.trek-health-section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    line-height: 1.2;
+    margin-bottom: 30px;
+}
+
+.trek-health-body {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: #555;
+    margin-bottom: 25px;
+}
+
+/* ─── 3. DARK HIGHLIGHT BLOCKS (About-style Mission cards) ─── */
+.trek-health-mission-section {
+    padding: 0 40px 120px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.trek-health-mission-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.trek-health-dark-card {
+    background: #1a221f;
+    padding: 60px 80px;
+    color: white;
+    border-radius: 4px;
+}
+
+.trek-health-dark-card .icon {
+    color: #b5953f;
+    margin-bottom: 30px;
+}
+
+.trek-health-dark-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.trek-health-dark-text {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* ─── 4. ICON GRID (About-style Principles) ─── */
+.trek-health-principles-section {
+    padding: 100px 40px;
+    background: white;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.trek-health-principles-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.trek-health-principles-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+}
+
+.trek-health-principle-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.trek-health-principle-icon {
+    width: 50px;
+    height: 50px;
+    border: 1px solid rgba(181, 149, 63, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #b5953f;
+    margin-bottom: 25px;
+}
+
+.trek-health-principle-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+}
+
+.trek-health-principle-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #666;
+}
+
+/* ─── 5. FINAL CTAS ─── */
+.trek-health-footer-band {
+    padding: 120px 40px;
+    text-align: center;
+    background: #fbfbf9;
+}
+
+.trek-health-footer-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    margin-bottom: 50px;
+}
+
+.trek-health-cta-group {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.trek-health-btn-solid {
+    background: #1a221f;
+    color: white;
+    padding: 20px 45px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.trek-health-btn-solid:hover {
+    background: #b5953f;
+}
+
+.trek-health-btn-outline {
+    background: transparent;
+    color: #1a221f;
+    padding: 20px 45px;
+    border: 1px solid rgba(26, 34, 31, 0.2);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.trek-health-btn-outline:hover {
+    border-color: #1a221f;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+
+    .trek-health-card,
+    .trek-health-mission-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .trek-health-principles-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .trek-health-content {
+        padding: 40px;
+    }
+
+    .trek-health-dark-card {
+        padding: 40px;
+    }
+
+    .trek-health-principles-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .trek-health-cta-group {
+        flex-direction: column;
+    }
+}

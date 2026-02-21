@@ -8,6 +8,23 @@ import { ContactPage } from './pages/ContactPage';
 import { AboutPage } from './pages/AboutPage';
 import { SafarisPage } from './pages/SafarisPage';
 import { ZanzibarPage } from './pages/ZanzibarPage';
+import Vaccinations from './pages/trekking/health/Vaccinations';
+import AltitudeSickness from './pages/trekking/health/AltitudeSickness';
+import Diamox from './pages/trekking/health/Diamox';
+import Oxygen from './pages/trekking/health/Oxygen';
+
+// Trekking Prep Pages
+import BestRoutes from './pages/trekking/prep/BestRoutes';
+import BestTime from './pages/trekking/prep/BestTime';
+import WhyUs from './pages/trekking/prep/WhyUs';
+import TippingGuide from './pages/trekking/prep/TippingGuide';
+import Toilets from './pages/trekking/prep/Toilets';
+import ParkFees from './pages/trekking/prep/ParkFees';
+
+import Training from './pages/trekking/after/Training';
+import GearList from './pages/trekking/after/GearList';
+import GettingThere from './pages/trekking/after/GettingThere';
+import Visa from './pages/trekking/after/Visa';
 
 function App() {
     return (
@@ -21,6 +38,25 @@ function App() {
                     <Route path="/contact" element={<ContactPage />} />
                     <Route path="/safaris" element={<SafarisPage />} />
                     <Route path="/zanzibar" element={<ZanzibarPage />} />
+
+                    {/* Trekking Health & Safety */}
+                    <Route path="/trekking/health/vaccinations" element={<Vaccinations />} />
+                    <Route path="/trekking/health/altitude-sickness" element={<AltitudeSickness />} />
+                    <Route path="/trekking/health/diamox" element={<Diamox />} />
+                    <Route path="/trekking/health/oxygen" element={<Oxygen />} />
+
+                    {/* Trekking Prep Routes */}
+                    <Route path="/trekking/prep/best-routes" element={<BestRoutes />} />
+                    <Route path="/trekking/prep/best-time" element={<BestTime />} />
+                    <Route path="/trekking/prep/why-us" element={<WhyUs />} />
+                    <Route path="/trekking/prep/tipping-guide" element={<TippingGuide />} />
+                    <Route path="/trekking/prep/toilets" element={<Toilets />} />
+                    <Route path="/trekking/prep/park-fees" element={<ParkFees />} />
+
+                    <Route path="/trekking/after/training" element={<Training />} />
+                    <Route path="/trekking/after/gear-list" element={<GearList />} />
+                    <Route path="/trekking/after/getting-there" element={<GettingThere />} />
+                    <Route path="/trekking/after/visa" element={<Visa />} />
                 </Routes>
                 <Footer />
 
