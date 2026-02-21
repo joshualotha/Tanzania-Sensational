@@ -8,21 +8,21 @@ const regions = [
         name: "Stone Town.",
         tag: "THE ANCIENT HEART",
         desc: "Lose yourself in the labyrinthine alleys. Discover a rich tapestry of Swahili, Arab, Persian, and Indian influences reflected in intricately carved wooden doors and vibrant spice bazaars.",
-        img: "https://images.unsplash.com/photo-1590089855523-a55d49646b97?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+        img: "https://images.unsplash.com/photo-1580979878201-1e9d1a3eb64f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
         reverse: false
     },
     {
         name: "Nungwi Shores.",
         tag: "THE PRISTINE NORTH",
         desc: "Experience the quintessential tropical paradise. Powdery white beaches, tide-independent swimming, and the most spectacular, unobstructed Indian Ocean sunsets.",
-        img: "https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+        img: "https://images.unsplash.com/photo-1621845184551-bb5e7141ecf4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
         reverse: true
     },
     {
         name: "Paje & Jambiani.",
         tag: "THE BREEZY COAST",
         desc: "A stretched-out coastline where the rhythm of tides commands the day. Famous world-wide for kite surfing, this laid-back region offers authentic encounters with a local coastal lifestyle.",
-        img: "https://images.unsplash.com/photo-1595304604924-f7a9af316fa7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+        img: "https://images.unsplash.com/photo-1579471923053-ec4f6762edbc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
         reverse: false
     }
 ];
@@ -31,19 +31,19 @@ const experiences = [
     {
         title: "The Spice Masterclass",
         desc: "Awaken your senses on a private walking tour. Discover the origins of cloves, nutmeg, cinnamon, and pepper.",
-        img: "https://images.unsplash.com/photo-1596649811094-1a221f573af4?ixlib=rb-4.0.3&auto=format&fit=crop&h=800&q=80",
+        img: "https://images.unsplash.com/photo-1606041008023-472dfb5e530f?ixlib=rb-4.0.3&auto=format&fit=crop&h=800&q=80",
         price: "$45 pp"
     },
     {
         title: "Safari Blue Sailing",
         desc: "Board a bespoke mahogany dhow to the Menai Bay area. Snorkel, dine on a seafood BBQ, and relax on vanished sandbanks.",
-        img: "https://images.unsplash.com/photo-1509515091-e40798cd317d?ixlib=rb-4.0.3&auto=format&fit=crop&h=800&q=80",
+        img: "https://images.unsplash.com/photo-1533221375330-84c6af70ce9b?ixlib=rb-4.0.3&auto=format&fit=crop&h=800&q=80",
         price: "$120 pp"
     },
     {
         title: "Prison Island Retreat",
         desc: "Take a short boat ride to Changuu Island. Mingle with giant Aldabra tortoises and snorkel the spectacular coral fringes.",
-        img: "https://images.unsplash.com/photo-1527715694-82ea466ae78a?ixlib=rb-4.0.3&auto=format&fit=crop&h=800&q=80",
+        img: "https://images.unsplash.com/photo-1437622368342-7a3d73a40cfa?ixlib=rb-4.0.3&auto=format&fit=crop&h=800&q=80",
         price: "$60 pp"
     }
 ];
@@ -62,7 +62,7 @@ export const ZanzibarPage = () => {
             {/* ─── 1. CINEMATIC HERO (Matched to Safaris) ─── */}
             <section className="zan-m-hero">
                 <div className="zan-m-hero-bg">
-                    <img src="https://images.unsplash.com/photo-1548502395-50e599bdf993?ixlib=rb-4.0.3&auto=format&fit=crop&w=2400&q=80" alt="Zanzibar Ocean" />
+                    <img src="https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?ixlib=rb-4.0.3&auto=format&fit=crop&w=2400&q=80" alt="Zanzibar Ocean" />
                     <div className="zan-m-hero-scrim"></div>
                 </div>
 
