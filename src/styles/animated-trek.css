@@ -1,0 +1,337 @@
+/* ════════════════════════════════════════════
+   THE KINETIC LIGHT JOURNAL (DURING THE TREK)
+   Bespoke, highly animated, light-mode editorial design.
+   ════════════════════════════════════════════ */
+
+:root {
+    --kinetic-bg: #FDF8F0;
+    /* Luminous Warm Cream */
+    --kinetic-surface: #FFFFFF;
+    /* Pure White Cards */
+    --kinetic-ink: #1A1A1A;
+    /* Deep Charcoal */
+    --kinetic-earth: #3D2B1F;
+    /* Editorial Brown */
+    --kinetic-gold: #C8860A;
+    /* Safari Gold Accent */
+    --kinetic-green: #2D5016;
+    /* Forest Green Accent */
+    --kinetic-muted: rgba(26, 26, 26, 0.6);
+    /* Muted Ink */
+    --kinetic-border: rgba(61, 43, 31, 0.1);
+    /* Soft Earth Border */
+}
+
+body {
+    background-color: var(--kinetic-bg);
+}
+
+.kinetic-root {
+    background-color: var(--kinetic-bg);
+    color: var(--kinetic-ink);
+    font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
+    padding-bottom: 120px;
+    position: relative;
+    z-index: 1;
+    overflow-x: hidden;
+    /* Subtle parchment noise overlay */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+}
+
+/* ─── 1. OVERLAPPING EDITORIAL HERO ─── */
+.kinetic-hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 0 5vw;
+    overflow: hidden;
+}
+
+.kinetic-hero-bg {
+    position: absolute;
+    top: 5vh;
+    right: 5vw;
+    width: 60vw;
+    height: 85vh;
+    z-index: 0;
+    overflow: hidden;
+    border-radius: 4px;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.1);
+}
+
+.kinetic-hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* The image itself scales based on framer-motion props */
+}
+
+.kinetic-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    margin-top: 15vh;
+}
+
+.kinetic-hero-eyebrow {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--kinetic-gold);
+    display: block;
+    margin-bottom: 2rem;
+    /* Golden glow subtle text shadow */
+    text-shadow: 0 0 20px rgba(200, 134, 10, 0.2);
+}
+
+.kinetic-hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(5rem, 10vw, 10rem);
+    line-height: 0.9;
+    color: var(--kinetic-ink);
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+.kinetic-hero-title em {
+    font-style: italic;
+    color: var(--kinetic-earth);
+    display: block;
+    margin-left: -5vw;
+    /* Bleed left */
+}
+
+/* ─── 2. STICKY NARRATIVE & TRAIL TIMELINE ─── */
+.kinetic-section {
+    padding: 150px 5vw;
+    max-width: 1600px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.kinetic-two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8vw;
+    align-items: start;
+}
+
+/* Sticky left column for narrative text */
+.kinetic-sticky-nav {
+    position: sticky;
+    top: 150px;
+}
+
+.kinetic-h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 5vw, 5rem);
+    line-height: 1.1;
+    color: var(--kinetic-ink);
+    margin-bottom: 2rem;
+}
+
+.kinetic-h2 em {
+    font-style: italic;
+    color: var(--kinetic-gold);
+}
+
+.kinetic-body {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: var(--kinetic-muted);
+    margin-bottom: 1.5rem;
+}
+
+/* The SVG Trail Line Container */
+.kinetic-trail-container {
+    position: relative;
+    padding-left: 60px;
+    /* Space for the line */
+}
+
+/* ─── 3. INTERACTIVE JOURNAL CARDS (Replacing Bento) ─── */
+.kinetic-card {
+    background: var(--kinetic-surface);
+    padding: 60px;
+    margin-bottom: 40px;
+    border: 1px solid var(--kinetic-border);
+    border-radius: 4px;
+    /* Very sharp, editorial look */
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.02);
+    /* Transition for non-motion hover effects */
+    transition: box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.kinetic-card:hover {
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.05);
+    border-color: rgba(200, 134, 10, 0.3);
+    /* Subtle gold border on hover */
+}
+
+/* The expanding details section inside a card */
+.kinetic-card-expansion {
+    overflow: hidden;
+    /* Framer Motion handles the height/opacity */
+}
+
+.kinetic-card-header {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.kinetic-card-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--kinetic-bg);
+    border: 1px solid var(--kinetic-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--kinetic-gold);
+    /* Icon spin/scale on hover controlled by Framer Motion on parent */
+}
+
+.kinetic-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: var(--kinetic-ink);
+    margin: 0;
+}
+
+.kinetic-card-time {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--kinetic-gold);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.kinetic-list {
+    list-style: none;
+    padding: 0;
+    margin: 30px 0 0 0;
+    border-top: 1px solid var(--kinetic-border);
+    padding-top: 30px;
+}
+
+.kinetic-list li {
+    margin-bottom: 25px;
+}
+
+.kinetic-list strong {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--kinetic-earth);
+    display: block;
+    margin-bottom: 10px;
+}
+
+.kinetic-list p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--kinetic-muted);
+}
+
+/* ─── 4. PARALLAX IMAGE BLEEDS ─── */
+.kinetic-bleed-img-wrap {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    height: 70vh;
+    overflow: hidden;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.kinetic-bleed-img {
+    width: 100%;
+    height: 120%;
+    /* Extra height for parallax */
+    object-fit: cover;
+}
+
+/* Large overlay text on the bleed image */
+.kinetic-bleed-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+    background: rgba(26, 26, 26, 0.4);
+    /* Dark wash so text pops */
+    z-index: 2;
+}
+
+.kinetic-bleed-text h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(4rem, 8vw, 8rem);
+    margin: 0;
+}
+
+.kinetic-bleed-text p {
+    font-size: 1.5rem;
+    max-width: 800px;
+    margin-top: 20px;
+}
+
+/* ─── 5. RESPONSIVE ─── */
+@media (max-width: 1024px) {
+    .kinetic-two-col {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+
+    .kinetic-sticky-nav {
+        position: relative;
+        top: 0;
+    }
+
+    .kinetic-hero-bg {
+        width: 90vw;
+        height: 60vh;
+        top: 20vh;
+        right: 5vw;
+    }
+
+    .kinetic-hero-content {
+        margin-top: -10vh;
+        /* Pull text up over image */
+    }
+
+    .kinetic-hero-title em {
+        margin-left: 0;
+        /* Remove bleed on mobile */
+    }
+}
+
+@media (max-width: 768px) {
+    .kinetic-card {
+        padding: 30px;
+    }
+
+    .kinetic-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .kinetic-card-title {
+        font-size: 2rem;
+    }
+}

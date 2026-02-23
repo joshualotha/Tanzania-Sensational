@@ -26,6 +26,21 @@ import GearList from './pages/trekking/after/GearList';
 import GettingThere from './pages/trekking/after/GettingThere';
 import Visa from './pages/trekking/after/Visa';
 
+// During the Trek Pages
+import DailyRoutine from './pages/trekking/during/DailyRoutine';
+import FoodAndDrinks from './pages/trekking/during/FoodAndDrinks';
+import PackYourDaypack from './pages/trekking/during/PackYourDaypack';
+import Connectivity from './pages/trekking/during/Connectivity';
+
+// Kilimanjaro Route Pages
+import Lemosho from './pages/trekking/kilimanjaro/Lemosho';
+import Machame from './pages/trekking/kilimanjaro/Machame';
+import Rongai from './pages/trekking/kilimanjaro/Rongai';
+import Marangu from './pages/trekking/kilimanjaro/Marangu';
+import NorthernCircuit from './pages/trekking/kilimanjaro/NorthernCircuit';
+import Umbwe from './pages/trekking/kilimanjaro/Umbwe';
+import PackageDetail from './pages/trekking/kilimanjaro/PackageDetail';
+
 function App() {
     return (
         <Router>
@@ -57,6 +72,22 @@ function App() {
                     <Route path="/trekking/after/gear-list" element={<GearList />} />
                     <Route path="/trekking/after/getting-there" element={<GettingThere />} />
                     <Route path="/trekking/after/visa" element={<Visa />} />
+
+                    <Route path="/trekking/during/daily-routine" element={<DailyRoutine />} />
+                    <Route path="/trekking/during/food-and-drinks" element={<FoodAndDrinks />} />
+                    <Route path="/trekking/during/pack-your-daypack" element={<PackYourDaypack />} />
+                    <Route path="/trekking/during/connectivity" element={<Connectivity />} />
+
+                    {/* Kilimanjaro Route Pages */}
+                    <Route path="/trekking/kilimanjaro/lemosho" element={<Lemosho />} />
+                    <Route path="/trekking/kilimanjaro/machame" element={<Machame />} />
+                    <Route path="/trekking/kilimanjaro/rongai" element={<Rongai />} />
+                    <Route path="/trekking/kilimanjaro/marangu" element={<Marangu />} />
+                    <Route path="/trekking/kilimanjaro/northern-circuit" element={<NorthernCircuit />} />
+                    <Route path="/trekking/kilimanjaro/umbwe" element={<Umbwe />} />
+
+                    {/* Dynamic Dedicated Package Detail Route */}
+                    <Route path="/trekking/kilimanjaro/:routeId/:packageId" element={<PackageDetail />} />
                 </Routes>
                 <Footer />
 

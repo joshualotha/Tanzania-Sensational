@@ -23,11 +23,12 @@ export const Footer = () => {
         <div>
           <div className="footer-heading">Kilimanjaro</div>
           <ul className="footer-links">
-            <li><a href="#">Lemosho Route</a></li>
-            <li><a href="#">Machame Route</a></li>
-            <li><a href="#">Rongai Route</a></li>
-            <li><a href="#">Full Moon Treks</a></li>
-            <li><a href="#">Private Expeditions</a></li>
+            <li><Link to="/trekking/kilimanjaro/lemosho">Lemosho Route</Link></li>
+            <li><Link to="/trekking/kilimanjaro/machame">Machame Route</Link></li>
+            <li><Link to="/trekking/kilimanjaro/northern-circuit">Northern Circuit</Link></li>
+            <li><Link to="/trekking/kilimanjaro/marangu">Marangu Route</Link></li>
+            <li><Link to="/trekking/kilimanjaro/rongai">Rongai Route</Link></li>
+            <li><Link to="/trekking/kilimanjaro/umbwe">Umbwe Route</Link></li>
           </ul>
         </div>
         <div>

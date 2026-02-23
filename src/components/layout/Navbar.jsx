@@ -88,12 +88,12 @@ export const Navbar = () => {
                   Kilimanjaro
                 </div>
                 <ul className="submenu">
-                  <li><a href="#">Lemosho Route</a></li>
-                  <li><a href="#">Machame Route</a></li>
-                  <li><a href="#">Rongai Route</a></li>
-                  <li><a href="#">Marangu Route</a></li>
-                  <li><a href="#">Northern Circuit</a></li>
-                  <li><a href="#">Umbwe Route</a></li>
+                  <li><Link to="/trekking/kilimanjaro/lemosho">Lemosho Route</Link></li>
+                  <li><Link to="/trekking/kilimanjaro/machame">Machame Route</Link></li>
+                  <li><Link to="/trekking/kilimanjaro/rongai">Rongai Route</Link></li>
+                  <li><Link to="/trekking/kilimanjaro/marangu">Marangu Route</Link></li>
+                  <li><Link to="/trekking/kilimanjaro/northern-circuit">Northern Circuit</Link></li>
+                  <li><Link to="/trekking/kilimanjaro/umbwe">Umbwe Route</Link></li>
                 </ul>
               </li>
               <li className={`has-submenu ${isDropdownActive('meru') ? 'mobile-active' : ''}`}>
@@ -150,10 +150,10 @@ export const Navbar = () => {
                       During the Trek
                     </div>
                     <ul className="submenu">
-                      <li><a href="#">Daily Routine</a></li>
-                      <li><a href="#">Food &amp; Drinks</a></li>
-                      <li><a href="#">Packing your Daypack</a></li>
-                      <li><a href="#">Internet &amp; Mobile Connectivity</a></li>
+                      <li><Link to="/trekking/during/daily-routine">Daily Routine</Link></li>
+                      <li><Link to="/trekking/during/food-and-drinks">Food &amp; Drinks</Link></li>
+                      <li><Link to="/trekking/during/pack-your-daypack">Packing your Daypack</Link></li>
+                      <li><Link to="/trekking/during/connectivity">Internet &amp; Mobile Connectivity</Link></li>
                     </ul>
                   </li>
                 </ul>

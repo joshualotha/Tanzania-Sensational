@@ -1,0 +1,404 @@
+/* ════════════════════════════════════════════
+   LUXURY EXPEDITION - GETTING THERE (PREMIUM)
+   Authentic, Editorial, Immersive.
+   Colors: Savanna Dusk (Terracotta, Forest Green, Gold, Parchment)
+   ════════════════════════════════════════════ */
+
+:root {
+    --bg-parchment: #FDF8F0;
+    --dark: #1A1A1A;
+    --gold: #C8860A;
+    --gold-dim: #A66E08;
+    --earth: #8B5E3C;
+    --savanna-border: rgba(0, 0, 0, 0.08);
+}
+
+.getting-there-root {
+    background-color: var(--bg-parchment);
+    color: var(--dark);
+    font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
+    padding-bottom: 120px;
+    overflow-x: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+/* ─── 0. LUXURY BROCHURE TEXTURE ─── */
+.getting-there-root::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0.6;
+}
+
+/* ─── 1. CINEMATIC HERO ─── */
+.gt-hero {
+    position: relative;
+    height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #1a221f;
+}
+
+.gt-hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.gt-hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.65) contrast(1.15);
+}
+
+.gt-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(18, 22, 20, 0.3) 0%, rgba(18, 22, 20, 0.8) 80%, rgba(26, 26, 26, 1) 100%);
+    z-index: 1;
+}
+
+.gt-hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 1000px;
+    padding: 0 40px;
+}
+
+.gt-eyebrow {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 25px;
+}
+
+.gt-hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.8rem, 8vw, 7.5rem);
+    font-weight: 500;
+    color: #FFFFFF;
+    line-height: 0.95;
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+.gt-hero-title em {
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 400;
+}
+
+
+/* ─── 2. ASYMMETRICAL EDITORIAL GRID ─── */
+.gt-editorial-section {
+    padding: 140px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.gt-editorial-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+}
+
+.gt-editorial-text {
+    padding-right: 40px;
+}
+
+.gt-section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 4.5rem;
+    line-height: 1.05;
+    margin-bottom: 35px;
+    color: var(--dark);
+}
+
+.gt-section-title em {
+    font-style: italic;
+    color: var(--gold);
+}
+
+.gt-body-text {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 30px;
+}
+
+
+.gt-editorial-img-wrap {
+    position: relative;
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    background: #e0d8c8;
+}
+
+.gt-editorial-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+}
+
+.gt-img-caption {
+    position: absolute;
+    bottom: -40px;
+    right: 0;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    color: #888;
+}
+
+/* ─── 3. PARCHMENT CARDS (INFO GRID) ─── */
+.gt-pkg-section {
+    padding: 100px 40px 160px;
+    background-color: var(--bg-parchment);
+    position: relative;
+    z-index: 3;
+}
+
+.gt-pkg-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 50px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.gt-pkg-card {
+    background: #ffffff;
+    border-radius: 6px;
+    overflow: hidden;
+    padding: 60px 50px;
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.04),
+        0 5px 15px rgba(0, 0, 0, 0.02);
+    display: flex;
+    flex-direction: column;
+    /* Parchment Noise */
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.98)),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    border: 1px solid var(--savanna-border);
+}
+
+.gt-pkg-card:hover {
+    transform: translateY(-8px);
+    box-shadow:
+        0 30px 60px rgba(0, 0, 0, 0.08),
+        0 10px 20px rgba(0, 0, 0, 0.04);
+}
+
+.gt-card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--savanna-border);
+    padding-bottom: 30px;
+}
+
+.gt-icon-wrapper {
+    background: #FDF8F0;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(200, 134, 10, 0.2);
+}
+
+.gt-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    margin: 0;
+    color: var(--dark);
+    line-height: 1.1;
+}
+
+.gt-info-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.gt-info-list li {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.gt-info-list li strong {
+    font-size: 1.25rem;
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+}
+
+.gt-info-list li p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #555;
+    margin: 0;
+}
+
+
+/* ─── 4. CTA BANNER ─── */
+.gt-cta-band {
+    padding: 140px 40px;
+    text-align: center;
+    background: var(--dark);
+    position: relative;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.gt-cta-band::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events: none;
+}
+
+.gt-cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 4.5rem;
+    color: #FFFFFF;
+    margin-bottom: 60px;
+    position: relative;
+    z-index: 2;
+}
+
+.gt-cta-title em {
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 400;
+}
+
+.gt-btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    position: relative;
+    z-index: 2;
+}
+
+.gt-btn-solid {
+    background: var(--gold);
+    color: #FFF;
+    padding: 22px 50px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: background 0.3s;
+    border: none;
+}
+
+.gt-btn-solid:hover {
+    background: var(--gold-dim);
+}
+
+.gt-btn-outline {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #FFF;
+    padding: 22px 50px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: all 0.3s;
+    background: transparent;
+}
+
+.gt-btn-outline:hover {
+    background: #FFF;
+    color: var(--dark);
+}
+
+/* ─── 5. RESPONSIVE QUERIES ─── */
+@media (max-width: 1200px) {
+    .gt-editorial-grid {
+        gap: 60px;
+    }
+
+    .gt-pkg-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 900px) {
+    .gt-editorial-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gt-editorial-text {
+        padding-right: 0;
+        text-align: center;
+    }
+
+    .gt-section-title {
+        font-size: 3.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .gt-hero {
+        height: 70vh;
+    }
+
+    .gt-hero-title {
+        font-size: 3.5rem;
+    }
+
+    .gt-editorial-section,
+    .gt-pkg-section,
+    .gt-cta-band {
+        padding: 80px 20px;
+    }
+
+    .gt-pkg-card {
+        padding: 40px 30px;
+    }
+
+    .gt-card-title {
+        font-size: 2rem;
+    }
+
+    .gt-cta-title {
+        font-size: 3rem;
+    }
+
+    .gt-btn-group {
+        flex-direction: column;
+        gap: 15px;
+    }
+}

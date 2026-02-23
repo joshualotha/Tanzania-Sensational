@@ -1,0 +1,15 @@
+
+> tanzania-sensational@0.0.0 dev
+> vite
+
+
+  VITE v5.4.21  ready in 376 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  press h + enter to show help
+12:03:17 PM [vite] vite.config.js changed, restarting server...
+12:03:17 PM [vite] server restarted.
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: http://192.168.10.102:5173/

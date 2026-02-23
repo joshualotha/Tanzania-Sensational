@@ -1,0 +1,242 @@
+/* ════════════════════════════════════════════
+   SAFARIDRAFT DESIGN LANGUAGE
+   "African Lodge Brochure meets Modern SaaS"
+   Palette: Safari Gold (#C8860A), Deep Brown (#3D2B1F), Warm Cream (#FDF8F0)
+   Typography: Playfair Display (Headings), Inter (UI/Body)
+   ════════════════════════════════════════════ */
+
+:root {
+    --sd-gold: #C8860A;
+    --sd-brown: #3D2B1F;
+    --sd-cream: #FDF8F0;
+    --sd-charcoal: #1A1A1A;
+    --sd-sand: #E8D5B0;
+    --sd-green: #2D5016;
+    --sd-gray: #F5F2EE;
+    --sd-border: rgba(61, 43, 31, 0.1);
+    --sd-white: #FFFFFF;
+}
+
+.sd-root {
+    background-color: var(--sd-cream);
+    color: var(--sd-charcoal);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ─── 1. PREMIUM HERO (SaaS/Brochure Hybrid) ─── */
+.sd-hero {
+    position: relative;
+    height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: var(--sd-brown);
+}
+
+.sd-hero-bg {
+    position: absolute;
+    inset: 0;
+}
+
+.sd-hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.7) contrast(1.1);
+}
+
+.sd-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(26, 26, 26, 0.2) 0%, rgba(26, 26, 26, 0.6) 100%);
+}
+
+.sd-hero-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    max-width: 900px;
+    padding: 0 20px;
+}
+
+.sd-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--sd-gold);
+    display: block;
+    margin-bottom: 24px;
+}
+
+.sd-h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    color: var(--sd-white);
+    line-height: 1;
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+
+.sd-h1 em {
+    font-style: italic;
+    color: var(--sd-gold);
+}
+
+/* ─── 2. PRODUCTIVE SECTIONS (SaaS Vibe) ─── */
+.sd-section {
+    padding: 120px 5vw;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.sd-grid-editorial {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+}
+
+.sd-h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1.1;
+    color: var(--sd-brown);
+    margin-bottom: 32px;
+}
+
+.sd-h2 em {
+    font-style: italic;
+    color: var(--sd-gold);
+}
+
+.sd-body {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: var(--sd-charcoal);
+    opacity: 0.9;
+    margin-bottom: 24px;
+}
+
+/* Luxury card for SaaS data visualization */
+.sd-card {
+    background: var(--sd-white);
+    border: 1px solid var(--sd-border);
+    border-radius: 12px;
+    padding: 48px;
+    box-shadow: 0 4px 24px rgba(61, 43, 31, 0.04);
+    height: 100%;
+}
+
+.sd-card-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 32px;
+}
+
+.sd-icon-badge {
+    width: 56px;
+    height: 56px;
+    background: var(--sd-gray);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--sd-gold);
+}
+
+.sd-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--sd-brown);
+    margin: 0;
+}
+
+.sd-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sd-list-item {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--sd-border);
+}
+
+.sd-list-item:last-child {
+    border-bottom: none;
+}
+
+.sd-list-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--sd-brown);
+    display: block;
+    margin-bottom: 8px;
+}
+
+.sd-list-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--sd-charcoal);
+    opacity: 0.7;
+}
+
+/* ─── 3. FULL BLEED BROCHURE SPREADS ─── */
+.sd-full-bleed {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    height: 70vh;
+    overflow: hidden;
+}
+
+.sd-full-bleed img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ─── 4. BUTTONS (SaaS Style) ─── */
+.sd-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 32px;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.sd-btn-gold {
+    background-color: var(--sd-gold);
+    color: var(--sd-white);
+}
+
+.sd-btn-gold:hover {
+    background-color: #B27709;
+    transform: translateY(-2px);
+}
+
+/* ─── 5. RESPONSIVE ─── */
+@media (max-width: 1024px) {
+    .sd-grid-editorial {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+}

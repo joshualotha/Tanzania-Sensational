@@ -1,0 +1,238 @@
+/* ════════════════════════════════════════════
+   THE EDITORIAL MASTERPIECE (DURING THE TREK)
+   High-end travel brochure aesthetic.
+   Whitespace is luxury. Typography is the hero.
+   ════════════════════════════════════════════ */
+
+:root {
+    --e-bg: #FDF8F0;
+    /* Warm Luminous Parchment */
+    --e-ink: #1A1A1A;
+    /* Deepest Charcoal */
+    --e-earth: #3D2B1F;
+    /* Editorial Brown */
+    --e-gold: #C8860A;
+    /* Premium Safari Gold */
+    --e-border: rgba(61, 43, 31, 0.1);
+    /* Subtle fine-line separator */
+    --e-spacer: clamp(80px, 10vw, 160px);
+}
+
+.editorial-root {
+    background-color: var(--e-bg);
+    color: var(--e-ink);
+    font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* ─── 1. THE HERO SPREAD ─── */
+.e-hero {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    position: relative;
+}
+
+.e-hero-text {
+    padding: 0 8vw;
+    z-index: 10;
+}
+
+.e-hero-eyebrow {
+    font-size: 0.9rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--e-gold);
+    display: block;
+    margin-bottom: 2rem;
+}
+
+.e-hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(4rem, 8vw, 9rem);
+    line-height: 0.85;
+    font-weight: 500;
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+.e-hero-title em {
+    font-style: italic;
+    color: var(--e-earth);
+    display: block;
+}
+
+.e-hero-img-wrap {
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.e-hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ─── 2. THE EDITORIAL SPREAD (50/50 Split) ─── */
+.e-spread {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    min-height: 80vh;
+    border-bottom: 1px solid var(--e-border);
+}
+
+.e-spread--reverse {
+    direction: rtl;
+}
+
+.e-spread--reverse>* {
+    direction: ltr;
+}
+
+.e-spread-content {
+    padding: var(--e-spacer) 8vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.e-spread-img-wrap {
+    height: 100%;
+    overflow: hidden;
+}
+
+.e-spread-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ─── 3. TYPOGRAPHY ─── */
+.e-h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    line-height: 1;
+    margin-bottom: 3rem;
+    color: var(--e-ink);
+}
+
+.e-h2 em {
+    font-style: italic;
+    color: var(--e-gold);
+}
+
+.e-body {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: var(--e-earth);
+    opacity: 0.85;
+    max-width: 600px;
+    margin-bottom: 2rem;
+}
+
+.e-lead {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    line-height: 1.4;
+    font-style: italic;
+    color: var(--e-gold);
+    margin-bottom: 2.5rem;
+}
+
+/* ─── 4. ITEM LISTS (Gridless) ─── */
+.e-item-list {
+    list-style: none;
+    padding: 0;
+}
+
+.e-item {
+    padding: 2rem 0;
+    border-top: 1px solid var(--e-border);
+}
+
+.e-item-meta {
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--e-gold);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.e-item-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--e-ink);
+}
+
+.e-item-desc {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--e-earth);
+    opacity: 0.7;
+}
+
+/* ─── 5. FULL BLEED BREAKS ─── */
+.e-full-bleed {
+    height: 70vh;
+    position: relative;
+    overflow: hidden;
+    margin: var(--e-spacer) 0;
+}
+
+.e-full-bleed-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.e-full-bleed-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(26, 26, 26, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10vw;
+    text-align: center;
+}
+
+.e-full-bleed-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 7vw, 7.5rem);
+    color: #FFFFFF;
+    line-height: 0.9;
+}
+
+/* ─── 6. RESPONSIVE ─── */
+@media (max-width: 1024px) {
+
+    .e-hero,
+    .e-spread {
+        grid-template-columns: 1fr;
+    }
+
+    .e-hero-img-wrap,
+    .e-spread-img-wrap {
+        height: 50vh;
+    }
+
+    .e-hero-text {
+        padding: 80px 40px;
+        order: 2;
+    }
+
+    .e-hero-img-wrap {
+        order: 1;
+    }
+
+    .e-spread-content {
+        padding: 60px 40px;
+    }
+}

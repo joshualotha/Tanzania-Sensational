@@ -1,0 +1,444 @@
+/* ultra-premium.css - Singita / &Beyond Inspired */
+
+:root {
+    --lux-cream: #F9F8F4;
+    --lux-dark: #2C2C2B;
+    --lux-mid: #5A5A58;
+    --lux-tan: #BFA373;
+    --lux-border: #E0DDD2;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--lux-cream);
+    color: var(--lux-dark);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+}
+
+.lux-root {
+    background-color: var(--lux-cream);
+    min-height: 100vh;
+}
+
+/* ─── HERO ─── */
+.lux-hero {
+    position: relative;
+    height: 60vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    padding: 5vw;
+}
+
+.lux-hero img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.lux-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(44, 44, 43, 0.7) 0%, rgba(44, 44, 43, 0) 50%);
+    z-index: 2;
+}
+
+.lux-hero-content {
+    position: relative;
+    z-index: 3;
+    color: #fff;
+    max-width: 1000px;
+}
+
+.lux-hero-eyebrow {
+    font-family: var(--font-body);
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    font-size: 0.8rem;
+    margin-bottom: 20px;
+    display: block;
+    color: var(--lux-tan);
+}
+
+.lux-hero-title {
+    font-family: var(--font-heading);
+    font-size: clamp(4rem, 8vw, 8rem);
+    font-weight: 400;
+    line-height: 1;
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+.lux-hero-title em {
+    font-style: italic;
+    color: var(--lux-tan);
+}
+
+/* ─── QUICK STATS ─── */
+.lux-stats-container {
+    padding: 0 5vw;
+    margin-top: -50px;
+    /* Pull up over hero slightly */
+    position: relative;
+    z-index: 10;
+}
+
+.lux-stats-grid {
+    background-color: var(--lux-cream);
+    padding: 60px 40px;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid var(--lux-border);
+    border-bottom: 1px solid var(--lux-border);
+}
+
+.lux-stat-item {
+    text-align: left;
+    flex: 1;
+    border-right: 1px solid var(--lux-border);
+    padding-left: 40px;
+}
+
+.lux-stat-item:first-child {
+    padding-left: 0;
+}
+
+.lux-stat-item:last-child {
+    border-right: none;
+}
+
+.lux-stat-label {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--lux-mid);
+    display: block;
+    margin-bottom: 15px;
+}
+
+.lux-stat-value {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    color: var(--lux-dark);
+}
+
+/* ─── EDITORIAL SECTION (REDUCED) ─── */
+.lux-section {
+    padding: 80px 5vw;
+}
+
+/* ─── EXPEDITION DASHBOARD ─── */
+.lux-dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    max-width: 1400px;
+    margin: -80px auto 0;
+    position: relative;
+    z-index: 20;
+    background: #fff;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--lux-border);
+}
+
+.lux-dash-col {
+    padding: 50px;
+    border-right: 1px solid var(--lux-border);
+}
+
+.lux-dash-col:last-child {
+    border-right: none;
+}
+
+.lux-dash-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ─── SPLIT VIEW TECHNICAL PROFILE ─── */
+.lux-technical-split {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 40px;
+    align-items: stretch;
+}
+
+@media (max-width: 1200px) {
+    .lux-technical-split {
+        grid-template-columns: 1fr;
+    }
+}
+
+.lux-split-main {
+    min-width: 0;
+    /* Fix flex/grid overflow */
+}
+
+/* ─── EDITORIAL GRID ─── */
+.lux-editorial-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+}
+
+.lux-heading {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    font-weight: 400;
+    color: var(--lux-dark);
+    line-height: 1.2;
+    margin-bottom: 40px;
+}
+
+.lux-heading em {
+    font-style: italic;
+    color: var(--lux-tan);
+}
+
+.lux-body {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--lux-mid);
+    margin-bottom: 25px;
+    font-weight: 300;
+}
+
+.lux-image-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.lux-image-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.lux-image-caption {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    color: var(--lux-mid);
+    text-align: right;
+    margin-top: 15px;
+    font-style: italic;
+}
+
+/* ─── ITINERARY LIST ─── */
+.lux-itinerary-section {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 100px 5vw;
+}
+
+.lux-itinerary-title {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.lux-itinerary-item {
+    border-top: 1px solid var(--lux-border);
+    padding: 30px 0;
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 30px;
+}
+
+.lux-itinerary-item:last-child {
+    border-bottom: 1px solid var(--lux-border);
+}
+
+.lux-day-marker {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--lux-tan);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.lux-day-title {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    color: var(--lux-dark);
+    margin-bottom: 15px;
+    font-weight: 400;
+}
+
+.lux-day-desc {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--lux-mid);
+    font-weight: 300;
+}
+
+/* ─── EXPEDITION PACKAGES ─── */
+.lux-packages-section {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 100px 5vw;
+}
+
+.lux-packages-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-top: 60px;
+}
+
+/* Tablet & Mobile Fallbacks for the 3-column grid */
+@media (max-width: 1024px) {
+    .lux-packages-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .lux-packages-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.lux-package-card {
+    border: 1px solid var(--lux-border);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    background-color: var(--lux-cream);
+    position: relative;
+    overflow: hidden;
+}
+
+.lux-package-image {
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+}
+
+.lux-package-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.lux-package-card:hover .lux-package-image img {
+    transform: scale(1.05);
+}
+
+.lux-package-content {
+    padding: 35px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.lux-package-duration {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--lux-tan);
+    margin-bottom: 20px;
+    display: block;
+    font-weight: 600;
+}
+
+.lux-package-title {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    color: var(--lux-dark);
+    line-height: 1.25;
+    margin-bottom: 20px;
+    font-weight: 400;
+}
+
+.lux-package-desc {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--lux-mid);
+    line-height: 1.7;
+    margin-bottom: 40px;
+    font-weight: 300;
+    flex-grow: 1;
+}
+
+.lux-package-footer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-top: 1px solid var(--lux-border);
+    padding-top: 25px;
+}
+
+.lux-link-arrow {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--lux-dark);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.lux-link-arrow:hover {
+    gap: 20px;
+    color: var(--lux-tan);
+}
+
+/* ─── FULL BLEED PARALLAX ─── */
+.lux-full-bleed {
+    width: 100%;
+    height: 70vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.lux-full-bleed img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ─── CTA ─── */
+.lux-cta {
+    text-align: center;
+    padding: 150px 5vw;
+}
+
+.lux-btn {
+    display: inline-block;
+    padding: 15px 40px;
+    border: 1px solid var(--lux-dark);
+    color: var(--lux-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.8rem;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    background: transparent;
+}
+
+.lux-btn:hover {
+    background: var(--lux-dark);
+    color: var(--lux-cream);
+}
