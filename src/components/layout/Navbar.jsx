@@ -101,8 +101,8 @@ export const Navbar = () => {
                   Mt. Meru
                 </div>
                 <ul className="submenu">
-                  <li><a href="#">4-Day Trek</a></li>
-                  <li><a href="#">3-Day Trek</a></li>
+                  <li><Link to="/meru">4-Day Trek</Link></li>
+                  <li><Link to="/meru">3-Day Trek</Link></li>
                 </ul>
               </li>
               <li className={`has-submenu ${isDropdownActive('prep') ? 'mobile-active' : ''}`}>
@@ -171,7 +171,7 @@ export const Navbar = () => {
             </Link>
             <ul className="dropdown-menu">
               <li><Link to="/safaris">Destinations Overview</Link></li>
-              <li><a href="#">Itineraries / Packages</a></li>
+              <li><Link to="/safaris/packages">Itineraries / Packages</Link></li>
               <li className={`has-submenu ${isDropdownActive('safari-guide') ? 'mobile-active' : ''}`}>
                 <div className="dropdown-toggle" onClick={(e) => handleToggle(e, 'safari-guide')}>
                   Safari Guide
@@ -194,8 +194,8 @@ export const Navbar = () => {
         <div className="nav-logo-spacer"></div>
 
         <ul className="nav-links nav-links--right">
-          <li><a href="/#departures">Departures</a></li>
-          <li><a href="/about">About</a></li>
+          <li><Link to="/group-departures">Departures</Link></li>
+          <li><Link to="/about">About</Link></li>
           <li><Link to="/contact">Contact</Link></li>
         </ul>
       </nav>

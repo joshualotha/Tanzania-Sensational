@@ -34,12 +34,12 @@ export const Footer = () => {
         <div>
           <div className="footer-heading">Plan Your Trip</div>
           <ul className="footer-links">
-            <li><a href="#">Mt. Meru</a></li>
-            <li><a href="#">Group Departures</a></li>
-            <li><a href="#">Gear Checklist</a></li>
-            <li><a href="#">Training Guide</a></li>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="#">Safari Add-ons</a></li>
+            <li><Link to="/meru">Mt. Meru</Link></li>
+            <li><Link to="/group-departures">Group Departures</Link></li>
+            <li><Link to="/gear-checklist">Gear Checklist</Link></li>
+            <li><Link to="/training-guide">Training Guide</Link></li>
+            <li><Link to="/faq">FAQ</Link></li>
+            <li><Link to="/safari-addons">Safari Add-ons</Link></li>
           </ul>
         </div>
         <div>
@@ -48,7 +48,7 @@ export const Footer = () => {
             <li><a href="#">About Us</a></li>
             <li><a href="#">Our Guides</a></li>
             <li><a href="#">Safety Protocols</a></li>
-            <li><a href="#">Trekker's Blog</a></li>
+            <li><Link to="/blog">Trekker's Blog</Link></li>
             <li><Link to="/contact">Contact</Link></li>
           </ul>
         </div>

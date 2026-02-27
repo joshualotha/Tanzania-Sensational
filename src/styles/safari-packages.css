@@ -1,0 +1,472 @@
+/* safari-packages.css */
+
+.safari-pkgs-root {
+    background: var(--dark);
+    color: white;
+    min-height: 100vh;
+    font-family: 'Outfit', sans-serif;
+}
+
+/* ─── LIST PAGE HERO ─── */
+.safari-pkgs-hero {
+    position: relative;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+.safari-pkgs-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.safari-pkgs-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.safari-pkgs-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(10, 10, 10, 0.4), var(--dark));
+}
+
+.safari-pkgs-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.safari-pkgs-title {
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    font-weight: 300;
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+}
+
+.safari-pkgs-title em {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--gold);
+}
+
+.safari-pkgs-subtitle {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+}
+
+/* ─── LIST GRID ─── */
+.safari-pkgs-grid-sec {
+    padding: 80px 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.safari-pkg-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 40px;
+}
+
+.safari-pkg-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.4s ease, border-color 0.4s ease;
+}
+
+.safari-pkg-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(201, 165, 90, 0.4);
+}
+
+.safari-pkg-img {
+    width: 100%;
+    height: 250px;
+    position: relative;
+    overflow: hidden;
+}
+
+.safari-pkg-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.safari-pkg-card:hover .safari-pkg-img img {
+    transform: scale(1.05);
+}
+
+.safari-pkg-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    padding: 6px 14px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    border: 1px solid rgba(201, 165, 90, 0.3);
+    border-radius: 30px;
+}
+
+.safari-pkg-info {
+    padding: 30px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.safari-pkg-meta {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+.safari-pkg-name {
+    font-size: 1.8rem;
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.safari-pkg-desc {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.6;
+    margin-bottom: 30px;
+    flex: 1;
+}
+
+.safari-pkg-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 20px;
+}
+
+.safari-pkg-price {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--gold);
+}
+
+.safari-pkg-price span {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.safari-pkg-arr {
+    color: rgba(255, 255, 255, 0.5);
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.safari-pkg-card:hover .safari-pkg-arr {
+    color: var(--gold);
+    transform: translateX(5px);
+}
+
+/* ─── DETAILS PAGE ─── */
+.safari-det-hero {
+    position: relative;
+    height: 85vh;
+    display: flex;
+    align-items: flex-end;
+    padding: 80px 5%;
+}
+
+.safari-det-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.safari-det-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.safari-det-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(10, 10, 10, 0.2), var(--dark));
+}
+
+.safari-det-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+}
+
+.safari-det-badge {
+    display: inline-block;
+    padding: 8px 16px;
+    background: rgba(201, 165, 90, 0.1);
+    border: 1px solid rgba(201, 165, 90, 0.3);
+    color: var(--gold);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    border-radius: 30px;
+    margin-bottom: 20px;
+}
+
+.safari-det-title {
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+}
+
+.safari-det-overview {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+    max-width: 700px;
+}
+
+/* ─── DETAILS METRICS BAR ─── */
+.safari-det-metrics {
+    display: flex;
+    gap: 40px;
+    padding: 40px 5%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--dark);
+    position: relative;
+    z-index: 3;
+}
+
+.safari-metric {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.safari-m-label {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.safari-m-val {
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
+/* ─── DETAILS BODY ─── */
+.safari-det-body {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 80px;
+    padding: 80px 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* ─── ITINERARY ACCORDION/LIST ─── */
+.safari-itin-head {
+    font-size: 2.5rem;
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    margin-bottom: 50px;
+}
+
+.safari-day-card {
+    border-left: 2px solid rgba(201, 165, 90, 0.3);
+    padding-left: 40px;
+    position: relative;
+    margin-bottom: 60px;
+}
+
+.safari-day-dot {
+    position: absolute;
+    left: -7px;
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    background: var(--dark);
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+}
+
+.safari-day-num {
+    font-size: 0.85rem;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.safari-day-title {
+    font-size: 1.8rem;
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    margin-bottom: 15px;
+}
+
+.safari-day-desc {
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+.safari-day-meta {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.safari-day-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* ─── SIDEBAR ─── */
+.safari-sidebar {
+    position: sticky;
+    top: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.safari-sb-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(201, 165, 90, 0.2);
+    border-radius: 12px;
+    padding: 40px;
+}
+
+.safari-sb-title {
+    font-size: 1.4rem;
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 15px;
+}
+
+.safari-sb-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.safari-sb-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.safari-sb-list.inc li::before {
+    content: '✓';
+    color: var(--gold);
+}
+
+.safari-sb-list.exc li::before {
+    content: '×';
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.safari-book-card {
+    text-align: center;
+}
+
+.safari-book-card .safari-pkg-price {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+.safari-btn-gold {
+    display: inline-block;
+    width: 100%;
+    padding: 16px;
+    background: var(--gold);
+    color: var(--dark);
+    text-decoration: none;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+.safari-btn-gold:hover {
+    background: white;
+}
+
+.safari-btn-outline {
+    display: inline-block;
+    width: 100%;
+    padding: 16px;
+    margin-top: 15px;
+    background: transparent;
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.safari-btn-outline:hover {
+    border-color: var(--gold);
+    background: rgba(201, 165, 90, 0.1);
+}
+
+@media (max-width: 900px) {
+    .safari-det-body {
+        grid-template-columns: 1fr;
+    }
+
+    .safari-det-metrics {
+        flex-wrap: wrap;
+    }
+
+    .safari-det-title {
+        font-size: 2.5rem;
+    }
+}

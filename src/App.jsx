@@ -8,6 +8,19 @@ import { ContactPage } from './pages/ContactPage';
 import { AboutPage } from './pages/AboutPage';
 import { SafarisPage } from './pages/SafarisPage';
 import { ZanzibarPage } from './pages/ZanzibarPage';
+import { SafariPackagesList } from './pages/safaris/SafariPackagesList';
+import { SafariPackageDetail } from './pages/safaris/SafariPackageDetail';
+import { BlogList } from './pages/blog/BlogList';
+import { BlogDetail } from './pages/blog/BlogDetail';
+
+// New 'Plan Your Trip' Pages
+import { MtMeru } from './pages/plan/MtMeru';
+import { GroupDepartures } from './pages/plan/GroupDepartures';
+import { GearChecklist } from './pages/plan/GearChecklist';
+import { TrainingGuide } from './pages/plan/TrainingGuide';
+import { FAQ } from './pages/plan/FAQ';
+import { SafariAddons } from './pages/plan/SafariAddons';
+
 import Vaccinations from './pages/trekking/health/Vaccinations';
 import AltitudeSickness from './pages/trekking/health/AltitudeSickness';
 import Diamox from './pages/trekking/health/Diamox';
@@ -52,7 +65,19 @@ function App() {
                     <Route path="/about" element={<AboutPage />} />
                     <Route path="/contact" element={<ContactPage />} />
                     <Route path="/safaris" element={<SafarisPage />} />
+                    <Route path="/safaris/packages" element={<SafariPackagesList />} />
+                    <Route path="/safaris/packages/:packageId" element={<SafariPackageDetail />} />
                     <Route path="/zanzibar" element={<ZanzibarPage />} />
+                    <Route path="/blog" element={<BlogList />} />
+                    <Route path="/blog/:slug" element={<BlogDetail />} />
+
+                    {/* New 'Plan Your Trip' Routes */}
+                    <Route path="/meru" element={<MtMeru />} />
+                    <Route path="/group-departures" element={<GroupDepartures />} />
+                    <Route path="/gear-checklist" element={<GearChecklist />} />
+                    <Route path="/training-guide" element={<TrainingGuide />} />
+                    <Route path="/faq" element={<FAQ />} />
+                    <Route path="/safari-addons" element={<SafariAddons />} />
 
                     {/* Trekking Health & Safety */}
                     <Route path="/trekking/health/vaccinations" element={<Vaccinations />} />

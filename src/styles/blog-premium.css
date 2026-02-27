@@ -1,0 +1,561 @@
+/* blog-premium.css - Ultra Premium Redesign */
+
+.blog-root {
+    background: var(--dark);
+    color: white;
+    min-height: 100vh;
+    font-family: 'Outfit', sans-serif;
+    overflow-x: hidden;
+}
+
+/* ─── BLOG LIST: FEATURED POST HERO ─── */
+.blog-featured-hero {
+    position: relative;
+    height: 90vh;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    padding: 100px 5%;
+}
+
+.blog-featured-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.blog-featured-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.05);
+    /* Prepare for smooth load-in or slow pan */
+}
+
+.blog-featured-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Gradient specifically dark at bottom for text readability */
+    background: linear-gradient(180deg, rgba(16, 16, 16, 0) 0%, rgba(16, 16, 16, 0.5) 50%, rgba(16, 16, 16, 1) 100%);
+}
+
+.blog-featured-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1000px;
+}
+
+.blog-featured-eyebrow {
+    display: inline-block;
+    color: var(--gold);
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    font-weight: 500;
+}
+
+.blog-featured-title {
+    font-size: clamp(3.5rem, 8vw, 6rem);
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    line-height: 1.05;
+    margin-bottom: 30px;
+    letter-spacing: -0.02em;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.blog-featured-meta {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* ─── BLOG LIST: STAGGERED EDITORIAL GRID ─── */
+.blog-editorial-grid {
+    padding: 120px 5%;
+    max-width: 1600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 150px;
+    /* Massive spacing between articles */
+}
+
+.blog-ed-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+}
+
+/* Reverse every even card for asymmetric masonry feel */
+.blog-ed-card:nth-child(even) {
+    grid-template-columns: 1fr 1fr;
+}
+
+.blog-ed-card:nth-child(even) .blog-ed-img-wrap {
+    order: 2;
+}
+
+.blog-ed-card:nth-child(even) .blog-ed-info {
+    order: 1;
+    padding-right: 60px;
+    padding-left: 0;
+}
+
+.blog-ed-img-wrap {
+    position: relative;
+    width: 100%;
+    /* Create a varying aspect ratio depending on child to feel more natural */
+    aspect-ratio: 4/5;
+    overflow: hidden;
+}
+
+.blog-ed-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+    /* Ultra slow, premium hover */
+}
+
+.blog-ed-card:hover .blog-ed-img-wrap img {
+    transform: scale(1.08);
+    /* Sophisticated slow zoom */
+}
+
+.blog-ed-info {
+    padding-left: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.blog-ed-cat {
+    color: var(--gold);
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.blog-ed-date {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 20px;
+}
+
+.blog-ed-title {
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: 30px;
+}
+
+.blog-ed-exc {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.7;
+    margin-bottom: 40px;
+    max-width: 500px;
+}
+
+/* Elegant line-drawing read more link */
+.blog-ed-read {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+    align-self: flex-start;
+}
+
+.blog-ed-read::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 0%;
+    height: 1px;
+    background: var(--gold);
+    transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.blog-ed-card:hover .blog-ed-read::after {
+    width: 100%;
+}
+
+.blog-ed-read svg {
+    transition: transform 0.4s ease;
+}
+
+.blog-ed-card:hover .blog-ed-read svg {
+    transform: translateX(8px);
+}
+
+@media (max-width: 1024px) {
+
+    .blog-ed-card,
+    .blog-ed-card:nth-child(even) {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .blog-ed-card:nth-child(even) .blog-ed-img-wrap {
+        order: 1;
+    }
+
+    .blog-ed-card:nth-child(even) .blog-ed-info {
+        order: 2;
+        padding: 0;
+    }
+
+    .blog-ed-info {
+        padding-left: 0;
+    }
+
+    .blog-ed-img-wrap {
+        aspect-ratio: 16/9;
+    }
+
+    .blog-editorial-grid {
+        gap: 100px;
+    }
+}
+
+
+/* ─── BLOG DETAIL: MAGAZINE REDESIGN with SIDE PANE ─── */
+.blog-article-hero {
+    position: relative;
+    height: 100vh;
+    /* Full bleed screen */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.blog-article-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.blog-article-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.blog-article-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(16, 16, 16, 0.6);
+    /* Slightly darker for text contrast */
+}
+
+.blog-article-header {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    width: 100%;
+    padding: 0 5%;
+    text-align: center;
+    margin-top: 15vh;
+}
+
+.blog-article-title {
+    font-size: clamp(3.5rem, 7vw, 6.5rem);
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    line-height: 1.05;
+    margin-bottom: 40px;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+}
+
+.blog-article-meta {
+    font-size: 1rem;
+    color: white;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 300;
+}
+
+.blog-article-meta span.gold {
+    color: var(--gold);
+}
+
+/* Back Link */
+.blog-back-wrapper {
+    position: absolute;
+    /* Overlaid on hero */
+    top: 100px;
+    left: 5%;
+    z-index: 10;
+}
+
+.blog-back-mag {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    transition: color 0.3s ease;
+}
+
+.blog-back-mag:hover {
+    color: white;
+}
+
+.blog-back-mag svg {
+    transition: transform 0.4s ease;
+}
+
+.blog-back-mag:hover svg {
+    transform: translateX(-5px);
+}
+
+/* ─── LAYOUT: THE TWO-COLUMN EDITORIAL SPREAD ─── */
+.blog-article-layout {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    /* Reading column taking the space, 350px fixed right pane */
+    gap: 80px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 100px 5%;
+    align-items: start;
+    /* CRITICAL: allows the side pane to be sticky relative to itself */
+}
+
+/* ─── READING COLUMN (LEFT) ─── */
+.blog-article-body {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 750px;
+    /* Ensures text lines don't get too long */
+}
+
+/* High-end Drop Cap */
+.blog-article-body>p:first-of-type::first-letter {
+    float: left;
+    font-size: 6.5rem;
+    line-height: 0.8;
+    padding-top: 4px;
+    padding-right: 12px;
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+}
+
+.blog-block-p {
+    margin-bottom: 40px;
+    font-weight: 300;
+}
+
+.blog-block-h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    font-weight: 400;
+    color: white;
+    margin: 80px 0 40px;
+    line-height: 1.2;
+}
+
+/* Full Bleed Image for Main Column (Breaks container slightly for effect) */
+.blog-block-img {
+    margin: 60px -5vw;
+    /* Pulls slightly out of the 750px container */
+}
+
+.blog-block-img img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* ─── STICKY SIDE PANE (RIGHT) ─── */
+.blog-side-pane {
+    position: sticky;
+    top: 120px;
+    /* Distance from top of screen when scrolling */
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    /* Space between side pane elements */
+}
+
+/* ─── SIDEBAR: SHARE SECTION ─── */
+.blog-side-share {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 30px;
+}
+
+.blog-side-heading {
+    font-size: 0.75rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.blog-share-links {
+    display: flex;
+    gap: 20px;
+}
+
+.blog-share-btn {
+    color: rgba(255, 255, 255, 0.6);
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.blog-share-btn:hover {
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* ─── SIDEBAR: RELATED POSTS ─── */
+.blog-side-related {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.blog-related-card {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 20px;
+    text-decoration: none;
+    color: white;
+    align-items: center;
+}
+
+.blog-related-img {
+    width: 80px;
+    height: 100px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.blog-related-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(20%);
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.blog-related-card:hover .blog-related-img img {
+    transform: scale(1.1);
+}
+
+.blog-related-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-related-cat {
+    font-size: 0.65rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 8px;
+}
+
+.blog-related-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    line-height: 1.3;
+    color: rgba(255, 255, 255, 0.8);
+    transition: color 0.3s ease;
+}
+
+.blog-related-card:hover .blog-related-title {
+    color: white;
+}
+
+@media (max-width: 1100px) {
+
+    /* Collapse to single column on smaller screens */
+    .blog-article-layout {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+
+    .blog-side-pane {
+        position: static;
+        /* Disable sticky on mobile */
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        /* Share and Related side by side */
+        gap: 40px;
+        align-items: flex-start;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 60px;
+        margin-top: 40px;
+    }
+
+    .blog-side-share,
+    .blog-side-related {
+        border-top: none;
+        padding-top: 0;
+    }
+
+    .blog-article-body {
+        margin: 0 auto;
+    }
+
+    .blog-block-img {
+        margin: 60px 0;
+        /* Remove negative margin on mobile */
+    }
+}
+
+@media (max-width: 768px) {
+    .blog-side-pane {
+        grid-template-columns: 1fr;
+        /* Stack side pane items entirely on phones */
+    }
+
+    .blog-featured-title {
+        font-size: 3rem;
+    }
+
+    .blog-article-title {
+        font-size: 2.8rem;
+    }
+}

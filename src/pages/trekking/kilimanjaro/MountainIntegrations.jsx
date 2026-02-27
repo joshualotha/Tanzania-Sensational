@@ -16,14 +16,15 @@ export const ElevationGraph = ({ data, compact = false }) => {
         <div style={{
             width: '100%',
             overflowX: 'auto',
+            WebkitOverflowScrolling: 'touch',
             backgroundColor: '#fff',
-            padding: compact ? '30px' : '60px 40px',
+            padding: compact ? '20px' : '60px 40px',
             border: '1px solid var(--lux-border)',
             boxShadow: compact ? 'none' : '0 30px 60px rgba(0,0,0,0.05)',
             borderRadius: '2px'
         }}>
-            <div style={{ minWidth: compact ? '600px' : '1000px' }}>
-                <AreaChart width={compact ? 800 : 1200} height={compact ? 350 : 500} data={data} margin={{ top: 20, right: 30, left: 10, bottom: 20 }}>
+            <div style={{ minWidth: compact ? '500px' : '1000px' }}>
+                <AreaChart width={compact ? 700 : 1200} height={compact ? 300 : 500} data={data} margin={{ top: 20, right: 30, left: 10, bottom: 20 }}>
                     <defs>
                         <linearGradient id="mountGradient" x1="0" y1="0" x2="0" y2="1">
                             <stop offset="5%" stopColor="#8b6b4d" stopOpacity={0.8} />
@@ -119,7 +120,8 @@ export const LiveWeatherWidget = ({ zone = "Rainforest", compact = false }) => {
 
     if (loading) return (
         <div style={{ backgroundColor: 'var(--lux-dark)', height: compact ? '140px' : '180px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <div className="lux-loader-small"></div>
+            <div style={{ width: '20px', height: '20px', border: '2px solid rgba(255,255,255,0.1)', borderTopColor: '#fff', borderRadius: '50%', animation: 'lux-spin 0.8s linear infinite' }}></div>
+            <style>{`@keyframes lux-spin { to { transform: rotate(360deg); } }`}</style>
         </div>
     );
 

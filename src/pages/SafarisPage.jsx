@@ -207,7 +207,7 @@ export const SafarisPage = () => {
 
                 <div className="premium-section-footer" style={{ marginTop: '60px' }}>
                     <Link to="/contact" className="premium-btn-outline-dark">Build Custom Safari</Link>
-                    <Link to="/safaris" className="premium-btn-outline-dark" style={{ background: 'var(--dark)', color: 'white' }}>Explore Full Collection</Link>
+                    <Link to="/safaris/packages" className="premium-btn-outline-dark" style={{ background: 'var(--dark)', color: 'white' }}>Explore Full Collection</Link>
                 </div>
             </section>
 

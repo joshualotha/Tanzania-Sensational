@@ -53,7 +53,7 @@ export const Routes = () => {
       </div>
 
       <div className="routes-grid reveal">
-        {routeData.map((route, i) => (
+        {routeData.slice(0, 3).map((route, i) => (
           <Link key={i} to={`/trekking/kilimanjaro/${route.slug}`} className="route-card">
             <div className="route-card-img" style={{ backgroundImage: `url(${route.img})` }}></div>
             <div className="route-card-overlay"></div>

@@ -47,47 +47,18 @@ const PackageDetail = () => {
 
     return (
         <div className="lux-root">
-            {/* ─── STICKY BOOKING BAR ─── */}
-            <div style={{
-                position: 'sticky',
-                top: '0',
-                zIndex: 100,
-                backgroundColor: 'rgba(253, 248, 240, 0.95)',
-                backdropFilter: 'blur(10px)',
-                borderBottom: '1px solid var(--lux-border)',
-                padding: '15px 0',
-                boxShadow: '0 4px 20px rgba(0,0,0,0.05)'
-            }}>
-                <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div>
-                        <h4 style={{ margin: 0, fontFamily: 'Playfair Display', fontSize: '1.2rem', color: 'var(--lux-dark)' }}>
-                            {pkg.title}
-                        </h4>
-                        <span style={{ fontFamily: 'Inter', fontSize: '0.8rem', color: 'var(--lux-tan)', textTransform: 'uppercase', letterSpacing: '1px' }}>
-                            {pkg.duration} • {pkg.difficulty}
-                        </span>
-                    </div>
-                    <Link to="/contact" className="lux-btn" style={{ padding: '10px 25px', fontSize: '0.9rem', width: 'auto' }}>
-                        Inquire / Book Now
-                    </Link>
-                </div>
-            </div>
-
             {/* ─── HERO ─── */}
             <motion.section className="lux-hero" style={{ height: '70vh', opacity: heroOpacity }}>
                 <img src={pkg.heroImg} alt={pkg.title} />
                 <div className="lux-hero-overlay"></div>
                 <div className="lux-hero-content">
-                    <motion.span className="lux-hero-eyebrow" initial="hidden" animate="visible" variants={fadeInUp}>
-                        The {routeId.charAt(0).toUpperCase() + routeId.slice(1)} Route
-                    </motion.span>
-                    <motion.h1 className="lux-hero-title" initial="hidden" animate="visible" variants={fadeInUp} transition={{ delay: 0.1 }}>
-                        {pkg.title.replace(/^[0-9]+ Days /, '')} <em>Expedition.</em>
+                    <motion.h1 className="lux-hero-title" initial="hidden" animate="visible" variants={fadeInUp}>
+                        {pkg.title}
                     </motion.h1>
-                    <motion.div initial="hidden" animate="visible" variants={fadeInUp} transition={{ delay: 0.3 }} style={{ marginTop: '20px' }}>
-                        <span className="lux-package-duration" style={{ color: 'var(--lux-tan)', fontSize: '1.2rem', letterSpacing: '2px', textTransform: 'uppercase' }}>
-                            {pkg.duration}
-                        </span>
+                    <motion.div initial="hidden" animate="visible" variants={fadeInUp} transition={{ delay: 0.2 }} style={{ marginTop: '30px' }}>
+                        <Link to="/contact" className="lux-btn lux-btn-hero">
+                            Inquire Now
+                        </Link>
                     </motion.div>
                 </div>
             </motion.section>
