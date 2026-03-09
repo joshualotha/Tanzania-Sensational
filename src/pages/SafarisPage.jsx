@@ -4,35 +4,7 @@ import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import '../styles/safari-premium.css';
 
-const destinations = [
-    {
-        name: "Serengeti",
-        subtitle: "The Infinite Plains",
-        tag: "THE GREAT MIGRATION",
-        desc: "Witness the greatest wildlife spectacle on Earth—two million wildebeest thundering across golden savannahs under an endless sky. It is a primal, breathtaking theatre of survival.",
-        img: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1600&q=85&auto=format&fit=crop",
-        highlights: ["The Great Migration", "River Crossings", "Big Five Territory"],
-        duration: "3–5 Days"
-    },
-    {
-        name: "Ngorongoro",
-        subtitle: "The Lost World",
-        tag: "UNESCO CALDERA",
-        desc: "Descend into an ancient, unbroken volcanic caldera. This self-contained ecosystem is a sanctuary where endangered black rhinos, apex predators, and flamingos coexist in staggering density.",
-        img: "https://images.unsplash.com/photo-1518173335487-347a0e39129d?w=1600&q=85&auto=format&fit=crop",
-        highlights: ["Endangered Black Rhino", "Crater Floor Drives", "Maasai Coexistence"],
-        duration: "1–2 Days"
-    },
-    {
-        name: "Tarangire",
-        subtitle: "Land of Giants",
-        tag: "ELEPHANT REALM",
-        desc: "Walk in the shadow of ancient baobab trees and encounter the largest elephant herds in Tanzania. The park is a quiet, stunningly beautiful landscape carved by the Tarangire River.",
-        img: "https://images.unsplash.com/photo-1581852015102-142a2c317022?w=1600&q=85&auto=format&fit=crop",
-        highlights: ["Massive Elephant Herds", "Ancient Baobabs", "Silvery Landscapes"],
-        duration: "2–3 Days"
-    }
-];
+import { destinationsData as destinations } from '../data/destinationsData';
 
 const packages = [
     {
@@ -129,33 +101,41 @@ export const SafarisPage = () => {
                         const isReverse = i % 2 !== 0;
                         return (
                             <motion.div
-                                key={i}
+                                key={dest.id}
                                 className={`premium-dest-item ${isReverse ? 'reverse' : ''}`}
                                 initial="hidden"
                                 whileInView="visible"
                                 viewport={{ once: true, margin: "-100px" }}
                                 variants={staggerContainer}
                             >
-                                <motion.div className="premium-dest-image-wrap" variants={fadeInUp}>
-                                    <img src={dest.img} alt={dest.name} className="premium-dest-image" />
-                                    <div className="premium-dest-img-badge">{dest.tag}</div>
-                                </motion.div>
-                                <div className="premium-dest-info">
-                                    <motion.h3 className="premium-dest-name" variants={fadeInUp}>{dest.name}</motion.h3>
-                                    <motion.span className="premium-dest-subtitle" variants={fadeInUp}>{dest.subtitle}</motion.span>
-                                    <motion.p className="premium-dest-desc" variants={fadeInUp}>{dest.desc}</motion.p>
-
-                                    <motion.div className="premium-dest-highlights" variants={fadeInUp}>
-                                        {dest.highlights.map((h, j) => (
-                                            <span key={j} className="premium-highlight">{h}</span>
-                                        ))}
+                                <Link to={`/safaris/destinations/${dest.id}`} style={{ display: 'contents', textDecoration: 'none', color: 'inherit' }}>
+                                    <motion.div className="premium-dest-image-wrap" variants={fadeInUp}>
+                                        <img src={dest.heroImg} alt={dest.name} className="premium-dest-image" />
+                                        <div className="premium-dest-img-badge">{dest.tag}</div>
                                     </motion.div>
+                                    <div className="premium-dest-info">
+                                        <motion.h3 className="premium-dest-name" variants={fadeInUp}>{dest.name}</motion.h3>
+                                        <motion.span className="premium-dest-subtitle" variants={fadeInUp}>{dest.subtitle}</motion.span>
+                                        <motion.p className="premium-dest-desc" variants={fadeInUp}>{dest.shortDesc}</motion.p>
 
-                                    <motion.div className="premium-dest-meta" variants={fadeInUp}>
-                                        <div className="meta-label">Optimal Duration</div>
-                                        <div className="meta-value">{dest.duration}</div>
-                                    </motion.div>
-                                </div>
+                                        <motion.div className="premium-dest-highlights" variants={fadeInUp}>
+                                            {dest.highlights.slice(0, 3).map((h, j) => (
+                                                <span key={j} className="premium-highlight">{h}</span>
+                                            ))}
+                                        </motion.div>
+
+                                        <motion.div className="premium-dest-meta" variants={fadeInUp}>
+                                            <div className="meta-label">Optimal Duration</div>
+                                            <div className="meta-value">{dest.duration}</div>
+                                        </motion.div>
+
+                                        <motion.div variants={fadeInUp} style={{ marginTop: '30px' }}>
+                                            <span style={{ color: 'var(--gold)', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.1em', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                                Explore Destination <ArrowRight size={16} />
+                                            </span>
+                                        </motion.div>
+                                    </div>
+                                </Link>
                             </motion.div>
                         );
                     })}

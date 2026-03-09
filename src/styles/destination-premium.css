@@ -1,0 +1,226 @@
+/* destination-premium.css */
+
+.dest-detail-root {
+    background: var(--dark);
+    color: white;
+    min-height: 100vh;
+    font-family: 'Outfit', sans-serif;
+    overflow-x: hidden;
+}
+
+/* ─── HERO SECTION ─── */
+.dest-hero {
+    position: relative;
+    height: 100vh;
+    /* Full bleed cinematic hero */
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 15vh;
+    text-align: center;
+    overflow: hidden;
+}
+
+.dest-hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.dest-hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.dest-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Dark gradient rising from the bottom to bleed into the dark background below */
+    background: linear-gradient(to bottom, rgba(16, 16, 16, 0.1) 0%, rgba(16, 16, 16, 0.6) 60%, var(--dark) 100%);
+}
+
+.dest-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1000px;
+    padding: 0 5%;
+}
+
+.dest-hero-tag {
+    color: var(--gold);
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.dest-hero-title {
+    font-size: clamp(4rem, 8vw, 8rem);
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    line-height: 1;
+    margin-bottom: 20px;
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.dest-hero-subtitle {
+    font-size: clamp(1.2rem, 2vw, 1.8rem);
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* ─── OVERVIEW SECTION ─── */
+.dest-overview-section {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 80px 5%;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 80px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.dest-overview-text {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.dest-overview-text p {
+    margin-bottom: 30px;
+}
+
+.dest-overview-text p:first-child::first-letter {
+    float: left;
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    line-height: 0.8;
+    padding-right: 15px;
+    color: var(--gold);
+}
+
+.dest-facts-panel {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 50px;
+}
+
+.dest-fact-group {
+    margin-bottom: 40px;
+}
+
+.dest-fact-group:last-child {
+    margin-bottom: 0;
+}
+
+.dest-fact-label {
+    font-size: 0.75rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.dest-fact-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: white;
+    line-height: 1.4;
+}
+
+.dest-wildlife-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.dest-wildlife-tag {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* ─── GALLERY SECTION ─── */
+.dest-gallery-section {
+    padding: 120px 5%;
+}
+
+.dest-gallery-head {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.dest-gallery-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: white;
+}
+
+.dest-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.dest-gallery-item {
+    position: relative;
+    overflow: hidden;
+    height: 60vh;
+}
+
+.dest-gallery-item.landscape {
+    grid-column: span 2;
+    height: 70vh;
+}
+
+.dest-gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.8) grayscale(20%);
+    transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.8s ease;
+}
+
+.dest-gallery-item:hover img {
+    transform: scale(1.05);
+    filter: brightness(1) grayscale(0%);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .dest-overview-section {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    .dest-gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dest-gallery-item,
+    .dest-gallery-item.landscape {
+        grid-column: span 1;
+        height: 50vh;
+    }
+
+    .dest-hero-title {
+        font-size: 3.5rem;
+    }
+}

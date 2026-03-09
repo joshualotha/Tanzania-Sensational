@@ -10,6 +10,7 @@ import { SafarisPage } from './pages/SafarisPage';
 import { ZanzibarPage } from './pages/ZanzibarPage';
 import { SafariPackagesList } from './pages/safaris/SafariPackagesList';
 import { SafariPackageDetail } from './pages/safaris/SafariPackageDetail';
+import { DestinationDetail } from './pages/safaris/DestinationDetail';
 import { BlogList } from './pages/blog/BlogList';
 import { BlogDetail } from './pages/blog/BlogDetail';
 
@@ -65,6 +66,7 @@ function App() {
                     <Route path="/about" element={<AboutPage />} />
                     <Route path="/contact" element={<ContactPage />} />
                     <Route path="/safaris" element={<SafarisPage />} />
+                    <Route path="/safaris/destinations/:id" element={<DestinationDetail />} />
                     <Route path="/safaris/packages" element={<SafariPackagesList />} />
                     <Route path="/safaris/packages/:packageId" element={<SafariPackageDetail />} />
                     <Route path="/zanzibar" element={<ZanzibarPage />} />
