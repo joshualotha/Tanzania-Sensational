@@ -443,5 +443,86 @@ export const packagesData = [
             { day: 5, title: "Barafu to Uhuru Peak to Mweka", desc: "Summit night.", accommodation: "Mweka Camp (3,100m)", meals: "B, L, D" },
             { day: 6, title: "Mweka Camp to Gate", desc: "Exit.", accommodation: "Hotel in Moshi", meals: "B" }
         ]
+    },
+
+    // ─── MT. MERU TREKKING PACKAGES ───
+    {
+        id: "3-days",
+        routeId: "mt-meru",
+        title: "3 Days Mount Meru Trek",
+        duration: "3 Days",
+        difficulty: "Moderate-High",
+        successRate: "90%",
+        heroImg: visualsData.planning.meruHero,
+        overview: "A focused, high-paced ascent of Tanzania's second highest peak. Ideal for fit climbers using Meru as a final acclimatization push before Kilimanjaro.",
+        inclusions: [
+            "Transport to Arusha National Park",
+            "Professional guide and armed ranger",
+            "Porter support",
+            "Mountain hut fees",
+            "All park entry and rescue fees",
+            "3 meals daily on the mountain"
+        ],
+        exclusions: ["Tips", "Personal gear", "Insurance"],
+        itinerary: [
+            { 
+                day: 1, 
+                title: "Momella Gate to Miriakamba Hut", 
+                desc: "A beautiful walking safari start through the lower slopes of Arusha National Park.", 
+                elevation: 2514, 
+                distance: "10 km", 
+                hikingTime: "4-5 hours", 
+                habitat: "Montane Forest", 
+                accommodation: "Miriakamba Hut (2,514m)", 
+                meals: "L, D" 
+            },
+            { 
+                day: 2, 
+                title: "Miriakamba Hut to Saddle Hut", 
+                desc: "A steep climb through the forest and heather zone with views of the Ash Cone.", 
+                elevation: 3570, 
+                distance: "4 km", 
+                hikingTime: "3-5 hours", 
+                habitat: "Heather/Moorland", 
+                accommodation: "Saddle Hut (3,570m)", 
+                meals: "B, L, D" 
+            },
+            { 
+                day: 3, 
+                title: "Saddle Hut to Socialist Peak to Gate", 
+                desc: "Midnight summit push along the crater rim, followed by a long descent to the gate.", 
+                elevation: 4562, 
+                distance: "5 km up / 14 km down", 
+                hikingTime: "4-6 hours up / 5-7 hours down", 
+                habitat: "Alpine Desert/Arctic", 
+                accommodation: "Hotel in Arusha", 
+                meals: "B, L" 
+            }
+        ]
+    },
+    {
+        id: "4-days",
+        routeId: "mt-meru",
+        title: "4 Days Mount Meru Trek",
+        duration: "4 Days",
+        difficulty: "Moderate",
+        successRate: "95%",
+        heroImg: visualsData.planning.meruHero,
+        overview: "The classic Meru experience. This extra day allows for optimal acclimatization and a side trip to Little Meru, significantly enhancing the enjoyment of the summit rim walk.",
+        inclusions: [
+            "Arusha National Park transfers",
+            "Licensed guide and armed ranger",
+            "Cook and porters",
+            "Hut accommodation",
+            "Park and Rescue fees",
+            "Filtered drinking water"
+        ],
+        exclusions: ["Gratuities", "Alcoholic drinks", "Gear rental"],
+        itinerary: [
+            { day: 1, title: "Momella Gate to Miriakamba Hut", desc: "Spot wildlife on the way to the first hut.", elevation: 2514, accommodation: "Miriakamba Hut", meals: "L, D" },
+            { day: 2, title: "Miriakamba Hut to Saddle Hut", desc: "Climb through the lush forest zone.", elevation: 3570, accommodation: "Saddle Hut", meals: "B, L, D" },
+            { day: 3, title: "Saddle Hut (Acclimatization) & Little Meru", desc: "Hike to Little Meru for stunning views and better adaptation.", elevation: 3820, accommodation: "Saddle Hut", meals: "B, L, D" },
+            { day: 4, title: "Socialist Peak to Gate", desc: "The final push and descent.", elevation: 4562, accommodation: "Hotel in Arusha", meals: "B, L" }
+        ]
     }
 ];

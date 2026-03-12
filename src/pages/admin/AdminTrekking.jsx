@@ -28,9 +28,34 @@ export const AdminTrekking = () => {
     };
 
     const handleSave = () => {
-        setPackages(packages.map(p => p.id === selectedPkg.id ? selectedPkg : p));
+        if (selectedPkg.isNew) {
+            const { isNew, ...newPkg } = selectedPkg;
+            setPackages([...packages, { ...newPkg, id: newPkg.title.toLowerCase().replace(/\s+/g, '-') }]);
+        } else {
+            setPackages(packages.map(p => p.id === selectedPkg.id ? selectedPkg : p));
+        }
         setIsEditing(false);
         setSelectedPkg(null);
+    };
+
+    const handleAddNew = () => {
+        const newPkg = {
+            id: 'new-' + Date.now(),
+            routeId: 'lemosho',
+            title: 'New Expedition Package',
+            duration: '7 Days',
+            difficulty: 'Moderate',
+            successRate: '90%',
+            heroImg: '',
+            overview: '',
+            inclusions: [],
+            exclusions: [],
+            highlights: [],
+            itinerary: [{ day: 1, title: 'Arrival & Preparation', desc: '', accommodation: '', meals: 'D' }],
+            isNew: true
+        };
+        setSelectedPkg(newPkg);
+        setIsEditing(true);
     };
 
     return (
@@ -39,7 +64,11 @@ export const AdminTrekking = () => {
             <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
                     <h2 style={{ fontSize: '1.5rem', color: 'white' }}>Trekking Expeditions ({packages.length})</h2>
-                    <button className="btn-admin-primary" style={{ width: 'auto', padding: '12px 25px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <button 
+                        onClick={handleAddNew}
+                        className="btn-admin-primary" 
+                        style={{ width: 'auto', padding: '12px 25px', display: 'flex', alignItems: 'center', gap: '8px' }}
+                    >
                         <Plus size={16} /> Add New Package
                     </button>
                 </div>
@@ -47,7 +76,7 @@ export const AdminTrekking = () => {
                 {Object.entries(routeGroups).map(([routeName, packages]) => (
                     <div key={routeName} style={{ marginBottom: '40px' }}>
                         <h3 style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.15em', color: 'var(--gold)', marginBottom: '15px', paddingBottom: '10px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                            {routeName.replace(/-/g, ' ')} Route
+                            {routeName === 'mt-meru' ? 'Mount Meru' : (routeName.charAt(0).toUpperCase() + routeName.slice(1).replace(/-/g, ' ') + ' Route')}
                         </h3>
                         <div className="admin-panel" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)' }}>
                             <table className="admin-table">
@@ -120,13 +149,31 @@ export const AdminTrekking = () => {
 
                     {isEditing ? (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                            <div style={inputGroupStyle}>
-                                <label style={labelStyle}>Package Title</label>
-                                <input 
-                                    style={inputStyle} 
-                                    value={selectedPkg.title} 
-                                    onChange={(e) => setSelectedPkg({ ...selectedPkg, title: e.target.value })}
-                                />
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
+                                <div style={inputGroupStyle}>
+                                    <label style={labelStyle}>Package Title</label>
+                                    <input 
+                                        style={inputStyle} 
+                                        value={selectedPkg.title} 
+                                        onChange={(e) => setSelectedPkg({ ...selectedPkg, title: e.target.value })}
+                                    />
+                                </div>
+                                <div style={inputGroupStyle}>
+                                    <label style={labelStyle}>Route Group</label>
+                                    <select 
+                                        style={inputStyle} 
+                                        value={selectedPkg.routeId} 
+                                        onChange={(e) => setSelectedPkg({ ...selectedPkg, routeId: e.target.value })}
+                                    >
+                                        <option value="lemosho">Lemosho Route</option>
+                                        <option value="machame">Machame Route</option>
+                                        <option value="marangu">Marangu Route</option>
+                                        <option value="rongai">Rongai Route</option>
+                                        <option value="northern-circuit">Northern Circuit</option>
+                                        <option value="umbwe">Umbwe Route</option>
+                                        <option value="mt-meru">Mount Meru</option>
+                                    </select>
+                                </div>
                             </div>
 
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '15px' }}>
