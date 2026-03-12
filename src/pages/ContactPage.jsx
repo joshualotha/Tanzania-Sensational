@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Phone, Mail, MessageCircle, Send, ShieldCheck, Instagram, Facebook, Youtube, MapPin, Navigation } from 'lucide-react';
+import { visualsData } from '../data/visualsData';
 import '../styles/contact-premium.css';
 
 export const ContactPage = () => {
@@ -32,7 +33,7 @@ export const ContactPage = () => {
             <section className="premium-hero">
                 <div className="premium-hero-bg">
                     <img
-                        src="https://images.unsplash.com/photo-1547970810-dc1eac37d174?q=80&w=2000&auto=format&fit=crop"
+                        src={visualsData.contact.hero}
                         alt="African Landscape"
                     />
                     <div className="premium-hero-overlay"></div>

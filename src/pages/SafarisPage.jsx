@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform, useInView } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { ArrowRight, Mountain, Trees, Waves, Map, Star, Shield, Sun } from 'lucide-react';
+import { visualsData } from '../data/visualsData';
 import '../styles/safari-premium.css';
 
 import { destinationsData as destinations } from '../data/destinationsData';
@@ -82,7 +82,7 @@ export const SafarisPage = () => {
             <section className="premium-safari-hero">
                 <motion.div className="premium-safari-bg" style={{ y: heroY }}>
                     <img
-                        src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=2000&q=85&auto=format&fit=crop"
+                        src={visualsData.safaris.listHero}
                         alt="African Wilderness at Dawn"
                     />
                     <div className="premium-safari-overlay"></div>
@@ -179,7 +179,7 @@ export const SafarisPage = () => {
             <section className="premium-exp-band">
                 <div className="premium-exp-bg">
                     <img
-                        src="https://images.unsplash.com/photo-1650668302197-7f556c34cb91?q=80&w=2000&auto=format&fit=crop"
+                        src={visualsData.trekking.prep.whyUs}
                         alt="Kilimanjaro Trekking"
                     />
                     <div className="premium-exp-overlay"></div>

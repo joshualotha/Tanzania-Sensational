@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Wallet, PieChart, Info, FileText, CheckCircle } from 'lucide-react';
-import '../../../styles/trekking-prep.css';
+import { visualsData } from '../../../data/visualsData';
+import '../../../styles/utility-pages-premium.css';
 
 const ParkFees = () => {
     useEffect(() => { window.scrollTo(0, 0); }, []);
@@ -18,7 +18,7 @@ const ParkFees = () => {
             <section className="prep-hero">
                 <div className="prep-hero-bg">
                     <img
-                        src="https://images.unsplash.com/photo-1621414050946-1b936a78490b?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+                        src={visualsData.trekking.prep.parkFeesHero}
                         alt="Serengeti Plains"
                     />
                     <div className="prep-hero-overlay"></div>
@@ -40,7 +40,7 @@ const ParkFees = () => {
                         transition={{ duration: 1 }}
                     >
                         <img
-                            src="https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+                            src={visualsData.trekking.prep.parkFeesEditorial}
                             className="prep-editorial-img"
                             alt="The Mountain"
                         />

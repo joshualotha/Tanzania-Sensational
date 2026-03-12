@@ -1,3 +1,4 @@
+import React from 'react';
 import { visualsData } from '../../data/visualsData';
 
 export const Hero = () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../assets/logo.png';
+import { visualsData } from '../../data/visualsData';
 
 export const Footer = () => {
   return (
@@ -8,7 +8,7 @@ export const Footer = () => {
       <div className="footer-top">
         <div className="footer-brand">
           <span className="footer-logo">
-            <img src={logo} alt="Tanzania Sensational" style={{ height: '40px' }} />
+            <img src={visualsData.branding.logo} alt="Tanzania Sensational" style={{ height: '40px' }} />
           </span>
           <p className="footer-tagline">East Africa's most trusted mountain trekking authority. Guiding adventurers to the roof of Africa since 2009.</p>
           <div className="footer-contact-item">

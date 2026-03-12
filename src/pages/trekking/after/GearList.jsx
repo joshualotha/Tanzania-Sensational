@@ -1,3 +1,6 @@
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Backpack, ThermometerSnowflake, Ruler, Shirt, Check, Download, PackageOpen, ClipboardList } from 'lucide-react';
 import { jsPDF } from 'jspdf';
 import { visualsData } from '../../../data/visualsData';

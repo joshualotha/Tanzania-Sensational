@@ -1,3 +1,5 @@
+import { visualsData } from './visualsData';
+
 export const departuresData = [
     {
         id: "lemosho-jul-2026",
@@ -47,7 +49,7 @@ export const departuresData = [
             "Alcoholic beverages",
             "Visa fees"
         ],
-        heroImg: "https://images.unsplash.com/photo-1609198092458-38a293c7ac4b?w=2000&q=85&auto=format&fit=crop"
+        heroImg: visualsData.trekking.routes.lemosho
     },
     {
         id: "lemosho-aug-2026",
@@ -97,7 +99,7 @@ export const departuresData = [
             "Alcoholic beverages",
             "Visa fees"
         ],
-        heroImg: "https://images.unsplash.com/photo-1621414050946-1b936a78438d?w=2000&q=85&auto=format&fit=crop"
+        heroImg: visualsData.trekking.routes.lemoshoEditorial
     },
     {
         id: "northern-circuit-sep-2026",
@@ -148,7 +150,7 @@ export const departuresData = [
             "Alcoholic beverages",
             "Visa fees"
         ],
-        heroImg: "https://images.unsplash.com/photo-1650668302197-7f556c34cb91?w=2000&q=85&auto=format&fit=crop"
+        heroImg: visualsData.trekking.routes.northern
     },
     {
         id: "machame-oct-2026",
@@ -194,7 +196,7 @@ export const departuresData = [
             "Gratuities for mountain crew",
             "Visa fees"
         ],
-        heroImg: "https://images.unsplash.com/photo-1677483510711-8aa4f7e86f9f?w=2000&q=85&auto=format&fit=crop"
+        heroImg: visualsData.trekking.routes.machame
     },
     {
         id: "lemosho-nye-2026",
@@ -245,6 +247,6 @@ export const departuresData = [
             "Alcoholic beverages (except NYE champagne)",
             "Visa fees"
         ],
-        heroImg: "https://images.unsplash.com/photo-1609198092458-38a293c7ac4b?w=2000&q=85&auto=format&fit=crop"
+        heroImg: visualsData.trekking.routes.lemosho
     }
 ];

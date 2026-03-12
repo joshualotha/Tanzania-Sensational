@@ -1,3 +1,5 @@
+import { visualsData } from './visualsData';
+
 export const destinationsData = [
     {
         id: "serengeti",
@@ -29,21 +31,14 @@ export const destinationsData = [
         encounterRate: "95.8%",
         expeditionTier: "Prestige Tier 01",
         trackingMethod: "Satellite GPS Tracking",
-        heroImg: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=2000&q=85&auto=format&fit=crop",
+        heroImg: visualsData.destinations.serengetiHero,
         coordinates: "2.3333° S, 34.8333° E",
         elevation: "920m – 1,850m",
         highlights: ["The Great Migration", "River Crossings", "Big Five Territory", "Endless Horizons", "Hot Air Ballooning"],
         duration: "3–5 Days",
         bestTime: "June to October (River Crossings) / Jan to March (Calving)",
         wildlifeList: ["Wildebeest", "Lion", "Leopard", "Cheetah", "Elephant", "Giraffe"],
-        gallery: [
-            "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800&q=80",
-            "https://images.unsplash.com/photo-1534177616072-ef7dc120449d?w=800&q=80",
-            "https://images.unsplash.com/photo-1581852015102-142a2c317022?w=800&q=80",
-            "https://images.unsplash.com/photo-1521651201144-634f700b36ef?w=800&q=80",
-            "https://images.unsplash.com/photo-1511497584788-876760111969?w=800&q=80",
-            "https://images.unsplash.com/photo-1523805081730-6144a778afd0?w=800&q=80"
-        ]
+        gallery: visualsData.destinations.serengetiGallery
     },
     {
         id: "ngorongoro",
@@ -75,21 +70,14 @@ export const destinationsData = [
         encounterRate: "98.2%",
         expeditionTier: "Prestige Tier 01",
         trackingMethod: "Crater Floor GPS Grid",
-        heroImg: "https://images.unsplash.com/photo-1518173335487-347a0e39129d?w=2000&q=85&auto=format&fit=crop",
+        heroImg: visualsData.destinations.ngorongoroHero,
         coordinates: "3.2000° S, 35.5000° E",
         elevation: "2,286m (Rim)",
         highlights: ["Endangered Black Rhino", "Crater Floor Drives", "Maasai Coexistence", "Dense Lion Population", "Lake Magadi Flamingos"],
         duration: "1–2 Days",
         bestTime: "Year-Round (Wildlife does not migrate out)",
         wildlifeList: ["Black Rhino", "Lion", "Elephant", "Buffalo", "Hyena", "Flamingo"],
-        gallery: [
-            "https://images.unsplash.com/photo-1534177616072-ef7dc120449d?w=800&q=80",
-            "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=800&q=80",
-            "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800&q=80",
-            "https://images.unsplash.com/photo-1589308454676-e1af9491a670?w=800&q=80",
-            "https://images.unsplash.com/photo-1520114878144-6123749968dd?w=800&q=80",
-            "https://images.unsplash.com/photo-1549366021-9f761d450615?w=800&q=80"
-        ]
+        gallery: visualsData.destinations.ngorongoroGallery
     },
     {
         id: "tarangire",
@@ -121,20 +109,13 @@ export const destinationsData = [
         encounterRate: "94.5%",
         expeditionTier: "Heritage Tier 02",
         trackingMethod: "River System GPS Tracking",
-        heroImg: "https://images.unsplash.com/photo-1581852015102-142a2c317022?w=2000&q=85&auto=format&fit=crop",
+        heroImg: visualsData.destinations.tarangireHero,
         coordinates: "3.8500° S, 36.0000° E",
         elevation: "1,100m",
         highlights: ["Massive Elephant Herds", "Ancient Baobabs", "Silvery Landscapes", "Tree-Climbing Pythons", "Incredible Birding"],
         duration: "2–3 Days",
         bestTime: "July to October (Dry Season Congregation)",
         wildlifeList: ["Elephant", "Lion", "Leopard", "Zebra", "Giraffe", "Ostrich"],
-        gallery: [
-            "https://images.unsplash.com/photo-1581852015102-142a2c317022?w=800&q=80",
-            "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=800&q=80",
-            "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800&q=80",
-            "https://images.unsplash.com/photo-1518173335487-347a0e39129d?w=800&q=80",
-            "https://images.unsplash.com/photo-1521651201144-634f700b36ef?w=800&q=80",
-            "https://images.unsplash.com/photo-1541018867375-7f311c63ec94?w=800&q=80"
-        ]
+        gallery: visualsData.destinations.tarangireGallery
     }
 ];

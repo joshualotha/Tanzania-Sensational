@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Map, Zap, Coffee, Tent, Info } from 'lucide-react';
+import { visualsData } from '../../../data/visualsData';
 import '../../../styles/trekking-prep.css';
 
 const BestRoutes = () => {
@@ -18,7 +18,7 @@ const BestRoutes = () => {
             <section className="prep-hero">
                 <div className="prep-hero-bg">
                     <img
-                        src="https://images.unsplash.com/photo-1589182397057-b82b16867e7c?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+                        src={visualsData.trekking.prep.bestRoutes}
                         alt="Kilimanjaro Landscape"
                     />
                     <div className="prep-hero-overlay"></div>
@@ -40,7 +40,7 @@ const BestRoutes = () => {
                         transition={{ duration: 1 }}
                     >
                         <img
-                            src="https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+                            src={visualsData.trekking.prep.bestRoutesEditorial}
                             className="prep-editorial-img"
                             alt="The Lemosho Trail"
                         />

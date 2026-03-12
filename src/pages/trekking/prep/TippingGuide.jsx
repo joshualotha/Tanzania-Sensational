@@ -1,8 +1,9 @@
+import { Coins, Heart, Handshake, Info, Users } from 'lucide-react';
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Coins, Heart, Handshake, Info, Users } from 'lucide-react';
-import '../../../styles/trekking-prep.css';
+import { visualsData } from '../../../data/visualsData';
+import '../../../styles/utility-pages-premium.css';
 
 const TippingGuide = () => {
     useEffect(() => { window.scrollTo(0, 0); }, []);
@@ -18,7 +19,7 @@ const TippingGuide = () => {
             <section className="prep-hero">
                 <div className="prep-hero-bg">
                     <img
-                        src="https://images.unsplash.com/photo-1579471923053-ec4f6762edbc?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+                        src={visualsData.trekking.prep.tippingHero}
                         alt="Group on the mountain"
                     />
                     <div className="prep-hero-overlay"></div>
@@ -50,7 +51,7 @@ const TippingGuide = () => {
                         transition={{ duration: 1 }}
                     >
                         <img
-                            src="https://images.unsplash.com/photo-1621414050946-1b936a78490b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+                            src={visualsData.trekking.prep.tippingEditorial}
                             className="prep-editorial-img"
                             alt="Mountain Crew"
                         />

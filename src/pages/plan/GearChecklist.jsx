@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { visualsData } from '../../data/visualsData';
 import '../../styles/utility-pages-premium.css';

@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { Calendar, Users, Map, DollarSign, ChevronRight, Mountain, Eye } from 'lucide-react';
 import { departuresData } from '../../data/departuresData';
+import { visualsData } from '../../data/visualsData';
 import '../../styles/group-departures-premium.css';
 
 export const GroupDepartures = () => {
@@ -31,7 +30,7 @@ export const GroupDepartures = () => {
             <section className="utility-hero">
                 <div className="utility-hero-bg">
                     <img 
-                        src="https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=2400&q=90" 
+                        src={visualsData.trekking.prep.parkFeesEditorial} 
                         alt="Expedition Team" 
                     />
                 </div>

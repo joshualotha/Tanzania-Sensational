@@ -1,3 +1,6 @@
+import React, { useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Wind, ShieldCheck, Heart, AlertCircle } from 'lucide-react';
 import { visualsData } from '../../../data/visualsData';
 import '../../../styles/trek-health-premium.css';

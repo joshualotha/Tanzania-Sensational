@@ -1,3 +1,6 @@
+import React, { useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Mountain, Activity, Target, Zap } from 'lucide-react';
 import { visualsData } from '../../../data/visualsData';
 import '../../../styles/trekking-prep.css';

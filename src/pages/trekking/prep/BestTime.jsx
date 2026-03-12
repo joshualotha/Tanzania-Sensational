@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react';
 import { Sun, CloudRain, Snowflake, ThermometerSun } from 'lucide-react';
 import { visualsData } from '../../../data/visualsData';
 import '../../../styles/trekking-prep.css';

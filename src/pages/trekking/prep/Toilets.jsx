@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { Shield, Sparkles, AlertTriangle } from 'lucide-react';
-import '../../../styles/trekking-prep.css';
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { visualsData } from '../../../data/visualsData';
+import '../../../styles/utility-pages-premium.css';
 
 const Toilets = () => {
     useEffect(() => { window.scrollTo(0, 0); }, []);
@@ -18,7 +18,7 @@ const Toilets = () => {
             <section className="prep-hero">
                 <div className="prep-hero-bg">
                     <img
-                        src="https://images.unsplash.com/photo-1580979878201-1e9d1a3eb64f?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+                        src={visualsData.trekking.prep.toiletsHero}
                         alt="High altitude camp"
                     />
                     <div className="prep-hero-overlay"></div>
@@ -40,7 +40,7 @@ const Toilets = () => {
                         transition={{ duration: 1 }}
                     >
                         <img
-                            src="https://images.unsplash.com/photo-1518173335487-347a0e39129d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+                            src={visualsData.trekking.prep.toiletsEditorial}
                             className="prep-editorial-img"
                             alt="Kilimanjaro Camp Site"
                         />

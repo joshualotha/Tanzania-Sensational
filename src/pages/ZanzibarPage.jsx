@@ -1,3 +1,5 @@
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowRight, Waves, Sun, History, Compass } from 'lucide-react';
 import { visualsData } from '../data/visualsData';
 import '../styles/zanzibar-premium.css';

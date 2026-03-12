@@ -1,3 +1,5 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { Mountain, Compass, Star, Shield, Heart, Globe, TreePine, ArrowRight } from 'lucide-react';
 import { visualsData } from '../data/visualsData';
 import '../styles/about-premium.css';

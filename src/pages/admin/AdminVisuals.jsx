@@ -58,42 +58,129 @@ export const AdminVisuals = () => {
 
                     {expandedSection === section && (
                         <div style={{ padding: '30px', display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '30px' }}>
-                            {Object.entries(assets).map(([key, url]) => (
-                                <div key={key} style={{ background: 'rgba(0,0,0,0.2)', padding: '20px', borderRadius: '4px', border: '1px solid rgba(255,255,255,0.03)' }}>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px' }}>
-                                        <label style={{ fontSize: '0.65rem', color: 'var(--gold)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700 }}>
-                                            {key.replace(/([A-Z])/g, ' $1')}
-                                        </label>
-                                        <button 
-                                            onClick={() => window.open(url, '_blank')}
-                                            style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.3)', cursor: 'pointer' }}
-                                        >
-                                            <LinkIcon size={14} />
-                                        </button>
-                                    </div>
+                            {Object.entries(assets).map(([key, value]) => {
+                                // Handle nested objects (like trekking.routes)
+                                if (typeof value === 'object' && !Array.isArray(value)) {
+                                    return Object.entries(value).map(([subKey, subUrl]) => (
+                                        <div key={`${key}-${subKey}`} style={{ background: 'rgba(0,0,0,0.2)', padding: '20px', borderRadius: '4px', border: '1px solid rgba(255,255,255,0.03)' }}>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px' }}>
+                                                <label style={{ fontSize: '0.65rem', color: 'var(--gold)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700 }}>
+                                                    {key} - {subKey.replace(/([A-Z])/g, ' $1')}
+                                                </label>
+                                                <button 
+                                                    onClick={() => window.open(subUrl, '_blank')}
+                                                    style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.3)', cursor: 'pointer' }}
+                                                >
+                                                    <LinkIcon size={14} />
+                                                </button>
+                                            </div>
 
-                                    <div style={{ width: '100%', height: '120px', borderRadius: '4px', overflow: 'hidden', marginBottom: '15px', border: '1px solid rgba(255,255,255,0.05)' }}>
-                                        <img src={url} alt={key} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                                    </div>
+                                            <div style={{ width: '100%', height: '120px', borderRadius: '4px', overflow: 'hidden', marginBottom: '15px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                                                <img src={subUrl} alt={subKey} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                            </div>
 
-                                    <div style={{ position: 'relative' }}>
-                                        <input 
-                                            type="text" 
-                                            value={url}
-                                            onChange={(e) => handleUpdate(section, key, e.target.value)}
-                                            style={{ 
-                                                width: '100%', 
-                                                background: '#000', 
-                                                border: '1px solid rgba(255,255,255,0.1)', 
-                                                color: 'rgba(255,255,255,0.6)', 
-                                                padding: '10px 12px', 
-                                                fontSize: '0.75rem',
-                                                fontFamily: 'monospace'
-                                            }}
-                                        />
+                                            <div style={{ position: 'relative' }}>
+                                                <input 
+                                                    type="text" 
+                                                    value={subUrl}
+                                                    onChange={(e) => handleUpdate(section, key, { ...value, [subKey]: e.target.value })}
+                                                    style={{ 
+                                                        width: '100%', 
+                                                        background: '#000', 
+                                                        border: '1px solid rgba(255,255,255,0.1)', 
+                                                        color: 'rgba(255,255,255,0.6)', 
+                                                        padding: '10px 12px', 
+                                                        fontSize: '0.75rem',
+                                                        fontFamily: 'monospace'
+                                                    }}
+                                                />
+                                            </div>
+                                        </div>
+                                    ));
+                                }
+
+                                // Handle arrays (like gallery images)
+                                if (Array.isArray(value)) {
+                                    return value.map((url, index) => (
+                                        <div key={`${key}-${index}`} style={{ background: 'rgba(0,0,0,0.2)', padding: '20px', borderRadius: '4px', border: '1px solid rgba(255,255,255,0.03)' }}>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px' }}>
+                                                <label style={{ fontSize: '0.65rem', color: 'var(--gold)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700 }}>
+                                                    {key.replace(/([A-Z])/g, ' $1')} [{index + 1}]
+                                                </label>
+                                                <button 
+                                                    onClick={() => window.open(url, '_blank')}
+                                                    style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.3)', cursor: 'pointer' }}
+                                                >
+                                                    <LinkIcon size={14} />
+                                                </button>
+                                            </div>
+
+                                            <div style={{ width: '100%', height: '120px', borderRadius: '4px', overflow: 'hidden', marginBottom: '15px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                                                <img src={url} alt={key} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                            </div>
+
+                                            <div style={{ position: 'relative' }}>
+                                                <input 
+                                                    type="text" 
+                                                    value={url}
+                                                    onChange={(e) => {
+                                                        const newArray = [...value];
+                                                        newArray[index] = e.target.value;
+                                                        handleUpdate(section, key, newArray);
+                                                    }}
+                                                    style={{ 
+                                                        width: '100%', 
+                                                        background: '#000', 
+                                                        border: '1px solid rgba(255,255,255,0.1)', 
+                                                        color: 'rgba(255,255,255,0.6)', 
+                                                        padding: '10px 12px', 
+                                                        fontSize: '0.75rem',
+                                                        fontFamily: 'monospace'
+                                                    }}
+                                                />
+                                            </div>
+                                        </div>
+                                    ));
+                                }
+
+                                // Normal key-value pair
+                                return (
+                                    <div key={key} style={{ background: 'rgba(0,0,0,0.2)', padding: '20px', borderRadius: '4px', border: '1px solid rgba(255,255,255,0.03)' }}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px' }}>
+                                            <label style={{ fontSize: '0.65rem', color: 'var(--gold)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700 }}>
+                                                {key.replace(/([A-Z])/g, ' $1')}
+                                            </label>
+                                            <button 
+                                                onClick={() => window.open(value, '_blank')}
+                                                style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.3)', cursor: 'pointer' }}
+                                            >
+                                                <LinkIcon size={14} />
+                                            </button>
+                                        </div>
+
+                                        <div style={{ width: '100%', height: '120px', borderRadius: '4px', overflow: 'hidden', marginBottom: '15px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                                            <img src={value} alt={key} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                        </div>
+
+                                        <div style={{ position: 'relative' }}>
+                                            <input 
+                                                type="text" 
+                                                value={value}
+                                                onChange={(e) => handleUpdate(section, key, e.target.value)}
+                                                style={{ 
+                                                    width: '100%', 
+                                                    background: '#000', 
+                                                    border: '1px solid rgba(255,255,255,0.1)', 
+                                                    color: 'rgba(255,255,255,0.6)', 
+                                                    padding: '10px 12px', 
+                                                    fontSize: '0.75rem',
+                                                    fontFamily: 'monospace'
+                                                }}
+                                            />
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
+                                );
+                            })}
                         </div>
                     )}
                 </div>

@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { visualsData } from '../../../data/visualsData';
+import React, { useEffect } from 'react';
 import { packagesData } from '../../../data/packagesData';
+import { visualsData } from '../../../data/visualsData';
 import '../../../styles/ultra-premium.css';
 
 const Rongai = () => {

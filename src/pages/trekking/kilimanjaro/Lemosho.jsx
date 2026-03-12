@@ -1,3 +1,5 @@
+import React, { useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { packagesData } from '../../../data/packagesData';
 import { visualsData } from '../../../data/visualsData';
 import '../../../styles/ultra-premium.css';
