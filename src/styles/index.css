@@ -166,7 +166,7 @@ body::before {
 }
 
 /* ─── NAVBAR (Three-column split layout for center logo) ─── */
-nav {
+#navbar {
   position: fixed;
   top: 36px;
   left: 0;
@@ -182,7 +182,7 @@ nav {
   transition: all 0.4s ease;
 }
 
-nav.scrolled {
+#navbar.scrolled {
   background: rgba(249, 247, 242, 0.98);
   padding: 22px 40px;
   backdrop-filter: blur(16px);
@@ -201,7 +201,7 @@ nav.scrolled .dropdown-toggle {
   flex-shrink: 0;
 }
 
-nav.scrolled .nav-logo-spacer {
+#navbar.scrolled .nav-logo-spacer {
   width: 90px;
 }
 
