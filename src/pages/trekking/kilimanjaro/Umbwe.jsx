@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { visualsData } from '../../../data/visualsData';
 import { packagesData } from '../../../data/packagesData';
 import '../../../styles/ultra-premium.css';
 
@@ -19,7 +19,7 @@ const Umbwe = () => {
             {/* ─── HERO ─── */}
             <section className="lux-hero">
                 <img
-                    src="https://images.unsplash.com/photo-1522163182402-834f871fd851?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+                    src={visualsData.trekking.routes.umbwe}
                     alt="Umbwe Route Ridge"
                 />
                 <div className="lux-hero-overlay"></div>
@@ -69,7 +69,7 @@ const Umbwe = () => {
                         className="lux-image-wrapper"
                     >
                         <img
-                            src="https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+                            src={visualsData.trekking.routes.umbweEditorial}
                             alt="Steep Ridge"
                         />
                         <div className="lux-image-caption">The steepest, most direct path to the roof of Africa.</div>
@@ -92,7 +92,7 @@ const Umbwe = () => {
             {/* ─── FULL BLEED PARALLAX ─── */}
             <section className="lux-full-bleed">
                 <img
-                    src="https://images.unsplash.com/photo-1542332213-9b5a5a3fad35?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+                    src={visualsData.trekking.routes.northernEditorial}
                     alt="Looking down from ridge"
                 />
             </section>

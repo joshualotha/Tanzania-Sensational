@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { visualsData } from '../../data/visualsData';
 
 export const Extensions = () => {
   const sectionRef = useRef(null);
@@ -31,7 +31,7 @@ export const Extensions = () => {
 
       <div className="extensions-grid">
         <div className="extension-card reveal">
-          <div className="extension-img" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1200&q=80&auto=format&fit=crop')" }}></div>
+          <div className="extension-img" style={{ backgroundImage: `url('${visualsData.home.extensionSerengeti}')` }}></div>
           <div className="extension-overlay"></div>
           <div className="extension-content">
             <h3 className="extension-name">Wilderness Safaris</h3>
@@ -41,7 +41,7 @@ export const Extensions = () => {
         </div>
 
         <div className="extension-card reveal reveal-delay-2">
-          <div className="extension-img" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?w=1200&q=80&auto=format&fit=crop')" }}></div>
+          <div className="extension-img" style={{ backgroundImage: `url('${visualsData.home.extensionZanzibar}')` }}></div>
           <div className="extension-overlay"></div>
           <div className="extension-content">
             <h3 className="extension-name">Zanzibar Escapes</h3>

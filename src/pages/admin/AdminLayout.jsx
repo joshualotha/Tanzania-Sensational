@@ -10,7 +10,8 @@ import {
     MessageSquare,
     LogOut, 
     Bell, 
-    Search 
+    Search,
+    Image as ImageIcon
 } from 'lucide-react';
 import '../../styles/admin-premium.css';
 
@@ -25,6 +26,7 @@ export const AdminLayout = () => {
         { path: '/admin/blog', label: 'Blog Articles', icon: FileText },
         { path: '/admin/departures', label: 'Group Departures', icon: Calendar },
         { path: '/admin/inquiries', label: 'Inquiries', icon: MessageSquare },
+        { path: '/admin/visuals', label: 'Visual Assets', icon: ImageIcon },
     ];
 
     return (
@@ -39,7 +41,21 @@ export const AdminLayout = () => {
                 <nav className="admin-nav">
                     <div className="admin-nav-group">
                         <div className="admin-nav-head">Main Operations</div>
-                        {navItems.map((item) => (
+                        {navItems.slice(0, 6).map((item) => (
+                            <Link 
+                                key={item.path} 
+                                to={item.path} 
+                                className={`admin-nav-item ${location.pathname === item.path ? 'active' : ''}`}
+                            >
+                                <item.icon size={18} />
+                                <span>{item.label}</span>
+                            </Link>
+                        ))}
+                    </div>
+
+                    <div className="admin-nav-group" style={{ marginTop: '20px' }}>
+                        <div className="admin-nav-head">Site Intelligence</div>
+                        {navItems.slice(6).map((item) => (
                             <Link 
                                 key={item.path} 
                                 to={item.path} 

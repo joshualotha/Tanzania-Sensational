@@ -1,3 +1,5 @@
+import { visualsData } from './visualsData';
+
 export const safarisData = [
     {
         id: "great-migration-edition",
@@ -7,7 +9,7 @@ export const safarisData = [
         price: "$8,400",
         badge: "SIGNATURE",
         paceLevel: "Signature Heritage",
-        heroImg: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=2000&q=85&auto=format&fit=crop",
+        heroImg: visualsData.safaris.pkgMigration,
         overview: "A definitive 10-day expedition tracking the Great Wildebeest Migration across the Serengeti plains. This signature safari offers front-row seats to nature's most dramatic spectacle, complemented by luxury tented camps and exclusive wilderness access.",
         inclusions: [
             "Private Custom 4x4 Safari Cruiser with pop-up roof",
@@ -114,7 +116,7 @@ export const safarisData = [
         price: "$5,200",
         badge: "CLASSIC",
         paceLevel: "Classic Expedition",
-        heroImg: "https://images.unsplash.com/photo-1523805081730-6144a778afd0?w=2000&q=85&auto=format&fit=crop",
+        heroImg: visualsData.safaris.pkgPioneer,
         overview: "A profound 7-day immersion into the lesser-traveled paths of the Northern Circuit. Focused on massive elephant herds, ancient baobabs, and the geological wonder of the Rift Valley.",
         inclusions: [
             "Private Custom 4x4 Safari Cruiser",
@@ -197,7 +199,7 @@ export const safarisData = [
         price: "$14,500",
         badge: "EXCLUSIVE",
         paceLevel: "Grand Exclusive",
-        heroImg: "https://images.unsplash.com/photo-1493020256266-db09d97bd02d?w=2000&q=85&auto=format&fit=crop",
+        heroImg: visualsData.safaris.pkgCanvas,
         overview: "The ultimate bush-to-beach odyssey. Two weeks combining the raw, visceral thrill of the deep Serengeti with the languid, spice-scented luxury of a secluded Zanzibar retreat.",
         inclusions: [
             "Internal Bush Flights (Serengeti, Zanzibar, Arusha)",

@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { Activity, Clock, HeartPulse, ShieldAlert } from 'lucide-react';
+import { visualsData } from '../../../data/visualsData';
 import '../../../styles/trek-health-premium.css';
 
 const AltitudeSickness = () => {
@@ -18,7 +16,7 @@ const AltitudeSickness = () => {
             <section className="trek-health-hero">
                 <div className="trek-health-hero-bg">
                     <img
-                        src="https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+                        src={visualsData.trekking.health.altitudeSickness}
                         alt="Kilimanjaro Trail"
                     />
                     <div className="trek-health-overlay"></div>
@@ -40,7 +38,7 @@ const AltitudeSickness = () => {
                 >
                     <div className="trek-health-image">
                         <img
-                            src="https://images.unsplash.com/photo-1579471923053-ec4f6762edbc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                            src={visualsData.trekking.health.altitudeEditorial}
                             alt="Mountaineer at high altitude"
                         />
                     </div>

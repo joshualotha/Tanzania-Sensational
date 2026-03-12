@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { packagesData } from '../../../data/packagesData';
+import { visualsData } from '../../../data/visualsData';
 import '../../../styles/ultra-premium.css';
 
 const Machame = () => {
@@ -19,7 +17,7 @@ const Machame = () => {
             {/* ─── HERO ─── */}
             <section className="lux-hero">
                 <img
-                    src="https://images.unsplash.com/photo-1522163182402-834f871fd851?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+                    src={visualsData.trekking.routes.machame}
                     alt="Machame Route Landscape"
                 />
                 <div className="lux-hero-overlay"></div>
@@ -69,7 +67,7 @@ const Machame = () => {
                         className="lux-image-wrapper"
                     >
                         <img
-                            src="https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+                            src={visualsData.trekking.prep.bestRoutesEditorial}
                             alt="Machame Trail"
                         />
                         <div className="lux-image-caption">The challenging ascent through the montane zones.</div>
@@ -92,7 +90,7 @@ const Machame = () => {
             {/* ─── FULL BLEED PARALLAX ─── */}
             <section className="lux-full-bleed">
                 <img
-                    src="https://images.unsplash.com/photo-1522814300958-f584e27fdf00?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+                    src={visualsData.trekking.routes.lemosho}
                     alt="Kilimanjaro Summit"
                 />
             </section>

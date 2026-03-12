@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { Sun, CloudRain, Snowflake, ThermometerSun } from 'lucide-react';
+import { visualsData } from '../../../data/visualsData';
 import '../../../styles/trekking-prep.css';
 
 const BestTime = () => {
@@ -18,7 +16,7 @@ const BestTime = () => {
             <section className="prep-hero">
                 <div className="prep-hero-bg">
                     <img
-                        src="https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+                        src={visualsData.trekking.prep.bestTime}
                         alt="Sun hitting the peak"
                     />
                     <div className="prep-hero-overlay"></div>
@@ -50,7 +48,7 @@ const BestTime = () => {
                         transition={{ duration: 1 }}
                     >
                         <img
-                            src="https://images.unsplash.com/photo-1621414050946-1b936a78490b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+                            src={visualsData.trekking.prep.bestTimeEditorial}
                             className="prep-editorial-img"
                             alt="The Summit Dawn"
                         />

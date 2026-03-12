@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { visualsData } from '../../data/visualsData';
 import '../../styles/utility-pages-premium.css';
 
 export const TrainingGuide = () => {
@@ -16,7 +18,7 @@ export const TrainingGuide = () => {
         <div className="utility-root">
             <section className="utility-hero">
                 <div className="utility-hero-bg">
-                    <img src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" alt="Training" />
+                    <img src={visualsData.planning.trainingHero} alt="Training" />
                 </div>
                 <div className="utility-hero-overlay"></div>
                 <motion.div className="utility-hero-content" initial="hidden" animate="visible" variants={fadeInUp}>

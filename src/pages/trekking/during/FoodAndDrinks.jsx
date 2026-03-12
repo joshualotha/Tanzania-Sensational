@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { visualsData } from '../../../data/visualsData';
 import '../../../styles/safaridraft-trek.css';
 
 // Heroicons (Outline)
@@ -30,7 +30,7 @@ const FoodAndDrinks = () => {
             <section className="sd-hero">
                 <div className="sd-hero-bg">
                     <img
-                        src="https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+                        src={visualsData.trekking.during.food}
                         alt="Cooking at altitude"
                     />
                     <div className="sd-hero-overlay"></div>
@@ -48,7 +48,7 @@ const FoodAndDrinks = () => {
                 <div className="sd-grid-editorial">
                     <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1 }}>
                         <img
-                            src="https://images.unsplash.com/photo-1541830109-173620392948?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+                            src={visualsData.trekking.during.foodEditorial}
                             alt="Dining Tent"
                             style={{ width: '100%', borderRadius: '12px', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}
                         />
@@ -121,7 +121,7 @@ const FoodAndDrinks = () => {
             {/* ─── FULL BLEED BREAK ─── */}
             <section className="sd-full-bleed">
                 <img
-                    src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+                    src={visualsData.trekking.routes.marangu}
                     alt="Fresh vegetables in mountain camp"
                 />
             </section>

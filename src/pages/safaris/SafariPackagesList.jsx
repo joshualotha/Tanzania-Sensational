@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ChevronRight, Diamond, Search, X } from 'lucide-react';
 import { safarisData } from '../../data/safarisData';
+import { visualsData } from '../../data/visualsData';
 import '../../styles/safari-packages.css';
 
 export const SafariPackagesList = () => {
@@ -44,7 +45,7 @@ export const SafariPackagesList = () => {
             {/* HERITAGE COLLECTION HERO */}
             <section className="safari-pkgs-hero">
                 <div className="safari-pkgs-bg">
-                    <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=2000&q=85&auto=format&fit=crop" alt="Safari Heritage Hero" />
+                    <img src={visualsData.safaris.listHero} alt="Safari Heritage Hero" />
                 </div>
                 <div className="safari-pkgs-overlay"></div>
                 

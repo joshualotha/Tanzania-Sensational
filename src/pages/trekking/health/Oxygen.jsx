@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { Wind, ShieldCheck, Heart, AlertCircle } from 'lucide-react';
+import { visualsData } from '../../../data/visualsData';
 import '../../../styles/trek-health-premium.css';
 
 const Oxygen = () => {
@@ -18,7 +16,7 @@ const Oxygen = () => {
             <section className="trek-health-hero">
                 <div className="trek-health-hero-bg">
                     <img
-                        src="https://images.unsplash.com/photo-1580979878201-1e9d1a3eb64f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+                        src={visualsData.trekking.health.oxygen}
                         alt="Mist rolling over high peaks"
                     />
                     <div className="trek-health-overlay"></div>
@@ -40,7 +38,7 @@ const Oxygen = () => {
                 >
                     <div className="trek-health-image">
                         <img
-                            src="https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                            src={visualsData.trekking.health.oxygenEditorial}
                             alt="Expedition base camp"
                         />
                     </div>

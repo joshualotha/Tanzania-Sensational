@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { visualsData } from '../../../data/visualsData';
 import { packagesData } from '../../../data/packagesData';
 import '../../../styles/ultra-premium.css';
 
@@ -19,7 +19,7 @@ const Rongai = () => {
             {/* ─── HERO ─── */}
             <section className="lux-hero">
                 <img
-                    src="https://images.unsplash.com/photo-1621414050946-1b936a78490b?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+                    src={visualsData.trekking.routes.rongai}
                     alt="Rongai Route Landscape"
                 />
                 <div className="lux-hero-overlay"></div>
@@ -81,7 +81,7 @@ const Rongai = () => {
                         className="lux-image-wrapper"
                     >
                         <img
-                            src="https://images.unsplash.com/photo-1542332213-9b5a5a3fad35?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+                            src={visualsData.trekking.routes.rongaiEditorial}
                             alt="Northern Side View"
                         />
                         <div className="lux-image-caption">The quiet, sweeping views of the northern approach.</div>
@@ -92,7 +92,7 @@ const Rongai = () => {
             {/* ─── FULL BLEED PARALLAX ─── */}
             <section className="lux-full-bleed">
                 <img
-                    src="https://images.unsplash.com/photo-1589412225893-ec8c7df768f0?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+                    src={visualsData.trekking.routes.lemosho}
                     alt="Mawenzi Tarn"
                 />
             </section>

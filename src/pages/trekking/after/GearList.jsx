@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { Backpack, ThermometerSnowflake, Ruler, Shirt, Check, Download, PackageOpen, ClipboardList } from 'lucide-react';
 import { jsPDF } from 'jspdf';
+import { visualsData } from '../../../data/visualsData';
 import '../../../styles/trekking-prep.css';
 
 const GEAR_DATA = [
@@ -156,7 +154,7 @@ const GearList = () => {
             <section className="prep-hero">
                 <div className="prep-hero-bg">
                     <img
-                        src="https://images.unsplash.com/photo-1542282088-fe8426682b8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+                        src={visualsData.trekking.after.gearList}
                         alt="Expedition Inventory"
                     />
                     <div className="prep-hero-overlay"></div>
@@ -177,7 +175,7 @@ const GearList = () => {
                         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                     >
                         <img
-                            src="https://images.unsplash.com/photo-1536882240095-0379873feb4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+                            src={visualsData.trekking.after.gearListEditorial}
                             className="prep-editorial-img"
                             alt="Precision Preparation"
                         />

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { visualsData } from '../../data/visualsData';
 import '../../styles/utility-pages-premium.css';
 
 export const SafariAddons = () => {
@@ -22,7 +23,7 @@ export const SafariAddons = () => {
         <div className="utility-root">
             <section className="utility-hero">
                 <div className="utility-hero-bg">
-                    <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" alt="Safari" />
+                    <img src={visualsData.planning.addonsHero} alt="Safari" />
                 </div>
                 <div className="utility-hero-overlay"></div>
                 <motion.div className="utility-hero-content" initial="hidden" animate="visible" variants={staggerContainer}>
@@ -38,7 +39,7 @@ export const SafariAddons = () => {
                 <motion.div className="utility-grid" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={staggerContainer} style={{ gridTemplateColumns: '1fr 1fr' }}>
 
                     <motion.div className="util-card" variants={fadeInUp} style={{ padding: 0, overflow: 'hidden' }}>
-                        <img src="https://images.unsplash.com/photo-1534177616072-ef7dc120449d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Ngorongoro Crater" style={{ width: '100%', height: '300px', objectFit: 'cover' }} />
+                        <img src={visualsData.planning.addonsCrater} alt="Ngorongoro Crater" style={{ width: '100%', height: '300px', objectFit: 'cover' }} />
                         <div style={{ padding: '40px' }}>
                             <h3 className="util-card-title">2-Day Tarangire & Ngorongoro</h3>
                             <p className="util-card-p" style={{ marginBottom: '20px' }}>
@@ -49,7 +50,7 @@ export const SafariAddons = () => {
                     </motion.div>
 
                     <motion.div className="util-card" variants={fadeInUp} style={{ padding: 0, overflow: 'hidden' }}>
-                        <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Zanzibar Beaches" style={{ width: '100%', height: '300px', objectFit: 'cover' }} />
+                        <img src={visualsData.planning.addonsZanzibar} alt="Zanzibar Beaches" style={{ width: '100%', height: '300px', objectFit: 'cover' }} />
                         <div style={{ padding: '40px' }}>
                             <h3 className="util-card-title">Zanzibar Beach Recovery</h3>
                             <p className="util-card-p" style={{ marginBottom: '20px' }}>

@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { visualsData } from '../../../data/visualsData';
 import '../../../styles/safaridraft-trek.css';
 
 // Heroicons (Outline)
@@ -45,7 +45,7 @@ const DailyRoutine = () => {
             <section className="sd-hero">
                 <div className="sd-hero-bg">
                     <img
-                        src="https://images.unsplash.com/photo-1522814300958-f584e27fdf00?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+                        src={visualsData.trekking.during.routine}
                         alt="Kilimanjaro Trail"
                     />
                     <div className="sd-hero-overlay"></div>
@@ -77,7 +77,7 @@ const DailyRoutine = () => {
                         transition={{ duration: 1 }}
                     >
                         <img
-                            src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+                            src={visualsData.trekking.during.routineEditorial}
                             alt="Mawenzi Peak"
                             style={{ width: '100%', borderRadius: '12px', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}
                         />
@@ -119,7 +119,7 @@ const DailyRoutine = () => {
             {/* ─── FULL BLEED BREAK ─── */}
             <section className="sd-full-bleed">
                 <img
-                    src="https://images.unsplash.com/photo-1541830109-173620392948?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+                    src={visualsData.trekking.during.foodEditorial}
                     alt="Camp at Night"
                 />
             </section>

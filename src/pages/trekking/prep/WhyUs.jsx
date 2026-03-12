@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { ShieldCheck, Compass, Users, Star, Award, HeartHandshake } from 'lucide-react';
+import { visualsData } from '../../../data/visualsData';
 import '../../../styles/trekking-prep.css';
 
 const WhyUs = () => {
@@ -18,7 +16,7 @@ const WhyUs = () => {
             <section className="prep-hero">
                 <div className="prep-hero-bg">
                     <img
-                        src="https://images.unsplash.com/photo-1650668302197-7f556c34cb91?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+                        src={visualsData.trekking.prep.whyUs}
                         alt="Elite guides on the mountain"
                     />
                     <div className="prep-hero-overlay"></div>
@@ -39,7 +37,7 @@ const WhyUs = () => {
                         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                     >
                         <img
-                            src="https://images.unsplash.com/photo-1631646109206-4919df38eb68?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+                            src={visualsData.trekking.prep.whyUsEditorial}
                             className="prep-editorial-img"
                             alt="Expedition Team"
                         />

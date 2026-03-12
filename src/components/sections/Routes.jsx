@@ -1,8 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import route1 from '../../assets/route-1.jpg';
-import route2 from '../../assets/route-2.jpg';
-import route3 from '../../assets/route-3.jpg';
+import { visualsData } from '../../data/visualsData';
 
 export const Routes = () => {
   const sectionRef = useRef(null);
@@ -25,12 +23,12 @@ export const Routes = () => {
   }, []);
 
   const routeData = [
-    { name: "Lemosho", slug: "lemosho", badge: "Most Scenic", days: "8 Days", difficulty: "Advanced", price: "$2,200", img: route1 },
-    { name: "Machame", slug: "machame", badge: "Most Popular", days: "7 Days", difficulty: "Challenging", price: "$1,900", img: route2 },
-    { name: "Rongai", slug: "rongai", badge: "Quietest Trail", days: "7 Days", difficulty: "Moderate", price: "$1,850", img: route3 },
-    { name: "Marangu", slug: "marangu", badge: "Classic Route", days: "6 Days", difficulty: "Moderate", price: "$1,700", img: route1 },
-    { name: "Northern Circuit", slug: "northern-circuit", badge: "Maximum Success", days: "9 Days", difficulty: "Advanced", price: "$2,600", img: route2 },
-    { name: "Umbwe", slug: "umbwe", badge: "Technical Edge", days: "6 Days", difficulty: "Pro", price: "$1,850", img: route3 }
+    { name: "Lemosho", slug: "lemosho", badge: "Most Scenic", days: "8 Days", difficulty: "Advanced", price: "$2,200", img: visualsData.trekking.routes.lemosho },
+    { name: "Machame", slug: "machame", badge: "Most Popular", days: "7 Days", difficulty: "Challenging", price: "$1,900", img: visualsData.trekking.routes.machame },
+    { name: "Rongai", slug: "rongai", badge: "Quietest Trail", days: "7 Days", difficulty: "Moderate", price: "$1,850", img: visualsData.trekking.routes.rongai },
+    { name: "Marangu", slug: "marangu", badge: "Classic Route", days: "6 Days", difficulty: "Moderate", price: "$1,700", img: visualsData.trekking.routes.marangu },
+    { name: "Northern Circuit", slug: "northern-circuit", badge: "Maximum Success", days: "9 Days", difficulty: "Advanced", price: "$2,600", img: visualsData.trekking.routes.northern },
+    { name: "Umbwe", slug: "umbwe", badge: "Technical Edge", days: "6 Days", difficulty: "Pro", price: "$1,850", img: visualsData.trekking.routes.umbwe }
   ];
 
   return (

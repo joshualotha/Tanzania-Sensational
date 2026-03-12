@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { visualsData } from '../../../data/visualsData';
 import { packagesData } from '../../../data/packagesData';
 import '../../../styles/ultra-premium.css';
 
@@ -19,7 +19,7 @@ const Marangu = () => {
             {/* ─── HERO ─── */}
             <section className="lux-hero">
                 <img
-                    src="https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+                    src={visualsData.trekking.routes.marangu}
                     alt="Marangu Route Landscape"
                 />
                 <div className="lux-hero-overlay"></div>
@@ -69,7 +69,7 @@ const Marangu = () => {
                         className="lux-image-wrapper"
                     >
                         <img
-                            src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+                            src={visualsData.trekking.routes.maranguEditorial}
                             alt="Marangu Huts"
                         />
                         <div className="lux-image-caption">The iconic A-frame dormitories unique to the Marangu Route.</div>
@@ -92,7 +92,7 @@ const Marangu = () => {
             {/* ─── FULL BLEED PARALLAX ─── */}
             <section className="lux-full-bleed">
                 <img
-                    src="https://images.unsplash.com/photo-1522163182402-834f871fd851?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+                    src={visualsData.trekking.common.trailLandscape}
                     alt="Kilimanjaro Trail"
                 />
             </section>

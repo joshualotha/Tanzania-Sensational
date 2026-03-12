@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { visualsData } from '../../data/visualsData';
 import '../../styles/utility-pages-premium.css';
 
 const faqs = [
@@ -41,9 +42,9 @@ export const FAQ = () => {
 
     return (
         <div className="utility-root">
-            <section className="utility-hero" style={{ height: '50vh' }}>
+            <section className="utility-hero">
                 <div className="utility-hero-bg">
-                    <img src="https://images.unsplash.com/photo-1589308454676-e1af9491a670?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" alt="Questions" />
+                    <img src={visualsData.planning.faqHero} alt="Questions" />
                 </div>
                 <div className="utility-hero-overlay"></div>
                 <motion.div className="utility-hero-content" initial="hidden" animate="visible" variants={fadeInUp}>

@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { Shield, Syringe, ClipboardCheck, AlertCircle } from 'lucide-react';
+import { visualsData } from '../../../data/visualsData';
 import '../../../styles/trek-health-premium.css';
 
 const Vaccinations = () => {
@@ -18,7 +16,7 @@ const Vaccinations = () => {
             <section className="trek-health-hero">
                 <div className="trek-health-hero-bg">
                     <img
-                        src="https://images.unsplash.com/photo-1518173335487-347a0e39129d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+                        src={visualsData.trekking.health.vaccinations}
                         alt="Serengeti Dawn"
                     />
                     <div className="trek-health-overlay"></div>
@@ -40,7 +38,7 @@ const Vaccinations = () => {
                 >
                     <div className="trek-health-image">
                         <img
-                            src="https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                            src={visualsData.trekking.health.vaccinationsEditorial}
                             alt="Medical Consultation"
                         />
                     </div>

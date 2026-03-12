@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { Globe, FileBadge, ShieldAlert, BadgeCheck } from 'lucide-react';
+import { visualsData } from '../../../data/visualsData';
 import '../../../styles/trekking-prep.css';
 
 const Visa = () => {
@@ -18,7 +16,7 @@ const Visa = () => {
             <section className="prep-hero">
                 <div className="prep-hero-bg">
                     <img
-                        src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+                        src={visualsData.trekking.after.visa}
                         alt="Border Clearance"
                     />
                     <div className="prep-hero-overlay"></div>
@@ -40,7 +38,7 @@ const Visa = () => {
                         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                     >
                         <img
-                            src="https://images.unsplash.com/photo-1589330273594-4289218d80f8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+                            src={visualsData.trekking.after.visaEditorial}
                             className="prep-editorial-img"
                             alt="Passport"
                         />

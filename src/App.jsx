@@ -66,6 +66,7 @@ import { AdminTrekking } from './pages/admin/AdminTrekking';
 import { AdminBlog } from './pages/admin/AdminBlog';
 import { AdminDepartures } from './pages/admin/AdminDepartures';
 import { AdminInquiries } from './pages/admin/AdminInquiries';
+import { AdminVisuals } from './pages/admin/AdminVisuals';
 
 /* ─── PUBLIC LAYOUT WRAPPER ─── */
 const PublicLayout = ({ children }) => (
@@ -96,6 +97,7 @@ function App() {
                     <Route path="blog" element={<AdminBlog />} />
                     <Route path="departures" element={<AdminDepartures />} />
                     <Route path="inquiries" element={<AdminInquiries />} />
+                    <Route path="visuals" element={<AdminVisuals />} />
                 </Route>
 
                 {/* ─── PUBLIC ROUTES ─── */}

@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { Pill, Zap, AlertTriangle, FileText, Activity } from 'lucide-react';
+import { visualsData } from '../../../data/visualsData';
 import '../../../styles/trek-health-premium.css';
 
 const Diamox = () => {
@@ -18,7 +16,7 @@ const Diamox = () => {
             <section className="trek-health-hero">
                 <div className="trek-health-hero-bg">
                     <img
-                        src="https://images.unsplash.com/photo-1621414050946-1b936a78490b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+                        src={visualsData.trekking.health.diamox}
                         alt="Climbers silhouette"
                     />
                     <div className="trek-health-overlay"></div>
@@ -40,7 +38,7 @@ const Diamox = () => {
                 >
                     <div className="trek-health-image">
                         <img
-                            src="https://images.unsplash.com/photo-1606041008023-472dfb5e530f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                            src={visualsData.trekking.health.diamoxEditorial}
                             alt="Detailed planning"
                         />
                     </div>

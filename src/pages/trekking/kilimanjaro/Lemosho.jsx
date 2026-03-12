@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { packagesData } from '../../../data/packagesData';
+import { visualsData } from '../../../data/visualsData';
 import '../../../styles/ultra-premium.css';
 
 const Lemosho = () => {
@@ -19,7 +17,7 @@ const Lemosho = () => {
             {/* ─── HERO ─── */}
             <section className="lux-hero">
                 <img
-                    src="https://images.unsplash.com/photo-1522814300958-f584e27fdf00?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+                    src={visualsData.trekking.routes.lemosho}
                     alt="Lemosho Route Landscape"
                 />
                 <div className="lux-hero-overlay"></div>
@@ -81,7 +79,7 @@ const Lemosho = () => {
                         className="lux-image-wrapper"
                     >
                         <img
-                            src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+                            src={visualsData.trekking.during.routine}
                             alt="Shira Plateau"
                         />
                         <div className="lux-image-caption">Crossing the vast expanse of the Shira Plateau.</div>
@@ -92,7 +90,7 @@ const Lemosho = () => {
             {/* ─── FULL BLEED PARALLAX ─── */}
             <section className="lux-full-bleed">
                 <img
-                    src="https://images.unsplash.com/photo-1589412225893-ec8c7df768f0?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+                    src={visualsData.planning.meruHero}
                     alt="Kilimanjaro Summit"
                 />
             </section>

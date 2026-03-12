@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { visualsData } from '../../data/visualsData';
 import '../../styles/utility-pages-premium.css';
 
 export const GearChecklist = () => {
@@ -17,7 +16,7 @@ export const GearChecklist = () => {
         <div className="utility-root">
             <section className="utility-hero">
                 <div className="utility-hero-bg">
-                    <img src="https://images.unsplash.com/photo-1522814300958-f584e27fdf00?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" alt="Mountain Gear" />
+                    <img src={visualsData.planning.gearHero} alt="Mountain Gear" />
                 </div>
                 <div className="utility-hero-overlay"></div>
                 <motion.div className="utility-hero-content" initial="hidden" animate="visible" variants={fadeInUp}>

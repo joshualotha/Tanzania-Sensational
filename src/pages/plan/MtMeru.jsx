@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { visualsData } from '../../data/visualsData';
 import '../../styles/utility-pages-premium.css';
 
 export const MtMeru = () => {
@@ -22,7 +23,7 @@ export const MtMeru = () => {
         <div className="utility-root">
             <section className="utility-hero">
                 <div className="utility-hero-bg">
-                    <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" alt="Mount Meru Landscape" style={{ filter: 'brightness(0.5)' }} />
+                    <img src={visualsData.planning.meruHero} alt="Mount Meru Landscape" style={{ filter: 'brightness(0.5)' }} />
                 </div>
                 <div className="utility-hero-overlay"></div>
                 <motion.div className="utility-hero-content" initial="hidden" animate="visible" variants={staggerContainer}>

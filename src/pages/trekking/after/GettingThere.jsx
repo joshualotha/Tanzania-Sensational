@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { Plane, Bus, Compass, MapPin } from 'lucide-react';
+import { visualsData } from '../../../data/visualsData';
 import '../../../styles/getting-there-premium.css';
 
 const GettingThere = () => {
@@ -27,7 +25,7 @@ const GettingThere = () => {
             <section className="gt-hero">
                 <div className="gt-hero-bg">
                     <img
-                        src="https://images.unsplash.com/photo-1516496636080-14fb876e029d?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+                        src={visualsData.trekking.after.gettingThere}
                         alt="Logistics View"
                     />
                     <div className="gt-hero-overlay"></div>
@@ -63,7 +61,7 @@ const GettingThere = () => {
                         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                     >
                         <img
-                            src="https://images.unsplash.com/photo-1569154941061-e231b47cb8f0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+                            src={visualsData.trekking.after.gettingThereEditorial}
                             className="gt-editorial-img"
                             alt="JRO Airport"
                         />

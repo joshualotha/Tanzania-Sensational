@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import logo from '../../assets/logo.png';
+import { visualsData } from '../../data/visualsData';
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -52,7 +50,7 @@ export const Navbar = () => {
     <>
       {/* The Logo Crest — lives outside the nav, overlaps it */}
       <Link to="/" className={`logo-crest ${isScrolled ? 'logo-crest--compact' : ''}`}>
-        <img src={logo} alt="Tanzania Sensational" />
+        <img src={visualsData.branding.logo} alt="Tanzania Sensational" />
       </Link>
 
       {/* Hamburger Toggle — mobile only */}

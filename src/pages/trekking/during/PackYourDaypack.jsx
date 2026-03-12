@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { visualsData } from '../../../data/visualsData';
 import '../../../styles/safaridraft-trek.css';
 
 // Heroicons (Outline)
@@ -30,7 +30,7 @@ const PackYourDaypack = () => {
             <section className="sd-hero">
                 <div className="sd-hero-bg">
                     <img
-                        src="https://images.unsplash.com/photo-1542224566-6e85f2e6772f?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+                        src={visualsData.trekking.during.packDaypack}
                         alt="Trekking pack"
                     />
                     <div className="sd-hero-overlay"></div>
@@ -57,7 +57,7 @@ const PackYourDaypack = () => {
                     </motion.div>
                     <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1 }}>
                         <img
-                            src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+                            src={visualsData.trekking.during.packDaypackEditorial}
                             alt="Gear layout"
                             style={{ width: '100%', borderRadius: '12px', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}
                         />
@@ -121,7 +121,7 @@ const PackYourDaypack = () => {
             {/* ─── FULL BLEED BREAK ─── */}
             <section className="sd-full-bleed">
                 <img
-                    src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+                    src={visualsData.trekking.during.routineEditorial}
                     alt="High mountain peak"
                 />
             </section>

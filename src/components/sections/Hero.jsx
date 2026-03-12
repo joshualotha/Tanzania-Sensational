@@ -1,12 +1,11 @@
-import React from 'react';
-import heroBg from '../../assets/hero.jpg';
+import { visualsData } from '../../data/visualsData';
 
 export const Hero = () => {
   return (
     <section className="hero">
       <div className="hero-bg">
         <img
-          src={heroBg}
+          src={visualsData.home.hero}
           alt="Kilimanjaro at Sunrise"
           className="hero-bg-img"
         />

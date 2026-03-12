@@ -1,7 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform, useInView } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { Mountain, Compass, Star, Shield, Heart, Globe, TreePine, ArrowRight } from 'lucide-react';
+import { visualsData } from '../data/visualsData';
 import '../styles/about-premium.css';
 
 const PremiumCountUp = ({ to, prefix = "", suffix = "", duration = 2 }) => {
@@ -74,7 +72,7 @@ export const AboutPage = () => {
             <section className="premium-about-hero">
                 <motion.div className="premium-about-bg" style={{ y: heroY }}>
                     <img
-                        src="https://images.unsplash.com/photo-1621414050946-1b936a78490b?q=80&w=2000&auto=format&fit=crop"
+                        src={visualsData.about.hero}
                         alt="Kilimanjaro Summit at Dawn"
                     />
                     <div className="premium-about-overlay"></div>
@@ -134,7 +132,7 @@ export const AboutPage = () => {
                 >
                     <div className="premium-story-image">
                         <img
-                            src="https://images.unsplash.com/photo-1631646109206-4919df38eb68?q=80&w=800&auto=format&fit=crop"
+                            src={visualsData.about.legacy}
                             alt="Kilimanjaro Trail"
                         />
                         <div className="premium-story-badge">
@@ -240,7 +238,7 @@ export const AboutPage = () => {
             <section className="premium-exp-section">
                 <div className="premium-exp-bg">
                     <img
-                        src="https://images.unsplash.com/photo-1650668302197-7f556c34cb91?q=80&w=2000&auto=format&fit=crop"
+                        src={visualsData.about.experienceBand}
                         alt="Kilimanjaro Trekking Group"
                     />
                     <div className="premium-exp-overlay"></div>

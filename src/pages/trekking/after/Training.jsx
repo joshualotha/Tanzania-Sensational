@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { Mountain, Activity, Target, Zap } from 'lucide-react';
+import { visualsData } from '../../../data/visualsData';
 import '../../../styles/trekking-prep.css';
 
 const Training = () => {
@@ -18,7 +16,7 @@ const Training = () => {
             <section className="prep-hero">
                 <div className="prep-hero-bg">
                     <img
-                        src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+                        src={visualsData.trekking.after.training}
                         alt="Peak Training"
                     />
                     <div className="prep-hero-overlay"></div>
@@ -49,7 +47,7 @@ const Training = () => {
                         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                     >
                         <img
-                            src="https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+                            src={visualsData.trekking.after.trainingEditorial}
                             className="prep-editorial-img"
                             alt="Mountain Trek"
                         />

@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { visualsData } from '../../../data/visualsData';
 import '../../../styles/safaridraft-trek.css';
 
 // Heroicons (Outline)
@@ -30,7 +30,7 @@ const Connectivity = () => {
             <section className="sd-hero">
                 <div className="sd-hero-bg">
                     <img
-                        src="https://images.unsplash.com/photo-1542332213-9b5a5a3fad35?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+                        src={visualsData.trekking.during.connectivity}
                         alt="High altitude ridge"
                     />
                     <div className="sd-hero-overlay"></div>
@@ -48,7 +48,7 @@ const Connectivity = () => {
                 <div className="sd-grid-editorial">
                     <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1 }}>
                         <img
-                            src="https://images.unsplash.com/photo-1510100768407-3ce94de8d5c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+                            src={visualsData.trekking.during.connectivityEditorial}
                             alt="Starry sky"
                             style={{ width: '100%', borderRadius: '12px', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}
                         />
@@ -121,7 +121,7 @@ const Connectivity = () => {
             {/* ─── FULL BLEED BREAK ─── */}
             <section className="sd-full-bleed">
                 <img
-                    src="https://images.unsplash.com/photo-1454496522488-7a8e488e8606?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+                    src={visualsData.trekking.after.training}
                     alt="High mountain peak"
                 />
             </section>
