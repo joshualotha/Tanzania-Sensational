@@ -5,7 +5,7 @@
  */
 export const visualsData = {
     branding: {
-        logo: "https://tanzaniasensational.com/assets/logo.png", // Pointing to a hypothetical permanent URL or local path that admin can swap
+        logo: "/logo.png",
         favicon: "/favicon.ico"
     },
     common: {

@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { Clock, Activity, Camera, TrendingUp } from 'lucide-react';
 import { packagesData } from '../../../data/packagesData';
 import { visualsData } from '../../../data/visualsData';
 import '../../../styles/ultra-premium.css';
@@ -40,18 +42,22 @@ const NorthernCircuit = () => {
                     transition={{ delay: 0.4, duration: 1 }}
                 >
                     <div className="lux-stat-item">
+                        <Clock size={16} className="lux-stat-icon" />
                         <span className="lux-stat-label">Duration</span>
                         <div className="lux-stat-value">8-9 Days</div>
                     </div>
                     <div className="lux-stat-item">
+                        <Activity size={16} className="lux-stat-icon" />
                         <span className="lux-stat-label">Difficulty</span>
                         <div className="lux-stat-value">High</div>
                     </div>
                     <div className="lux-stat-item">
+                        <Camera size={16} className="lux-stat-icon" />
                         <span className="lux-stat-label">Scenery</span>
                         <div className="lux-stat-value">Spectacular</div>
                     </div>
                     <div className="lux-stat-item">
+                        <TrendingUp size={16} className="lux-stat-icon" />
                         <span className="lux-stat-label">Success Rate</span>
                         <div className="lux-stat-value">95%+</div>
                     </div>
