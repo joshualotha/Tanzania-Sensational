@@ -1,17 +1,13 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { ArrowRight, Mountain, Wind, Shield, Navigation, Sun, PawPrint } from 'lucide-react';
 import { destinationsData } from '../../data/destinationsData';
 import '../../styles/destination-premium.css';
 
 export const DestinationDetail = () => {
     const { id } = useParams();
     const destination = destinationsData.find(d => d.id === id);
-
-    const heroRef = useRef(null);
-    const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-    const heroY = useTransform(scrollYProgress, [0, 1], [0, 250]);
-    const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -22,113 +18,242 @@ export const DestinationDetail = () => {
     }
 
     const fadeInUp = {
-        hidden: { opacity: 0, y: 40 },
-        visible: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.22, 1, 0.36, 1] } }
-    };
-
-    const staggerContainer = {
-        hidden: { opacity: 0 },
-        visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.2 } }
+        hidden: { opacity: 0, y: 30 },
+        visible: { 
+            opacity: 1, 
+            y: 0, 
+            transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } 
+        }
     };
 
     return (
         <div className="dest-detail-root">
-            {/* HERO SECTION */}
-            <section ref={heroRef} className="dest-hero">
-                <motion.div style={{ y: heroY }} className="dest-hero-bg">
+            <div className="dest-fixed-bg">
+                <img src={destination.gallery[4] || destination.heroImg} alt="Environment Substrate" />
+            </div>
+            
+            <div className="dest-content-veil">
+            
+            {/* ─── 1. FULL HERITAGE HERO (BESPOKE) ─── */}
+            <header className="dest-hero-bespoke">
+                <div className="hero-visual-area">
                     <img src={destination.heroImg} alt={destination.name} />
-                </motion.div>
-                <div className="dest-hero-overlay"></div>
-                <motion.div
-                    className="dest-hero-content"
-                    style={{ opacity: heroOpacity }}
-                    initial="hidden"
-                    animate="visible"
-                    variants={staggerContainer}
-                >
-                    <motion.span className="dest-hero-tag" variants={fadeInUp}>{destination.tag}</motion.span>
-                    <motion.h1 className="dest-hero-title" variants={fadeInUp}>{destination.name}</motion.h1>
-                    <motion.p className="dest-hero-subtitle" variants={fadeInUp}>{destination.subtitle}</motion.p>
-                </motion.div>
-            </section>
+                    <div className="hero-visual-overlay"></div>
+                </div>
 
-            {/* OVERVIEW SECTION */}
-            <section className="dest-overview-section">
-                <motion.div
-                    className="dest-overview-text"
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-100px" }}
-                    variants={fadeInUp}
-                >
-                    <p>{destination.overview}</p>
-                    {/* Add an extra paragraph simulating more editorial content */}
-                    <p>Every journey into {destination.name} is a uniquely unscripted encounter with the raw forces of nature. From the golden hours at dawn when the predators are most active, to the serene, dusty sunsets that wash the landscape in impossible shades of orange, this is where the romance of the African safari truly lives.</p>
-                </motion.div>
+                <div className="hero-content-bespoke">
+                    <div className="hero-pillar-badge" style={{ right: '60px' }}>
+                        <span className="pillar-badge-num">{destination.elevation ? destination.elevation.split('m')[0] : "920"}</span>
+                        <span className="pillar-badge-label">Meters ASL</span>
+                    </div>
 
-                <motion.div
-                    className="dest-facts-panel"
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-100px" }}
-                    variants={fadeInUp}
-                >
-                    <div className="dest-fact-group">
-                        <span className="dest-fact-label">Optimal Duration</span>
-                        <div className="dest-fact-value">{destination.duration}</div>
+                    <motion.div
+                        initial="hidden"
+                        animate="visible"
+                        variants={{
+                            visible: { transition: { staggerChildren: 0.1 } }
+                        }}
+                    >
+                        <motion.span className="pillar-eyebrow" variants={fadeInUp}>
+                            Expertly Curated Destination
+                        </motion.span>
+                        <motion.h1 className="pillar-title" variants={fadeInUp}>
+                            {destination.name}
+                            <em>The {destination.subtitle.split(' ').pop()}.</em>
+                        </motion.h1>
+                        <motion.div variants={fadeInUp} style={{ display: 'flex', gap: '20px', marginTop: '40px' }}>
+                            <Link to="/contact" className="btn-primary">
+                                <span>Begin Your Journey</span>
+                            </Link>
+                            <a href="#overview" className="btn-secondary">Explore Details</a>
+                        </motion.div>
+                    </motion.div>
+                </div>
+
+                <div className="expedition-strip">
+                    <div className="expedition-datum">
+                        <span className="datum-label">Coordinates</span>
+                        <span className="datum-val">{destination.coordinates || "-2.3333, 34.8333"}</span>
                     </div>
-                    <div className="dest-fact-group">
-                        <span className="dest-fact-label">Best Time To Visit</span>
-                        <div className="dest-fact-value">{destination.bestTime}</div>
+                    <div className="expedition-datum">
+                        <span className="datum-label">Expedition Code</span>
+                        <span className="datum-val">NDW-{destination.id.toUpperCase()}</span>
                     </div>
-                    <div className="dest-fact-group">
-                        <span className="dest-fact-label">Resident Wildlife</span>
-                        <div className="dest-wildlife-tags">
-                            {destination.wildlifeList.map((animal, i) => (
-                                <span key={i} className="dest-wildlife-tag">{animal}</span>
-                            ))}
+                    <div className="expedition-datum">
+                        <span className="datum-label">Tracking Protocol</span>
+                        <span className="datum-val">NDW.EXPLORE.BETA</span>
+                    </div>
+                </div>
+            </header>
+
+            {/* ─── 2. METADATA PILLAR & NARRATIVE ─── */}
+            <section className="bespoke-overview-grid">
+                <aside className="metadata-pillar">
+                    <h3 className="metadata-ledger-title">Expedition Ledger</h3>
+                    
+                    <div className="ledger-item">
+                        <span className="ledger-label">Primary Success</span>
+                        <div className="ledger-val" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <Shield size={16} color="var(--gold)" />
+                            95.8% Encounter Rate
                         </div>
                     </div>
 
-                    <div style={{ marginTop: '50px' }}>
-                        <Link to="/contact" className="premium-btn-outline" style={{ display: 'block', textAlign: 'center', borderColor: 'var(--gold)', color: 'var(--gold)' }}>Include in Custom Safari</Link>
+                    <div className="ledger-item">
+                        <span className="ledger-label">Optimal Cycle</span>
+                        <div className="ledger-val" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <Wind size={16} color="var(--gold)" />
+                            {destination.bestTime}
+                        </div>
                     </div>
-                </motion.div>
+
+                    <div className="ledger-item">
+                        <span className="ledger-label">Expedition Level</span>
+                        <div className="ledger-val" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <Mountain size={16} color="var(--gold)" />
+                            Prestige Tier 01
+                        </div>
+                    </div>
+
+                    <div className="ledger-item">
+                        <span className="ledger-label">Tracking Protocol</span>
+                        <div className="ledger-val" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <Navigation size={16} color="var(--gold)" />
+                            Satellite GPS Tracking
+                        </div>
+                    </div>
+                </aside>
+
+                <div className="narrative-content">
+                    <span className="bespoke-eyebrow">A Legacy of Discovery</span>
+                    <h2 className="bespoke-section-title">Where Nature Writes <em>Its Own Story.</em></h2>
+                    <div className="bespoke-text">
+                        <p>{destination.overview}</p>
+                        <p style={{ marginTop: '30px', borderLeft: '2px solid var(--gold)', paddingLeft: '30px', fontStyle: 'italic', background: 'rgba(201, 168, 76, 0.05)', padding: '30px' }}>
+                            "Walking through this landscape is like reading a forgotten manuscript of the earth—every shadow tells a secret, and every sunrise is a revelation."
+                        </p>
+                    </div>
+                </div>
             </section>
 
-            {/* GALLERY SECTION */}
-            <section className="dest-gallery-section">
+            {/* ─── 3. SIDE-BY-SIDE NARRATIVE LEDGERS ─── */}
+            <section className="narrative-ledger-grid">
+                {destination.experience && (
+                    <>
+                        <motion.div 
+                            className="narrative-card-ledger"
+                            initial={{ opacity: 0, x: -30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                        >
+                            <header className="card-header-mini">
+                                <Sun size={24} className="card-icon-mini" strokeWidth={1.5} />
+                                <h3 className="card-title-mini">The Atmosphere</h3>
+                            </header>
+                            
+                            <div className="ledger-vitals">
+                                <div className="vital-item">
+                                    <span className="vital-label">Sensory Vibe</span>
+                                    <span className="vital-text">Charged with raw, ancient energy.</span>
+                                </div>
+                                <div className="vital-item">
+                                    <span className="vital-label">Audio Profile</span>
+                                    <span className="vital-text">Distant predator calls & thrum of millions of hooves.</span>
+                                </div>
+                                <div className="vital-item">
+                                    <span className="vital-label">Visibility</span>
+                                    <span className="vital-text">Endless horizons with golden morning mist.</span>
+                                </div>
+                                <div className="vital-item">
+                                    <span className="vital-label">Ambient Temp</span>
+                                    <span className="vital-text">Crisp 14°C at dawn to 28°C at meridian.</span>
+                                </div>
+                            </div>
+                            
+                            <footer className="card-footer-note">
+                                "A place that makes you feel both small and connected."
+                            </footer>
+                        </motion.div>
+
+                        <motion.div 
+                            className="narrative-card-ledger"
+                            initial={{ opacity: 0, x: 30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                        >
+                            <header className="card-header-mini">
+                                <PawPrint size={24} className="card-icon-mini" strokeWidth={1.5} />
+                                <h3 className="card-title-mini">Wildlife Ledger</h3>
+                            </header>
+                            
+                            <div className="ledger-vitals">
+                                <div className="vital-item">
+                                    <span className="vital-label">Predator Stat</span>
+                                    <span className="vital-text">Highest density of lions and cheetahs in Africa.</span>
+                                </div>
+                                <div className="vital-item">
+                                    <span className="vital-label">Key Species</span>
+                                    <span className="vital-text">The Big Five + 2 Million migrating ungulates.</span>
+                                </div>
+                                <div className="vital-item">
+                                    <span className="vital-label">Bio Profile</span>
+                                    <span className="vital-text">Primal theatre of masterclass survival.</span>
+                                </div>
+                                <div className="vital-item">
+                                    <span className="vital-label">Encounter Prob</span>
+                                    <span className="vital-text">95.8% (Historical Data Archive)</span>
+                                </div>
+                            </div>
+                            
+                            <footer className="card-footer-note">
+                                Satellite GPS integration for active pride tracking.
+                            </footer>
+                        </motion.div>
+                    </>
+                )}
+            </section>
+
+            {/* ─── 4. MINIMALIST GALLERY ─── */}
+            <section className="mosaic-gallery">
+                <span className="bespoke-eyebrow" style={{ textAlign: 'center', marginBottom: '10px' }}>Visual Archive</span>
+                <h2 className="bespoke-section-title" style={{ textAlign: 'center', marginBottom: '80px' }}>Curated Moments <em>of Awe.</em></h2>
+                
+                <div className="minimalist-gallery-grid">
+                    {destination.gallery.slice(0, 6).map((img, i) => (
+                        <motion.div 
+                            key={i} 
+                            className="minimal-gallery-item"
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: i * 0.1 }}
+                        >
+                            <img src={img} alt={`Gallery ${i}`} />
+                        </motion.div>
+                    ))}
+                </div>
+            </section>
+
+            {/* CTA */}
+            <section className="smart-cta-section" style={{ background: 'var(--dark)', color: 'white', padding: '140px 60px', textAlign: 'center' }}>
                 <motion.div
-                    className="dest-gallery-head"
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
                     variants={fadeInUp}
                 >
-                    <h2 className="dest-gallery-title">Visual <em>Anthology</em>.</h2>
-                    <span style={{ color: 'var(--gold)', letterSpacing: '0.2em', textTransform: 'uppercase', fontSize: '0.75rem', marginTop: '15px', display: 'block' }}>Glimpses of {destination.name}</span>
+                    <span className="pillar-eyebrow" style={{ color: 'var(--gold)', marginBottom: '20px' }}>Exclusive Access</span>
+                    <h2 className="bespoke-section-title" style={{ color: 'white', marginBottom: '50px' }}>
+                        Architect Your <em>Personal Journey.</em>
+                    </h2>
+                    <Link to="/contact" className="btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '15px' }}>
+                        <span>Request Custom Itinerary</span>
+                        <ArrowRight size={18} />
+                    </Link>
                 </motion.div>
-
-                <div className="dest-gallery-grid">
-                    {destination.gallery.map((imgUrl, i) => {
-                        // Make every 3rd image a landscape span
-                        const isLandscape = i % 3 === 0;
-                        return (
-                            <motion.div
-                                key={i}
-                                className={`dest-gallery-item ${isLandscape ? 'landscape' : ''}`}
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true, margin: "-50px" }}
-                                transition={{ duration: 0.8, delay: (i % 3) * 0.1 }}
-                            >
-                                <img src={imgUrl} alt={`${destination.name} Gallery ${i + 1}`} />
-                            </motion.div>
-                        );
-                    })}
-                </div>
             </section>
 
+            </div>
         </div>
     );
 };

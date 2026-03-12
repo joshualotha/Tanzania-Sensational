@@ -1,40 +1,48 @@
-import React, { useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { ArrowRight, Mountain, Trees, Waves, Map, Star, Shield, Sun } from 'lucide-react';
 import '../styles/safari-premium.css';
 
 import { destinationsData as destinations } from '../data/destinationsData';
 
-const packages = [
-    {
-        title: "The Great Migration Edition",
-        days: "10 Days",
-        parks: "Serengeti • Ngorongoro • Manyara",
-        price: "8,400",
-        img: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800&q=80&auto=format&fit=crop",
-        badge: "SIGNATURE",
-        includes: ["Private Custom 4x4 Cruiser", "Ultra-Luxury Tented Camps", "Serengeti Bush Dinners"]
-    },
-    {
-        title: "The Pioneer's Route",
-        days: "7 Days",
-        parks: "Tarangire • Manyara • Ngorongoro",
-        price: "5,200",
-        img: "https://images.unsplash.com/photo-1523805081730-6144a778afd0?w=800&q=80&auto=format&fit=crop",
-        badge: "CLASSIC",
-        includes: ["Elite Head Guide", "Premium Lodge Accommodation", "Guided Walking Safaris"]
-    },
-    {
-        title: "The Grand Canvas",
-        days: "14 Days",
-        parks: "All Northern Parks • Zanzibar",
-        price: "14,500",
-        img: "https://images.unsplash.com/photo-1493020256266-db09d97bd02d?w=800&q=80&auto=format&fit=crop",
-        badge: "EXCLUSIVE",
-        includes: ["Internal Bush Flights", "Private Chef & Butler", "Zanzibar Recovery Retreat"]
-    }
-];
+const PremiumCountUp = ({ to, prefix = "", suffix = "", duration = 2 }) => {
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true, margin: "-50px" });
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+        if (isInView) {
+            let start = 0;
+            const end = parseInt(to.replace(/,/g, ''));
+            if (start === end) return;
+
+            let totalMilisecDur = duration * 1000;
+            let incrementTime = (totalMilisecDur / end);
+
+            let timer = setInterval(() => {
+                start += 1;
+                setCount(start);
+                if (start >= end) {
+                    setCount(end);
+                    clearInterval(timer);
+                }
+            }, Math.max(incrementTime, 1));
+
+            return () => clearInterval(timer);
+        }
+    }, [isInView, to, duration]);
+
+    const formatNumber = (num) => {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    };
+
+    return (
+        <span ref={ref}>
+            {prefix}{formatNumber(count)}<span>{suffix}</span>
+        </span>
+    );
+};
 
 const reviews = [
     { name: "Sarah & James W.", location: "London, UK", text: "A truly life-altering exhibition of nature. Watching the Serengeti sunrise from our balloon, followed by a champagne breakfast seamlessly prepared in the bush, felt like a dream." },
@@ -43,177 +51,180 @@ const reviews = [
 ];
 
 export const SafarisPage = () => {
-    const heroRef = useRef(null);
-    const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-    const heroY = useTransform(scrollYProgress, [0, 1], [0, 200]);
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
-    useEffect(() => { window.scrollTo(0, 0); }, []);
+    const { scrollYProgress } = useScroll();
+    const heroY = useTransform(scrollYProgress, [0, 0.3], [0, 150]);
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 40 },
-        visible: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.22, 1, 0.36, 1] } }
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
+        }
     };
 
     const staggerContainer = {
         hidden: { opacity: 0 },
-        visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.1 } }
+        visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.15, delayChildren: 0.1 }
+        }
     };
 
     return (
         <div className="safari-premium-root">
 
-            {/* ─── 1. CINEMATIC EYEBROW HERO ─── */}
-            <section ref={heroRef} className="premium-safari-hero">
-                <motion.div style={{ y: heroY }} className="premium-safari-bg">
+            {/* ─── 1. CINEMATIC HERO (ABOUT STYLE) ─── */}
+            <section className="premium-safari-hero">
+                <motion.div className="premium-safari-bg" style={{ y: heroY }}>
                     <img
                         src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=2000&q=85&auto=format&fit=crop"
-                        alt="Serengeti Safari Wilderness"
+                        alt="African Wilderness at Dawn"
                     />
+                    <div className="premium-safari-overlay"></div>
                 </motion.div>
-                <div className="premium-safari-overlay"></div>
-                <motion.div
-                    className="premium-safari-content"
-                    initial="hidden"
-                    animate="visible"
-                    variants={staggerContainer}
-                >
-                    <motion.span className="premium-safari-eyebrow" variants={fadeInUp}>Tanzania Sensational</motion.span>
-                    <motion.h1 className="premium-safari-title" variants={fadeInUp}>Into The <em>Wild.</em></motion.h1>
-                    <motion.p className="premium-safari-subtitle" variants={fadeInUp}>
-                        Bespoke, uncompromising wilderness experiences meticulously curated across Tanzania's most iconic and untamed landscapes.
-                    </motion.p>
-                    <motion.div className="premium-safari-actions" variants={fadeInUp}>
-                        <a href="#destinations" className="premium-btn-solid">Explore Landscapes</a>
-                        <Link to="/contact" className="premium-btn-outline">Architect Your Safari</Link>
+
+                <div className="container">
+                    <motion.div
+                        className="premium-safari-hero-content"
+                        initial="hidden"
+                        animate="visible"
+                        variants={staggerContainer}
+                    >
+                        <motion.span className="premium-eyebrow" variants={fadeInUp}>The Expedition Collective</motion.span>
+                        <motion.h1 className="premium-hero-title" variants={fadeInUp}>Into the <em>Untamed.</em></motion.h1>
+                        <motion.p className="premium-hero-subtitle" variants={fadeInUp}>
+                            Architecting bespoke, uncompromising wilderness journeys across East Africa's most legendary landscapes.
+                        </motion.p>
                     </motion.div>
+                </div>
+
+                {/* Floating Stats Strip */}
+                <motion.div
+                    className="premium-stats-strip"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6, duration: 0.8 }}
+                >
+                    <div className="premium-stats-grid">
+                        <div className="premium-stat-item">
+                            <span className="premium-stat-num"><PremiumCountUp to="8" /></span>
+                            <span className="premium-stat-label">National Parks</span>
+                        </div>
+                        <div className="premium-stat-item">
+                            <span className="premium-stat-num"><PremiumCountUp to="120" suffix="+" /></span>
+                            <span className="premium-stat-label">Guided Expeditions</span>
+                        </div>
+                        <div className="premium-stat-item">
+                            <span className="premium-stat-num"><PremiumCountUp to="12" /></span>
+                            <span className="premium-stat-label">Boutique Camps</span>
+                        </div>
+                        <div className="premium-stat-item">
+                            <span className="premium-stat-num"><PremiumCountUp to="450" suffix="+" /></span>
+                            <span className="premium-stat-label">Species Cataloged</span>
+                        </div>
+                    </div>
                 </motion.div>
             </section>
 
-            {/* ─── 2. THE DESTINATIONS (DARK GALLERY) ─── */}
-            <section id="destinations" className="premium-dest-section">
-                <div className="premium-dest-head">
-                    <span className="premium-dest-eyebrow">The Canvas</span>
-                    <h2 className="premium-dest-title">Iconic <em>Destinations.</em></h2>
-                </div>
-
-                <div className="premium-dest-list">
-                    {destinations.map((dest, i) => {
-                        const isReverse = i % 2 !== 0;
-                        return (
-                            <motion.div
-                                key={dest.id}
-                                className={`premium-dest-item ${isReverse ? 'reverse' : ''}`}
-                                initial="hidden"
-                                whileInView="visible"
-                                viewport={{ once: true, margin: "-100px" }}
-                                variants={staggerContainer}
-                            >
-                                <Link to={`/safaris/destinations/${dest.id}`} style={{ display: 'contents', textDecoration: 'none', color: 'inherit' }}>
-                                    <motion.div className="premium-dest-image-wrap" variants={fadeInUp}>
-                                        <img src={dest.heroImg} alt={dest.name} className="premium-dest-image" />
-                                        <div className="premium-dest-img-badge">{dest.tag}</div>
-                                    </motion.div>
-                                    <div className="premium-dest-info">
-                                        <motion.h3 className="premium-dest-name" variants={fadeInUp}>{dest.name}</motion.h3>
-                                        <motion.span className="premium-dest-subtitle" variants={fadeInUp}>{dest.subtitle}</motion.span>
-                                        <motion.p className="premium-dest-desc" variants={fadeInUp}>{dest.shortDesc}</motion.p>
-
-                                        <motion.div className="premium-dest-highlights" variants={fadeInUp}>
-                                            {dest.highlights.slice(0, 3).map((h, j) => (
-                                                <span key={j} className="premium-highlight">{h}</span>
-                                            ))}
-                                        </motion.div>
-
-                                        <motion.div className="premium-dest-meta" variants={fadeInUp}>
-                                            <div className="meta-label">Optimal Duration</div>
-                                            <div className="meta-value">{dest.duration}</div>
-                                        </motion.div>
-
-                                        <motion.div variants={fadeInUp} style={{ marginTop: '30px' }}>
-                                            <span style={{ color: 'var(--gold)', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.1em', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                                Explore Destination <ArrowRight size={16} />
-                                            </span>
-                                        </motion.div>
-                                    </div>
-                                </Link>
-                            </motion.div>
-                        );
-                    })}
-                </div>
-
-                <div className="premium-section-footer">
-                    <Link to="/safaris" className="premium-btn-outline">Explore All Destinations</Link>
-                    <Link to="/contact" className="premium-btn-outline" style={{ background: 'white', color: 'var(--dark)' }}>Plan a Custom Route</Link>
-                </div>
-            </section>
-
-            {/* ─── 3. CURATED JOURNEYS (PARCHMENT CARDS) ─── */}
-            <section className="premium-pkg-section">
-                <div className="premium-pkg-head">
-                    <span className="premium-pkg-eyebrow">The Collection</span>
-                    <h2 className="premium-pkg-title">Curated <em>Journeys.</em></h2>
-                </div>
-
-                <motion.div
-                    className="premium-pkg-grid"
+            {/* ─── 2. DESTINATIONS MODULAR GRID ─── */}
+            <section id="expeditions" className="premium-destinations-section">
+                <motion.div 
+                    className="premium-dest-grid"
                     initial="hidden"
                     whileInView="visible"
-                    viewport={{ once: true, margin: "-50px" }}
+                    viewport={{ once: true, margin: "-100px" }}
                     variants={staggerContainer}
                 >
-                    {packages.map((pkg, i) => (
-                        <motion.div key={i} className="premium-pkg-card" variants={fadeInUp}>
-                            <div className="premium-pkg-img-wrap">
-                                <img src={pkg.img} alt={pkg.title} />
-                                <div className="premium-pkg-badge">{pkg.badge}</div>
-                            </div>
-                            <div className="premium-pkg-content">
-                                <span className="premium-pkg-routing">{pkg.days} • {pkg.parks}</span>
-                                <h3 className="premium-pkg-name">{pkg.title}</h3>
-                                <ul className="premium-pkg-includes">
-                                    {pkg.includes.map((inc, j) => <li key={j}>{inc}</li>)}
-                                </ul>
-                                <div className="premium-pkg-footer">
-                                    <div className="premium-pkg-price-col">
-                                        <span className="premium-price-label">Starting From</span>
-                                        <span className="premium-price-val">${pkg.price} <span style={{ fontSize: '0.8rem', color: '#888', fontFamily: 'Outfit, sans-serif' }}>/ pp</span></span>
-                                    </div>
-                                    <Link to="/contact" className="premium-pkg-enquire">Enquire Now</Link>
+                    {destinations.map((dest, i) => (
+                        <motion.div key={dest.id} variants={fadeInUp}>
+                            <Link to={`/safaris/destinations/${dest.id}`} className="premium-dest-card">
+                                <div className="premium-dest-img-wrap">
+                                    <img src={dest.heroImg} alt={dest.name} />
                                 </div>
-                            </div>
+                                <span className="premium-dest-tag">Expedition Focus: {dest.tag}</span>
+                                <h3 className="premium-dest-name">{dest.name}</h3>
+                                <p className="premium-dest-desc">{dest.shortDesc}</p>
+                                <div className="premium-dest-link">
+                                    <span>Detailed Dossier</span>
+                                    <ArrowRight size={16} color="var(--gold)" />
+                                </div>
+                            </Link>
                         </motion.div>
                     ))}
                 </motion.div>
-
-                <div className="premium-section-footer" style={{ marginTop: '60px' }}>
-                    <Link to="/contact" className="premium-btn-outline-dark">Build Custom Safari</Link>
-                    <Link to="/safaris/packages" className="premium-btn-outline-dark" style={{ background: 'var(--dark)', color: 'white' }}>Explore Full Collection</Link>
-                </div>
             </section>
 
-            {/* ─── 4. REVIEWS (EDITORIAL SPREAD) ─── */}
-            <section className="premium-reviews-section">
-                <div className="premium-reviews-head">
-                    <span className="premium-pkg-eyebrow">The Legacy</span>
-                    <h2 className="premium-pkg-title">Traveler <em>Accounts.</em></h2>
-                </div>
-
+            {/* ─── 4. REVIEWS BAND ─── */}
+            <section className="premium-reviews-band">
                 <motion.div
-                    className="premium-reviews-grid"
                     initial="hidden"
                     whileInView="visible"
-                    viewport={{ once: true, margin: "-50px" }}
-                    variants={staggerContainer}
+                    viewport={{ once: true }}
+                    variants={fadeInUp}
                 >
-                    {reviews.map((r, i) => (
-                        <motion.div key={i} className="premium-review-card" variants={fadeInUp}>
-                            <div className="premium-review-mark">"</div>
-                            <p className="premium-review-text">{r.text}</p>
-                            <div className="premium-review-author">{r.name}</div>
-                            <span className="premium-review-loc">{r.location}</span>
-                        </motion.div>
-                    ))}
+                    <span className="premium-eyebrow">The Legacy</span>
+                    <p className="premium-review-quote">
+                        "The attention to absolute detail was extraordinary. Every lodge selection, every guide's intuition, every moment felt flawlessly curated. The quintessential luxury expedition."
+                    </p>
+                    <div className="premium-dest-tag">Michael C. • Toronto, Canada</div>
                 </motion.div>
+            </section>
+
+            {/* ─── 5. FINAL EXPERIENCE BAND ─── */}
+            <section className="premium-exp-band">
+                <div className="premium-exp-bg">
+                    <img
+                        src="https://images.unsplash.com/photo-1650668302197-7f556c34cb91?q=80&w=2000&auto=format&fit=crop"
+                        alt="Kilimanjaro Trekking"
+                    />
+                    <div className="premium-exp-overlay"></div>
+                </div>
+                <div className="premium-exp-container">
+                    <motion.div
+                        className="premium-exp-left"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={staggerContainer}
+                    >
+                        <span className="premium-eyebrow" style={{ color: 'white' }}>The Difference</span>
+                        <h2 className="premium-exp-title">Experience That <em>Speaks.</em></h2>
+                        <motion.div variants={fadeInUp}>
+                            <Link to="/contact" className="premium-exp-cta">
+                                <span>Initialize Your Journey</span>
+                                <ArrowRight size={18} />
+                            </Link>
+                        </motion.div>
+                    </motion.div>
+
+                    <motion.div
+                        className="premium-exp-list"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={staggerContainer}
+                    >
+                        <motion.div className="premium-exp-item" variants={fadeInUp}>
+                            <span className="premium-exp-num">01</span>
+                            <div>
+                                <h4 className="premium-exp-item-title">Architected Itineraries</h4>
+                                <p className="premium-exp-item-text">Every detail is painstakingly considered—from specialized wildlife mapping to high-altitude luxury cuisine. Nothing is left to chance.</p>
+                            </div>
+                        </motion.div>
+                        <motion.div className="premium-exp-item" variants={fadeInUp}>
+                            <span className="premium-exp-num">02</span>
+                            <div>
+                                <h4 className="premium-exp-item-title">Locally Born Mastery</h4>
+                                <p className="premium-exp-item-text">Our architects were raised in the heart of the savanna. We don't just guide on the mountain—we live it, breathe it, and protect it.</p>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                </div>
             </section>
 
         </div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { Clock, MapPin, DollarSign, Home, Coffee, Shield, Check, X, ArrowRight } from 'lucide-react';
 import { safarisData } from '../../data/safarisData';
 import '../../styles/safari-packages.css';
 
@@ -14,9 +15,9 @@ export const SafariPackageDetail = () => {
     const pkg = useMemo(() => safarisData.find(p => p.id === packageId), [packageId]);
 
     if (!pkg) return (
-        <div style={{ padding: '150px 20px', textAlign: 'center', background: 'var(--dark)', color: 'white', minHeight: '100vh' }}>
-            <h1>Itinerary Not Found</h1>
-            <Link to="/safaris" style={{ color: 'var(--gold)' }}>Return to Safaris</Link>
+        <div style={{ padding: '150px 20px', textAlign: 'center', background: 'var(--bg-parchment)', color: 'var(--dark)', minHeight: '100vh' }}>
+            <h1 style={{ fontFamily: 'Playfair Display', fontSize: '3rem' }}>Expedition Not Found</h1>
+            <Link to="/safaris" style={{ color: 'var(--gold)', letterSpacing: '0.1em', textTransform: 'uppercase', fontSize: '0.8rem', fontWeight: 700 }}>Return to Archive</Link>
         </div>
     );
 
@@ -32,7 +33,7 @@ export const SafariPackageDetail = () => {
 
     return (
         <div className="safari-pkgs-root">
-            {/* HERO */}
+            {/* EXPEDITION HERO */}
             <section className="safari-det-hero">
                 <div className="safari-det-bg">
                     <img src={pkg.heroImg} alt={pkg.title} />
@@ -48,46 +49,58 @@ export const SafariPackageDetail = () => {
                 </motion.div>
             </section>
 
-            {/* METRICS BAR */}
+            {/* TECHNICAL METRICS BAR */}
             <section className="safari-det-metrics">
                 <div className="safari-metric">
-                    <span className="safari-m-label">Duration</span>
+                    <span className="safari-m-label">Expedition Length</span>
                     <span className="safari-m-val">{pkg.duration}</span>
                 </div>
                 <div className="safari-metric">
-                    <span className="safari-m-label">Destinations</span>
+                    <span className="safari-m-label">Operational Area</span>
                     <span className="safari-m-val">{pkg.parks}</span>
                 </div>
-                <div className="safari-metric" style={{ marginLeft: 'auto' }}>
-                    <span className="safari-m-label">Starting Price</span>
-                    <span className="safari-m-val" style={{ color: 'var(--gold)' }}>{pkg.price} <span style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)' }}>pp</span></span>
+                <div className="safari-metric">
+                    <span className="safari-m-label">Pace Level</span>
+                    <span className="safari-m-val">Signature Heritage</span>
+                </div>
+                <div className="safari-metric">
+                    <span className="safari-m-label">Investment</span>
+                    <span className="safari-m-val">{pkg.price} <span style={{ fontSize: '0.8rem', opacity: 0.6 }}>pp</span></span>
                 </div>
             </section>
 
-            {/* MAIN CONTENT */}
+            {/* EXPEDITION JOURNAL CONTENT */}
             <section className="safari-det-body">
-                {/* ITINERARY LIST */}
+                {/* FIELD JOURNAL ITINERARY */}
                 <div className="safari-itin-col">
-                    <h2 className="safari-itin-head">The Journey</h2>
+                    <motion.div 
+                        className="safari-det-intro"
+                        initial="hidden" whileInView="visible" viewport={{ once: true }}
+                        variants={fadeInUp}
+                    >
+                        <h2 className="safari-itin-head">The Essence</h2>
+                        <p className="safari-det-brief">{pkg.overview}</p>
+                    </motion.div>
+
+                    <h2 className="safari-itin-head" style={{ marginTop: '60px' }}>The Journey</h2>
                     <motion.div
-                        initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }}
+                        initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
                         variants={staggerContainer}
                     >
                         {pkg.itinerary.map((day, idx) => (
                             <motion.div key={idx} className="safari-day-card" variants={fadeInUp}>
-                                <div className="safari-day-dot"></div>
                                 <span className="safari-day-num">Day {day.day}</span>
                                 <h3 className="safari-day-title">{day.title}</h3>
                                 <p className="safari-day-desc">{day.desc}</p>
 
                                 <div className="safari-day-meta">
                                     <div className="safari-day-meta-item">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-                                        <span>{day.accommodation}</span>
+                                        <Home size={18} />
+                                        <span>Estate: {day.accommodation}</span>
                                     </div>
                                     <div className="safari-day-meta-item">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
-                                        <span>{day.meals}</span>
+                                        <Coffee size={18} />
+                                        <span>Provisions: {day.meals}</span>
                                     </div>
                                 </div>
                             </motion.div>
@@ -95,31 +108,33 @@ export const SafariPackageDetail = () => {
                     </motion.div>
                 </div>
 
-                {/* SIDEBAR */}
+                {/* PRESTIGE LEDGER SIDEBAR */}
                 <div className="safari-sidebar-col">
                     <div className="safari-sidebar">
-                        {/* Book Card */}
+                        {/* Enquiry Ledger */}
                         <div className="safari-sb-card safari-book-card">
-                            <h3 className="safari-sb-title" style={{ border: 'none', marginBottom: '10px' }}>Reserve Your Safari</h3>
-                            <div className="safari-pkg-price" style={{ color: 'var(--gold)' }}>
-                                {pkg.price} <span style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.5)' }}>per person</span>
+                            <h3 className="safari-sb-title">Enquiry Ledger</h3>
+                            <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+                                <div style={{ fontSize: '0.7rem', color: 'var(--gold)', letterSpacing: '0.2em', marginBottom: '10px', textTransform: 'uppercase' }}>Current Rate</div>
+                                <div style={{ fontSize: '2.5rem', fontWeight: 600 }}>{pkg.price}</div>
+                                <div style={{ fontSize: '0.8rem', opacity: 0.5 }}>Net Per Participant</div>
                             </div>
-                            <Link to="/contact" className="safari-btn-gold">Enquire Now</Link>
-                            <Link to="/safaris" className="safari-btn-outline" style={{ display: 'block', textAlign: 'center', marginTop: '15px' }}>Customise This Trip</Link>
+                            <Link to="/contact" className="safari-btn-gold">Initiate Expedition</Link>
+                            <Link to="/safaris" className="safari-btn-outline">Customise Itinerary</Link>
                         </div>
 
-                        {/* Inclusions */}
+                        {/* Inclusions Ledger */}
                         <div className="safari-sb-card">
-                            <h3 className="safari-sb-title">What's Included</h3>
-                            <ul className="safari-sb-list inc">
+                            <h3 className="safari-sb-title">Inclusions</h3>
+                            <ul className="safari-sb-list">
                                 {pkg.inclusions.map((inc, i) => <li key={i}>{inc}</li>)}
                             </ul>
                         </div>
 
-                        {/* Exclusions */}
+                        {/* Exclusions Ledger */}
                         <div className="safari-sb-card">
-                            <h3 className="safari-sb-title">Not Included</h3>
-                            <ul className="safari-sb-list exc">
+                            <h3 className="safari-sb-title">Exclusions</h3>
+                            <ul className="safari-sb-list">
                                 {pkg.exclusions.map((exc, i) => <li key={i}>{exc}</li>)}
                             </ul>
                         </div>

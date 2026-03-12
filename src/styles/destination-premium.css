@@ -1,226 +1,371 @@
-/* destination-premium.css */
+/* destination-premium.css - BESPOKE HERITAGE (UNIQUE SMART THEME) */
 
 .dest-detail-root {
-    background: var(--dark);
-    color: white;
+    position: relative;
+    color: var(--dark);
     min-height: 100vh;
     font-family: 'Outfit', sans-serif;
-    overflow-x: hidden;
 }
 
-/* ─── HERO SECTION ─── */
-.dest-hero {
-    position: relative;
-    height: 100vh;
-    /* Full bleed cinematic hero */
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    padding-bottom: 15vh;
-    text-align: center;
+/* ─── 0. IMMERSIVE BACKGROUND ─── */
+.dest-fixed-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
     overflow: hidden;
 }
 
-.dest-hero-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.dest-hero-bg img {
+.dest-fixed-bg img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    opacity: 0.15; /* Substrate appearance */
+    filter: sepia(0.2) contrast(1.1);
 }
 
-.dest-hero-overlay {
+.dest-content-veil {
+    position: relative;
+    background: rgba(249, 247, 242, 0.92); /* Opaque parchment overlay */
+    z-index: 1;
+}
+
+/* ─── 1. FULL HERITAGE HERO (BESPOKE) ─── */
+.dest-hero-bespoke {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: flex-end;
+    background: #000;
+}
+
+.hero-visual-area {
     position: absolute;
-    top: 0;
-    left: 0;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.hero-visual-area img {
     width: 100%;
     height: 100%;
-    /* Dark gradient rising from the bottom to bleed into the dark background below */
-    background: linear-gradient(to bottom, rgba(16, 16, 16, 0.1) 0%, rgba(16, 16, 16, 0.6) 60%, var(--dark) 100%);
+    object-fit: cover;
+    animation: heroZoom 20s ease-in-out infinite alternate;
 }
 
-.dest-hero-content {
+.hero-visual-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, 
+        rgba(13, 13, 11, 0.95) 0%, 
+        rgba(13, 13, 11, 0.4) 40%, 
+        rgba(13, 13, 11, 0.1) 100%);
+    z-index: 1;
+}
+
+.hero-content-bespoke {
     position: relative;
-    z-index: 2;
+    z-index: 10;
+    padding: 0 60px 100px;
+    width: 100%;
     max-width: 1000px;
-    padding: 0 5%;
 }
 
-.dest-hero-tag {
-    color: var(--gold);
-    font-size: 0.85rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 20px;
+.hero-pillar-badge {
+    position: absolute;
+    top: -80px;
+    right: 0;
+    width: 160px;
+    height: 160px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 20px 40px rgba(201, 168, 76, 0.25);
+    z-index: 20;
 }
 
-.dest-hero-title {
-    font-size: clamp(4rem, 8vw, 8rem);
-    font-family: 'Playfair Display', serif;
-    font-weight: 400;
+.pillar-badge-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
     line-height: 1;
-    margin-bottom: 20px;
-    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    font-weight: 300;
 }
 
-.dest-hero-subtitle {
-    font-size: clamp(1.2rem, 2vw, 1.8rem);
+.pillar-badge-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 4px;
+    opacity: 0.9;
+}
+
+.pillar-eyebrow {
+    font-size: 0.8rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 25px;
+    display: block;
+    font-weight: 600;
+}
+
+.pillar-title {
     font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 8vw, 6.5rem);
+    line-height: 0.95;
+    margin-bottom: 30px;
+    color: var(--white);
+}
+
+.pillar-title em {
     font-style: italic;
-    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+    color: var(--gold);
 }
 
-/* ─── OVERVIEW SECTION ─── */
-.dest-overview-section {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 80px 5%;
+.expedition-strip {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(13, 13, 11, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 30px 60px;
+    display: flex;
+    gap: 60px;
+    z-index: 15;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.expedition-datum {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.datum-label {
+    font-size: 0.6rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-weight: 700;
+}
+
+.datum-val {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.7);
+    font-family: 'Courier New', monospace; /* Technical coordinate feel */
+}
+
+/* ─── 2. METADATA PILLAR & NARRATIVE ─── */
+.bespoke-overview-grid {
+    padding: 160px 60px;
     display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: 80px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    grid-template-columns: 400px 1fr;
+    gap: 120px;
+    max-width: 1600px;
+    margin: 0 auto;
 }
 
-.dest-overview-text {
-    font-size: 1.25rem;
-    line-height: 1.8;
-    color: rgba(255, 255, 255, 0.8);
+.metadata-pillar {
+    background: rgba(45, 90, 61, 0.85); /* Glassmorphism Green */
+    backdrop-filter: blur(15px);
+    padding: 60px;
+    color: white;
+    border-radius: 4px;
+    position: sticky;
+    top: 140px;
+    align-self: start;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.1);
+    border: 1px solid rgba(255,255,255,0.1);
 }
 
-.dest-overview-text p {
+.metadata-ledger-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    margin-bottom: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 20px;
+}
+
+.ledger-item {
     margin-bottom: 30px;
 }
 
-.dest-overview-text p:first-child::first-letter {
-    float: left;
-    font-family: 'Playfair Display', serif;
-    font-size: 5rem;
-    line-height: 0.8;
-    padding-right: 15px;
-    color: var(--gold);
-}
-
-.dest-facts-panel {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 50px;
-}
-
-.dest-fact-group {
-    margin-bottom: 40px;
-}
-
-.dest-fact-group:last-child {
-    margin-bottom: 0;
-}
-
-.dest-fact-label {
-    font-size: 0.75rem;
+.ledger-label {
+    display: block;
+    font-size: 0.65rem;
     color: var(--gold);
     text-transform: uppercase;
-    letter-spacing: 0.15em;
-    margin-bottom: 15px;
+    letter-spacing: 0.2em;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.ledger-val {
+    font-size: 1.1rem;
+    font-weight: 400;
+}
+
+.narrative-content {
+    padding-top: 20px;
+}
+
+.bespoke-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 25px;
     display: block;
 }
 
-.dest-fact-value {
+.bespoke-section-title {
     font-family: 'Playfair Display', serif;
-    font-size: 1.4rem;
-    color: white;
-    line-height: 1.4;
+    font-size: 3.5rem;
+    margin-bottom: 40px;
+    line-height: 1.1;
 }
 
-.dest-wildlife-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 15px;
+.bespoke-text {
+    font-size: 1.25rem;
+    line-height: 2;
+    color: #444;
+    font-weight: 300;
 }
 
-.dest-wildlife-tag {
-    padding: 8px 16px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.9);
-}
-
-/* ─── GALLERY SECTION ─── */
-.dest-gallery-section {
-    padding: 120px 5%;
-}
-
-.dest-gallery-head {
-    text-align: center;
-    margin-bottom: 80px;
-}
-
-.dest-gallery-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 3rem;
-    color: white;
-}
-
-.dest-gallery-grid {
+/* ─── 3. SIDE-BY-SIDE NARRATIVE LEDGERS ─── */
+.narrative-ledger-grid {
+    padding: 120px 60px;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
     max-width: 1400px;
     margin: 0 auto;
 }
 
-.dest-gallery-item {
+.narrative-card-ledger {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(201, 168, 76, 0.1);
+    padding: 60px;
+    position: relative;
+    border-radius: 2px;
+}
+
+.narrative-card-ledger::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    border: 1px solid rgba(201, 168, 76, 0.05);
+    pointer-events: none;
+}
+
+.card-header-mini {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+    padding-bottom: 20px;
+}
+
+.card-icon-mini {
+    color: var(--gold);
+}
+
+.card-title-mini {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--dark);
+}
+
+.ledger-vitals {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 25px;
+}
+
+.vital-item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    align-items: baseline;
+    gap: 20px;
+}
+
+.vital-label {
+    font-size: 0.6rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-weight: 700;
+}
+
+.vital-text {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #444;
+    font-weight: 300;
+}
+
+.card-footer-note {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0,0,0,0.05);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--gold);
+}
+
+/* ─── 4. MINIMALIST GALLERY ─── */
+.mosaic-gallery {
+    padding: 160px 60px;
+    background: var(--white);
+}
+
+.minimalist-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.minimal-gallery-item {
     position: relative;
     overflow: hidden;
-    height: 60vh;
+    aspect-ratio: 4/5;
 }
 
-.dest-gallery-item.landscape {
-    grid-column: span 2;
-    height: 70vh;
-}
-
-.dest-gallery-item img {
+.minimal-gallery-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: brightness(0.8) grayscale(20%);
-    transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.8s ease;
+    transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-.dest-gallery-item:hover img {
+.minimal-gallery-item:hover img {
     transform: scale(1.05);
-    filter: brightness(1) grayscale(0%);
 }
 
-/* Responsive */
+/* RESPONSIVE */
 @media (max-width: 992px) {
-    .dest-overview-section {
-        grid-template-columns: 1fr;
-        gap: 60px;
-    }
+    .hero-content-bespoke { padding: 0 30px 60px; }
+    .hero-pillar-badge { width: 120px; height: 120px; top: -60px; right: 30px; }
+    .pillar-badge-num { font-size: 2.2rem; }
+    .expedition-strip { padding: 20px 30px; gap: 30px; overflow-x: auto; }
 }
-
-@media (max-width: 768px) {
-    .dest-gallery-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .dest-gallery-item,
-    .dest-gallery-item.landscape {
-        grid-column: span 1;
-        height: 50vh;
-    }
-
-    .dest-hero-title {
-        font-size: 3.5rem;
-    }
+@media (max-width: 1200px) {
+    .dest-hero-bespoke { grid-template-columns: 1fr; }
+    .hero-title-pillar { height: auto; padding: 100px 40px; }
+    .hero-pillar-badge { top: 0; left: 50%; transform: translate(-50%, -50%); }
+    .expedition-strip { position: relative; padding: 30px 40px; }
+    .bespoke-overview-grid { grid-template-columns: 1fr; gap: 60px; }
+    .triptych-plate { grid-template-columns: 1fr; }
+    .plate-media { grid-column: span 1; height: 400px; }
 }

@@ -1,13 +1,33 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { ChevronRight, Diamond, Search, X } from 'lucide-react';
 import { safarisData } from '../../data/safarisData';
 import '../../styles/safari-packages.css';
 
 export const SafariPackagesList = () => {
+    const [searchQuery, setSearchQuery] = React.useState('');
+    const [activeFilter, setActiveFilter] = React.useState('ALL');
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+
+    const filteredPackages = React.useMemo(() => {
+        return safarisData.filter(pkg => {
+            const matchesSearch = 
+                pkg.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                pkg.parks.toLowerCase().includes(searchQuery.toLowerCase());
+            
+            const matchesCategory = 
+                activeFilter === 'ALL' || 
+                pkg.badge.toUpperCase() === activeFilter.toUpperCase();
+
+            return matchesSearch && matchesCategory;
+        });
+    }, [searchQuery, activeFilter]);
+
+    const categories = ['ALL', 'SIGNATURE', 'CLASSIC', 'EXCLUSIVE'];
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 40 },
@@ -21,59 +41,107 @@ export const SafariPackagesList = () => {
 
     return (
         <div className="safari-pkgs-root">
-            {/* HERO */}
+            {/* HERITAGE COLLECTION HERO */}
             <section className="safari-pkgs-hero">
                 <div className="safari-pkgs-bg">
-                    <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=2000&q=85&auto=format&fit=crop" alt="Safari Packages Hero" />
+                    <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=2000&q=85&auto=format&fit=crop" alt="Safari Heritage Hero" />
                 </div>
                 <div className="safari-pkgs-overlay"></div>
+                
                 <motion.div
                     className="safari-pkgs-content"
                     initial="hidden" animate="visible" variants={staggerContainer}
                 >
+                    <motion.div className="heritage-status-badge" variants={fadeInUp}>
+                        <Diamond size={14} fill="currentColor" />
+                        <span>Curated Heritage Collections</span>
+                    </motion.div>
+                    
                     <motion.h1 className="safari-pkgs-title" variants={fadeInUp}>
-                        The <em>Collection</em>
+                        Wilderness <em>Archive.</em>
                     </motion.h1>
+                    
                     <motion.p className="safari-pkgs-subtitle" variants={fadeInUp}>
-                        Uncompromising wilderness expeditions curated for the discerning traveler.
+                        An authoritative collection of uncompromising expeditions, curated for the discerning traveler seeking depth and authenticity.
                     </motion.p>
                 </motion.div>
             </section>
 
-            {/* PACKAGE GRID */}
+            {/* DISCOVERY FILTERS */}
+            <section className="discovery-filter-sec">
+                <div className="filter-bar">
+                    <div className="search-archive">
+                        <Search className="search-icon" size={18} />
+                        <input 
+                            type="text" 
+                            placeholder="Search Archive by Name or Area..." 
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="filter-categories">
+                        {categories.map(cat => (
+                            <button 
+                                key={cat}
+                                className={`category-btn ${activeFilter === cat ? 'active' : ''}`}
+                                onClick={() => setActiveFilter(cat)}
+                            >
+                                {cat}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* HERITAGE GRID */}
             <section className="safari-pkgs-grid-sec">
                 <motion.div
-                    className="safari-pkg-grid"
+                    className="heritage-grid"
                     initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }}
                     variants={staggerContainer}
                 >
-                    {safarisData.map((pkg) => (
-                        <motion.div key={pkg.id} variants={fadeInUp}>
-                            <Link to={`/safaris/packages/${pkg.id}`} className="safari-pkg-card">
-                                <div className="safari-pkg-img">
-                                    <img src={pkg.heroImg} alt={pkg.title} />
-                                    <div className="safari-pkg-badge">{pkg.badge}</div>
-                                </div>
-                                <div className="safari-pkg-info">
-                                    <div className="safari-pkg-meta">{pkg.duration} • {pkg.parks}</div>
-                                    <h2 className="safari-pkg-name">{pkg.title}</h2>
-                                    <p className="safari-pkg-desc">{pkg.overview.substring(0, 120)}...</p>
+                    {filteredPackages.length > 0 ? (
+                        filteredPackages.map((pkg) => (
+                            <motion.div key={pkg.id} variants={fadeInUp}>
+                                <Link to={`/safaris/packages/${pkg.id}`} className="heritage-card-solid">
+                                    <div className="heritage-card-media">
+                                        <img src={pkg.heroImg} alt={pkg.title} />
+                                        <div className="card-heritage-label">{pkg.badge}</div>
+                                    </div>
+                                    
+                                    <div className="heritage-card-info">
+                                        <div className="card-meta-line">{pkg.duration} • {pkg.parks}</div>
+                                        <h2 className="card-pkg-title">{pkg.title}</h2>
+                                        <p className="card-pkg-desc">
+                                            {pkg.overview.substring(0, 110)}...
+                                        </p>
 
-                                    <div className="safari-pkg-foot">
-                                        <div className="safari-pkg-price">
-                                            <span>From </span>{pkg.price}
-                                        </div>
-                                        <div className="safari-pkg-arr">
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                <polyline points="12 5 19 12 12 19"></polyline>
-                                            </svg>
+                                        <div className="card-pkg-footer">
+                                            <div className="card-pkg-price">
+                                                <span>From</span>{pkg.price}
+                                            </div>
+                                            <div className="card-pkg-arrow">
+                                                <ChevronRight size={20} />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </Link>
-                        </motion.div>
-                    ))}
+                                </Link>
+                            </motion.div>
+                        ))
+                    ) : (
+                        <div className="no-results">
+                            <h2 className="no-results-title">No Expeditions Found</h2>
+                            <p className="no-results-text">We couldn't find any journeys matching your criteria in the archive.</p>
+                            <button 
+                                className="category-btn" 
+                                style={{ marginTop: '30px', display: 'inline-block' }}
+                                onClick={() => { setSearchQuery(''); setActiveFilter('ALL'); }}
+                            >
+                                Clear All Filters
+                            </button>
+                        </div>
+                    )}
                 </motion.div>
             </section>
         </div>

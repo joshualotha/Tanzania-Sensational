@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import '../../styles/utility-pages-premium.css';
+import { Calendar, Users, Map, DollarSign, ChevronRight } from 'lucide-react';
+import '../../styles/group-departures-premium.css';
 
 const departuresData = [
     { id: 1, date: "July 12 - July 20, 2026", route: "8-Day Lemosho Route", status: "Available", price: "$2,850" },
@@ -17,67 +18,111 @@ export const GroupDepartures = () => {
     }, []);
 
     const fadeInUp = {
-        hidden: { opacity: 0, y: 30 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
+        hidden: { opacity: 0, y: 40 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
+    };
+
+    const staggerContainer = {
+        hidden: { opacity: 1 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1
+            }
+        }
     };
 
     return (
         <div className="utility-root">
+            {/* EXPEDITION HORIZON HERO */}
             <section className="utility-hero">
                 <div className="utility-hero-bg">
-                    <img src="https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" alt="Group Trek" style={{ filter: 'brightness(0.6)' }} />
+                    <img 
+                        src="https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=2400&q=90" 
+                        alt="Expedition Team" 
+                    />
                 </div>
                 <div className="utility-hero-overlay"></div>
-                <motion.div className="utility-hero-content" initial="hidden" animate="visible" variants={fadeInUp}>
-                    <span className="utility-hero-eyebrow">Join The Journey</span>
-                    <h1 className="utility-hero-title">Group Departures</h1>
+                <motion.div 
+                    className="utility-hero-content" 
+                    initial="hidden" animate="visible" variants={fadeInUp}
+                >
+                    <div className="heritage-type-badge">
+                        <Users size={14} />
+                        <span>Open Expedition</span>
+                    </div>
+                    <h1 className="utility-hero-title">Expedition <em>Schedule</em></h1>
                     <p className="utility-hero-subtitle">
                         Share the triumph. Our scheduled group climbs are capped at 12 participants to ensure a personalized, safe, and wildly successful summit bid.
                     </p>
                 </motion.div>
             </section>
 
+            {/* THE SCHEDULE LEDGER */}
             <section className="utility-content">
-                <motion.div className="departures-table-wrapper" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+                <motion.div 
+                    className="ledger-wrapper"
+                    initial="hidden" whileInView="visible" viewport={{ once: true }}
+                    variants={fadeInUp}
+                >
                     <table className="dep-table">
                         <thead>
                             <tr>
                                 <th>Dates</th>
-                                <th>Route</th>
-                                <th>Price (PP)</th>
+                                <th>Route Expedition</th>
+                                <th>Investment</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <motion.tbody variants={staggerContainer} initial="hidden" animate="visible">
                             {departuresData.map((dep) => (
-                                <tr key={dep.id} className="dep-row">
-                                    <td style={{ fontWeight: 600 }}>{dep.date}</td>
-                                    <td>{dep.route}</td>
-                                    <td style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.2rem' }}>{dep.price}</td>
+                                <motion.tr key={dep.id} className="dep-row" variants={fadeInUp}>
+                                    <td className="dep-date">
+                                        {dep.date}
+                                    </td>
+                                    <td className="dep-route">
+                                        {dep.route}
+                                    </td>
+                                    <td className="dep-price">
+                                        <span>From</span>{dep.price}
+                                    </td>
                                     <td>
-                                        <span className={`dep-status ${dep.status.toLowerCase()}`}>{dep.status}</span>
+                                        <span className={`dep-status ${dep.status.toLowerCase()}`}>
+                                            {dep.status}
+                                        </span>
                                     </td>
                                     <td>
                                         {dep.status !== 'Full' ? (
-                                            <Link to="/contact" className="dep-btn">Enquire</Link>
+                                            <Link to="/contact" className="dep-action-btn">
+                                                Enquire <ChevronRight size={14} />
+                                            </Link>
                                         ) : (
-                                            <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Waitlist Available</span>
+                                            <span style={{ color: '#999', fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700 }}>
+                                                Waitlist Only
+                                            </span>
                                         )}
                                     </td>
-                                </tr>
+                                </motion.tr>
                             ))}
-                        </tbody>
+                        </motion.tbody>
                     </table>
                 </motion.div>
 
-                <div style={{ marginTop: '80px', textAlign: 'center', maxWidth: '700px', margin: '80px auto 0' }}>
-                    <h3 style={{ fontFamily: 'Playfair Display', fontSize: '2.5rem', marginBottom: '20px' }}>Prefer a Private Trek?</h3>
-                    <p style={{ color: 'rgba(255,255,255,0.7)', lineHeight: '1.6', marginBottom: '30px' }}>
-                        If you have a group of 2 or more, we can arrange a private climb starting on any date of your choosing, via any route.
+                {/* PRIVATE EXPEDITION CTA */}
+                <motion.div 
+                    className="private-exp-cta"
+                    initial="hidden" whileInView="visible" viewport={{ once: true }}
+                    variants={fadeInUp}
+                >
+                    <h3 className="private-cta-title">Private <em>Trek</em></h3>
+                    <p className="private-cta-text">
+                        If you have a group of 2 or more, we can arrange a private climb starting on any date of your choosing, via any route. Professional guides, dedicated crew, and absolute privacy.
                     </p>
-                    <Link to="/contact" className="dep-btn" style={{ padding: '15px 40px' }}>Request Private Safari</Link>
-                </div>
+                    <Link to="/contact" className="btn-heritage-gold">
+                        Request Private Expedition
+                    </Link>
+                </motion.div>
             </section>
         </div>
     );
