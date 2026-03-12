@@ -142,29 +142,29 @@
     padding: 35px 30px;
 }
 
-.dep-date {
+.utility-root .dep-date {
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.4rem;
     font-weight: 600;
-    color: var(--dark);
+    color: var(--dark) !important;
 }
 
-.dep-route {
+.utility-root .dep-route {
     font-weight: 600;
     font-size: 1rem;
-    color: var(--dark);
+    color: var(--dark) !important;
     letter-spacing: -0.01em;
 }
 
-.dep-price {
+.utility-root .dep-price {
     font-weight: 700;
-    color: var(--green);
+    color: var(--green) !important;
     font-size: 1.1rem;
 }
 
-.dep-price span {
+.utility-root .dep-price span {
     font-size: 0.65rem;
-    color: #999;
+    color: #999 !important;
     font-weight: 400;
     margin-right: 4px;
 }

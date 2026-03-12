@@ -95,7 +95,7 @@ export const DestinationDetail = () => {
                         <span className="ledger-label">Primary Success</span>
                         <div className="ledger-val" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                             <Shield size={16} color="var(--gold)" />
-                            95.8% Encounter Rate
+                            {destination.encounterRate || "95.8%"} Encounter Rate
                         </div>
                     </div>
 
@@ -111,7 +111,7 @@ export const DestinationDetail = () => {
                         <span className="ledger-label">Expedition Level</span>
                         <div className="ledger-val" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                             <Mountain size={16} color="var(--gold)" />
-                            Prestige Tier 01
+                            {destination.expeditionTier || "Prestige Tier 01"}
                         </div>
                     </div>
 
@@ -119,7 +119,7 @@ export const DestinationDetail = () => {
                         <span className="ledger-label">Tracking Protocol</span>
                         <div className="ledger-val" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                             <Navigation size={16} color="var(--gold)" />
-                            Satellite GPS Tracking
+                            {destination.trackingMethod || "Satellite GPS Tracking"}
                         </div>
                     </div>
                 </aside>
@@ -130,7 +130,7 @@ export const DestinationDetail = () => {
                     <div className="bespoke-text">
                         <p>{destination.overview}</p>
                         <p style={{ marginTop: '30px', borderLeft: '2px solid var(--gold)', paddingLeft: '30px', fontStyle: 'italic', background: 'rgba(201, 168, 76, 0.05)', padding: '30px' }}>
-                            "Walking through this landscape is like reading a forgotten manuscript of the earth—every shadow tells a secret, and every sunrise is a revelation."
+                            "{destination.overviewQuote || 'Walking through this landscape is like reading a forgotten manuscript of the earth.'}"
                         </p>
                     </div>
                 </div>
@@ -152,26 +152,16 @@ export const DestinationDetail = () => {
                             </header>
                             
                             <div className="ledger-vitals">
-                                <div className="vital-item">
-                                    <span className="vital-label">Sensory Vibe</span>
-                                    <span className="vital-text">Charged with raw, ancient energy.</span>
-                                </div>
-                                <div className="vital-item">
-                                    <span className="vital-label">Audio Profile</span>
-                                    <span className="vital-text">Distant predator calls & thrum of millions of hooves.</span>
-                                </div>
-                                <div className="vital-item">
-                                    <span className="vital-label">Visibility</span>
-                                    <span className="vital-text">Endless horizons with golden morning mist.</span>
-                                </div>
-                                <div className="vital-item">
-                                    <span className="vital-label">Ambient Temp</span>
-                                    <span className="vital-text">Crisp 14°C at dawn to 28°C at meridian.</span>
-                                </div>
+                                {(destination.atmosphereVitals || []).map((vital, i) => (
+                                    <div className="vital-item" key={i}>
+                                        <span className="vital-label">{vital.label}</span>
+                                        <span className="vital-text">{vital.text}</span>
+                                    </div>
+                                ))}
                             </div>
                             
                             <footer className="card-footer-note">
-                                "A place that makes you feel both small and connected."
+                                {destination.atmosphereFooter || "A place that makes you feel both small and connected."}
                             </footer>
                         </motion.div>
 
@@ -187,26 +177,16 @@ export const DestinationDetail = () => {
                             </header>
                             
                             <div className="ledger-vitals">
-                                <div className="vital-item">
-                                    <span className="vital-label">Predator Stat</span>
-                                    <span className="vital-text">Highest density of lions and cheetahs in Africa.</span>
-                                </div>
-                                <div className="vital-item">
-                                    <span className="vital-label">Key Species</span>
-                                    <span className="vital-text">The Big Five + 2 Million migrating ungulates.</span>
-                                </div>
-                                <div className="vital-item">
-                                    <span className="vital-label">Bio Profile</span>
-                                    <span className="vital-text">Primal theatre of masterclass survival.</span>
-                                </div>
-                                <div className="vital-item">
-                                    <span className="vital-label">Encounter Prob</span>
-                                    <span className="vital-text">95.8% (Historical Data Archive)</span>
-                                </div>
+                                {(destination.wildlifeVitals || []).map((vital, i) => (
+                                    <div className="vital-item" key={i}>
+                                        <span className="vital-label">{vital.label}</span>
+                                        <span className="vital-text">{vital.text}</span>
+                                    </div>
+                                ))}
                             </div>
                             
                             <footer className="card-footer-note">
-                                Satellite GPS integration for active pride tracking.
+                                {destination.wildlifeFooter || "Satellite GPS integration for active pride tracking."}
                             </footer>
                         </motion.div>
                     </>

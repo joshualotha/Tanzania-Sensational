@@ -61,7 +61,7 @@ export const SafariPackageDetail = () => {
                 </div>
                 <div className="safari-metric">
                     <span className="safari-m-label">Pace Level</span>
-                    <span className="safari-m-val">Signature Heritage</span>
+                    <span className="safari-m-val">{pkg.paceLevel || "Signature Heritage"}</span>
                 </div>
                 <div className="safari-metric">
                     <span className="safari-m-label">Investment</span>

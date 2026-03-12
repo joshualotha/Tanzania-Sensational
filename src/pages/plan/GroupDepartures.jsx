@@ -1,16 +1,9 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Calendar, Users, Map, DollarSign, ChevronRight } from 'lucide-react';
+import { Calendar, Users, Map, DollarSign, ChevronRight, Mountain, Eye } from 'lucide-react';
+import { departuresData } from '../../data/departuresData';
 import '../../styles/group-departures-premium.css';
-
-const departuresData = [
-    { id: 1, date: "July 12 - July 20, 2026", route: "8-Day Lemosho Route", status: "Available", price: "$2,850" },
-    { id: 2, date: "August 04 - August 12, 2026", route: "8-Day Lemosho Route", status: "Limited", price: "$2,850" },
-    { id: 3, date: "September 15 - September 23, 2026", route: "9-Day Northern Circuit", status: "Available", price: "$3,300" },
-    { id: 4, date: "October 02 - October 08, 2026", route: "7-Day Machame Route", status: "Full", price: "$2,450" },
-    { id: 5, date: "December 28 - Jan 05, 2027", route: "8-Day Lemosho (NYE Summit)", status: "Limited", price: "$2,950" },
-];
 
 export const GroupDepartures = () => {
     useEffect(() => {
@@ -93,15 +86,20 @@ export const GroupDepartures = () => {
                                         </span>
                                     </td>
                                     <td>
-                                        {dep.status !== 'Full' ? (
-                                            <Link to="/contact" className="dep-action-btn">
-                                                Enquire <ChevronRight size={14} />
+                                        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                                            <Link to={`/group-departures/${dep.id}`} className="dep-action-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                                                Details <Eye size={12} />
                                             </Link>
-                                        ) : (
-                                            <span style={{ color: '#999', fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700 }}>
-                                                Waitlist Only
-                                            </span>
-                                        )}
+                                            {dep.status !== 'Full' ? (
+                                                <Link to="/contact" className="dep-action-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                                                    Enquire <ChevronRight size={12} />
+                                                </Link>
+                                            ) : (
+                                                <span style={{ color: '#999', fontSize: '0.6rem', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 700 }}>
+                                                    Waitlist
+                                                </span>
+                                            )}
+                                        </div>
                                     </td>
                                 </motion.tr>
                             ))}
