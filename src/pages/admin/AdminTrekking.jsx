@@ -129,7 +129,7 @@ export const AdminTrekking = () => {
                                 />
                             </div>
 
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '15px' }}>
                                 <div style={inputGroupStyle}>
                                     <label style={labelStyle}>Duration</label>
                                     <input 
@@ -151,6 +151,23 @@ export const AdminTrekking = () => {
                                         <option value="Extreme">Extreme</option>
                                     </select>
                                 </div>
+                                <div style={inputGroupStyle}>
+                                    <label style={labelStyle}>Success Rate</label>
+                                    <input 
+                                        style={inputStyle} 
+                                        value={selectedPkg.successRate} 
+                                        onChange={(e) => setSelectedPkg({ ...selectedPkg, successRate: e.target.value })}
+                                    />
+                                </div>
+                            </div>
+
+                            <div style={inputGroupStyle}>
+                                <label style={labelStyle}>Hero Image Path</label>
+                                <input 
+                                    style={inputStyle} 
+                                    value={selectedPkg.heroImg} 
+                                    onChange={(e) => setSelectedPkg({ ...selectedPkg, heroImg: e.target.value })}
+                                />
                             </div>
 
                             <div style={inputGroupStyle}>
@@ -160,6 +177,40 @@ export const AdminTrekking = () => {
                                     value={selectedPkg.overview} 
                                     onChange={(e) => setSelectedPkg({ ...selectedPkg, overview: e.target.value })}
                                 />
+                            </div>
+
+                            <div style={inputGroupStyle}>
+                                <label style={labelStyle}>Package Highlights</label>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                    {(selectedPkg.highlights || []).map((highlight, hIdx) => (
+                                        <div key={hIdx} style={{ display: 'flex', gap: '10px' }}>
+                                            <input 
+                                                style={{ ...inputStyle, fontSize: '0.8rem' }} 
+                                                value={highlight}
+                                                onChange={(e) => {
+                                                    const newHighlights = [...selectedPkg.highlights];
+                                                    newHighlights[hIdx] = e.target.value;
+                                                    setSelectedPkg({ ...selectedPkg, highlights: newHighlights });
+                                                }}
+                                            />
+                                            <button 
+                                                onClick={() => {
+                                                    const newHighlights = selectedPkg.highlights.filter((_, idx) => idx !== hIdx);
+                                                    setSelectedPkg({ ...selectedPkg, highlights: newHighlights });
+                                                }}
+                                                style={{ background: 'none', border: 'none', color: '#E53E3E', cursor: 'pointer' }}
+                                            >
+                                                <Trash2 size={16} />
+                                            </button>
+                                        </div>
+                                    ))}
+                                    <button 
+                                        onClick={() => setSelectedPkg({ ...selectedPkg, highlights: [...(selectedPkg.highlights || []), "New specific highlight"] })}
+                                        style={{ background: 'rgba(255,255,255,0.05)', border: '1px dashed rgba(255,255,255,0.2)', color: 'white', padding: '8px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.75rem' }}
+                                    >
+                                        + Add Highlight
+                                    </button>
+                                </div>
                             </div>
 
                             <div style={inputGroupStyle}>
@@ -262,6 +313,44 @@ export const AdminTrekking = () => {
                                                     />
                                                 </div>
                                                 <div style={inputGroupStyle}>
+                                                    <label style={{ ...labelStyle, fontSize: '0.55rem' }}>Distance (km)</label>
+                                                    <input 
+                                                        style={{ ...inputStyle, padding: '8px 12px', fontSize: '0.8rem' }} 
+                                                        value={day.distance || ''}
+                                                        onChange={(e) => {
+                                                            const newItin = [...selectedPkg.itinerary];
+                                                            newItin[dIdx].distance = e.target.value;
+                                                            setSelectedPkg({ ...selectedPkg, itinerary: newItin });
+                                                        }}
+                                                    />
+                                                </div>
+                                                <div style={inputGroupStyle}>
+                                                    <label style={{ ...labelStyle, fontSize: '0.55rem' }}>Hiking Time</label>
+                                                    <input 
+                                                        style={{ ...inputStyle, padding: '8px 12px', fontSize: '0.8rem' }} 
+                                                        value={day.hikingTime || ''}
+                                                        placeholder="e.g. 5-7 hours"
+                                                        onChange={(e) => {
+                                                            const newItin = [...selectedPkg.itinerary];
+                                                            newItin[dIdx].hikingTime = e.target.value;
+                                                            setSelectedPkg({ ...selectedPkg, itinerary: newItin });
+                                                        }}
+                                                    />
+                                                </div>
+                                                <div style={inputGroupStyle}>
+                                                    <label style={{ ...labelStyle, fontSize: '0.55rem' }}>Habitat</label>
+                                                    <input 
+                                                        style={{ ...inputStyle, padding: '8px 12px', fontSize: '0.8rem' }} 
+                                                        value={day.habitat || ''}
+                                                        placeholder="e.g. Rainforest"
+                                                        onChange={(e) => {
+                                                            const newItin = [...selectedPkg.itinerary];
+                                                            newItin[dIdx].habitat = e.target.value;
+                                                            setSelectedPkg({ ...selectedPkg, itinerary: newItin });
+                                                        }}
+                                                    />
+                                                </div>
+                                                <div style={inputGroupStyle}>
                                                     <label style={{ ...labelStyle, fontSize: '0.55rem' }}>Accommodation</label>
                                                     <input 
                                                         style={{ ...inputStyle, padding: '8px 12px', fontSize: '0.8rem' }} 
@@ -269,6 +358,19 @@ export const AdminTrekking = () => {
                                                         onChange={(e) => {
                                                             const newItin = [...selectedPkg.itinerary];
                                                             newItin[dIdx].accommodation = e.target.value;
+                                                            setSelectedPkg({ ...selectedPkg, itinerary: newItin });
+                                                        }}
+                                                    />
+                                                </div>
+                                                <div style={inputGroupStyle}>
+                                                    <label style={{ ...labelStyle, fontSize: '0.55rem' }}>Meals</label>
+                                                    <input 
+                                                        style={{ ...inputStyle, padding: '8px 12px', fontSize: '0.8rem' }} 
+                                                        value={day.meals || ''}
+                                                        placeholder="B, L, D"
+                                                        onChange={(e) => {
+                                                            const newItin = [...selectedPkg.itinerary];
+                                                            newItin[dIdx].meals = e.target.value;
                                                             setSelectedPkg({ ...selectedPkg, itinerary: newItin });
                                                         }}
                                                     />
