@@ -1,0 +1,398 @@
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+    Plus, Search, Edit3, Trash2, Mountain, Compass, 
+    ChevronRight, X, Shield, Activity, Camera, Save, 
+    Loader2, AlertTriangle, Layers, Info, TrendingUp
+} from 'lucide-react';
+import { adminService, trekkingService } from '../../services/api';
+import '../../styles/admin-premium.css';
+
+export const AdminTrekking = () => {
+    const [packages, setPackages] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [selectedPkg, setSelectedPkg] = useState(null);
+    const [isCurating, setIsCurating] = useState(false);
+    const [saving, setSaving] = useState(false);
+    const [showCurator, setShowCurator] = useState(false);
+
+    useEffect(() => {
+        fetchPackages();
+    }, []);
+
+    const fetchPackages = async () => {
+        try {
+            setLoading(true);
+            const response = await trekkingService.getAll();
+            setPackages(response.data);
+        } catch (error) {
+            console.error("Vertical Intelligence Retrieval Failure:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleOpenCurator = (pkg = null) => {
+        if (pkg) {
+            setSelectedPkg({ 
+                ...pkg, 
+                highlights: pkg.highlights || [],
+                itinerary: pkg.itinerary || []
+            });
+        } else {
+            setSelectedPkg({
+                name: 'NEW_ASCENT_MISSION',
+                slug: `ascent-${Date.now()}`,
+                base_price: 2500,
+                duration: 7,
+                difficulty: 'MODERATE',
+                success_rate: '95%',
+                hero_image: 'https://images.unsplash.com/photo-1549449875-9689b1473215?auto=format&fit=crop&q=80',
+                description: 'Awaiting high-altitude briefing...',
+                highlights: [],
+                itinerary: []
+            });
+        }
+        setIsCurating(true);
+        setShowCurator(true);
+    };
+
+    const handleSave = async () => {
+        setSaving(true);
+        try {
+            if (selectedPkg.id && !String(selectedPkg.id).startsWith('ascent-')) {
+                await adminService.updateTrekking(selectedPkg.id, selectedPkg);
+            } else {
+                await adminService.createTrekking(selectedPkg);
+            }
+            await fetchPackages();
+            setIsCurating(false);
+            setShowCurator(false);
+            setSelectedPkg(null);
+        } catch (error) {
+            alert("Vertical sync failure. Record remains locked.");
+        } finally {
+            setSaving(false);
+        }
+    };
+
+    const handleDelete = async (id) => {
+        if (!window.confirm("Strike this ascent from the architectural record? This is irreversible.")) return;
+        try {
+            await adminService.deleteTrekking(id);
+            setPackages(packages.filter(p => p.id !== id));
+            if (selectedPkg?.id === id) {
+                setIsCurating(false);
+                setSelectedPkg(null);
+            }
+        } catch (error) {
+            alert("Redaction failure.");
+        }
+    };
+
+    const filteredPackages = packages.filter(p => 
+        (p.name || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (p.slug || '').toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    if (loading) return (
+        <div style={{ height: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+            <Loader2 className="animate-spin" size={48} color="var(--gold)" />
+            <span style={{ marginTop: '20px', fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--gold)', letterSpacing: '0.3em' }}>PROBING ALTITUDE DATA</span>
+        </div>
+    );
+
+    return (
+        <div className="admin-page-root">
+            <header style={{ marginBottom: '60px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                <div>
+                    <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--gold)', letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '12px' }}>Tactical Summitry</h2>
+                    <h1 className="admin-page-title" style={{ fontSize: '3.5rem', fontWeight: 300 }}>Vertical Intel</h1>
+                </div>
+                
+                <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+                    <div className="admin-search-wrapper" style={{ border: '1px solid var(--border)', background: 'rgba(255,255,255,0.02)' }}>
+                        <Search size={18} color="var(--gold-dim)" />
+                        <input 
+                            type="text" 
+                            placeholder="PROBE ALTITUDES..." 
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            style={{ background: 'transparent', border: 'none', color: 'white', padding: '12px 10px', fontFamily: 'var(--font-mono)', fontSize: '0.75rem' }}
+                        />
+                    </div>
+                    <button className="admin-btn-primary" onClick={() => handleOpenCurator()}>
+                        <Plus size={18} /> INITIALIZE ASCENT
+                    </button>
+                </div>
+            </header>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '50px', alignItems: 'start' }}>
+                {/* ─── GRID OF ASCENTS ─── */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '30px' }}>
+                    <AnimatePresence>
+                        {filteredPackages.map((pkg, idx) => (
+                            <motion.div 
+                                key={pkg.id}
+                                initial={{ opacity: 0, scale: 0.98 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: idx * 0.05 }}
+                                className={`trek-command-card ${selectedPkg?.id === pkg.id ? 'active' : ''}`}
+                                onClick={() => handleOpenCurator(pkg)}
+                                style={{
+                                    background: 'var(--slate)',
+                                    border: '1px solid var(--border)',
+                                    borderRadius: '4px',
+                                    overflow: 'hidden',
+                                    cursor: 'pointer',
+                                    position: 'relative',
+                                    borderColor: selectedPkg?.id === pkg.id ? 'var(--gold)' : 'var(--border)'
+                                }}
+                            >
+                                <div style={{ height: '220px', position: 'relative' }}>
+                                    <img src={pkg.hero_image} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }} />
+                                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(10,10,10,0.9), transparent)' }}></div>
+                                    <div style={{ position: 'absolute', top: '15px', right: '15px' }}>
+                                        <span className={`status-pill ${pkg.difficulty?.toLowerCase()}`} style={{ fontSize: '0.55rem' }}>{pkg.difficulty?.toUpperCase()}</span>
+                                    </div>
+                                    <div style={{ position: 'absolute', bottom: '20px', left: '20px', right: '20px' }}>
+                                        <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginBottom: '6px' }}>
+                                            <span style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.65rem', color: 'rgba(255,255,255,0.6)', fontFamily: 'var(--font-mono)' }}>
+                                                <Activity size={10} /> {pkg.duration}D
+                                            </span>
+                                            <span style={{ width: '3px', height: '3px', background: 'var(--gold)', borderRadius: '50%' }}></span>
+                                            <span style={{ fontSize: '0.65rem', color: 'var(--gold)', fontFamily: 'var(--font-mono)' }}>
+                                                {pkg.success_rate} SUCCESS
+                                            </span>
+                                        </div>
+                                        <h3 style={{ fontSize: '1.4rem', color: 'white', fontWeight: 300 }}>{pkg.name}</h3>
+                                    </div>
+                                </div>
+                                <div style={{ padding: '20px 25px', borderTop: '1px solid rgba(255,255,255,0.03)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-mono)' }}>${pkg.base_price.toLocaleString()}</span>
+                                    <button 
+                                        onClick={(e) => { e.stopPropagation(); handleDelete(pkg.id); }}
+                                        style={{ background: 'none', border: 'none', color: '#ff4444', opacity: 0.3, cursor: 'pointer' }}
+                                    >
+                                        <Trash2 size={16} />
+                                    </button>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </AnimatePresence>
+                </div>
+
+                {/* curator moved to modal */}
+            </div>
+
+            {showCurator && isCurating && selectedPkg && (
+                <div
+                    role="dialog"
+                    aria-modal="true"
+                    style={{
+                        position: 'fixed',
+                        inset: 0,
+                        background: 'rgba(0,0,0,0.65)',
+                        display: 'grid',
+                        placeItems: 'center',
+                        zIndex: 4000,
+                        padding: 20,
+                    }}
+                    onMouseDown={() => !saving && (setShowCurator(false), setIsCurating(false))}
+                >
+                    <div
+                        className="admin-panel shadow-premium"
+                        style={{ width: 'min(980px, 96vw)', padding: 40, border: '1px solid var(--gold)', background: 'var(--charcoal)', maxHeight: '90vh', overflow: 'auto' }}
+                        onMouseDown={(e) => e.stopPropagation()}
+                    >
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '30px' }}>
+                            <div>
+                                <h4 style={SectionHeadStyle}><Shield size={14} /> Ascent Architect</h4>
+                                <h2 style={{ fontSize: '1.8rem', color: 'white', fontWeight: 300 }}>{selectedPkg.id ? 'ASCENT_OVERRIDE' : 'ASCENT_INITIALIZE'}</h2>
+                            </div>
+                            <button onClick={() => !saving && (setShowCurator(false), setIsCurating(false))} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.2)', cursor: 'pointer' }}><X size={24} /></button>
+                        </div>
+
+                        <div className="curator-scrollarea custom-scrollbar" style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
+                            <div className="curator-section">
+                                <h5 style={SubHeadStyle}>Vertical Parametrics</h5>
+                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '15px' }}>
+                                    <AdminInput label="Ascent Designation" value={selectedPkg.name} onChange={v => setSelectedPkg({...selectedPkg, name: v})} />
+                                    <AdminInput label="Mission Slug" value={selectedPkg.slug} onChange={v => setSelectedPkg({...selectedPkg, slug: v})} />
+                                    <AdminInput label="Technical Severity" value={selectedPkg.difficulty} onChange={v => setSelectedPkg({...selectedPkg, difficulty: v})} />
+                                    <AdminInput label="Summit Window" value={selectedPkg.duration} type="number" onChange={v => setSelectedPkg({...selectedPkg, duration: v})} />
+                                    <AdminInput label="Success Probability" value={selectedPkg.success_rate} onChange={v => setSelectedPkg({...selectedPkg, success_rate: v})} />
+                                    <AdminInput label="Base Capital ($)" value={selectedPkg.base_price} type="number" onChange={v => setSelectedPkg({...selectedPkg, base_price: v})} />
+                                </div>
+                                <AdminInput label="Prime Visual Asset (URL)" value={selectedPkg.hero_image} onChange={v => setSelectedPkg({...selectedPkg, hero_image: v})} />
+                            </div>
+
+                            <div className="curator-section">
+                                <h5 style={SubHeadStyle}>Summit Narrative</h5>
+                                <AdminTextarea label="Tactical Intelligence" value={selectedPkg.description} rows={6} onChange={v => setSelectedPkg({...selectedPkg, description: v})} />
+                            </div>
+
+                            <div className="curator-section">
+                                <h5 style={SubHeadStyle}>Strategic Highlights</h5>
+                                <EditableList
+                                    label="Mission Highlights"
+                                    items={selectedPkg.highlights}
+                                    onAdd={() => setSelectedPkg({...selectedPkg, highlights: [...(selectedPkg.highlights || []), '']})}
+                                    onUpdate={(i, v) => {
+                                        const list = [...selectedPkg.highlights];
+                                        list[i] = v;
+                                        setSelectedPkg({...selectedPkg, highlights: list});
+                                    }}
+                                    onRemove={(i) => setSelectedPkg({...selectedPkg, highlights: selectedPkg.highlights.filter((_, idx) => idx !== i)})}
+                                />
+                            </div>
+
+                            <div className="curator-section">
+                                <h5 style={SubHeadStyle}>Vertical Milestones</h5>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                                    {(selectedPkg.itinerary || []).map((day, idx) => (
+                                        <div key={idx} style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border)', padding: '15px' }}>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
+                                                <span style={{ fontSize: '0.6rem', color: 'var(--gold)', fontFamily: 'var(--font-mono)' }}>ALTITUDE PHASE {idx + 1}</span>
+                                                <button
+                                                    onClick={() => setSelectedPkg({...selectedPkg, itinerary: selectedPkg.itinerary.filter((_, i) => i !== idx)})}
+                                                    style={{ background: 'none', border: 'none', color: '#ff4444', opacity: 0.5, cursor: 'pointer' }}
+                                                ><X size={12} /></button>
+                                            </div>
+                                            <input
+                                                placeholder="Phase Headline"
+                                                value={day.title}
+                                                onChange={(e) => {
+                                                    const it = [...selectedPkg.itinerary];
+                                                    it[idx].title = e.target.value;
+                                                    setSelectedPkg({...selectedPkg, itinerary: it});
+                                                }}
+                                                style={CompactInput}
+                                            />
+                                            <textarea
+                                                placeholder="Phase intelligence..."
+                                                value={day.description}
+                                                rows={3}
+                                                onChange={(e) => {
+                                                    const it = [...selectedPkg.itinerary];
+                                                    it[idx].description = e.target.value;
+                                                    setSelectedPkg({...selectedPkg, itinerary: it});
+                                                }}
+                                                style={{ ...CompactInput, marginTop: '8px', height: '60px', resize: 'none' }}
+                                            />
+                                        </div>
+                                    ))}
+                                    <button
+                                        onClick={() => setSelectedPkg({...selectedPkg, itinerary: [...(selectedPkg.itinerary || []), { title: '', description: '' }]})}
+                                        style={{ width: '100%', padding: '12px', background: 'transparent', border: '1px dashed var(--border)', color: 'var(--text-dim)', fontSize: '0.7rem', cursor: 'pointer' }}
+                                    >+ APPEND ASCENT PHASE</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style={{ marginTop: '30px', display: 'flex', gap: '15px' }}>
+                            <button className="admin-btn-secondary" style={{ flex: 1 }} onClick={() => !saving && (setShowCurator(false), setIsCurating(false))}>Close</button>
+                            <button
+                                className="admin-btn-primary"
+                                style={{ flex: 2 }}
+                                disabled={saving}
+                                onClick={handleSave}
+                            >
+                                {saving ? <Loader2 className="animate-spin" size={16} /> : <Save size={16} />}
+                                <span>{saving ? 'Saving…' : 'Save'}</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+};
+
+/* ─── HELPER COMPONENTS ─── */
+
+const SectionHeadStyle = {
+    fontFamily: 'var(--font-mono)',
+    fontSize: '0.65rem',
+    color: 'var(--gold)',
+    letterSpacing: '0.2em',
+    textTransform: 'uppercase',
+    marginBottom: '10px',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px'
+};
+
+const SubHeadStyle = {
+    fontFamily: 'var(--font-mono)',
+    fontSize: '0.6rem',
+    color: 'var(--text-dim)',
+    textTransform: 'uppercase',
+    letterSpacing: '0.15em',
+    paddingBottom: '10px',
+    borderBottom: '1px solid rgba(255,255,255,0.05)',
+    marginBottom: '20px'
+};
+
+const LabelStyle = {
+    display: 'block',
+    fontFamily: 'var(--font-mono)',
+    fontSize: '0.6rem',
+    color: 'var(--text-dim)',
+    textTransform: 'uppercase',
+    marginBottom: '8px'
+};
+
+const AdminInput = ({ label, value, onChange, type = "text" }) => (
+    <div style={{ marginBottom: '15px' }}>
+        <label style={LabelStyle}>{label}</label>
+        <input 
+            type={type} 
+            value={value || ''} 
+            onChange={e => onChange(e.target.value)} 
+            style={{ width: '100%', background: '#000', border: '1px solid var(--border)', padding: '10px 12px', color: 'white', fontSize: '0.85rem' }}
+        />
+    </div>
+);
+
+const AdminTextarea = ({ label, value, rows, onChange }) => (
+    <div style={{ marginBottom: '15px' }}>
+        <label style={LabelStyle}>{label}</label>
+        <textarea 
+            rows={rows} 
+            value={value || ''} 
+            onChange={e => onChange(e.target.value)} 
+            style={{ width: '100%', background: '#000', border: '1px solid var(--border)', padding: '12px', color: 'white', fontSize: '0.85rem', resize: 'none', lineHeight: '1.6' }}
+        />
+    </div>
+);
+
+const CompactInput = {
+    width: '100%',
+    background: '#000',
+    border: '1px solid var(--border)',
+    color: 'white',
+    padding: '8px 12px',
+    fontSize: '0.8rem',
+    outline: 'none'
+};
+
+const EditableList = ({ label, items, onAdd, onUpdate, onRemove }) => (
+    <div>
+        <label style={LabelStyle}>{label}</label>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            {(items || []).map((item, i) => (
+                <div key={i} style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                    <input 
+                        value={item} 
+                        onChange={e => onUpdate(i, e.target.value)}
+                        style={{ ...CompactInput, fontSize: '0.75rem' }}
+                    />
+                    <button onClick={() => onRemove(i)} style={{ background: 'none', border: 'none', color: '#ff4444', opacity: 0.5, cursor: 'pointer' }}><X size={12} /></button>
+                </div>
+            ))}
+            <button onClick={onAdd} style={{ width: '100%', padding: '6px', background: 'transparent', border: '1px dashed var(--border)', color: 'var(--text-dim)', fontSize: '0.65rem' }}>+ ADD</button>
+        </div>
+    </div>
+);

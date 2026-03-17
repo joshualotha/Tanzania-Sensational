@@ -1,11 +1,33 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import laravel from 'laravel-vite-plugin';
+import react from '@vitejs/plugin-react';
 
-// https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [react()],
-    server: {
-        host: true,
-        port: 5173
-    }
-})
+    plugins: [
+        laravel({
+            input: ['resources/js/main.jsx'],
+            refresh: true,
+        }),
+        react({
+            jsxRuntime: 'automatic'
+        }),
+    ],
+    resolve: {
+        alias: {
+            '@': '/resources/js',
+        },
+    },
+    build: {
+        rollupOptions: {
+            output: {
+                manualChunks: {
+                    vendor: ['react', 'react-dom', 'react-router-dom'],
+                    motion: ['framer-motion'],
+                    charts: ['recharts'],
+                    icons: ['lucide-react'],
+                },
+            },
+        },
+        chunkSizeWarningLimit: 600,
+    },
+});
