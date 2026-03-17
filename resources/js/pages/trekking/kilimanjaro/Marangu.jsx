@@ -188,7 +188,7 @@ const Marangu = () => {
                 </div>
             </section>
 
-            <PrivateTrekPricing routeSlug="marangu" />
+            <PrivateTrekPricing routeSlug="marangu" fallbackPricePerPerson={route?.base_price ?? null} />
 
             {/* ─── CTA ─── */}
             <section className="lux-cta">

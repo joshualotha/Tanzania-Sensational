@@ -115,4 +115,17 @@ return [
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Admin Notification Address
+    |--------------------------------------------------------------------------
+    |
+    | Where internal notifications (e.g. booking requests) should be sent.
+    | Defaults to the global from address if not provided.
+    |
+    */
+    'admin' => [
+        'address' => env('MAIL_ADMIN_ADDRESS'),
+    ],
+
 ];

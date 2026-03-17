@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\AdminNotification;
 use App\Models\Booking;
 use App\Models\GearRentalRequest;
 use Illuminate\Http\Request;
@@ -36,6 +37,14 @@ class GearRentalRequestController extends Controller
             'email' => $validated['email'],
             'items' => $filteredItems,
             'status' => 'new',
+        ]);
+
+        AdminNotification::create([
+            'type' => 'gear_request',
+            'title' => 'New gear rental request',
+            'body' => trim(($req->customer_name ? $req->customer_name . ' • ' : '') . ($req->email ?? '')),
+            'url' => '/admin/gear-requests',
+            'severity' => 'info',
         ]);
 
         return response()->json([

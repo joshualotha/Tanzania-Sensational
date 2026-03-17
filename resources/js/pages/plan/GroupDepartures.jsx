@@ -48,6 +48,7 @@ export const GroupDepartures = () => {
             const price = `$${Math.round((dep.price_cents || 0) / 100).toLocaleString()}`;
             const routeName = dep.trekking_route?.name ? `${dep.trekking_route.name} Route` : 'Route TBA';
             const status = (dep.status || 'Available');
+            const spotsLeft = (dep.remaining_seats ?? dep.available_seats ?? 0);
 
             return {
                 id: String(dep.id),
@@ -55,6 +56,7 @@ export const GroupDepartures = () => {
                 routeName,
                 price,
                 status,
+                spotsLeft,
             };
         });
     }, [departures]);
@@ -114,6 +116,7 @@ export const GroupDepartures = () => {
                                 <th>Route Expedition</th>
                                 <th>Investment</th>
                                 <th>Status</th>
+                                <th>Spots left</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -130,13 +133,13 @@ export const GroupDepartures = () => {
                                 ))
                             ) : error ? (
                                 <motion.tr className="dep-row" variants={fadeInUp}>
-                                    <td colSpan={5} style={{ padding: '30px', textAlign: 'center', color: '#7a6f65' }}>
+                                    <td colSpan={6} style={{ padding: '30px', textAlign: 'center', color: '#7a6f65' }}>
                                         Couldn’t load departures right now. Please refresh or try again in a moment.
                                     </td>
                                 </motion.tr>
                             ) : rows.length === 0 ? (
                                 <motion.tr className="dep-row" variants={fadeInUp}>
-                                    <td colSpan={5} style={{ padding: '30px', textAlign: 'center', color: '#7a6f65' }}>
+                                    <td colSpan={6} style={{ padding: '30px', textAlign: 'center', color: '#7a6f65' }}>
                                         No group departures are currently scheduled.
                                     </td>
                                 </motion.tr>
@@ -156,6 +159,9 @@ export const GroupDepartures = () => {
                                             <span className={`dep-status ${(dep.status || 'available').toLowerCase()}`}>
                                                 {dep.status}
                                             </span>
+                                        </td>
+                                        <td className="dep-price" style={{ fontFamily: 'var(--font-mono)' }}>
+                                            {Number(dep.spotsLeft) > 0 ? dep.spotsLeft : 'FULL'}
                                         </td>
                                         <td>
                                             <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>

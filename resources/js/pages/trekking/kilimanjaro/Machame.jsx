@@ -191,7 +191,7 @@ const Machame = () => {
                 </div>
             </section>
 
-            <PrivateTrekPricing routeSlug="machame" />
+            <PrivateTrekPricing routeSlug="machame" fallbackPricePerPerson={route?.base_price ?? null} />
 
             {/* ─── CTA ─── */}
             <section className="lux-cta">

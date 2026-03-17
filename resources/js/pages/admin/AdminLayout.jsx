@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate, Outlet, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../../context/AuthContext';
 import '../../styles/admin-premium.css';
+import { adminService } from '../../services/api';
 import { 
     LayoutDashboard, 
     MapPin,
@@ -31,6 +32,24 @@ export const AdminLayout = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { user, logout } = useAuth();
+    const [notifOpen, setNotifOpen] = useState(false);
+    const [notifLoading, setNotifLoading] = useState(false);
+    const [notifications, setNotifications] = useState([]);
+
+    const unreadCount = useMemo(() => notifications.filter((n) => !n.read_at).length, [notifications]);
+
+    const loadNotifications = async () => {
+        try {
+            setNotifLoading(true);
+            const res = await adminService.getNotifications({ per_page: 10 });
+            const rows = Array.isArray(res.data?.data) ? res.data.data : (Array.isArray(res.data) ? res.data : []);
+            setNotifications(rows);
+        } catch (e) {
+            // keep silent; bell can degrade gracefully
+        } finally {
+            setNotifLoading(false);
+        }
+    };
 
     const handleLogout = async (e) => {
         e.preventDefault();
@@ -60,6 +79,41 @@ export const AdminLayout = () => {
     const isActivePath = (path) => {
         if (path === '/admin') return location.pathname === '/admin';
         return location.pathname === path || location.pathname.startsWith(path + '/');
+    };
+
+    useEffect(() => {
+        // Initial load + periodic refresh
+        loadNotifications();
+        const t = setInterval(() => loadNotifications(), 30000);
+        return () => clearInterval(t);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        const onKey = (e) => {
+            if (e.key === 'Escape') setNotifOpen(false);
+        };
+        window.addEventListener('keydown', onKey);
+        return () => window.removeEventListener('keydown', onKey);
+    }, []);
+
+    const openNotification = async (n) => {
+        try {
+            if (n?.id && !n.read_at) {
+                await adminService.markNotificationRead(n.id);
+                setNotifications((prev) => prev.map((x) => (x.id === n.id ? { ...x, read_at: new Date().toISOString() } : x)));
+            }
+        } catch (e) {}
+        setNotifOpen(false);
+        if (n?.url) navigate(n.url);
+    };
+
+    const markAllRead = async () => {
+        try {
+            await adminService.markAllNotificationsRead();
+            const nowIso = new Date().toISOString();
+            setNotifications((prev) => prev.map((n) => ({ ...n, read_at: n.read_at || nowIso })));
+        } catch (e) {}
     };
 
     return (
@@ -145,10 +199,93 @@ export const AdminLayout = () => {
                                 onBlur={e => { e.target.style.borderColor = 'var(--border)'; e.target.style.background = 'rgba(255,255,255,0.02)'; }}
                             />
                         </div>
-                        <button style={{ background: 'none', border: 'none', color: 'var(--text-dim)', position: 'relative', cursor: 'pointer' }}>
+                        <div style={{ position: 'relative' }}>
+                        <button
+                            style={{ background: 'none', border: 'none', color: 'var(--text-dim)', position: 'relative', cursor: 'pointer' }}
+                            onClick={() => { setNotifOpen((s) => !s); if (!notifOpen) loadNotifications(); }}
+                            aria-label="Notifications"
+                        >
                             <Bell size={20} />
-                            <span style={{ position: 'absolute', top: -2, right: -2, width: '6px', height: '6px', background: 'var(--gold)', borderRadius: '50%', boxShadow: '0 0 5px var(--gold)' }}></span>
+                            {unreadCount > 0 ? (
+                                <span style={{ position: 'absolute', top: -2, right: -2, minWidth: 16, height: 16, padding: '0 5px', background: 'var(--gold)', borderRadius: 999, color: '#111', fontSize: 10, display: 'grid', placeItems: 'center', fontFamily: 'var(--font-mono)', fontWeight: 700 }}>
+                                    {unreadCount > 99 ? '99+' : unreadCount}
+                                </span>
+                            ) : null}
                         </button>
+                        <AnimatePresence>
+                            {notifOpen && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: -8, scale: 0.98 }}
+                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                    exit={{ opacity: 0, y: -8, scale: 0.98 }}
+                                    transition={{ duration: 0.18 }}
+                                    style={{
+                                        position: 'absolute',
+                                        right: 0,
+                                        top: 'calc(100% + 12px)',
+                                        width: 420,
+                                        maxWidth: '80vw',
+                                        background: 'var(--charcoal)',
+                                        border: '1px solid var(--border)',
+                                        boxShadow: '0 20px 60px rgba(0,0,0,0.45)',
+                                        zIndex: 5000,
+                                        overflow: 'hidden',
+                                    }}
+                                >
+                                    <div style={{ padding: 14, display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--border)' }}>
+                                        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.18em', textTransform: 'uppercase', color: 'var(--gold)' }}>
+                                            Notifications
+                                        </div>
+                                        <button
+                                            className="admin-btn-mini"
+                                            style={{ padding: '8px 10px' }}
+                                            disabled={notifLoading || unreadCount === 0}
+                                            onClick={markAllRead}
+                                        >
+                                            Mark all read
+                                        </button>
+                                    </div>
+
+                                    <div className="custom-scrollbar" style={{ maxHeight: 420, overflowY: 'auto' }}>
+                                        {notifLoading ? (
+                                            <div style={{ padding: 16, color: 'var(--text-dim)', fontFamily: 'var(--font-mono)', fontSize: '0.7rem' }}>Loading…</div>
+                                        ) : notifications.length === 0 ? (
+                                            <div style={{ padding: 16, color: 'var(--text-dim)' }}>No notifications.</div>
+                                        ) : (
+                                            notifications.slice(0, 10).map((n) => (
+                                                <button
+                                                    key={n.id}
+                                                    onClick={() => openNotification(n)}
+                                                    style={{
+                                                        width: '100%',
+                                                        textAlign: 'left',
+                                                        padding: 14,
+                                                        background: n.read_at ? 'transparent' : 'rgba(201,168,76,0.06)',
+                                                        border: 'none',
+                                                        borderBottom: '1px solid rgba(255,255,255,0.06)',
+                                                        color: 'white',
+                                                        cursor: 'pointer',
+                                                    }}
+                                                >
+                                                    <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'baseline' }}>
+                                                        <div style={{ fontSize: '0.9rem', fontWeight: 600 }}>{n.title}</div>
+                                                        <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-mono)' }}>
+                                                            {n.created_at ? new Date(n.created_at).toLocaleString() : ''}
+                                                        </div>
+                                                    </div>
+                                                    {n.body ? (
+                                                        <div style={{ marginTop: 6, color: 'rgba(255,255,255,0.65)', fontSize: '0.85rem', lineHeight: 1.4 }}>
+                                                            {n.body}
+                                                        </div>
+                                                    ) : null}
+                                                </button>
+                                            ))
+                                        )}
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                        </div>
                         <button className="admin-btn-mini" style={{ padding: '8px', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border)', borderRadius: '2px', color: 'var(--gold)' }}>
                             <Cpu size={16} />
                         </button>

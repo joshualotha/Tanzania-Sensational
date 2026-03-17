@@ -7,6 +7,7 @@ use App\Mail\BookingReplyToCustomer;
 use App\Mail\BookingRequestConfirmationCustomer;
 use App\Mail\BookingRequestNotificationAdmin;
 use App\Models\Booking;
+use App\Models\AdminNotification;
 use App\Models\Departure;
 use App\Models\SafariPackage;
 use Illuminate\Http\Request;
@@ -86,9 +87,21 @@ class BookingController extends Controller
         }
 
         // Mail to admin + customer (no payment links).
-        $adminEmail = config('mail.from.address');
-        Mail::to($adminEmail)->send(new BookingRequestNotificationAdmin($booking));
-        Mail::to($booking->email)->send(new BookingRequestConfirmationCustomer($booking));
+        $adminEmail = config('mail.admin.address') ?: config('mail.from.address');
+        try {
+            Mail::to($adminEmail)->send(new BookingRequestNotificationAdmin($booking));
+            Mail::to($booking->email)->send(new BookingRequestConfirmationCustomer($booking));
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        AdminNotification::create([
+            'type' => 'booking',
+            'title' => 'New booking request',
+            'body' => trim(($booking->customer_name ? $booking->customer_name . ' • ' : '') . ($booking->email ?? '') . ' • ' . ($booking->group_size ? ($booking->group_size . ' pax') : '')),
+            'url' => '/admin/bookings',
+            'severity' => 'info',
+        ]);
 
         return response()->json([
             'message' => 'Thank you for your booking request. Our team will contact you shortly to confirm details and arrange payment.',
@@ -133,9 +146,21 @@ class BookingController extends Controller
 
         $booking = $booking->load(['safariPackage']);
 
-        $adminEmail = config('mail.from.address');
-        Mail::to($adminEmail)->send(new BookingRequestNotificationAdmin($booking));
-        Mail::to($booking->email)->send(new BookingRequestConfirmationCustomer($booking));
+        $adminEmail = config('mail.admin.address') ?: config('mail.from.address');
+        try {
+            Mail::to($adminEmail)->send(new BookingRequestNotificationAdmin($booking));
+            Mail::to($booking->email)->send(new BookingRequestConfirmationCustomer($booking));
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        AdminNotification::create([
+            'type' => 'booking',
+            'title' => 'New booking request',
+            'body' => trim(($booking->customer_name ? $booking->customer_name . ' • ' : '') . ($booking->email ?? '') . ' • ' . ($booking->group_size ? ($booking->group_size . ' pax') : '')),
+            'url' => '/admin/bookings',
+            'severity' => 'info',
+        ]);
 
         return response()->json([
             'message' => 'Thank you for your booking request. Our team will contact you shortly to confirm details and arrange payment.',

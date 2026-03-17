@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\AdminNotification;
 use App\Models\ContactSubmission;
 use Illuminate\Http\Request;
 
@@ -25,6 +26,14 @@ class ContactController extends Controller
         ]);
 
         $submission = ContactSubmission::create($validated);
+
+        AdminNotification::create([
+            'type' => 'inquiry',
+            'title' => 'New inquiry',
+            'body' => trim(($submission->first_name ? ($submission->first_name . ' ' . $submission->last_name . ' • ') : '') . ($submission->email ?? '')),
+            'url' => '/admin/inquiries',
+            'severity' => 'info',
+        ]);
 
         return response()->json([
             'message' => 'Your expedition architectural brief has been received. Our senior concierge will respond within 24 hours.',

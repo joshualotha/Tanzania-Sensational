@@ -303,3 +303,113 @@
 .admin-table tr:hover td {
     background: rgba(255,255,255,0.02);
 }
+
+/* ─── ADMIN LOGIN ─── */
+.admin-login-layout {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 120px 20px;
+    background: var(--obsidian);
+    background-image:
+        radial-gradient(circle at 35% 20%, rgba(201, 168, 76, 0.10) 0%, transparent 55%),
+        radial-gradient(circle at 80% 60%, rgba(255,255,255,0.04) 0%, transparent 55%);
+    color: var(--text-main);
+    font-family: var(--font-body);
+}
+
+.login-card {
+    width: min(520px, 92vw);
+    background: rgba(10, 10, 10, 0.85);
+    border: 1px solid var(--border);
+    padding: 42px 42px 36px;
+    box-shadow: 0 24px 70px rgba(0,0,0,0.55);
+    backdrop-filter: blur(22px);
+}
+
+.login-brand h1 {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1.05;
+    font-size: 2.2rem;
+    color: white;
+}
+
+.login-brand p {
+    margin: 10px 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.9;
+}
+
+.admin-input-group {
+    display: grid;
+    gap: 8px;
+    margin-top: 18px;
+}
+
+.admin-input-group label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+}
+
+.admin-input-group input {
+    width: 100%;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    color: white;
+    padding: 12px 14px;
+    outline: none;
+    font-size: 0.95rem;
+    transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.admin-input-group input:focus {
+    border-color: rgba(201, 168, 76, 0.55);
+    background: rgba(255,255,255,0.04);
+}
+
+.btn-admin-primary {
+    margin-top: 22px;
+    width: 100%;
+    border: 1px solid var(--gold);
+    background: var(--gold);
+    color: #111;
+    padding: 12px 14px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.15s ease, filter 0.2s ease, opacity 0.2s ease;
+}
+
+.btn-admin-primary:hover {
+    filter: brightness(1.04);
+}
+
+.btn-admin-primary:active {
+    transform: translateY(1px);
+}
+
+.btn-admin-primary:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+@media (max-width: 520px) {
+    .login-card {
+        padding: 34px 22px 28px;
+    }
+    .login-brand h1 {
+        font-size: 1.95rem;
+    }
+}

@@ -48,8 +48,8 @@ export const DepartureDetail = () => {
         const priceNumber = Math.round((dep.price_cents || 0) / 100);
         const priceLabel = `$${priceNumber.toLocaleString()}`;
 
-        const totalSeats = (dep.available_seats ?? 0) + (dep.booked_seats ?? 0);
-        const spotsLeft = dep.available_seats ?? 0;
+        const totalSeats = (dep.total_seats ?? ((dep.available_seats ?? 0) + (dep.booked_seats ?? 0)));
+        const spotsLeft = (dep.remaining_seats ?? dep.available_seats ?? 0);
 
         const itinerary = dep.trekking_route?.itinerary_days || dep.trekking_route?.itineraryDays || [];
         const itinerarySummary = Array.isArray(itinerary)

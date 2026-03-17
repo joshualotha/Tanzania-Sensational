@@ -188,7 +188,7 @@ const Umbwe = () => {
                 </div>
             </section>
 
-            <PrivateTrekPricing routeSlug="umbwe" />
+            <PrivateTrekPricing routeSlug="umbwe" fallbackPricePerPerson={route?.base_price ?? null} />
 
             {/* ─── CTA ─── */}
             <section className="lux-cta">

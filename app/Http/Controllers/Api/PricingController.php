@@ -14,7 +14,8 @@ class PricingController extends Controller
     {
         $validated = $request->validate([
             'route_id' => 'nullable|integer|exists:trekking_routes,id',
-            'route_slug' => 'nullable|string|exists:trekking_routes,slug',
+            // Accept short slugs like "machame" and resolve to stored slugs like "machame-123".
+            'route_slug' => 'nullable|string',
             'date' => 'required|date',
             'group_size' => 'required|integer|min:1|max:20',
         ]);
@@ -23,7 +24,20 @@ class PricingController extends Controller
         if (!empty($validated['route_id'])) {
             $route = TrekkingRoute::findOrFail($validated['route_id']);
         } else {
-            $route = TrekkingRoute::where('slug', $validated['route_slug'])->firstOrFail();
+            $slug = (string)($validated['route_slug'] ?? '');
+            if ($slug === '') {
+                return response()->json(['message' => 'route_id or route_slug is required.'], 422);
+            }
+
+            $route = TrekkingRoute::where('slug', $slug)->first();
+            if (!$route) {
+                // Backward compatibility: allow "machame" to match "machame-<id>" seeded routes.
+                $route = TrekkingRoute::where('slug', 'like', $slug . '-%')->orderBy('id')->first();
+            }
+
+            if (!$route) {
+                return response()->json(['message' => 'Route not found.'], 404);
+            }
         }
 
         $cacheKey = "pricing:trekking:{$route->id}:" . $validated['date'] . ":" . $validated['group_size'];

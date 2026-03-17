@@ -188,7 +188,7 @@ const NorthernCircuit = () => {
                 </div>
             </section>
 
-            <PrivateTrekPricing routeSlug="northern-circuit" />
+            <PrivateTrekPricing routeSlug="northern-circuit" fallbackPricePerPerson={route?.base_price ?? null} />
 
             {/* ─── CTA ─── */}
             <section className="lux-cta">

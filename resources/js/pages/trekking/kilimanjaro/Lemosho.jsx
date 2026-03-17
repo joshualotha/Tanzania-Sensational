@@ -188,7 +188,7 @@ const Lemosho = () => {
                 </div>
             </section>
 
-            <PrivateTrekPricing routeSlug="lemosho" />
+            <PrivateTrekPricing routeSlug="lemosho" fallbackPricePerPerson={route?.base_price ?? null} />
 
             {/* ─── CTA ─── */}
             <section className="lux-cta">

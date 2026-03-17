@@ -191,7 +191,7 @@ const Rongai = () => {
                 </div>
             </section>
 
-            <PrivateTrekPricing routeSlug="rongai" />
+            <PrivateTrekPricing routeSlug="rongai" fallbackPricePerPerson={route?.base_price ?? null} />
 
             {/* ─── CTA ─── */}
             <section className="lux-cta">

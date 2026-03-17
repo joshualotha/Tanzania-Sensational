@@ -38,14 +38,22 @@ class TrekkingRouteController extends Controller
     public function show($identifier)
     {
         // Find by slug or ID
-        $route = TrekkingRoute::with(['itineraryDays', 'departures' => function($query) {
+        $q = TrekkingRoute::with(['itineraryDays', 'departures' => function($query) {
             $query->where('departure_date', '>=', now())
                   ->where('status', '!=', 'Full')
                   ->orderBy('departure_date');
-        }])
-        ->where('slug', $identifier)
-        ->orWhere('id', $identifier)
-        ->firstOrFail();
+        }]);
+
+        $route = $q->where('slug', $identifier)->orWhere('id', $identifier)->first();
+
+        if (!$route) {
+            // Backward compatibility: allow short slugs like "machame" to match "machame-<id>" seeded routes.
+            $route = $q->where('slug', 'like', (string)$identifier . '-%')->orderBy('id')->first();
+        }
+
+        if (!$route) {
+            abort(404);
+        }
 
         return response()->json($route);
     }

@@ -149,6 +149,11 @@ export const adminService = {
         form.append('folder', folder);
         return api.post('/admin/uploads', form, { headers: { 'Content-Type': 'multipart/form-data' } });
     },
+
+    // Notifications
+    getNotifications: (params = {}) => api.get('/admin/notifications', { params }),
+    markNotificationRead: (id) => api.post(`/admin/notifications/${id}/read`),
+    markAllNotificationsRead: () => api.post('/admin/notifications/read-all'),
 };
 
 export const visualAssetService = {

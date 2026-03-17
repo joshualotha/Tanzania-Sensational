@@ -24,6 +24,7 @@ use App\Http\Controllers\Api\PagesController;
 use App\Http\Controllers\Api\UploadController;
 use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\PricingRuleController;
+use App\Http\Controllers\Api\AdminNotificationsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Page;
@@ -89,6 +90,11 @@ Route::prefix('api')->middleware(['web'])->group(function() {
 
         // Uploads (admin)
         Route::post('/admin/uploads', [UploadController::class, 'store'])->middleware(['can:manage-settings']);
+
+        // Notifications (admin)
+        Route::get('/admin/notifications', [AdminNotificationsController::class, 'index']);
+        Route::post('/admin/notifications/{id}/read', [AdminNotificationsController::class, 'markRead']);
+        Route::post('/admin/notifications/read-all', [AdminNotificationsController::class, 'markAllRead']);
     });
 });
 

@@ -93,6 +93,8 @@ export const BookingEngine = ({ pkg, onClose, mode = 'modal' }) => {
 
     // ─── SUCCESS SCREEN ───
     if (success) {
+        const remainingSeats = success?.booking?.departure?.remaining_seats;
+        const heldSeats = success?.booking?.held_seats;
         if (!isModal) {
             return (
                 <div className="booking-modal booking-page-card">
@@ -105,6 +107,11 @@ export const BookingEngine = ({ pkg, onClose, mode = 'modal' }) => {
                         <p className="booking-success-text">
                             {success.message}
                         </p>
+                        {isDepartureBooking && typeof remainingSeats === 'number' ? (
+                            <div style={{ marginTop: 12, color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem' }}>
+                                Seats are now on hold for your request{typeof heldSeats === 'number' && heldSeats > 0 ? ` (${heldSeats} seat${heldSeats === 1 ? '' : 's'})` : ''}. Remaining spots: <strong style={{ color: 'white' }}>{remainingSeats}</strong>.
+                            </div>
+                        ) : null}
                         <a className="booking-success-btn" href="/contact">
                             Contact us
                         </a>
