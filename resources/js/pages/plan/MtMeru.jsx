@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { visualsData } from '../../data/visualsData';
 import '../../styles/utility-pages-premium.css';
+import '../../styles/meru-premium.css';
 
 export const MtMeru = () => {
     useEffect(() => {
@@ -20,7 +21,7 @@ export const MtMeru = () => {
     };
 
     return (
-        <div className="utility-root">
+        <div className="utility-root meru-root">
             <section className="utility-hero">
                 <div className="utility-hero-bg">
                     <img src={visualsData.planning.meruHero} alt="Mount Meru Landscape" style={{ filter: 'brightness(0.5)' }} />
@@ -46,7 +47,7 @@ export const MtMeru = () => {
                     >
                         Choose your <em style={{ color: 'var(--gold)' }}>itinerary</em>
                     </motion.h2>
-                    <p style={{ textAlign: 'center', maxWidth: 760, margin: '14px auto 0', color: 'rgba(255,255,255,0.65)', lineHeight: 1.7 }}>
+                    <p style={{ textAlign: 'center', maxWidth: 760, margin: '14px auto 0', color: 'rgba(17,17,17,0.68)', lineHeight: 1.7 }}>
                         Both options include a ranger on the lower slopes. The 4‑day trek is the most comfortable pace; the 3‑day trek is best for very fit hikers.
                     </p>
 

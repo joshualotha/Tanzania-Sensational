@@ -33,6 +33,11 @@ use App\Models\TrekkingRoute;
 use App\Models\SafariPackage;
 use App\Models\Destination;
 
+// Move admin SPA entrypoints off predictable URLs.
+Route::redirect('/admin/login', '/ops-7f3d/login', 302);
+Route::redirect('/admin', '/ops-7f3d', 302);
+Route::redirect('/admin/{any}', '/ops-7f3d', 302)->where('any', '.*');
+
 Route::prefix('api')->middleware(['web'])->group(function() {
     // Auth
     Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:10,1');

@@ -17,7 +17,7 @@ export const AdminLogin = () => {
         setIsLoggingIn(true);
         try {
             await login(email, password);
-            navigate('/admin');
+            navigate('/ops-7f3d');
         } catch (err) {
             console.error("Login logical failure:", err);
             setError(err.response?.data?.message || 'Authentication failed. Tactical access denied.');

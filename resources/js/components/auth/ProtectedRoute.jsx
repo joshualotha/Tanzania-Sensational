@@ -21,7 +21,7 @@ export const ProtectedRoute = () => {
     }
 
     if (!user) {
-        return <Navigate to="/admin/login" replace />;
+        return <Navigate to="/ops-7f3d/login" replace />;
     }
 
     return <Outlet />;

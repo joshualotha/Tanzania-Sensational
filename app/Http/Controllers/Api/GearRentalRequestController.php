@@ -43,7 +43,7 @@ class GearRentalRequestController extends Controller
             'type' => 'gear_request',
             'title' => 'New gear rental request',
             'body' => trim(($req->customer_name ? $req->customer_name . ' • ' : '') . ($req->email ?? '')),
-            'url' => '/admin/gear-requests',
+            'url' => '/ops-7f3d/gear-requests',
             'severity' => 'info',
         ]);
 

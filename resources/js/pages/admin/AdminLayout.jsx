@@ -55,29 +55,29 @@ export const AdminLayout = () => {
         e.preventDefault();
         try {
             await logout();
-            navigate('/admin/login');
+            navigate('/ops-7f3d/login');
         } catch (error) {
             console.error("Logout failed", error);
         }
     };
 
     const navItems = [
-        { path: '/admin', label: 'Dashboard', icon: LayoutDashboard, slug: 'HOME' },
-        { path: '/admin/destinations', label: 'Destinations', icon: MapPin, slug: 'DEST' },
-        { path: '/admin/safaris', label: 'Safari Packages', icon: Tent, slug: 'SAFA' },
-        { path: '/admin/trekking', label: 'Trekking Routes', icon: Mountain, slug: 'TREK' },
-        { path: '/admin/pricing', label: 'Pricing Rules', icon: DollarSign, slug: 'PRICE' },
-        { path: '/admin/blog', label: 'Blog Posts', icon: FileText, slug: 'BLOG' },
-        { path: '/admin/departures', label: 'Departures', icon: Calendar, slug: 'DATE' },
-        { path: '/admin/bookings', label: 'Bookings', icon: CheckCircle, slug: 'BOOK' },
-        { path: '/admin/gear-requests', label: 'Gear Requests', icon: Backpack, slug: 'GEAR' },
-        { path: '/admin/inquiries', label: 'Inquiries', icon: MessageSquare, slug: 'LEAD' },
-        { path: '/admin/pages', label: 'Pages', icon: BookOpen, slug: 'PAGES' },
-        { path: '/admin/visuals', label: 'Media Library', icon: ImageIcon, slug: 'MEDIA' },
+        { path: '/ops-7f3d', label: 'Dashboard', icon: LayoutDashboard, slug: 'HOME' },
+        { path: '/ops-7f3d/destinations', label: 'Destinations', icon: MapPin, slug: 'DEST' },
+        { path: '/ops-7f3d/safaris', label: 'Safari Packages', icon: Tent, slug: 'SAFA' },
+        { path: '/ops-7f3d/trekking', label: 'Trekking Routes', icon: Mountain, slug: 'TREK' },
+        { path: '/ops-7f3d/pricing', label: 'Pricing Rules', icon: DollarSign, slug: 'PRICE' },
+        { path: '/ops-7f3d/blog', label: 'Blog Posts', icon: FileText, slug: 'BLOG' },
+        { path: '/ops-7f3d/departures', label: 'Departures', icon: Calendar, slug: 'DATE' },
+        { path: '/ops-7f3d/bookings', label: 'Bookings', icon: CheckCircle, slug: 'BOOK' },
+        { path: '/ops-7f3d/gear-requests', label: 'Gear Requests', icon: Backpack, slug: 'GEAR' },
+        { path: '/ops-7f3d/inquiries', label: 'Inquiries', icon: MessageSquare, slug: 'LEAD' },
+        { path: '/ops-7f3d/pages', label: 'Pages', icon: BookOpen, slug: 'PAGES' },
+        { path: '/ops-7f3d/visuals', label: 'Media Library', icon: ImageIcon, slug: 'MEDIA' },
     ];
 
     const isActivePath = (path) => {
-        if (path === '/admin') return location.pathname === '/admin';
+        if (path === '/ops-7f3d') return location.pathname === '/ops-7f3d';
         return location.pathname === path || location.pathname.startsWith(path + '/');
     };
 
@@ -147,10 +147,10 @@ export const AdminLayout = () => {
                     ))}
 
                     <div style={{ marginTop: '50px', fontSize: '0.6rem', color: 'var(--gold-dim)', fontFamily: 'var(--font-mono)', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '25px', paddingLeft: '25px' }}>Administration</div>
-                    <Link to="/admin/settings" className={`admin-nav-item ${isActivePath('/admin/settings') ? 'active' : ''}`}>
+                    <Link to="/ops-7f3d/settings" className={`admin-nav-item ${isActivePath('/ops-7f3d/settings') ? 'active' : ''}`}>
                         <Settings size={18} /> <span>Site Settings</span>
                     </Link>
-                    <Link to="/admin/users" className={`admin-nav-item ${isActivePath('/admin/users') ? 'active' : ''}`}>
+                    <Link to="/ops-7f3d/users" className={`admin-nav-item ${isActivePath('/ops-7f3d/users') ? 'active' : ''}`}>
                         <Users size={18} /> <span>Users</span>
                     </Link>
                 </nav>

@@ -1,0 +1,50 @@
+/* Mt. Meru page overrides — ensure strong readability on light theme */
+
+.meru-root {
+    background: var(--bg-parchment);
+    color: var(--dark);
+}
+
+/* Keep the hero cinematic/dark, but transition body to light */
+.meru-root .utility-content {
+    color: var(--dark);
+}
+
+.meru-root .util-card {
+    background: #fff;
+    border: 1px solid rgba(201, 168, 76, 0.14);
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.06);
+}
+
+.meru-root .util-card:hover {
+    border-color: rgba(201, 168, 76, 0.35);
+}
+
+.meru-root .util-card-title {
+    color: #121210;
+}
+
+.meru-root .util-card-p {
+    color: rgba(17, 17, 17, 0.70);
+}
+
+.meru-root .util-card-list li {
+    color: rgba(17, 17, 17, 0.78);
+}
+
+.meru-root .util-card-icon {
+    background: rgba(201, 168, 76, 0.12);
+    color: var(--gold);
+}
+
+.meru-root .dep-btn {
+    border-color: rgba(201, 168, 76, 0.9);
+    color: #121210;
+    background: rgba(201, 168, 76, 0.14);
+}
+
+.meru-root .dep-btn:hover {
+    background: var(--gold);
+    color: #121210;
+}
+

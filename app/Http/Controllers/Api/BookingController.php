@@ -99,7 +99,7 @@ class BookingController extends Controller
             'type' => 'booking',
             'title' => 'New booking request',
             'body' => trim(($booking->customer_name ? $booking->customer_name . ' • ' : '') . ($booking->email ?? '') . ' • ' . ($booking->group_size ? ($booking->group_size . ' pax') : '')),
-            'url' => '/admin/bookings',
+            'url' => '/ops-7f3d/bookings',
             'severity' => 'info',
         ]);
 
@@ -158,7 +158,7 @@ class BookingController extends Controller
             'type' => 'booking',
             'title' => 'New booking request',
             'body' => trim(($booking->customer_name ? $booking->customer_name . ' • ' : '') . ($booking->email ?? '') . ' • ' . ($booking->group_size ? ($booking->group_size . ' pax') : '')),
-            'url' => '/admin/bookings',
+            'url' => '/ops-7f3d/bookings',
             'severity' => 'info',
         ]);
 

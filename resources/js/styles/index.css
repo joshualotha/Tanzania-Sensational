@@ -267,7 +267,8 @@ nav.scrolled .dropdown-toggle {
   top: 100%;
   left: 50%;
   transform: translateX(-50%) translateY(10px);
-  background: var(--bg-parchment);
+  z-index: 2000;
+  background: rgba(249, 247, 242, 0.98);
   border: 1px solid rgba(201, 165, 90, 0.15);
   padding: 15px 0;
   min-width: 180px;
@@ -275,6 +276,7 @@ nav.scrolled .dropdown-toggle {
   visibility: hidden;
   transition: all 0.3s ease;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(14px);
 }
 
 .dropdown:hover .dropdown-menu {
@@ -292,6 +294,7 @@ nav.scrolled .dropdown-toggle {
   display: block !important;
   font-size: 0.72rem !important;
   color: var(--dark) !important;
+  font-weight: 600;
   white-space: nowrap;
 }
 
@@ -310,7 +313,8 @@ nav.scrolled .dropdown-toggle {
   top: -15px;
   left: 100%;
   transform: translateX(10px);
-  background: var(--bg-parchment);
+  z-index: 2000;
+  background: rgba(249, 247, 242, 0.98);
   border: 1px solid rgba(201, 165, 90, 0.15);
   padding: 15px 0;
   min-width: 220px;
@@ -318,6 +322,7 @@ nav.scrolled .dropdown-toggle {
   visibility: hidden;
   transition: all 0.3s ease;
   box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(14px);
 }
 
 .dropdown-menu .has-submenu:hover>.submenu {
@@ -340,7 +345,7 @@ nav.scrolled .dropdown-toggle {
   width: 100%;
   justify-content: space-between;
   font-size: 0.72rem;
-  color: var(--cream-dim);
+  color: rgba(17, 17, 17, 0.78);
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }

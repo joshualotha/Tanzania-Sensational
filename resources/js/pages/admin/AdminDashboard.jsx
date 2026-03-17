@@ -125,7 +125,7 @@ export const AdminDashboard = () => {
                         <button
                             className="admin-btn-mini"
                             style={{ padding: '8px 15px', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border)', fontSize: '0.6rem', fontFamily: 'var(--font-mono)', color: 'var(--text-dim)' }}
-                            onClick={() => navigate('/admin/bookings')}
+                            onClick={() => navigate('/ops-7f3d/bookings')}
                         >
                             View all
                         </button>
@@ -145,7 +145,7 @@ export const AdminDashboard = () => {
                                 <tr
                                     key={i}
                                     style={{ cursor: 'pointer' }}
-                                    onClick={() => navigate('/admin/bookings', { state: { openBookingId: b.id } })}
+                                    onClick={() => navigate('/ops-7f3d/bookings', { state: { openBookingId: b.id } })}
                                 >
                                     <td>
                                         <div style={{ fontWeight: 600 }}>{b.customer_name}</div>
@@ -163,7 +163,7 @@ export const AdminDashboard = () => {
                                             onClick={(e) => {
                                                 e.preventDefault();
                                                 e.stopPropagation();
-                                                navigate('/admin/bookings', { state: { openBookingId: b.id } });
+                                                navigate('/ops-7f3d/bookings', { state: { openBookingId: b.id } });
                                             }}
                                             aria-label="Open booking"
                                         >

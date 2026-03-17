@@ -136,10 +136,10 @@ function App() {
                 <AuthProvider>
                     <Routes>
                         {/* ─── ADMIN ROUTES ─── */}
-                        <Route path="/admin/login" element={<AdminLogin />} />
+                        <Route path="/ops-7f3d/login" element={<AdminLogin />} />
                         
                         <Route element={<ProtectedRoute />}>
-                            <Route path="/admin" element={<AdminLayout />}>
+                            <Route path="/ops-7f3d" element={<AdminLayout />}>
                                 <Route index element={<AdminDashboard />} />
                                 <Route path="destinations" element={<AdminDestinations />} />
                                 <Route path="safaris" element={<AdminSafaris />} />

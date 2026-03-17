@@ -55,18 +55,25 @@ class BlogController extends Controller
         $post = BlogPost::findOrFail($id);
         
         $validated = $request->validate([
-            'title' => 'string|max:255',
-            'slug' => 'string|unique:blog_posts,slug,' . $id,
+            'title' => 'sometimes|string|max:255',
+            'slug' => 'sometimes|string|unique:blog_posts,slug,' . $id,
             'author' => 'nullable|string',
             'category' => 'nullable|string',
             'excerpt' => 'nullable|string',
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string|max:500',
-            'content' => 'array',
-            'content_html' => 'nullable|string',
+            'content' => 'sometimes|nullable|array',
+            'content_html' => 'sometimes|nullable|string',
             'hero_image' => 'nullable|string',
             'published_at' => 'nullable|date',
         ]);
+
+        // If the update explicitly includes content fields, enforce non-empty content.
+        if (array_key_exists('content', $validated) || array_key_exists('content_html', $validated)) {
+            if (empty($validated['content']) && empty($validated['content_html'])) {
+                return response()->json(['message' => 'Content is required.'], 422);
+            }
+        }
 
         $post->update($validated);
         return response()->json($post);

@@ -31,7 +31,7 @@ class ContactController extends Controller
             'type' => 'inquiry',
             'title' => 'New inquiry',
             'body' => trim(($submission->first_name ? ($submission->first_name . ' ' . $submission->last_name . ' • ') : '') . ($submission->email ?? '')),
-            'url' => '/admin/inquiries',
+            'url' => '/ops-7f3d/inquiries',
             'severity' => 'info',
         ]);
 

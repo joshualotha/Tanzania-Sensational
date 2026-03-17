@@ -64,7 +64,10 @@ export const AdminBlog = () => {
             const dataToSave = {
                 ...selectedPost,
                 content_html: selectedPost.content_html,
+                // API expects `content` as an array (not the DB JSON string).
+                content: Array.isArray(selectedPost.content_blocks) ? selectedPost.content_blocks : [],
             };
+            delete dataToSave.content_blocks;
             if (selectedPost.id) {
                 await adminService.updateBlogPost(selectedPost.id, dataToSave);
             } else {
