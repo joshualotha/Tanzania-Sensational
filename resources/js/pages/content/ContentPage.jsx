@@ -3,7 +3,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
 import { pageService } from '../../services/api';
 import { CmsSection } from '../../components/cms/CmsSection';
-import '../../styles/admin-premium.css';
+import '../../styles/utility-pages-premium.css';
 
 function toSlugPart(input) {
     return String(input || '')
@@ -111,14 +111,26 @@ export const ContentPage = ({ fixedSection = null }) => {
     }
 
     return (
-        <main className="utility-root" style={{ paddingTop: 40 }}>
-            <section className="utility-content">
-                <div style={{ marginBottom: 18 }}>
-                    <h1 style={{ color: 'white', fontWeight: 300, fontSize: '2.6rem', margin: 0 }}>
-                        {data?.title || 'Information'}
-                    </h1>
+        <main className="utility-root">
+            <section className="utility-hero">
+                <div className="utility-hero-bg">
+                    <img
+                        src={data?.og_image || 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=2000&q=80'}
+                        alt={data?.title || 'Page'}
+                    />
                 </div>
-                <div className="admin-panel shadow-premium" style={{ padding: 22 }}>
+                <div className="utility-hero-overlay" />
+                <div className="utility-hero-content">
+                    <span className="utility-hero-eyebrow">{fixedSection || section || 'Guide'}</span>
+                    <h1 className="utility-hero-title">{data?.title || 'Information'}</h1>
+                    {data?.meta_description ? (
+                        <p className="utility-hero-subtitle">{data.meta_description}</p>
+                    ) : null}
+                </div>
+            </section>
+
+            <section className="utility-content">
+                <div className="util-card" style={{ padding: 28 }}>
                     <CmsSection html={data?.content || ''} />
                 </div>
             </section>

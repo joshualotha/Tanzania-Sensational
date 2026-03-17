@@ -70,6 +70,7 @@ export const AdminBookingsList = () => {
         setReplyError('');
         setReplySubject(`Re: Booking request ${booking.booking_ref || `#${booking.id}`}`);
         setReplyMessage('');
+        setShowDetails(false);
         setIsReplying(true);
     };
 
@@ -254,7 +255,7 @@ export const AdminBookingsList = () => {
                         background: 'rgba(0,0,0,0.6)',
                         display: 'grid',
                         placeItems: 'center',
-                        zIndex: 3000,
+                        zIndex: 4500,
                         padding: 20,
                     }}
                     onMouseDown={() => !replySending && setIsReplying(false)}

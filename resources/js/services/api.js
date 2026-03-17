@@ -1,5 +1,16 @@
 import axios from 'axios';
 
+let csrfPromise = null;
+async function ensureCsrfCookie() {
+    if (!csrfPromise) {
+        csrfPromise = axios.get('/sanctum/csrf-cookie').catch((e) => {
+            csrfPromise = null;
+            throw e;
+        });
+    }
+    return csrfPromise;
+}
+
 export const api = axios.create({
     baseURL: '/api',
     headers: {
@@ -8,20 +19,56 @@ export const api = axios.create({
     },
     withCredentials: true,
     withXSRFToken: true,
+    xsrfCookieName: 'XSRF-TOKEN',
+    xsrfHeaderName: 'X-XSRF-TOKEN',
 });
 
-// Automatically attach the CSRF token from the meta tag
-api.interceptors.request.use((config) => {
-    const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-    if (token) {
-        config.headers['X-CSRF-TOKEN'] = token;
+// For session-based CSRF, prefer the XSRF-TOKEN cookie (not the meta tag),
+// because the session/CSRF token can rotate after login without a full page reload.
+api.interceptors.request.use(async (config) => {
+    const method = String(config.method || 'get').toLowerCase();
+    const isMutating = ['post', 'put', 'patch', 'delete'].includes(method);
+    if (isMutating) {
+        await ensureCsrfCookie();
     }
     return config;
 });
 
+// If the session/CSRF token rotated (common after idle), refresh and retry once.
+api.interceptors.response.use(
+    (res) => res,
+    async (error) => {
+        const status = error?.response?.status;
+        const config = error?.config;
+        if (status === 419 && config && !config.__retried419) {
+            config.__retried419 = true;
+            csrfPromise = null;
+            await ensureCsrfCookie();
+            return api.request(config);
+        }
+        throw error;
+    }
+);
+
+// If the session/CSRF token rotated (common after idle), refresh and retry once.
+api.interceptors.response.use(
+    (res) => res,
+    async (error) => {
+        const status = error?.response?.status;
+        const config = error?.config;
+        if (status === 419 && config && !config.__retried419) {
+            config.__retried419 = true;
+            csrfPromise = null;
+            await ensureCsrfCookie();
+            return api.request(config);
+        }
+        throw error;
+    }
+);
+
 // Auth service
 export const authService = {
-    getCsrfCookie: () => axios.get('/sanctum/csrf-cookie'),
+    getCsrfCookie: () => ensureCsrfCookie(),
     login: (email, password) => api.post('/login', { email, password }),
     logout: () => api.post('/logout'),
     getUser: () => api.get('/user'),

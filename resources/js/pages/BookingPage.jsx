@@ -165,10 +165,23 @@ export const BookingPage = () => {
                                 <p style={{ marginTop: 8 }}>
                                     Start from a trip page to book a specific departure or safari package.
                                 </p>
-                                <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 18 }}>
-                                    <Link to="/group-departures" className="btn-heritage-gold" style={{ textDecoration: 'none' }}>Group departures</Link>
-                                    <Link to="/safaris/packages" className="btn-heritage-gold" style={{ textDecoration: 'none' }}>Safari packages</Link>
-                                    <Link to="/contact" className="btn-heritage-outline" style={{ textDecoration: 'none' }}>General inquiry</Link>
+                                <div className="booking-choice-grid">
+                                    <div className="booking-choice-actions">
+                                        <Link to="/group-departures" className="btn-heritage-gold booking-choice-btn" style={{ textDecoration: 'none' }}>
+                                            Group departures
+                                        </Link>
+                                        <Link to="/safaris/packages" className="btn-heritage-gold booking-choice-btn" style={{ textDecoration: 'none' }}>
+                                            Safari packages
+                                        </Link>
+                                    </div>
+                                    <div className="booking-choice-meta">
+                                        <div className="booking-choice-note">
+                                            Prefer a custom request?
+                                        </div>
+                                        <Link to="/contact" className="booking-choice-link">
+                                            General inquiry
+                                        </Link>
+                                    </div>
                                 </div>
                             </div>
                         ) : (

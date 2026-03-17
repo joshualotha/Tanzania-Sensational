@@ -122,9 +122,23 @@ export const AdminDepartures = () => {
     );
 };
 
+function toDateInputValue(value) {
+    if (!value) return '';
+    // Accept "YYYY-MM-DD" or full ISO timestamps like "2026-08-04T00:00:00.000000Z".
+    if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
+    const d = new Date(value);
+    if (Number.isNaN(d.getTime())) return '';
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+}
+
 const DeparturePanel = ({ dep, routes, isExpanded, onToggle, onSave, onDelete, saving, index }) => {
     const [formData, setFormData] = useState({
         ...dep,
+        departure_date: toDateInputValue(dep.departure_date),
+        return_date: toDateInputValue(dep.return_date),
         inclusions: dep.inclusions || [],
         exclusions: dep.exclusions || []
     });
@@ -132,6 +146,8 @@ const DeparturePanel = ({ dep, routes, isExpanded, onToggle, onSave, onDelete, s
     useEffect(() => {
         setFormData({
             ...dep,
+            departure_date: toDateInputValue(dep.departure_date),
+            return_date: toDateInputValue(dep.return_date),
             inclusions: dep.inclusions || [],
             exclusions: dep.exclusions || []
         });

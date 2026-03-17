@@ -25,6 +25,9 @@ export const AuthProvider = ({ children }) => {
     const login = async (email, password) => {
         await authService.getCsrfCookie();
         await authService.login(email, password);
+        // Session regeneration on login can rotate the CSRF token.
+        // Refresh XSRF cookie for subsequent mutating requests.
+        await authService.getCsrfCookie();
         await checkUser();
     };
 

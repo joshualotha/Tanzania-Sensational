@@ -8,6 +8,15 @@ export const Navbar = () => {
   const [activeDropdowns, setActiveDropdowns] = useState([]);
   const location = useLocation();
 
+  const scrollToSection = (id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const nav = document.getElementById('navbar');
+    const navH = nav ? nav.getBoundingClientRect().height : 0;
+    const top = window.scrollY + el.getBoundingClientRect().top - Math.max(80, navH + 16);
+    window.scrollTo({ top, behavior: 'smooth' });
+  };
+
   // Scroll logic
   useEffect(() => {
     const handleScroll = () => {
@@ -23,6 +32,16 @@ export const Navbar = () => {
       window.scrollTo(0, 0);
     }
   }, [location.pathname]);
+
+  // Scroll to section when navigating with a hash (e.g. /#routes)
+  useEffect(() => {
+    if (!location.hash) return;
+    const id = location.hash.replace('#', '').trim();
+    if (!id) return;
+    // Allow render/layout to settle before measuring offsets
+    const t = window.setTimeout(() => scrollToSection(id), 50);
+    return () => window.clearTimeout(t);
+  }, [location.hash]);
 
   // Close mobile menu on route change
   useEffect(() => {
@@ -74,14 +93,31 @@ export const Navbar = () => {
       <nav id="navbar" className={`${isScrolled ? 'scrolled' : ''} ${isMobileOpen ? 'mobile-open' : ''}`}>
         <ul className="nav-links nav-links--left">
           <li className={`dropdown ${isDropdownActive('trekking') ? 'mobile-active' : ''}`}>
-            <a
-              href="/#routes"
+            <Link
+              to="/#routes"
               className="dropdown-toggle"
-              onClick={(e) => handleToggle(e, 'trekking')}
+              onClick={(e) => {
+                if (window.innerWidth <= 900) {
+                  // First tap opens dropdown; if already open, perform the scroll.
+                  if (!isDropdownActive('trekking')) {
+                    e.preventDefault();
+                    setActiveDropdowns(prev => [...prev, 'trekking']);
+                    return;
+                  }
+                }
+                // When user intends navigation, close menus and scroll.
+                setIsMobileOpen(false);
+                setActiveDropdowns([]);
+                // If we're already on home, prevent a hard navigation and just scroll.
+                if (location.pathname === '/') {
+                  e.preventDefault();
+                  scrollToSection('routes');
+                }
+              }}
             >
               Trekking
               <svg viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-            </a>
+            </Link>
             <ul className="dropdown-menu">
               <li className={`has-submenu ${isDropdownActive('kili') ? 'mobile-active' : ''}`}>
                 <div className="dropdown-toggle" onClick={(e) => handleToggle(e, 'kili')}>

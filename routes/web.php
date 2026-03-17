@@ -35,7 +35,7 @@ use App\Models\Destination;
 
 Route::prefix('api')->middleware(['web'])->group(function() {
     // Auth
-    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:10,1');
     Route::post('/logout', [AuthController::class, 'logout']);
     
     // Protected Admin Routes

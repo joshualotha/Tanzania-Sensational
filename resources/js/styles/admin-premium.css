@@ -30,6 +30,22 @@
     overflow: hidden;
 }
 
+/* Ensure native form controls render dark in admin */
+.admin-root {
+    color-scheme: dark;
+}
+
+.admin-root select,
+.admin-root option,
+.admin-root optgroup {
+    background-color: #0a0a0a;
+    color: white;
+}
+
+.admin-root select {
+    border-color: var(--border);
+}
+
 /* ─── 2. TACTICAL SIDEBAR ─── */
 .admin-sidebar {
     width: 320px;
