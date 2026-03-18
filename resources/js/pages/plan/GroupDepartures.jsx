@@ -5,12 +5,14 @@ import { Link } from 'react-router-dom';
 import { Calendar, Users, Map, DollarSign, ChevronRight, Mountain, Eye } from 'lucide-react';
 import { departureService } from '../../services/api';
 import { visualsData } from '../../data/visualsData';
+import { useVisuals } from '../../context/VisualsContext';
 import '../../styles/group-departures-premium.css';
 
 export const GroupDepartures = () => {
     const [departures, setDepartures] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const visuals = useVisuals();
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -82,7 +84,7 @@ export const GroupDepartures = () => {
             <section className="utility-hero">
                 <div className="utility-hero-bg">
                     <img 
-                        src={visualsData.trekking.prep.parkFeesEditorial} 
+                        src={visuals.getSingle('trekking.prep.parkFeesEditorial', visualsData.trekking.prep.parkFeesEditorial)} 
                         alt="Expedition Team" 
                     />
                 </div>

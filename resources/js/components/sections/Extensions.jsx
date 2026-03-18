@@ -1,9 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { visualsData } from '../../data/visualsData';
+import { useVisuals } from '../../context/VisualsContext';
 import '../../styles/extensions.css';
 
 export const Extensions = () => {
+  const visuals = useVisuals();
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -33,7 +35,7 @@ export const Extensions = () => {
 
       <div className="extensions-grid">
         <div className="extension-card reveal">
-          <div className="extension-img" style={{ backgroundImage: `url('${visualsData.home.extensionSerengeti}')` }}></div>
+          <div className="extension-img" style={{ backgroundImage: `url('${visuals.getSingle('home.extensionSerengeti', visualsData.home.extensionSerengeti)}')` }}></div>
           <div className="extension-overlay"></div>
           <div className="extension-content">
             <h3 className="extension-name">Wilderness Safaris</h3>
@@ -43,7 +45,7 @@ export const Extensions = () => {
         </div>
 
         <div className="extension-card reveal reveal-delay-2">
-          <div className="extension-img" style={{ backgroundImage: `url('${visualsData.home.extensionZanzibar}')` }}></div>
+          <div className="extension-img" style={{ backgroundImage: `url('${visuals.getSingle('home.extensionZanzibar', visualsData.home.extensionZanzibar)}')` }}></div>
           <div className="extension-overlay"></div>
           <div className="extension-content">
             <h3 className="extension-name">Zanzibar Escapes</h3>

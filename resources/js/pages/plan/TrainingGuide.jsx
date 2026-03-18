@@ -2,9 +2,11 @@ import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { visualsData } from '../../data/visualsData';
+import { useVisuals } from '../../context/VisualsContext';
 import '../../styles/utility-pages-premium.css';
 
 export const TrainingGuide = () => {
+    const visuals = useVisuals();
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -18,7 +20,7 @@ export const TrainingGuide = () => {
         <div className="utility-root">
             <section className="utility-hero">
                 <div className="utility-hero-bg">
-                    <img src={visualsData.planning.trainingHero} alt="Training" />
+                    <img src={visuals.getSingle('planning.trainingHero', visualsData.planning.trainingHero)} alt="Training" />
                 </div>
                 <div className="utility-hero-overlay"></div>
                 <motion.div className="utility-hero-content" initial="hidden" animate="visible" variants={fadeInUp}>

@@ -3,6 +3,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
 import { pageService } from '../../services/api';
 import { CmsSection } from '../../components/cms/CmsSection';
+import { useVisuals } from '../../context/VisualsContext';
 import '../../styles/utility-pages-premium.css';
 
 function toSlugPart(input) {
@@ -14,6 +15,7 @@ function toSlugPart(input) {
 }
 
 export const ContentPage = ({ fixedSection = null }) => {
+    const visuals = useVisuals();
     const { section, page } = useParams();
     const location = useLocation();
 
@@ -115,7 +117,7 @@ export const ContentPage = ({ fixedSection = null }) => {
             <section className="utility-hero">
                 <div className="utility-hero-bg">
                     <img
-                        src={data?.og_image || 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=2000&q=80'}
+                        src={data?.og_image || visuals.getSingle('common.placeholderHero', 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=2000&q=80')}
                         alt={data?.title || 'Page'}
                     />
                 </div>

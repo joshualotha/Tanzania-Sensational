@@ -16,7 +16,8 @@ class VisualAssetController extends Controller
         $perPage = (int)request()->query('per_page', 24);
         $perPage = max(6, min(96, $perPage));
 
-        $query = VisualAsset::query()->orderBy('section')->orderBy('key');
+        // For predictable client-side rotation (e.g. hero carousels), keep ordering stable.
+        $query = VisualAsset::query()->orderBy('created_at')->orderBy('id');
 
         if ($section = request()->query('section')) {
             $query->where('section', $section);

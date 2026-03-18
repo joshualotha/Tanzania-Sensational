@@ -27,7 +27,7 @@ export const AdminTrekking = () => {
             const response = await trekkingService.getAll();
             setPackages(response.data);
         } catch (error) {
-            console.error("Vertical Intelligence Retrieval Failure:", error);
+            console.error("Failed to load trekking routes:", error);
         } finally {
             setLoading(false);
         }
@@ -42,14 +42,14 @@ export const AdminTrekking = () => {
             });
         } else {
             setSelectedPkg({
-                name: 'NEW_ASCENT_MISSION',
+                name: 'New trekking route',
                 slug: `ascent-${Date.now()}`,
                 base_price: 2500,
                 duration: 7,
-                difficulty: 'MODERATE',
+                difficulty: 'Moderate',
                 success_rate: '95%',
                 hero_image: 'https://images.unsplash.com/photo-1549449875-9689b1473215?auto=format&fit=crop&q=80',
-                description: 'Awaiting high-altitude briefing...',
+                description: '',
                 highlights: [],
                 itinerary: []
             });
@@ -71,14 +71,14 @@ export const AdminTrekking = () => {
             setShowCurator(false);
             setSelectedPkg(null);
         } catch (error) {
-            alert("Vertical sync failure. Record remains locked.");
+            alert("Unable to save changes. Please try again.");
         } finally {
             setSaving(false);
         }
     };
 
     const handleDelete = async (id) => {
-        if (!window.confirm("Strike this ascent from the architectural record? This is irreversible.")) return;
+        if (!window.confirm("Delete this trekking route? This action is irreversible.")) return;
         try {
             await adminService.deleteTrekking(id);
             setPackages(packages.filter(p => p.id !== id));
@@ -87,7 +87,7 @@ export const AdminTrekking = () => {
                 setSelectedPkg(null);
             }
         } catch (error) {
-            alert("Redaction failure.");
+            alert("Unable to delete the route.");
         }
     };
 
@@ -99,7 +99,7 @@ export const AdminTrekking = () => {
     if (loading) return (
         <div style={{ height: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
             <Loader2 className="animate-spin" size={48} color="var(--gold)" />
-            <span style={{ marginTop: '20px', fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--gold)', letterSpacing: '0.3em' }}>PROBING ALTITUDE DATA</span>
+            <span style={{ marginTop: '20px', fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--gold)', letterSpacing: '0.3em' }}>Loading trekking routes…</span>
         </div>
     );
 
@@ -107,8 +107,8 @@ export const AdminTrekking = () => {
         <div className="admin-page-root">
             <header style={{ marginBottom: '60px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                 <div>
-                    <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--gold)', letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '12px' }}>Tactical Summitry</h2>
-                    <h1 className="admin-page-title" style={{ fontSize: '3.5rem', fontWeight: 300 }}>Vertical Intel</h1>
+                    <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--gold)', letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '12px' }}>Trips</h2>
+                    <h1 className="admin-page-title" style={{ fontSize: '3.5rem', fontWeight: 300 }}>Trekking routes</h1>
                 </div>
                 
                 <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
@@ -116,14 +116,14 @@ export const AdminTrekking = () => {
                         <Search size={18} color="var(--gold-dim)" />
                         <input 
                             type="text" 
-                            placeholder="PROBE ALTITUDES..." 
+                            placeholder="Search routes…" 
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             style={{ background: 'transparent', border: 'none', color: 'white', padding: '12px 10px', fontFamily: 'var(--font-mono)', fontSize: '0.75rem' }}
                         />
                     </div>
                     <button className="admin-btn-primary" onClick={() => handleOpenCurator()}>
-                        <Plus size={18} /> INITIALIZE ASCENT
+                        <Plus size={18} /> Add route
                     </button>
                 </div>
             </header>
@@ -208,8 +208,8 @@ export const AdminTrekking = () => {
                     >
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '30px' }}>
                             <div>
-                                <h4 style={SectionHeadStyle}><Shield size={14} /> Ascent Architect</h4>
-                                <h2 style={{ fontSize: '1.8rem', color: 'white', fontWeight: 300 }}>{selectedPkg.id ? 'ASCENT_OVERRIDE' : 'ASCENT_INITIALIZE'}</h2>
+                                <h4 style={SectionHeadStyle}><Shield size={14} /> Route editor</h4>
+                                <h2 style={{ fontSize: '1.8rem', color: 'white', fontWeight: 300 }}>{selectedPkg.id ? 'Edit route' : 'Add route'}</h2>
                             </div>
                             <button onClick={() => !saving && (setShowCurator(false), setIsCurating(false))} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.2)', cursor: 'pointer' }}><X size={24} /></button>
                         </div>
@@ -219,7 +219,7 @@ export const AdminTrekking = () => {
                                 <h5 style={SubHeadStyle}>Vertical Parametrics</h5>
                                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '15px' }}>
                                     <AdminInput label="Ascent Designation" value={selectedPkg.name} onChange={v => setSelectedPkg({...selectedPkg, name: v})} />
-                                    <AdminInput label="Mission Slug" value={selectedPkg.slug} onChange={v => setSelectedPkg({...selectedPkg, slug: v})} />
+                                    <AdminInput label="Slug" value={selectedPkg.slug} onChange={v => setSelectedPkg({...selectedPkg, slug: v})} />
                                     <AdminInput label="Technical Severity" value={selectedPkg.difficulty} onChange={v => setSelectedPkg({...selectedPkg, difficulty: v})} />
                                     <AdminInput label="Summit Window" value={selectedPkg.duration} type="number" onChange={v => setSelectedPkg({...selectedPkg, duration: v})} />
                                     <AdminInput label="Success Probability" value={selectedPkg.success_rate} onChange={v => setSelectedPkg({...selectedPkg, success_rate: v})} />
@@ -230,13 +230,13 @@ export const AdminTrekking = () => {
 
                             <div className="curator-section">
                                 <h5 style={SubHeadStyle}>Summit Narrative</h5>
-                                <AdminTextarea label="Tactical Intelligence" value={selectedPkg.description} rows={6} onChange={v => setSelectedPkg({...selectedPkg, description: v})} />
+                                <AdminTextarea label="Description" value={selectedPkg.description} rows={6} onChange={v => setSelectedPkg({...selectedPkg, description: v})} />
                             </div>
 
                             <div className="curator-section">
                                 <h5 style={SubHeadStyle}>Strategic Highlights</h5>
                                 <EditableList
-                                    label="Mission Highlights"
+                                    label="Highlights"
                                     items={selectedPkg.highlights}
                                     onAdd={() => setSelectedPkg({...selectedPkg, highlights: [...(selectedPkg.highlights || []), '']})}
                                     onUpdate={(i, v) => {
@@ -271,7 +271,7 @@ export const AdminTrekking = () => {
                                                 style={CompactInput}
                                             />
                                             <textarea
-                                                placeholder="Phase intelligence..."
+                                                placeholder="Day details…"
                                                 value={day.description}
                                                 rows={3}
                                                 onChange={(e) => {

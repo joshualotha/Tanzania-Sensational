@@ -1,15 +1,36 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { visualsData } from '../../data/visualsData';
+import { useVisuals } from '../../context/VisualsContext';
 
 export const Hero = () => {
+  const visuals = useVisuals();
+  const heroUrls = useMemo(() => {
+    const fromApi = Array.isArray(visuals?.home?.hero) ? visuals.home.hero : [];
+    if (fromApi.length > 0) return fromApi;
+    return visualsData?.home?.hero ? [visualsData.home.hero] : [];
+  }, [visuals]);
+
+  const [activeIndex, setActiveIndex] = useState(0);
+  useEffect(() => {
+    if (heroUrls.length <= 1) return;
+    const t = window.setInterval(() => {
+      setActiveIndex((i) => (i + 1) % heroUrls.length);
+    }, 7000);
+    return () => window.clearInterval(t);
+  }, [heroUrls.length]);
+
+  const activeUrl = heroUrls[activeIndex] || visualsData.home.hero;
+
   return (
     <section className="hero">
       <div className="hero-bg">
         <img
-          src={visualsData.home.hero}
+          key={activeUrl}
+          src={activeUrl}
           alt="Kilimanjaro at Sunrise"
           className="hero-bg-img"
+          style={{ transition: 'opacity 900ms ease', willChange: 'opacity' }}
         />
       </div>
       <div className="hero-overlay"></div>

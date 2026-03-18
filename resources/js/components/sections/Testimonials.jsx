@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { visualsData } from '../../data/visualsData';
+import { useVisuals } from '../../context/VisualsContext';
 
 export const Testimonials = () => {
+  const visuals = useVisuals();
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -37,7 +39,7 @@ export const Testimonials = () => {
           <div className="testi-quote">"</div>
           <p className="testi-text">The guides were extraordinary — they knew exactly when to push and when to rest. Reaching Uhuru Peak at sunrise was the most profound moment of my life. Tanzania Sensational made it possible.</p>
           <div className="testi-author">
-            <div className="testi-avatar" style={{ backgroundImage: `url('${visualsData.home.testimonial1}')` }}></div>
+            <div className="testi-avatar" style={{ backgroundImage: `url('${visuals.getSingle('home.testimonial1', visualsData.home.testimonial1)}')` }}></div>
             <div>
               <div className="testi-name">James Hartwell</div>
               <div className="testi-origin">London, United Kingdom</div>
@@ -49,7 +51,7 @@ export const Testimonials = () => {
           <div className="testi-quote">"</div>
           <p className="testi-text">I joined a group departure as a solo traveler and couldn't have been more impressed. The safety protocols, the food on the mountain, the team's energy — this is truly a world-class operation.</p>
           <div className="testi-author">
-            <div className="testi-avatar" style={{ backgroundImage: `url('${visualsData.home.testimonial2}')` }}></div>
+            <div className="testi-avatar" style={{ backgroundImage: `url('${visuals.getSingle('home.testimonial2', visualsData.home.testimonial2)}')` }}></div>
             <div>
               <div className="testi-name">Sarah Chen</div>
               <div className="testi-origin">San Francisco, USA</div>
@@ -61,7 +63,7 @@ export const Testimonials = () => {
           <div className="testi-quote">"</div>
           <p className="testi-text">Wir haben die Lemosho Route gemacht — 8 Tage, absolut unvergesslich. Professionell, sicher, und die persönliche Betreuung war unübertroffen. Nächstes Ziel: Mt. Meru.</p>
           <div className="testi-author">
-            <div className="testi-avatar" style={{ backgroundImage: `url('${visualsData.home.testimonial3}')` }}></div>
+            <div className="testi-avatar" style={{ backgroundImage: `url('${visuals.getSingle('home.testimonial3', visualsData.home.testimonial3)}')` }}></div>
             <div>
               <div className="testi-name">Klaus Müller</div>
               <div className="testi-origin">Munich, Germany</div>

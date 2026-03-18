@@ -3,12 +3,14 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Clock, Activity, Camera, TrendingUp } from 'lucide-react';
 import { visualsData } from '../../../data/visualsData';
+import { useVisuals } from '../../../context/VisualsContext';
 import { trekkingService } from '../../../services/api';
 import { PrivateTrekPricing } from '../../../components/pricing/PrivateTrekPricing';
 import '../../../styles/ultra-premium.css';
 
 const Rongai = () => {
     useEffect(() => { window.scrollTo(0, 0); }, []);
+    const visuals = useVisuals();
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 30 },
@@ -47,7 +49,7 @@ const Rongai = () => {
             {/* ─── HERO ─── */}
             <section className="lux-hero">
                 <img
-                    src={visualsData.trekking.routes.rongai}
+                    src={visuals.getSingle('trekking.routes.rongai', visualsData.trekking.routes.rongai)}
                     alt="Rongai Route Landscape"
                 />
                 <div className="lux-hero-overlay"></div>

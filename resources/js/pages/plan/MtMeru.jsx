@@ -2,10 +2,12 @@ import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { visualsData } from '../../data/visualsData';
+import { useVisuals } from '../../context/VisualsContext';
 import '../../styles/utility-pages-premium.css';
 import '../../styles/meru-premium.css';
 
 export const MtMeru = () => {
+    const visuals = useVisuals();
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -24,7 +26,7 @@ export const MtMeru = () => {
         <div className="utility-root meru-root">
             <section className="utility-hero">
                 <div className="utility-hero-bg">
-                    <img src={visualsData.planning.meruHero} alt="Mount Meru Landscape" style={{ filter: 'brightness(0.5)' }} />
+                    <img src={visuals.getSingle('planning.meruHero', visualsData.planning.meruHero)} alt="Mount Meru Landscape" style={{ filter: 'brightness(0.5)' }} />
                 </div>
                 <div className="utility-hero-overlay"></div>
                 <motion.div className="utility-hero-content" initial="hidden" animate="visible" variants={staggerContainer}>

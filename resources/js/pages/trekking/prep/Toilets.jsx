@@ -3,10 +3,12 @@ import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { visualsData } from '../../../data/visualsData';
+import { useVisuals } from '../../../context/VisualsContext';
 import '../../../styles/utility-pages-premium.css';
 
 const Toilets = () => {
     useEffect(() => { window.scrollTo(0, 0); }, []);
+    const visuals = useVisuals();
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 30 },
@@ -19,7 +21,7 @@ const Toilets = () => {
             <section className="prep-hero">
                 <div className="prep-hero-bg">
                     <img
-                        src={visualsData.trekking.prep.toiletsHero}
+                        src={visuals.getSingle('trekking.prep.toiletsHero', visualsData.trekking.prep.toiletsHero)}
                         alt="High altitude camp"
                     />
                     <div className="prep-hero-overlay"></div>
@@ -41,7 +43,7 @@ const Toilets = () => {
                         transition={{ duration: 1 }}
                     >
                         <img
-                            src={visualsData.trekking.prep.toiletsEditorial}
+                            src={visuals.getSingle('trekking.prep.toiletsEditorial', visualsData.trekking.prep.toiletsEditorial)}
                             className="prep-editorial-img"
                             alt="Kilimanjaro Camp Site"
                         />

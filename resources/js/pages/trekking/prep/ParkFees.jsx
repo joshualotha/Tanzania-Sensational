@@ -2,10 +2,12 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Wallet, PieChart, Info, FileText, CheckCircle } from 'lucide-react';
 import { visualsData } from '../../../data/visualsData';
+import { useVisuals } from '../../../context/VisualsContext';
 import '../../../styles/utility-pages-premium.css';
 
 const ParkFees = () => {
     useEffect(() => { window.scrollTo(0, 0); }, []);
+    const visuals = useVisuals();
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 30 },
@@ -18,7 +20,7 @@ const ParkFees = () => {
             <section className="prep-hero">
                 <div className="prep-hero-bg">
                     <img
-                        src={visualsData.trekking.prep.parkFeesHero}
+                        src={visuals.getSingle('trekking.prep.parkFeesHero', visualsData.trekking.prep.parkFeesHero)}
                         alt="Serengeti Plains"
                     />
                     <div className="prep-hero-overlay"></div>
@@ -40,7 +42,7 @@ const ParkFees = () => {
                         transition={{ duration: 1 }}
                     >
                         <img
-                            src={visualsData.trekking.prep.parkFeesEditorial}
+                            src={visuals.getSingle('trekking.prep.parkFeesEditorial', visualsData.trekking.prep.parkFeesEditorial)}
                             className="prep-editorial-img"
                             alt="The Mountain"
                         />

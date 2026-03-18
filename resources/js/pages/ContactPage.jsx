@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Phone, Mail, MessageCircle, Send, ShieldCheck, Instagram, Facebook, Youtube, MapPin, Navigation } from 'lucide-react';
 import { visualsData } from '../data/visualsData';
+import { useVisuals } from '../context/VisualsContext';
 import { contactService, pageService } from '../services/api';
 import { CmsSection } from '../components/cms/CmsSection';
 import '../styles/contact-premium.css';
 
 export const ContactPage = () => {
     const [cms, setCms] = useState(null);
+    const visuals = useVisuals();
     const [formData, setFormData] = useState({
         first_name: '',
         last_name: '',
@@ -89,7 +91,7 @@ export const ContactPage = () => {
             <section className="premium-hero">
                 <div className="premium-hero-bg">
                     <img
-                        src={visualsData.contact.hero}
+                        src={visuals.getSingle('contact.hero', visualsData.contact.hero)}
                         alt="African Landscape"
                     />
                     <div className="premium-hero-overlay"></div>

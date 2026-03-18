@@ -5,6 +5,7 @@ import { Mountain, Compass, Star, Shield, Heart, Globe, TreePine, ArrowRight } f
 import { visualsData } from '../data/visualsData';
 import { pageService } from '../services/api';
 import { CmsSection } from '../components/cms/CmsSection';
+import { useVisuals } from '../context/VisualsContext';
 import '../styles/about-premium.css';
 
 const PremiumCountUp = ({ to, prefix = "", suffix = "", duration = 2 }) => {
@@ -47,6 +48,7 @@ const PremiumCountUp = ({ to, prefix = "", suffix = "", duration = 2 }) => {
 
 export const AboutPage = () => {
     const [cms, setCms] = useState(null);
+    const visuals = useVisuals();
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -100,7 +102,7 @@ export const AboutPage = () => {
             <section className="premium-about-hero">
                 <motion.div className="premium-about-bg" style={{ y: heroY }}>
                     <img
-                        src={visualsData.about.hero}
+                        src={visuals.getSingle('about.hero', visualsData.about.hero)}
                         alt="Kilimanjaro Summit at Dawn"
                     />
                     <div className="premium-about-overlay"></div>
@@ -160,7 +162,7 @@ export const AboutPage = () => {
                 >
                     <div className="premium-story-image">
                         <img
-                            src={visualsData.about.legacy}
+                            src={visuals.getSingle('about.legacy', visualsData.about.legacy)}
                             alt="Kilimanjaro Trail"
                         />
                         <div className="premium-story-badge">
@@ -266,7 +268,7 @@ export const AboutPage = () => {
             <section className="premium-exp-section">
                 <div className="premium-exp-bg">
                     <img
-                        src={visualsData.about.experienceBand}
+                        src={visuals.getSingle('about.experienceBand', visualsData.about.experienceBand)}
                         alt="Kilimanjaro Trekking Group"
                     />
                     <div className="premium-exp-overlay"></div>

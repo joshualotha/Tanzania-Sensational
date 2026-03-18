@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { visualsData } from '../../../data/visualsData';
+import { useVisuals } from '../../../context/VisualsContext';
 import '../../../styles/safaridraft-trek.css';
 
 // Heroicons (Outline)
@@ -19,6 +20,7 @@ const BoltIcon = () => (
 
 const Connectivity = () => {
     useEffect(() => { window.scrollTo(0, 0); }, []);
+    const visuals = useVisuals();
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 20 },
@@ -31,7 +33,7 @@ const Connectivity = () => {
             <section className="sd-hero">
                 <div className="sd-hero-bg">
                     <img
-                        src={visualsData.trekking.during.connectivity}
+                        src={visuals.getSingle('trekking.during.connectivity', visualsData.trekking.during.connectivity)}
                         alt="High altitude ridge"
                     />
                     <div className="sd-hero-overlay"></div>
@@ -49,7 +51,7 @@ const Connectivity = () => {
                 <div className="sd-grid-editorial">
                     <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1 }}>
                         <img
-                            src={visualsData.trekking.during.connectivityEditorial}
+                            src={visuals.getSingle('trekking.during.connectivityEditorial', visualsData.trekking.during.connectivityEditorial)}
                             alt="Starry sky"
                             style={{ width: '100%', borderRadius: '12px', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}
                         />

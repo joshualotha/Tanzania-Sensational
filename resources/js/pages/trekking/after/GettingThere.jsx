@@ -3,10 +3,12 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Plane, Bus, Compass, MapPin } from 'lucide-react';
 import { visualsData } from '../../../data/visualsData';
+import { useVisuals } from '../../../context/VisualsContext';
 import '../../../styles/getting-there-premium.css';
 
 const GettingThere = () => {
     useEffect(() => { window.scrollTo(0, 0); }, []);
+    const visuals = useVisuals();
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 30 },
@@ -28,7 +30,7 @@ const GettingThere = () => {
             <section className="gt-hero">
                 <div className="gt-hero-bg">
                     <img
-                        src={visualsData.trekking.after.gettingThere}
+                        src={visuals.getSingle('trekking.after.gettingThere', visualsData.trekking.after.gettingThere)}
                         alt="Logistics View"
                     />
                     <div className="gt-hero-overlay"></div>
@@ -64,7 +66,7 @@ const GettingThere = () => {
                         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                     >
                         <img
-                            src={visualsData.trekking.after.gettingThereEditorial}
+                            src={visuals.getSingle('trekking.after.gettingThereEditorial', visualsData.trekking.after.gettingThereEditorial)}
                             className="gt-editorial-img"
                             alt="JRO Airport"
                         />

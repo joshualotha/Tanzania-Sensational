@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom';
 import { ChevronRight, Diamond, Search, X, Loader2 } from 'lucide-react';
 import { safariService } from '../../services/api';
 import { visualsData } from '../../data/visualsData';
+import { useVisuals } from '../../context/VisualsContext';
 import '../../styles/safari-packages.css';
 
 export const SafariPackagesList = () => {
+    const visuals = useVisuals();
     const [searchQuery, setSearchQuery] = useState('');
     const [activeFilter, setActiveFilter] = useState('ALL');
     const [packages, setPackages] = useState([]);
@@ -58,7 +60,7 @@ export const SafariPackagesList = () => {
             {/* HERITAGE COLLECTION HERO */}
             <section className="safari-pkgs-hero">
                 <div className="safari-pkgs-bg">
-                    <img src={visualsData.safaris.listHero} alt="Safari Heritage Hero" />
+                    <img src={visuals.getSingle('safaris.listHero', visualsData.safaris.listHero)} alt="Safari Heritage Hero" />
                 </div>
                 <div className="safari-pkgs-overlay"></div>
                 

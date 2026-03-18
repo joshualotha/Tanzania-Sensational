@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { visualsData } from '../../data/visualsData';
+import { useVisuals } from '../../context/VisualsContext';
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [activeDropdowns, setActiveDropdowns] = useState([]);
   const location = useLocation();
+  const visuals = useVisuals();
 
   const scrollToSection = (id) => {
     const el = document.getElementById(id);
@@ -71,7 +73,7 @@ export const Navbar = () => {
     <>
       {/* The Logo Crest — lives outside the nav, overlaps it */}
       <Link to="/" className={`logo-crest ${isScrolled ? 'logo-crest--compact' : ''}`}>
-        <img src={visualsData.branding.logo} alt="Tanzania Sensational" />
+        <img src={visuals.getSingle('branding.logo', visualsData.branding.logo)} alt="Tanzania Sensational" />
       </Link>
 
       {/* Hamburger Toggle — mobile only */}

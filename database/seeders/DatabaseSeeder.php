@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             DestinationsSeeder::class,
             PagesSeeder::class,
             BlogPostsSeeder::class,
+            VisualAssetsSeeder::class,
         ]);
     }
 }

@@ -24,20 +24,20 @@ export const AdminInquiries = () => {
             const response = await adminService.getInquiries();
             setInquiries(response.data);
         } catch (error) {
-            console.error("Intelligence Interception Failure:", error);
+            console.error("Failed to load inquiries:", error);
         } finally {
             setLoading(false);
         }
     };
 
     const handleDelete = async (id) => {
-        if (!window.confirm("Strike this brief from the record permanently? This action is irreversible.")) return;
+        if (!window.confirm("Delete this inquiry? This action is irreversible.")) return;
         try {
             await adminService.deleteInquiry(id);
             setInquiries(inquiries.filter(i => i.id !== id));
             setSelectedInquiry(null);
         } catch (error) {
-            alert("Redaction failure. Archive remains locked.");
+            alert("Unable to delete the inquiry.");
         }
     };
 
@@ -50,7 +50,7 @@ export const AdminInquiries = () => {
     if (loading) return (
         <div style={{ height: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
             <Loader2 className="animate-spin" size={48} color="var(--gold)" />
-            <span style={{ marginTop: '20px', fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--gold)', letterSpacing: '0.3em' }}>DECRYPTING INCOMING BRIEFS</span>
+            <span style={{ marginTop: '20px', fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--gold)', letterSpacing: '0.3em' }}>Loading inquiries…</span>
         </div>
     );
 
@@ -58,8 +58,8 @@ export const AdminInquiries = () => {
         <div className="admin-page-root">
             <header style={{ marginBottom: '50px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                 <div>
-                    <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--gold)', letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '12px' }}>Operational Intel</h2>
-                    <h1 className="admin-page-title" style={{ fontSize: '3.5rem', fontWeight: 300, color: 'white' }}>Field Transmissions</h1>
+                    <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--gold)', letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '12px' }}>Leads</h2>
+                    <h1 className="admin-page-title" style={{ fontSize: '3.5rem', fontWeight: 300, color: 'white' }}>Inquiries</h1>
                 </div>
                 
                 <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
@@ -67,7 +67,7 @@ export const AdminInquiries = () => {
                         <Search size={18} color="var(--gold-dim)" />
                         <input 
                             type="text" 
-                            placeholder="QUERY TRANSMISSIONS..." 
+                            placeholder="Search inquiries…" 
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             style={{ background: 'transparent', border: 'none', color: 'white', padding: '12px 10px', fontFamily: 'var(--font-mono)', fontSize: '0.75rem' }}
@@ -114,19 +114,19 @@ export const AdminInquiries = () => {
                                 </div>
                                 <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'flex-end' }}>
                                     <span style={{ fontSize: '0.55rem', color: 'rgba(255,255,255,0.2)', fontFamily: 'var(--font-mono)' }}>#{inq.id.toString().padStart(4, '0')}</span>
-                                    <div className="status-pill status-pending" style={{ padding: '4px 10px', fontSize: '0.5rem' }}>INCOMING_INTEL</div>
+                                    <div className="status-pill status-pending" style={{ padding: '4px 10px', fontSize: '0.5rem' }}>NEW</div>
                                 </div>
                             </motion.div>
                         )) : (
                             <div style={{ padding: '100px', textAlign: 'center', background: 'rgba(255,255,255,0.01)', border: '1px dashed var(--border)' }}>
                                 <Inbox size={64} style={{ marginBottom: '30px', opacity: 0.1 }} />
-                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--text-dim)', letterSpacing: '0.2em' }}>NO ACTIVE FIELD TRANSMISSIONS</span>
+                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--text-dim)', letterSpacing: '0.2em' }}>No inquiries found</span>
                             </div>
                         )}
                     </AnimatePresence>
                 </div>
 
-                {/* ─── INTELLIGENCE DOSSIER (SIDEBAR) ─── */}
+                {/* ─── INQUIRY DETAILS (SIDEBAR) ─── */}
                 <aside style={{ position: 'sticky', top: '120px' }}>
                     <AnimatePresence mode="wait">
                         {selectedInquiry ? (
@@ -140,7 +140,7 @@ export const AdminInquiries = () => {
                             >
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '40px' }}>
                                     <div>
-                                        <h4 style={SectionHeadStyle}><Shield size={14} /> Mission Brief Dossier</h4>
+                                        <h4 style={SectionHeadStyle}><Shield size={14} /> Inquiry details</h4>
                                         <h2 style={{ fontSize: '2.2rem', color: 'white', fontWeight: 300, marginTop: '8px' }}>{selectedInquiry.first_name} {selectedInquiry.last_name}</h2>
                                     </div>
                                     <button onClick={() => setSelectedInquiry(null)} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.2)', cursor: 'pointer' }}><X size={24} /></button>
@@ -148,16 +148,16 @@ export const AdminInquiries = () => {
 
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '35px' }}>
                                     <div className="dossier-section">
-                                        <h5 style={SubHeadStyle}>Field Identity</h5>
+                                        <h5 style={SubHeadStyle}>Contact</h5>
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                                             <div style={InfoRowStyle}><Mail size={16} /> <span>{selectedInquiry.email}</span></div>
                                             {selectedInquiry.phone && <div style={InfoRowStyle}><Phone size={16} /> <span>{selectedInquiry.phone}</span></div>}
-                                            <div style={InfoRowStyle}><Compass size={16} /> <span>Origin Point: {selectedInquiry.country || 'GLOBAL_UNSET'}</span></div>
+                                            <div style={InfoRowStyle}><Compass size={16} /> <span>Country: {selectedInquiry.country || '—'}</span></div>
                                         </div>
                                     </div>
 
                                     <div className="dossier-section">
-                                        <h5 style={SubHeadStyle}>Mission Objective</h5>
+                                        <h5 style={SubHeadStyle}>Trip interest</h5>
                                         <div style={{ background: 'rgba(255,255,255,0.02)', padding: '30px', borderLeft: '3px solid var(--gold)', borderRadius: '2px' }}>
                                             <p style={{ fontSize: '1rem', color: 'white', lineHeight: '1.8', fontStyle: 'italic' }}>"{selectedInquiry.objective}"</p>
                                         </div>
@@ -165,20 +165,20 @@ export const AdminInquiries = () => {
 
                                     {selectedInquiry.vision && (
                                         <div className="dossier-section">
-                                            <h5 style={SubHeadStyle}>Strategic Vision</h5>
+                                            <h5 style={SubHeadStyle}>Message</h5>
                                             <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.6)', lineHeight: '1.8' }}>{selectedInquiry.vision}</p>
                                         </div>
                                     )}
 
                                     <div style={{ marginTop: '20px', display: 'flex', flexDirection: 'column', gap: '15px' }}>
                                         <a href={`mailto:${selectedInquiry.email}`} className="admin-btn-primary" style={{ width: '100%', padding: '18px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '15px' }}>
-                                            <Send size={20} /> INITIATE STRATEGIC RESPONSE
+                                            <Send size={20} /> Reply by email
                                         </a>
                                         <button 
                                             onClick={() => handleDelete(selectedInquiry.id)}
                                             style={{ width: '100%', padding: '15px', color: '#ff4444', border: '1px solid rgba(255,68,68,0.1)', background: 'transparent', cursor: 'pointer', fontFamily: 'var(--font-mono)', fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}
                                         >
-                                            <Trash2 size={16} /> REDACT BRIEF FROM ARCHIVE
+                                            <Trash2 size={16} /> Delete inquiry
                                         </button>
                                     </div>
                                 </div>
@@ -191,7 +191,7 @@ export const AdminInquiries = () => {
                                 style={{ height: '600px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.01)', border: '1px dashed var(--border)' }}
                             >
                                 <Briefcase size={64} color="rgba(255,255,255,0.03)" style={{ marginBottom: '30px' }} />
-                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--text-dim)', letterSpacing: '0.3em', textTransform: 'uppercase' }}>Select Transmission for Intelligence synthesis</span>
+                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--text-dim)', letterSpacing: '0.3em', textTransform: 'uppercase' }}>Select an inquiry to view details</span>
                             </motion.div>
                         )}
                     </AnimatePresence>

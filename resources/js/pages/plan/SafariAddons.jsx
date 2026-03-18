@@ -2,9 +2,11 @@ import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { visualsData } from '../../data/visualsData';
+import { useVisuals } from '../../context/VisualsContext';
 import '../../styles/utility-pages-premium.css';
 
 export const SafariAddons = () => {
+    const visuals = useVisuals();
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -23,7 +25,7 @@ export const SafariAddons = () => {
         <div className="utility-root">
             <section className="utility-hero">
                 <div className="utility-hero-bg">
-                    <img src={visualsData.planning.addonsHero} alt="Safari" />
+                    <img src={visuals.getSingle('planning.addonsHero', visualsData.planning.addonsHero)} alt="Safari" />
                 </div>
                 <div className="utility-hero-overlay"></div>
                 <motion.div className="utility-hero-content" initial="hidden" animate="visible" variants={staggerContainer}>
@@ -39,7 +41,7 @@ export const SafariAddons = () => {
                 <motion.div className="utility-grid" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={staggerContainer} style={{ gridTemplateColumns: '1fr 1fr' }}>
 
                     <motion.div className="util-card" variants={fadeInUp} style={{ padding: 0, overflow: 'hidden' }}>
-                        <img src={visualsData.planning.addonsCrater} alt="Ngorongoro Crater" style={{ width: '100%', height: '300px', objectFit: 'cover' }} />
+                        <img src={visuals.getSingle('planning.addonsCrater', visualsData.planning.addonsCrater)} alt="Ngorongoro Crater" style={{ width: '100%', height: '300px', objectFit: 'cover' }} />
                         <div style={{ padding: '40px' }}>
                             <h3 className="util-card-title">2-Day Tarangire & Ngorongoro</h3>
                             <p className="util-card-p" style={{ marginBottom: '20px' }}>
@@ -50,7 +52,7 @@ export const SafariAddons = () => {
                     </motion.div>
 
                     <motion.div className="util-card" variants={fadeInUp} style={{ padding: 0, overflow: 'hidden' }}>
-                        <img src={visualsData.planning.addonsZanzibar} alt="Zanzibar Beaches" style={{ width: '100%', height: '300px', objectFit: 'cover' }} />
+                        <img src={visuals.getSingle('planning.addonsZanzibar', visualsData.planning.addonsZanzibar)} alt="Zanzibar Beaches" style={{ width: '100%', height: '300px', objectFit: 'cover' }} />
                         <div style={{ padding: '40px' }}>
                             <h3 className="util-card-title">Zanzibar Beach Recovery</h3>
                             <p className="util-card-p" style={{ marginBottom: '20px' }}>

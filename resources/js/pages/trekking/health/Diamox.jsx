@@ -3,10 +3,12 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Pill, Zap, AlertTriangle, FileText, Activity } from 'lucide-react';
 import { visualsData } from '../../../data/visualsData';
+import { useVisuals } from '../../../context/VisualsContext';
 import '../../../styles/trek-health-premium.css';
 
 const Diamox = () => {
     useEffect(() => { window.scrollTo(0, 0); }, []);
+    const visuals = useVisuals();
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 30 },
@@ -19,7 +21,7 @@ const Diamox = () => {
             <section className="trek-health-hero">
                 <div className="trek-health-hero-bg">
                     <img
-                        src={visualsData.trekking.health.diamox}
+                        src={visuals.getSingle('trekking.health.diamox', visualsData.trekking.health.diamox)}
                         alt="Climbers silhouette"
                     />
                     <div className="trek-health-overlay"></div>
@@ -41,7 +43,7 @@ const Diamox = () => {
                 >
                     <div className="trek-health-image">
                         <img
-                            src={visualsData.trekking.health.diamoxEditorial}
+                            src={visuals.getSingle('trekking.health.diamoxEditorial', visualsData.trekking.health.diamoxEditorial)}
                             alt="Detailed planning"
                         />
                     </div>

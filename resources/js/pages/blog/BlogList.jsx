@@ -2,11 +2,13 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { blogService } from '../../services/api';
+import { useVisuals } from '../../context/VisualsContext';
 import '../../styles/blog-premium.css';
 
 export const BlogList = () => {
     const { scrollYProgress } = useScroll();
     const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
+    const visuals = useVisuals();
 
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -64,7 +66,7 @@ export const BlogList = () => {
             <section className="blog-featured-hero">
                 <motion.div style={{ y: bgY }} className="blog-featured-bg">
                     <img
-                        src={featuredPost?.hero_image || "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&q=80"}
+                        src={featuredPost?.hero_image || visuals.getSingle('blog.hero', "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&q=80")}
                         alt={featuredPost?.title || "Journal"}
                     />
                 </motion.div>

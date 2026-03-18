@@ -20,7 +20,7 @@ export const AdminLogin = () => {
             navigate('/ops-7f3d');
         } catch (err) {
             console.error("Login logical failure:", err);
-            setError(err.response?.data?.message || 'Authentication failed. Tactical access denied.');
+            setError(err.response?.data?.message || 'Sign-in failed. Please check your email and password.');
         } finally {
             setIsLoggingIn(false);
         }

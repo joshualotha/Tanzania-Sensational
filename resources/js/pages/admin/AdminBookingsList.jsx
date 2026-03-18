@@ -106,7 +106,7 @@ export const AdminBookingsList = () => {
             setBookings(bookings.filter(b => b.id !== id));
             setSelectedBooking(null);
         } catch (error) {
-            alert("Redaction failure.");
+            alert("Unable to delete the booking.");
         }
     };
 

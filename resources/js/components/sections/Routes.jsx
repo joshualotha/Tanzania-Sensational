@@ -2,11 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { visualsData } from '../../data/visualsData';
 import { trekkingService } from '../../services/api';
+import { useVisuals } from '../../context/VisualsContext';
 
 export const Routes = () => {
   const sectionRef = useRef(null);
   const [routes, setRoutes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const visuals = useVisuals();
 
   useEffect(() => {
     const fetchRoutes = async () => {
@@ -67,7 +69,7 @@ export const Routes = () => {
               <div 
                 className="route-card-img" 
                 style={{
-                  backgroundImage: `url(${route.hero_image || visualsData.trekking.routes?.[route.slug] || visualsData.trekking.routes.lemosho})`,
+                  backgroundImage: `url(${route.hero_image || visuals.getSingle(`trekking.routes.${route.slug}`, visualsData.trekking.routes?.[route.slug] || visualsData.trekking.routes.lemosho)})`,
                 }}
               ></div>
               <div className="route-card-overlay"></div>

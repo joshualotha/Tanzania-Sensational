@@ -1,14 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { visualsData } from '../../data/visualsData';
+import { useVisuals } from '../../context/VisualsContext';
 
 export const Footer = () => {
+  const visuals = useVisuals();
   return (
     <footer>
       <div className="footer-top">
         <div className="footer-brand">
           <span className="footer-logo">
-            <img src={visualsData.branding.logo} alt="Tanzania Sensational" style={{ height: '40px' }} />
+            <img src={visuals.getSingle('branding.logo', visualsData.branding.logo)} alt="Tanzania Sensational" style={{ height: '40px' }} />
           </span>
           <p className="footer-tagline">East Africa's most trusted mountain trekking authority. Guiding adventurers to the roof of Africa since 2009.</p>
           <div className="footer-contact-item">

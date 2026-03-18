@@ -204,7 +204,7 @@ export const adminService = {
 };
 
 export const visualAssetService = {
-    getAll: () => api.get('/visual-assets'),
+    getAll: (config = {}) => api.get('/visual-assets', config),
     getByKey: (key) => api.get(`/visual-assets/${key}`),
     adminGetAll: (config = {}) => api.get('/admin/visual-assets', config),
     adminUpdate: (key, data) => api.put(`/admin/visual-assets/${key}`, data),

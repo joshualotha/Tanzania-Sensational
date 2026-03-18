@@ -4,6 +4,7 @@ import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, Mountain, Trees, Waves, Map, Star, Shield, Sun, Loader2 } from 'lucide-react';
 import { visualsData } from '../data/visualsData';
 import { destinationService } from '../services/api';
+import { useVisuals } from '../context/VisualsContext';
 import '../styles/safari-premium.css';
 
 const PremiumCountUp = ({ to, prefix = "", suffix = "", duration = 2 }) => {
@@ -46,6 +47,7 @@ const PremiumCountUp = ({ to, prefix = "", suffix = "", duration = 2 }) => {
 export const SafarisPage = () => {
     const [destinations, setDestinations] = useState([]);
     const [loading, setLoading] = useState(true);
+    const visuals = useVisuals();
     const containerRef = useRef(null);
 
     useEffect(() => {
@@ -94,7 +96,7 @@ export const SafarisPage = () => {
             <section className="premium-safari-hero">
                 <motion.div className="premium-safari-bg" style={{ y: heroY }}>
                     <img
-                        src={visualsData.safaris.listHero || "https://images.unsplash.com/photo-1516422213484-2af298bf06ad?auto=format&fit=crop&q=80"}
+                        src={visuals.getSingle('safaris.listHero', visualsData.safaris.listHero || "https://images.unsplash.com/photo-1516422213484-2af298bf06ad?auto=format&fit=crop&q=80")}
                         alt="African Wilderness"
                     />
                     <div className="premium-safari-overlay"></div>

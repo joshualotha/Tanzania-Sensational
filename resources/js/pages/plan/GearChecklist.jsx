@@ -3,9 +3,11 @@ import { motion } from 'framer-motion';
 import { visualsData } from '../../data/visualsData';
 import { gearService } from '../../services/api';
 import { Loader2 } from 'lucide-react';
+import { useVisuals } from '../../context/VisualsContext';
 import '../../styles/utility-pages-premium.css';
 
 export const GearChecklist = () => {
+    const visuals = useVisuals();
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -92,7 +94,7 @@ export const GearChecklist = () => {
         <div className="utility-root">
             <section className="utility-hero">
                 <div className="utility-hero-bg">
-                    <img src={visualsData.planning.gearHero} alt="Mountain Gear" />
+                    <img src={visuals.getSingle('planning.gearHero', visualsData.planning.gearHero)} alt="Mountain Gear" />
                 </div>
                 <div className="utility-hero-overlay"></div>
                 <motion.div className="utility-hero-content" initial="hidden" animate="visible" variants={fadeInUp}>

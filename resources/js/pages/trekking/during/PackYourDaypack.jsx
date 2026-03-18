@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { visualsData } from '../../../data/visualsData';
+import { useVisuals } from '../../../context/VisualsContext';
 import '../../../styles/safaridraft-trek.css';
 
 // Heroicons (Outline)
@@ -19,6 +20,7 @@ const ShieldCheckIcon = () => (
 
 const PackYourDaypack = () => {
     useEffect(() => { window.scrollTo(0, 0); }, []);
+    const visuals = useVisuals();
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 20 },
@@ -31,7 +33,7 @@ const PackYourDaypack = () => {
             <section className="sd-hero">
                 <div className="sd-hero-bg">
                     <img
-                        src={visualsData.trekking.during.packDaypack}
+                        src={visuals.getSingle('trekking.during.packDaypack', visualsData.trekking.during.packDaypack)}
                         alt="Trekking pack"
                     />
                     <div className="sd-hero-overlay"></div>
@@ -58,7 +60,7 @@ const PackYourDaypack = () => {
                     </motion.div>
                     <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1 }}>
                         <img
-                            src={visualsData.trekking.during.packDaypackEditorial}
+                            src={visuals.getSingle('trekking.during.packDaypackEditorial', visualsData.trekking.during.packDaypackEditorial)}
                             alt="Gear layout"
                             style={{ width: '100%', borderRadius: '12px', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}
                         />

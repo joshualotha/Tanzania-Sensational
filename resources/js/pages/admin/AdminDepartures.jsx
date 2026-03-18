@@ -29,7 +29,7 @@ export const AdminDepartures = () => {
             setDepartures(depRes.data);
             setRoutes(routesRes.data);
         } catch (error) {
-            console.error("Operational Data Retrieval Failure:", error);
+            console.error("Failed to load departures:", error);
         } finally {
             setLoading(false);
         }
@@ -45,7 +45,7 @@ export const AdminDepartures = () => {
             await adminService.deleteDeparture(id);
             await fetchData();
         } catch (error) {
-            alert("Redaction failure.");
+            alert("Unable to delete this departure.");
         }
     };
 
@@ -60,7 +60,7 @@ export const AdminDepartures = () => {
             await fetchData();
             setExpandedId(null);
         } catch (error) {
-            alert("Operational synchronization failure.");
+            alert("Unable to save changes. Please try again.");
         } finally {
             setSaving(false);
         }
@@ -85,7 +85,7 @@ export const AdminDepartures = () => {
     if (loading) return (
         <div style={{ height: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
             <Loader2 className="animate-spin" size={48} color="var(--gold)" />
-            <span style={{ marginTop: '20px', fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--gold)', letterSpacing: '0.3em' }}>CALIBRATING DEPLOYMENT WINDOWS</span>
+            <span style={{ marginTop: '20px', fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--gold)', letterSpacing: '0.3em' }}>Loading departures…</span>
         </div>
     );
 
@@ -93,11 +93,11 @@ export const AdminDepartures = () => {
         <div className="admin-page-root">
             <header style={{ marginBottom: '60px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                 <div>
-                    <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--gold)', letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '12px' }}>Operational Logistics</h2>
-                    <h1 className="admin-page-title" style={{ fontSize: '3.5rem', fontWeight: 300, color: 'white' }}>Deployment Schedule</h1>
+                    <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--gold)', letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '12px' }}>Trips</h2>
+                    <h1 className="admin-page-title" style={{ fontSize: '3.5rem', fontWeight: 300, color: 'white' }}>Group departures</h1>
                 </div>
                 <button onClick={handleAddNew} className="admin-btn-primary">
-                    <Plus size={18} /> INITIALIZE DEPLOYMENT
+                    <Plus size={18} /> Add departure
                 </button>
             </header>
 
@@ -227,7 +227,7 @@ const DeparturePanel = ({ dep, routes, isExpanded, onToggle, onSave, onDelete, s
                         <div style={{ padding: '60px' }}>
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '40px', marginBottom: '50px' }}>
                                 <div className="form-group">
-                                    <label style={LabelStyle}><Layers size={12} /> Target Mission Asset</label>
+                                    <label style={LabelStyle}><Layers size={12} /> Route</label>
                                     <select 
                                         value={formData.trekking_route_id} 
                                         onChange={(e) => handleChange('trekking_route_id', e.target.value)}
@@ -238,7 +238,7 @@ const DeparturePanel = ({ dep, routes, isExpanded, onToggle, onSave, onDelete, s
                                     </select>
                                 </div>
                                 <FieldInput label="Phase Commencement" value={formData.departure_date} type="date" onChange={(v) => handleChange('departure_date', v)} icon={<Clock size={12} />} />
-                                <FieldInput label="Operational Capital (CENTS)" value={formData.price_cents} type="number" onChange={(v) => handleChange('price_cents', v)} icon={<DollarSign size={12} />} />
+                                <FieldInput label="Price (cents)" value={formData.price_cents} type="number" onChange={(v) => handleChange('price_cents', v)} icon={<DollarSign size={12} />} />
                                 
                                 <FieldInput label="Current Status" value={formData.status} onChange={(v) => handleChange('status', v)} icon={<Zap size={12} />} />
                                 <FieldInput label="Payload Capacity" value={formData.available_seats} type="number" onChange={(v) => handleChange('available_seats', v)} icon={<Users size={12} />} />
@@ -247,7 +247,7 @@ const DeparturePanel = ({ dep, routes, isExpanded, onToggle, onSave, onDelete, s
 
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px' }}>
                                 <EditableList 
-                                    label="Operational Inclusions" 
+                                    label="Inclusions" 
                                     items={formData.inclusions} 
                                     onUpdate={(i, v) => {
                                         const list = [...formData.inclusions];
@@ -258,7 +258,7 @@ const DeparturePanel = ({ dep, routes, isExpanded, onToggle, onSave, onDelete, s
                                     onRemove={(i) => handleChange('inclusions', formData.inclusions.filter((_, idx) => idx !== i))}
                                 />
                                 <EditableList 
-                                    label="Operational Exclusions" 
+                                    label="Exclusions" 
                                     items={formData.exclusions} 
                                     onUpdate={(i, v) => {
                                         const list = [...formData.exclusions];
@@ -279,7 +279,7 @@ const DeparturePanel = ({ dep, routes, isExpanded, onToggle, onSave, onDelete, s
                                     style={{ padding: '15px 50px' }}
                                 >
                                     {saving ? <Loader2 className="animate-spin" size={18} /> : <Save size={18} />}
-                                    <span>{saving ? 'COMMITTING...' : 'COMMIT ARCHIVE'}</span>
+                                    <span>{saving ? 'Saving…' : 'Save changes'}</span>
                                 </button>
                             </div>
                         </div>

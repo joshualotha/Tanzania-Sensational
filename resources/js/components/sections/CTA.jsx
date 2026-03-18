@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { visualsData } from '../../data/visualsData';
 import { Link } from 'react-router-dom';
+import { useVisuals } from '../../context/VisualsContext';
 
 export const CTA = () => {
+  const visuals = useVisuals();
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -24,7 +26,7 @@ export const CTA = () => {
 
   return (
     <section className="cta-banner" ref={sectionRef}>
-      <div className="cta-bg" style={{ backgroundImage: `url('${visualsData.home.ctaBg}')` }}></div>
+      <div className="cta-bg" style={{ backgroundImage: `url('${visuals.getSingle('home.ctaBg', visualsData.home.ctaBg)}')` }}></div>
       <div className="cta-content reveal">
         <h2 className="cta-title">The Summit<br />is <em>Waiting For You</em></h2>
         <p className="cta-sub">Most people say "someday." Our clients say "I stood at the roof of Africa." Your journey begins with one conversation.</p>

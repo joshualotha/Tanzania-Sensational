@@ -38,12 +38,12 @@ export const AdminDestinations = () => {
             setSelectedDest({ ...dest, gallery: dest.gallery || [] });
         } else {
             setSelectedDest({
-                name: 'NEW_FRONTIER',
+                name: 'New destination',
                 slug: `region-${Date.now()}`,
-                meta_tag: 'FIELD_DATA',
-                meta_tier: 'ULTRA_LUX',
+                meta_tag: 'Destination',
+                meta_tier: 'Standard',
                 hero_image: 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&q=80',
-                overview: 'Awaiting intelligence briefing...',
+                overview: '',
                 best_time: 'JUN-OCT',
                 meta_coordinates: '-3.0674, 37.3556',
                 gallery: []
@@ -66,14 +66,14 @@ export const AdminDestinations = () => {
             setShowCurator(false);
             setSelectedDest(null);
         } catch (error) {
-            alert("Data transmission interrupted. Archive sync failed.");
+            alert("Unable to save changes. Please try again.");
         } finally {
             setSaving(false);
         }
     };
 
     const handleDelete = async (id) => {
-        if (!window.confirm("Strike this region from the architectural record? This is irreversible.")) return;
+        if (!window.confirm("Delete this destination? This action is irreversible.")) return;
         try {
             await adminService.deleteDestination(id);
             setDestinations(destinations.filter(d => d.id !== id));
@@ -82,7 +82,7 @@ export const AdminDestinations = () => {
                 setSelectedDest(null);
             }
         } catch (error) {
-            alert("Redaction failure. System lock engaged.");
+            alert("Unable to delete the destination.");
         }
     };
 
@@ -94,7 +94,7 @@ export const AdminDestinations = () => {
     if (loading) return (
         <div style={{ height: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
             <Loader2 className="animate-spin" size={48} color="var(--gold)" />
-            <span style={{ marginTop: '20px', fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--gold)', letterSpacing: '0.3em' }}>SCANNING GLOBAL COORDINATES</span>
+            <span style={{ marginTop: '20px', fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--gold)', letterSpacing: '0.3em' }}>Loading destinations…</span>
         </div>
     );
 
@@ -103,8 +103,8 @@ export const AdminDestinations = () => {
             <header style={{ marginBottom: '60px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                 <div style={{ position: 'relative' }}>
                     <div style={{ position: 'absolute', left: '-50px', top: '10px', width: '30px', height: '1px', background: 'var(--gold)' }}></div>
-                    <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--gold)', letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '12px' }}>Geographical Inventory</h2>
-                    <h1 className="admin-page-title" style={{ fontSize: '3.5rem', fontWeight: 300, letterSpacing: '-0.02em' }}>Regional Dossiers</h1>
+                    <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--gold)', letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '12px' }}>Safaris</h2>
+                    <h1 className="admin-page-title" style={{ fontSize: '3.5rem', fontWeight: 300, letterSpacing: '-0.02em' }}>Destinations</h1>
                 </div>
                 
                 <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
@@ -112,14 +112,14 @@ export const AdminDestinations = () => {
                         <Search size={18} color="var(--gold-dim)" />
                         <input 
                             type="text" 
-                            placeholder="PROBE COORDINATES..." 
+                            placeholder="Search destinations…" 
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             style={{ background: 'transparent', border: 'none', color: 'white', padding: '12px 20px 12px 10px', fontFamily: 'var(--font-mono)', fontSize: '0.75rem' }}
                         />
                     </div>
                     <button className="admin-btn-primary" onClick={() => handleOpenCurator()}>
-                        <Plus size={18} /> INITIALIZE REGION
+                        <Plus size={18} /> Add destination
                     </button>
                 </div>
             </header>
@@ -206,8 +206,8 @@ export const AdminDestinations = () => {
                     >
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '30px' }}>
                             <div>
-                                <h4 style={SectionHeadStyle}><Shield size={14} /> Dossier Curator</h4>
-                                <h2 style={{ fontSize: '1.8rem', color: 'white', fontWeight: 300 }}>{selectedDest.id ? 'ARCHITECT OVERRIDE' : 'REGION INITIALIZATION'}</h2>
+                                <h4 style={SectionHeadStyle}><Shield size={14} /> Destination editor</h4>
+                                <h2 style={{ fontSize: '1.8rem', color: 'white', fontWeight: 300 }}>{selectedDest.id ? 'Edit destination' : 'Add destination'}</h2>
                             </div>
                             <button onClick={() => !saving && (setShowCurator(false), setIsCurating(false))} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.2)', cursor: 'pointer' }}><X size={24} /></button>
                         </div>
@@ -218,13 +218,13 @@ export const AdminDestinations = () => {
                                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
                                     <AdminInput label="Region Title" value={selectedDest.name} onChange={v => setSelectedDest({...selectedDest, name: v})} />
                                     <AdminInput label="Sector Slug" value={selectedDest.slug} onChange={v => setSelectedDest({...selectedDest, slug: v})} />
-                                    <AdminInput label="Mission Tag" value={selectedDest.meta_tag} onChange={v => setSelectedDest({...selectedDest, meta_tag: v})} />
+                                    <AdminInput label="Tag" value={selectedDest.meta_tag} onChange={v => setSelectedDest({...selectedDest, meta_tag: v})} />
                                     <AdminInput label="Geo Tier" value={selectedDest.meta_tier} onChange={v => setSelectedDest({...selectedDest, meta_tier: v})} />
                                 </div>
                             </div>
 
                             <div className="curator-section">
-                                <h5 style={SubHeadStyle}>Intelligence Briefing</h5>
+                                <h5 style={SubHeadStyle}>Overview</h5>
                                 <AdminTextarea label="Regional Narrative" value={selectedDest.overview} rows={8} onChange={v => setSelectedDest({...selectedDest, overview: v})} />
                             </div>
 
@@ -260,7 +260,7 @@ export const AdminDestinations = () => {
                             </div>
 
                             <div className="curator-section">
-                                <h5 style={SubHeadStyle}>Tactical Metrics</h5>
+                                <h5 style={SubHeadStyle}>Travel info</h5>
                                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
                                     <AdminInput label="Optimal Window" value={selectedDest.best_time} onChange={v => setSelectedDest({...selectedDest, best_time: v})} />
                                     <AdminInput label="Geo Coordinates" value={selectedDest.meta_coordinates} onChange={v => setSelectedDest({...selectedDest, meta_coordinates: v})} />

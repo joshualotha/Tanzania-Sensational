@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { visualsData } from '../../data/visualsData';
+import { useVisuals } from '../../context/VisualsContext';
 import '../../styles/utility-pages-premium.css';
 
 const faqs = [
@@ -23,6 +24,7 @@ const faqs = [
 ];
 
 export const FAQ = () => {
+    const visuals = useVisuals();
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -44,7 +46,7 @@ export const FAQ = () => {
         <div className="utility-root">
             <section className="utility-hero">
                 <div className="utility-hero-bg">
-                    <img src={visualsData.planning.faqHero} alt="Questions" />
+                    <img src={visuals.getSingle('planning.faqHero', visualsData.planning.faqHero)} alt="Questions" />
                 </div>
                 <div className="utility-hero-overlay"></div>
                 <motion.div className="utility-hero-content" initial="hidden" animate="visible" variants={fadeInUp}>

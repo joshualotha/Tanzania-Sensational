@@ -3,10 +3,12 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Mountain, Activity, Target, Zap } from 'lucide-react';
 import { visualsData } from '../../../data/visualsData';
+import { useVisuals } from '../../../context/VisualsContext';
 import '../../../styles/trekking-prep.css';
 
 const Training = () => {
     useEffect(() => { window.scrollTo(0, 0); }, []);
+    const visuals = useVisuals();
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 30 },
@@ -19,7 +21,7 @@ const Training = () => {
             <section className="prep-hero">
                 <div className="prep-hero-bg">
                     <img
-                        src={visualsData.trekking.after.training}
+                        src={visuals.getSingle('trekking.after.training', visualsData.trekking.after.training)}
                         alt="Peak Training"
                     />
                     <div className="prep-hero-overlay"></div>
@@ -50,7 +52,7 @@ const Training = () => {
                         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                     >
                         <img
-                            src={visualsData.trekking.after.trainingEditorial}
+                            src={visuals.getSingle('trekking.after.trainingEditorial', visualsData.trekking.after.trainingEditorial)}
                             className="prep-editorial-img"
                             alt="Mountain Trek"
                         />

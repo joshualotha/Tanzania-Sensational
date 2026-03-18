@@ -83,19 +83,19 @@ export const AdminSafarisList = () => {
             setShowForm(false);
             fetchSafaris();
         } catch (error) {
-            alert("Operational failure during synchronization.");
+            alert("Unable to save changes. Please try again.");
         } finally {
             setSubmitting(false);
         }
     };
 
     const handleDelete = async (id) => {
-        if (!window.confirm("Purge this expedition from the master log?")) return;
+        if (!window.confirm("Delete this safari package?")) return;
         try {
             await adminService.deleteSafari(id);
             setSafaris(safaris.filter(s => s.id !== id));
         } catch (error) {
-            alert("Deletion protocol failed.");
+            alert("Unable to delete the package.");
         }
     };
 
@@ -107,7 +107,7 @@ export const AdminSafarisList = () => {
     if (loading) return (
         <div style={{ height: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
             <Loader2 className="animate-spin" size={48} color="var(--gold)" />
-            <span style={{ marginTop: '20px', fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--gold)', letterSpacing: '0.3em' }}>INDEXING SIGNATURE EXPEDITIONS</span>
+            <span style={{ marginTop: '20px', fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--gold)', letterSpacing: '0.3em' }}>Loading safari packages…</span>
         </div>
     );
 
@@ -115,7 +115,7 @@ export const AdminSafarisList = () => {
         <div className="admin-page-root">
             <header style={{ marginBottom: '60px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                 <div>
-                    <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--gold)', letterSpacing: '0.25em', marginBottom: '12px' }}>EXPEDITION INVENTORY</h2>
+                    <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--gold)', letterSpacing: '0.25em', marginBottom: '12px' }}>Safaris</h2>
                     <h1 className="admin-page-title">Safari Collection</h1>
                 </div>
                 <div style={{ display: 'flex', gap: '20px' }}>
@@ -123,13 +123,13 @@ export const AdminSafarisList = () => {
                         <Search size={18} />
                         <input 
                             type="text" 
-                            placeholder="PROBE COLLECTION..." 
+                            placeholder="Search packages…" 
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
                     </div>
                     <button className="admin-btn-primary" onClick={() => handleOpenForm()}>
-                        <Plus size={18} /> INITIALIZE ENTRY
+                        <Plus size={18} /> Add package
                     </button>
                 </div>
             </header>
@@ -210,7 +210,7 @@ export const AdminSafarisList = () => {
                             style={{ maxWidth: '650px', width: '90%' }}
                         >
                             <div className="modal-header">
-                                <h2>{editingSafari ? 'RECONFIGURE EXPEDITION' : 'INITIALIZE EXPEDITION'}</h2>
+                                <h2>{editingSafari ? 'Edit package' : 'Add package'}</h2>
                                 <button onClick={() => setShowForm(false)} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.3)', cursor: 'pointer' }}>
                                     <X size={24} />
                                 </button>
@@ -253,11 +253,11 @@ export const AdminSafarisList = () => {
                                         </div>
                                     </div>
                                     <div className="form-group-premium">
-                                        <label style={LabelStyle}>Intelligence Brief (Description)</label>
+                                        <label style={LabelStyle}>Description</label>
                                         <textarea 
                                             value={formData.description}
                                             onChange={(e) => setFormData({...formData, description: e.target.value})}
-                                            placeholder="The core operational parameters..." 
+                                            placeholder="Short description for the package…" 
                                             required 
                                             style={{ ...InputStyle, height: '120px', resize: 'none' }}
                                         />

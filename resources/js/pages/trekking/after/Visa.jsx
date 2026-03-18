@@ -3,10 +3,12 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Globe, FileBadge, ShieldAlert, BadgeCheck } from 'lucide-react';
 import { visualsData } from '../../../data/visualsData';
+import { useVisuals } from '../../../context/VisualsContext';
 import '../../../styles/trekking-prep.css';
 
 const Visa = () => {
     useEffect(() => { window.scrollTo(0, 0); }, []);
+    const visuals = useVisuals();
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 30 },
@@ -19,7 +21,7 @@ const Visa = () => {
             <section className="prep-hero">
                 <div className="prep-hero-bg">
                     <img
-                        src={visualsData.trekking.after.visa}
+                        src={visuals.getSingle('trekking.after.visa', visualsData.trekking.after.visa)}
                         alt="Border Clearance"
                     />
                     <div className="prep-hero-overlay"></div>
@@ -41,7 +43,7 @@ const Visa = () => {
                         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                     >
                         <img
-                            src={visualsData.trekking.after.visaEditorial}
+                            src={visuals.getSingle('trekking.after.visaEditorial', visualsData.trekking.after.visaEditorial)}
                             className="prep-editorial-img"
                             alt="Passport"
                         />

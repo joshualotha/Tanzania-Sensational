@@ -3,10 +3,12 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Map, Zap, Coffee, Tent, Info } from 'lucide-react';
 import { visualsData } from '../../../data/visualsData';
+import { useVisuals } from '../../../context/VisualsContext';
 import '../../../styles/trekking-prep.css';
 
 const BestRoutes = () => {
     useEffect(() => { window.scrollTo(0, 0); }, []);
+    const visuals = useVisuals();
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 30 },
@@ -19,7 +21,7 @@ const BestRoutes = () => {
             <section className="prep-hero">
                 <div className="prep-hero-bg">
                     <img
-                        src={visualsData.trekking.prep.bestRoutes}
+                        src={visuals.getSingle('trekking.prep.bestRoutes', visualsData.trekking.prep.bestRoutes)}
                         alt="Kilimanjaro Landscape"
                     />
                     <div className="prep-hero-overlay"></div>
@@ -41,7 +43,7 @@ const BestRoutes = () => {
                         transition={{ duration: 1 }}
                     >
                         <img
-                            src={visualsData.trekking.prep.bestRoutesEditorial}
+                            src={visuals.getSingle('trekking.prep.bestRoutesEditorial', visualsData.trekking.prep.bestRoutesEditorial)}
                             className="prep-editorial-img"
                             alt="The Lemosho Trail"
                         />

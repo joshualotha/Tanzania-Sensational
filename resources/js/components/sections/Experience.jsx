@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { visualsData } from '../../data/visualsData';
+import { useVisuals } from '../../context/VisualsContext';
 
 export const Experience = () => {
+  const visuals = useVisuals();
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -24,8 +26,8 @@ export const Experience = () => {
   return (
     <div className="experience" ref={sectionRef}>
       <div className="experience-visual reveal">
-        <div className="exp-img-main" style={{ backgroundImage: `url('${visualsData.home.experienceMain}')` }}></div>
-        <div className="exp-img-secondary" style={{ backgroundImage: `url('${visualsData.home.experienceSecondary}')` }}></div>
+        <div className="exp-img-main" style={{ backgroundImage: `url('${visuals.getSingle('home.experienceMain', visualsData.home.experienceMain)}')` }}></div>
+        <div className="exp-img-secondary" style={{ backgroundImage: `url('${visuals.getSingle('home.experienceSecondary', visualsData.home.experienceSecondary)}')` }}></div>
         <div className="exp-badge-float">
           <div className="exp-badge-num">15+</div>
           <div className="exp-badge-text">Years guiding<br />to the summit</div>

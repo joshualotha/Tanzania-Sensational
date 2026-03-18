@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Backpack, ThermometerSnowflake, Ruler, Shirt, Check, Download, PackageOpen, ClipboardList } from 'lucide-react';
 import { jsPDF } from 'jspdf';
 import { visualsData } from '../../../data/visualsData';
+import { useVisuals } from '../../../context/VisualsContext';
 import '../../../styles/trekking-prep.css';
 
 const GEAR_DATA = [
@@ -48,6 +49,7 @@ const GEAR_DATA = [
 ];
 
 const GearList = () => {
+    const visuals = useVisuals();
     const [checkedItems, setCheckedItems] = useState(() => {
         const saved = localStorage.getItem('trek_manifest_checked');
         return saved ? JSON.parse(saved) : [];
@@ -157,7 +159,7 @@ const GearList = () => {
             <section className="prep-hero">
                 <div className="prep-hero-bg">
                     <img
-                        src={visualsData.trekking.after.gearList}
+                        src={visuals.getSingle('trekking.after.gearList', visualsData.trekking.after.gearList)}
                         alt="Expedition Inventory"
                     />
                     <div className="prep-hero-overlay"></div>
@@ -178,7 +180,7 @@ const GearList = () => {
                         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                     >
                         <img
-                            src={visualsData.trekking.after.gearListEditorial}
+                            src={visuals.getSingle('trekking.after.gearListEditorial', visualsData.trekking.after.gearListEditorial)}
                             className="prep-editorial-img"
                             alt="Precision Preparation"
                         />

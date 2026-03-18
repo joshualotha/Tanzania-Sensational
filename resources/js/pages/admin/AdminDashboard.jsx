@@ -54,7 +54,7 @@ export const AdminDashboard = () => {
             });
             setRecentBookings(bookings.slice(0, 5));
         } catch (error) {
-            console.error("Dashboard Intelligence Sync Failure:", error);
+            console.error("Dashboard data load failed:", error);
         } finally {
             setLoading(false);
         }
@@ -69,7 +69,6 @@ export const AdminDashboard = () => {
 
     return (
         <div className="admin-page-root">
-            {/* ─── TACTICAL HEADER ─── */}
             <header style={{ marginBottom: '60px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                 <div>
                     <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--gold)', letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '12px' }}>Overview</h2>
@@ -78,7 +77,7 @@ export const AdminDashboard = () => {
                 
                 <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
                     <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                        <span style={{ fontSize: '0.55rem', color: 'var(--gold-dim)', fontFamily: 'var(--font-mono)' }}>STATUS: OK</span>
+                        <span style={{ fontSize: '0.55rem', color: 'var(--gold-dim)', fontFamily: 'var(--font-mono)' }}>STATUS: LIVE</span>
                         <span style={{ fontSize: '0.55rem', color: 'rgba(255,255,255,0.2)', fontFamily: 'var(--font-mono)' }}>UPDATED: {new Date().toLocaleTimeString()}</span>
                     </div>
                 </div>
@@ -115,7 +114,7 @@ export const AdminDashboard = () => {
             {/* ─── STRATEGIC DIVISIONS ─── */}
             <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr', gap: '40px' }}>
                 
-                {/* RECENT MISSION LEDGER */}
+                {/* RECENT BOOKINGS */}
                 <div className="admin-panel shadow-premium" style={{ padding: '50px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '40px', paddingBottom: '20px', borderBottom: '1px solid var(--border)' }}>
                         <div>
@@ -135,7 +134,7 @@ export const AdminDashboard = () => {
                         <thead>
                             <tr>
                                 <th>Explorer</th>
-                                <th>Deployment Asset</th>
+                                <th>Trip</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>

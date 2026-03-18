@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { visualsData } from '../../../data/visualsData';
+import { useVisuals } from '../../../context/VisualsContext';
 import '../../../styles/safaridraft-trek.css';
 
 // Heroicons (Outline)
@@ -25,6 +26,7 @@ const MapIcon = () => (
 
 const DailyRoutine = () => {
     useEffect(() => { window.scrollTo(0, 0); }, []);
+    const visuals = useVisuals();
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 20 },
@@ -46,7 +48,7 @@ const DailyRoutine = () => {
             <section className="sd-hero">
                 <div className="sd-hero-bg">
                     <img
-                        src={visualsData.trekking.during.routine}
+                        src={visuals.getSingle('trekking.during.routine', visualsData.trekking.during.routine)}
                         alt="Kilimanjaro Trail"
                     />
                     <div className="sd-hero-overlay"></div>

@@ -3,10 +3,12 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ShieldCheck, Compass, Users, Star, Award, HeartHandshake } from 'lucide-react';
 import { visualsData } from '../../../data/visualsData';
+import { useVisuals } from '../../../context/VisualsContext';
 import '../../../styles/trekking-prep.css';
 
 const WhyUs = () => {
     useEffect(() => { window.scrollTo(0, 0); }, []);
+    const visuals = useVisuals();
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 30 },
@@ -19,7 +21,7 @@ const WhyUs = () => {
             <section className="prep-hero">
                 <div className="prep-hero-bg">
                     <img
-                        src={visualsData.trekking.prep.whyUs}
+                        src={visuals.getSingle('trekking.prep.whyUs', visualsData.trekking.prep.whyUs)}
                         alt="Elite guides on the mountain"
                     />
                     <div className="prep-hero-overlay"></div>
@@ -40,7 +42,7 @@ const WhyUs = () => {
                         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                     >
                         <img
-                            src={visualsData.trekking.prep.whyUsEditorial}
+                            src={visuals.getSingle('trekking.prep.whyUsEditorial', visualsData.trekking.prep.whyUsEditorial)}
                             className="prep-editorial-img"
                             alt="Expedition Team"
                         />

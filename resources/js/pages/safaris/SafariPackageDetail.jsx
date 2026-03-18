@@ -4,12 +4,14 @@ import { motion } from 'framer-motion';
 import { Clock, MapPin, DollarSign, Home, Coffee, Shield, Check, X, ArrowRight, Loader2 } from 'lucide-react';
 import { safariService } from '../../services/api';
 import { visualsData } from '../../data/visualsData';
+import { useVisuals } from '../../context/VisualsContext';
 import '../../styles/safari-packages.css';
 
 export const SafariPackageDetail = () => {
     const { packageId } = useParams();
     const [pkg, setPkg] = useState(null);
     const [loading, setLoading] = useState(true);
+    const visuals = useVisuals();
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -55,7 +57,7 @@ export const SafariPackageDetail = () => {
             {/* EXPEDITION HERO */}
             <section className="safari-det-hero">
                 <div className="safari-det-bg">
-                    <img src={pkg.hero_image || visualsData.safaris.listHero} alt={pkg.name} />
+                    <img src={pkg.hero_image || visuals.getSingle('safaris.listHero', visualsData.safaris.listHero)} alt={pkg.name} />
                 </div>
                 <div className="safari-det-overlay"></div>
                 <motion.div

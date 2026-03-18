@@ -3,10 +3,12 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Activity, Clock, HeartPulse, ShieldAlert } from 'lucide-react';
 import { visualsData } from '../../../data/visualsData';
+import { useVisuals } from '../../../context/VisualsContext';
 import '../../../styles/trek-health-premium.css';
 
 const AltitudeSickness = () => {
     useEffect(() => { window.scrollTo(0, 0); }, []);
+    const visuals = useVisuals();
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 30 },
@@ -19,7 +21,7 @@ const AltitudeSickness = () => {
             <section className="trek-health-hero">
                 <div className="trek-health-hero-bg">
                     <img
-                        src={visualsData.trekking.health.altitudeSickness}
+                        src={visuals.getSingle('trekking.health.altitudeSickness', visualsData.trekking.health.altitudeSickness)}
                         alt="Kilimanjaro Trail"
                     />
                     <div className="trek-health-overlay"></div>
@@ -41,7 +43,7 @@ const AltitudeSickness = () => {
                 >
                     <div className="trek-health-image">
                         <img
-                            src={visualsData.trekking.health.altitudeEditorial}
+                            src={visuals.getSingle('trekking.health.altitudeEditorial', visualsData.trekking.health.altitudeEditorial)}
                             alt="Mountaineer at high altitude"
                         />
                     </div>

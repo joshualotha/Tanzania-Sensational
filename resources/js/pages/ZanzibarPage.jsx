@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Waves, Sun, History, Compass } from 'lucide-react';
 import { visualsData } from '../data/visualsData';
+import { useVisuals } from '../context/VisualsContext';
 import '../styles/zanzibar-premium.css';
 
 const regions = [
@@ -51,6 +52,7 @@ const experiences = [
 ];
 
 export const ZanzibarPage = () => {
+    const visuals = useVisuals();
     useEffect(() => { window.scrollTo(0, 0); }, []);
 
     const fadeUp = {
@@ -64,7 +66,7 @@ export const ZanzibarPage = () => {
             {/* ─── 1. AIRY COASTAL HERO ─── */}
             <section className="zan-m-hero">
                 <div className="zan-m-hero-bg">
-                    <img src={visualsData.zanzibar.hero} alt="Zanzibar Ocean" />
+                    <img src={visuals.getSingle('zanzibar.hero', visualsData.zanzibar.hero)} alt="Zanzibar Ocean" />
                     <div className="zan-m-hero-scrim"></div>
                 </div>
 

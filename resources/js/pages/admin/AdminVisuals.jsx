@@ -6,7 +6,55 @@ import {
     Plus, Search, Trash2, Shield, Eye, Loader2, Zap
 } from 'lucide-react';
 import { adminService, visualAssetService } from '../../services/api';
+import { visualsData } from '../../data/visualsData';
 import '../../styles/admin-premium.css';
+
+const BASE_PLACEMENTS = [
+    { id: 'custom', label: 'Custom (advanced)', section: null },
+    { id: 'homeHero', label: 'Home / Hero (rotating)', section: 'home.hero' },
+];
+
+function humanizeSegment(seg) {
+    return String(seg || '')
+        .replace(/([a-z])([A-Z])/g, '$1 $2')
+        .replace(/[_-]+/g, ' ')
+        .trim();
+}
+
+function titleCase(s) {
+    const str = String(s || '');
+    return str ? str.charAt(0).toUpperCase() + str.slice(1) : '';
+}
+
+function labelFromSection(section) {
+    const parts = String(section || '').split('.').filter(Boolean);
+    return parts.map((p) => titleCase(humanizeSegment(p))).join(' / ');
+}
+
+function collectSectionsFromVisuals(obj, prefix = '') {
+    const out = [];
+    if (!obj || typeof obj !== 'object') return out;
+
+    for (const [k, v] of Object.entries(obj)) {
+        const path = prefix ? `${prefix}.${k}` : k;
+        if (typeof v === 'string') {
+            out.push({ section: path, kind: 'single' });
+        } else if (Array.isArray(v)) {
+            if (v.every((x) => typeof x === 'string')) {
+                out.push({ section: path, kind: 'list' });
+            }
+        } else if (v && typeof v === 'object') {
+            out.push(...collectSectionsFromVisuals(v, path));
+        }
+    }
+    return out;
+}
+
+function formatSectionLabel(section) {
+    if (!section) return '';
+    const key = String(section);
+    return labelFromSection(key);
+}
 
 export const AdminVisuals = () => {
     const [assets, setAssets] = useState([]);
@@ -20,6 +68,45 @@ export const AdminVisuals = () => {
     const [addError, setAddError] = useState('');
     const [deleteFile, setDeleteFile] = useState(false);
     const [showEditor, setShowEditor] = useState(false);
+    const [placementId, setPlacementId] = useState('custom');
+    const [placementQuery, setPlacementQuery] = useState('');
+
+    const mediaPlacements = useMemo(() => {
+        const seen = new Set();
+        const auto = collectSectionsFromVisuals(visualsData).map((item) => {
+            const section = item.section;
+            const id = `auto_${section.replace(/[^a-zA-Z0-9]+/g, '_')}`;
+            const labelBase = labelFromSection(section);
+            const label = item.kind === 'list' ? `${labelBase} (gallery)` : labelBase;
+            return { id, label, section };
+        });
+
+        const combined = [...BASE_PLACEMENTS, ...auto]
+            .filter((p) => {
+                const key = p.section || p.id;
+                if (seen.has(key)) return false;
+                seen.add(key);
+                return true;
+            })
+            .sort((a, b) => {
+                if (a.id === 'custom') return -1;
+                if (b.id === 'custom') return 1;
+                if (a.section === 'home.hero') return -1;
+                if (b.section === 'home.hero') return 1;
+                return String(a.label).localeCompare(String(b.label));
+            });
+
+        return combined;
+    }, []);
+
+    const filteredPlacements = useMemo(() => {
+        const q = String(placementQuery || '').trim().toLowerCase();
+        if (!q) return mediaPlacements;
+        return mediaPlacements.filter((p) => {
+            const hay = `${p.label} ${p.section || ''}`.toLowerCase();
+            return hay.includes(q);
+        });
+    }, [mediaPlacements, placementQuery]);
 
     const [draft, setDraft] = useState({
         section: '',
@@ -60,7 +147,7 @@ export const AdminVisuals = () => {
                 });
             }
         } catch (error) {
-            console.error("Visual Intelligence Interception Failure:", error);
+            console.error("Failed to load media library:", error);
         } finally {
             setLoading(false);
         }
@@ -97,8 +184,10 @@ export const AdminVisuals = () => {
         setAddError('');
         setShowAdd(true);
         const defaultSection = activeCategory !== 'All' ? activeCategory : '';
+        const placement = mediaPlacements.find((p) => p.section && p.section === defaultSection)?.id || 'custom';
+        setPlacementId(placement);
         setDraft({
-            section: defaultSection,
+            section: placement === 'custom' ? defaultSection : (mediaPlacements.find((p) => p.id === placement)?.section || defaultSection),
             source: 'upload',
             key: '',
             url: '',
@@ -174,7 +263,7 @@ export const AdminVisuals = () => {
             setAssets(assets.filter(a => a.key !== key));
             setSelectedAsset(null);
         } catch (error) {
-            alert("Asset redaction failed.");
+            alert("Unable to delete the media item.");
         }
     };
 
@@ -211,7 +300,7 @@ export const AdminVisuals = () => {
                 
                 {/* 1. SECTOR FILTERS */}
                 <div className="admin-panel shadow-premium" style={{ padding: '25px' }}>
-                    <h4 style={SectionHeadStyle}><Globe size={14} /> Sectors</h4>
+                    <h4 style={SectionHeadStyle}><Globe size={14} /> Sections</h4>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                         {categories.map(cat => (
                             <button 
@@ -234,7 +323,7 @@ export const AdminVisuals = () => {
                                     transition: '0.3s'
                                 }}
                             >
-                                {cat}
+                                {cat === 'All' ? 'All' : formatSectionLabel(cat)}
                             </button>
                         ))}
                     </div>
@@ -362,7 +451,7 @@ export const AdminVisuals = () => {
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
                             <div className="form-group-premium">
                                 <label style={LabelStyle}>Section</label>
-                                <div style={{ color: 'white', fontSize: '0.9rem', textTransform: 'uppercase' }}>{selectedAsset.section}</div>
+                                <div style={{ color: 'white', fontSize: '0.9rem' }}>{formatSectionLabel(selectedAsset.section)}</div>
                             </div>
                             <div className="form-group-premium">
                                 <label style={LabelStyle}>Key</label>
@@ -449,6 +538,34 @@ export const AdminVisuals = () => {
 
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginTop: 16 }}>
                             <label style={{ display: 'grid', gap: 6 }}>
+                                <span style={LabelStyle}>Placement</span>
+                                <input
+                                    value={placementQuery}
+                                    onChange={(e) => setPlacementQuery(e.target.value)}
+                                    placeholder="Search placements…"
+                                    style={CompactInput}
+                                />
+                                <select
+                                    value={placementId}
+                                    onChange={(e) => {
+                                        const nextId = e.target.value;
+                                        setPlacementId(nextId);
+                                        const section = mediaPlacements.find((p) => p.id === nextId)?.section || '';
+                                        setDraft((d) => ({
+                                            ...d,
+                                            section: section || d.section,
+                                            key: d.key || proposeKey(section || d.section, d.file || d.url),
+                                        }));
+                                    }}
+                                    style={CompactInput}
+                                >
+                                    {filteredPlacements.map((p) => (
+                                        <option key={p.id} value={p.id}>{p.label}</option>
+                                    ))}
+                                </select>
+                            </label>
+
+                            <label style={{ display: 'grid', gap: 6 }}>
                                 <span style={LabelStyle}>Section *</span>
                                 <input
                                     value={draft.section}
@@ -461,6 +578,7 @@ export const AdminVisuals = () => {
                                         }));
                                     }}
                                     style={CompactInput}
+                                    disabled={placementId !== 'custom'}
                                     placeholder="e.g. home, trekking.routes, blog"
                                 />
                             </label>

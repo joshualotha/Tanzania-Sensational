@@ -3,10 +3,12 @@ import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { visualsData } from '../../../data/visualsData';
+import { useVisuals } from '../../../context/VisualsContext';
 import '../../../styles/utility-pages-premium.css';
 
 const TippingGuide = () => {
     useEffect(() => { window.scrollTo(0, 0); }, []);
+    const visuals = useVisuals();
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 30 },
@@ -19,7 +21,7 @@ const TippingGuide = () => {
             <section className="prep-hero">
                 <div className="prep-hero-bg">
                     <img
-                        src={visualsData.trekking.prep.tippingHero}
+                        src={visuals.getSingle('trekking.prep.tippingHero', visualsData.trekking.prep.tippingHero)}
                         alt="Group on the mountain"
                     />
                     <div className="prep-hero-overlay"></div>
@@ -51,7 +53,7 @@ const TippingGuide = () => {
                         transition={{ duration: 1 }}
                     >
                         <img
-                            src={visualsData.trekking.prep.tippingEditorial}
+                            src={visuals.getSingle('trekking.prep.tippingEditorial', visualsData.trekking.prep.tippingEditorial)}
                             className="prep-editorial-img"
                             alt="Mountain Crew"
                         />

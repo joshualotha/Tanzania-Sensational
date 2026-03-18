@@ -3,10 +3,12 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Shield, Syringe, ClipboardCheck, AlertCircle } from 'lucide-react';
 import { visualsData } from '../../../data/visualsData';
+import { useVisuals } from '../../../context/VisualsContext';
 import '../../../styles/trek-health-premium.css';
 
 const Vaccinations = () => {
     useEffect(() => { window.scrollTo(0, 0); }, []);
+    const visuals = useVisuals();
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 30 },
@@ -19,7 +21,7 @@ const Vaccinations = () => {
             <section className="trek-health-hero">
                 <div className="trek-health-hero-bg">
                     <img
-                        src={visualsData.trekking.health.vaccinations}
+                        src={visuals.getSingle('trekking.health.vaccinations', visualsData.trekking.health.vaccinations)}
                         alt="Serengeti Dawn"
                     />
                     <div className="trek-health-overlay"></div>
@@ -41,7 +43,7 @@ const Vaccinations = () => {
                 >
                     <div className="trek-health-image">
                         <img
-                            src={visualsData.trekking.health.vaccinationsEditorial}
+                            src={visuals.getSingle('trekking.health.vaccinationsEditorial', visualsData.trekking.health.vaccinationsEditorial)}
                             alt="Medical Consultation"
                         />
                     </div>

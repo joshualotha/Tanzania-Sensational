@@ -3,10 +3,12 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Wind, ShieldCheck, Heart, AlertCircle } from 'lucide-react';
 import { visualsData } from '../../../data/visualsData';
+import { useVisuals } from '../../../context/VisualsContext';
 import '../../../styles/trek-health-premium.css';
 
 const Oxygen = () => {
     useEffect(() => { window.scrollTo(0, 0); }, []);
+    const visuals = useVisuals();
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 30 },
@@ -19,7 +21,7 @@ const Oxygen = () => {
             <section className="trek-health-hero">
                 <div className="trek-health-hero-bg">
                     <img
-                        src={visualsData.trekking.health.oxygen}
+                        src={visuals.getSingle('trekking.health.oxygen', visualsData.trekking.health.oxygen)}
                         alt="Mist rolling over high peaks"
                     />
                     <div className="trek-health-overlay"></div>
@@ -41,7 +43,7 @@ const Oxygen = () => {
                 >
                     <div className="trek-health-image">
                         <img
-                            src={visualsData.trekking.health.oxygenEditorial}
+                            src={visuals.getSingle('trekking.health.oxygenEditorial', visualsData.trekking.health.oxygenEditorial)}
                             alt="Expedition base camp"
                         />
                     </div>
