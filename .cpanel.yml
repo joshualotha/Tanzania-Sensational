@@ -2,12 +2,10 @@
 deployment:
   tasks:
     - export APP_ENV=production
-    - /usr/local/bin/composer install --no-dev --optimize-autoloader
+    - ~/bin/composer install --no-dev --optimize-autoloader
     - php artisan migrate --force
     - php artisan optimize:clear
     - php artisan config:cache
     - php artisan event:cache
     - php artisan route:cache
     - php artisan view:cache
-    - /opt/cpanel/ea-nodejs18/bin/npm install
-    - /opt/cpanel/ea-nodejs18/bin/npm run build
