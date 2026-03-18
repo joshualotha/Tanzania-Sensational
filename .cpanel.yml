@@ -9,3 +9,5 @@ deployment:
     - php artisan event:cache
     - php artisan route:cache
     - php artisan view:cache
+    - ~/nodevenv/tss.upnet.co.tz/10/bin/npm install
+    - ~/nodevenv/tss.upnet.co.tz/10/bin/npm run build
