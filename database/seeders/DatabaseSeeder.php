@@ -13,14 +13,14 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             AdminUserSeeder::class,
+            DestinationsSeeder::class,
             TrekkingRoutesSeeder::class,
             PricingRulesSeeder::class,
             DeparturesSeeder::class,
             SafarisSeeder::class,
-            DestinationsSeeder::class,
             PagesSeeder::class,
             BlogPostsSeeder::class,
-            VisualAssetsSeeder::class,
+            StaticAssetsSeeder::class,
         ]);
     }
 }
