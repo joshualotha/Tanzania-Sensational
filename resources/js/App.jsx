@@ -19,7 +19,6 @@ import { BookingPage } from './pages/BookingPage';
 import { VisualsProvider } from './context/VisualsContext';
 
 // New 'Plan Your Trip' Pages
-import { MtMeru } from './pages/plan/MtMeru';
 import { GroupDepartures } from './pages/plan/GroupDepartures';
 import { DepartureDetail } from './pages/plan/DepartureDetail';
 import { GearChecklist } from './pages/plan/GearChecklist';
@@ -58,7 +57,7 @@ import Rongai from './pages/trekking/kilimanjaro/Rongai';
 import Marangu from './pages/trekking/kilimanjaro/Marangu';
 import NorthernCircuit from './pages/trekking/kilimanjaro/NorthernCircuit';
 import Umbwe from './pages/trekking/kilimanjaro/Umbwe';
-import PackageDetail from './pages/trekking/kilimanjaro/PackageDetail';
+import PackageDetail from './Pages/trekking/kilimanjaro/PackageDetail';
 
 // Auth & Guard
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
@@ -181,7 +180,6 @@ function App() {
                                     <Route path="/safari-guide/:page" element={<ContentPage fixedSection="safari-guide" />} />
 
                                     {/* Plan Your Trip */}
-                                    <Route path="/meru" element={<MtMeru />} />
                                     <Route path="/group-departures" element={<GroupDepartures />} />
                                     <Route path="/group-departures/:departureId" element={<DepartureDetail />} />
                                     <Route path="/gear-checklist" element={<GearChecklist />} />
@@ -218,8 +216,9 @@ function App() {
                                     <Route path="/trekking/kilimanjaro/machame" element={<Machame />} />
                                     <Route path="/trekking/kilimanjaro/rongai" element={<Rongai />} />
                                     <Route path="/trekking/kilimanjaro/marangu" element={<Marangu />} />
-                                    <Route path="/trekking/kilimanjaro/northern-circuit" element={<NorthernCircuit />} />
+                                    <Route path="/trekking/kilimanjaro/ northern-circuit" element={<NorthernCircuit />} />
                                     <Route path="/trekking/kilimanjaro/umbwe" element={<Umbwe />} />
+                                    <Route path="/trekking/meru/:packageId" element={<PackageDetail />} />
                                     <Route path="/trekking/kilimanjaro/:routeId/:packageId" element={<PackageDetail />} />
                                     
                                     {/* Catch-all to Home */}

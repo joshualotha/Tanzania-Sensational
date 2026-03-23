@@ -2,20 +2,20 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useParams, Link, useNavigate, Navigate } from 'react-router-dom';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { LiveWeatherWidget, SafariCalendar, ElevationGraph } from './MountainIntegrations';
-import { departureService } from '../../../services/api';
+import { trekkingService } from '../../../services/api';
 import '../../../styles/ultra-premium.css';
 
 const PackageDetail = () => {
     const { routeId, packageId } = useParams();
     const navigate = useNavigate();
-    const [departure, setDeparture] = useState(null);
+    const [trek, setTrek] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [errorLog, setErrorLog] = useState(null);
 
     const { scrollY } = useScroll();
     const heroOpacity = useTransform(scrollY, [0, 500], [1, 0]);
 
     // Format data specifically for Recharts AreaChart
-    const trek = departure?.trekking_route || null;
     const itineraryDays = trek?.itinerary_days || [];
 
     const chartData = useMemo(() => {
@@ -34,12 +34,13 @@ const PackageDetail = () => {
         const run = async () => {
             setLoading(true);
             try {
-                const res = await departureService.getById(packageId);
+                const res = await trekkingService.getById(packageId);
                 if (!mounted) return;
-                setDeparture(res.data || null);
+                setTrek(res.data || null);
             } catch (e) {
                 if (!mounted) return;
-                setDeparture(null);
+                setTrek(null);
+                setErrorLog(e.message || String(e));
             } finally {
                 if (!mounted) return;
                 setLoading(false);
@@ -50,10 +51,16 @@ const PackageDetail = () => {
     }, [packageId]);
 
     useEffect(() => {
-        if (!loading && departure && trek?.slug && routeId && trek.slug !== routeId) {
-            navigate(`/trekking/kilimanjaro/${trek.slug}/${packageId}`, { replace: true });
+        if (!loading && trek?.slug && routeId) {
+            const baseSlug = trek.slug.split('-')[0];
+            if (baseSlug !== routeId && trek.slug !== routeId) {
+                // E.g. routeId is "lemosho", trek.slug is "lemosho-7-days"
+                if (!trek.slug.startsWith(routeId)) {
+                   navigate(`/trekking/kilimanjaro/${baseSlug}/${packageId}`, { replace: true });
+                }
+            }
         }
-    }, [departure, loading, navigate, packageId, routeId, trek?.slug]);
+    }, [loading, navigate, packageId, routeId, trek?.slug]);
 
     if (loading) return (
         <div className="lux-root" style={{ minHeight: '100vh', display: 'grid', placeItems: 'center' }}>
@@ -61,15 +68,28 @@ const PackageDetail = () => {
         </div>
     );
 
-    if (!departure || !trek) {
-        return <Navigate to="/group-departures" replace />;
+    if (!trek) {
+        if (errorLog) {
+            return (
+                <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#070707', color: 'white', fontFamily: 'Outfit' }}>
+                    <h2 style={{ color: 'var(--gold)', letterSpacing: '0.12em' }}>Expedition Details Unavailable</h2>
+                    <p style={{ opacity: 0.7, marginTop: '10px', maxWidth: 560, textAlign: 'center', lineHeight: 1.6 }}>
+                        We couldn't load the details for this package at the moment. Please try again later.
+                    </p>
+                    <div style={{ marginTop: 24 }}>
+                        <a href="/#routes" style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.18)', color: 'white', padding: '10px 20px', textDecoration: 'none' }}>
+                            Back to Routes
+                        </a>
+                    </div>
+                </div>
+            );
+        }
+        return <Navigate to="/#routes" replace />;
     }
 
     const pkg = {
-        departure_id: departure.id,
-        departure_date: departure.departure_date,
         heroImg: trek.hero_image,
-        title: `${trek.duration || ''} Days ${trek.name} Route`.trim(),
+        title: trek.name || `${trek.duration || ''} Days Route`.trim(),
         overview: trek.description,
         duration: trek.duration ? `${trek.duration} Days` : 'Multi-day',
         difficulty: trek.difficulty,
@@ -86,9 +106,9 @@ const PackageDetail = () => {
             accommodation: d.camp_name ?? d.accommodation ?? '',
             meals: d.meals ?? '',
         })) : [],
-        inclusions: Array.isArray(departure.inclusions) ? departure.inclusions : [],
-        exclusions: Array.isArray(departure.exclusions) ? departure.exclusions : [],
-        base_price: (departure.price_cents || 0) / 100,
+        inclusions: Array.isArray(trek.inclusions) ? trek.inclusions : [],
+        exclusions: Array.isArray(trek.exclusions) ? trek.exclusions : [],
+        base_price: trek.base_price || 0,
     };
 
     const fadeInUp = {
@@ -107,8 +127,8 @@ const PackageDetail = () => {
                         {pkg.title}
                     </motion.h1>
                     <motion.div initial="hidden" animate="visible" variants={fadeInUp} transition={{ delay: 0.2 }} style={{ marginTop: '30px', display: 'flex', gap: '20px', justifyContent: 'center' }}>
-                        <Link to={`/booking/departure/${departure.id}`} className="lux-btn lux-btn-hero">
-                            Book This Expedition
+                        <Link to={`/contact?package=${trek.id}`} className="lux-btn lux-btn-hero">
+                            Inquire About This Package
                         </Link>
                     </motion.div>
                 </div>
@@ -347,7 +367,7 @@ const PackageDetail = () => {
                     Contact our expedition specialists to discuss availability, pricing, and personalized preparations for the {pkg.title}.
                 </p>
                 <div style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
-                    <Link to={`/booking/departure/${departure.id}`} className="lux-btn">
+                    <Link to={`/contact?interest=${trek.slug}`} className="lux-btn">
                         Book This Package
                     </Link>
                     <Link to="/contact" className="lux-btn" style={{ background: 'transparent', border: '1px solid white' }}>

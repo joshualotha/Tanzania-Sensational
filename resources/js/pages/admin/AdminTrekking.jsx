@@ -38,7 +38,9 @@ export const AdminTrekking = () => {
             setSelectedPkg({ 
                 ...pkg, 
                 highlights: pkg.highlights || [],
-                itinerary: pkg.itinerary || []
+                inclusions: pkg.inclusions || [],
+                exclusions: pkg.exclusions || [],
+                itinerary: pkg.itinerary_days || pkg.itinerary || []
             });
         } else {
             setSelectedPkg({
@@ -51,6 +53,8 @@ export const AdminTrekking = () => {
                 hero_image: 'https://images.unsplash.com/photo-1549449875-9689b1473215?auto=format&fit=crop&q=80',
                 description: '',
                 highlights: [],
+                inclusions: [],
+                exclusions: [],
                 itinerary: []
             });
         }
@@ -246,7 +250,34 @@ export const AdminTrekking = () => {
                                     }}
                                     onRemove={(i) => setSelectedPkg({...selectedPkg, highlights: selectedPkg.highlights.filter((_, idx) => idx !== i)})}
                                 />
+                            <div className="curator-section">
+                                <h5 style={SubHeadStyle}>Logistics & Provisions</h5>
+                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px' }}>
+                                    <EditableList
+                                        label="Inclusions"
+                                        items={selectedPkg.inclusions}
+                                        onAdd={() => setSelectedPkg({...selectedPkg, inclusions: [...(selectedPkg.inclusions || []), '']})}
+                                        onUpdate={(i, v) => {
+                                            const list = [...selectedPkg.inclusions];
+                                            list[i] = v;
+                                            setSelectedPkg({...selectedPkg, inclusions: list});
+                                        }}
+                                        onRemove={(i) => setSelectedPkg({...selectedPkg, inclusions: selectedPkg.inclusions.filter((_, idx) => idx !== i)})}
+                                    />
+                                    <EditableList
+                                        label="Exclusions"
+                                        items={selectedPkg.exclusions}
+                                        onAdd={() => setSelectedPkg({...selectedPkg, exclusions: [...(selectedPkg.exclusions || []), '']})}
+                                        onUpdate={(i, v) => {
+                                            const list = [...selectedPkg.exclusions];
+                                            list[i] = v;
+                                            setSelectedPkg({...selectedPkg, exclusions: list});
+                                        }}
+                                        onRemove={(i) => setSelectedPkg({...selectedPkg, exclusions: selectedPkg.exclusions.filter((_, idx) => idx !== i)})}
+                                    />
+                                </div>
                             </div>
+                        </div>
 
                             <div className="curator-section">
                                 <h5 style={SubHeadStyle}>Vertical Milestones</h5>
@@ -262,7 +293,7 @@ export const AdminTrekking = () => {
                                             </div>
                                             <input
                                                 placeholder="Phase Headline"
-                                                value={day.title}
+                                                value={day.title || ''}
                                                 onChange={(e) => {
                                                     const it = [...selectedPkg.itinerary];
                                                     it[idx].title = e.target.value;
@@ -270,21 +301,47 @@ export const AdminTrekking = () => {
                                                 }}
                                                 style={CompactInput}
                                             />
+                                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', marginTop: '10px' }}>
+                                                <div>
+                                                    <label style={{...LabelStyle, fontSize: '10px', marginBottom: '4px'}}>Elevation (m)</label>
+                                                    <input placeholder="e.g. 2800" value={day.elevation_m || ''} onChange={e => { const it=[...selectedPkg.itinerary]; it[idx].elevation_m=e.target.value; setSelectedPkg({...selectedPkg, itinerary:it}); }} style={CompactInput} />
+                                                </div>
+                                                <div>
+                                                    <label style={{...LabelStyle, fontSize: '10px', marginBottom: '4px'}}>Distance</label>
+                                                    <input placeholder="e.g. 5 km" value={day.distance_km || ''} onChange={e => { const it=[...selectedPkg.itinerary]; it[idx].distance_km=e.target.value; setSelectedPkg({...selectedPkg, itinerary:it}); }} style={CompactInput} />
+                                                </div>
+                                                <div>
+                                                    <label style={{...LabelStyle, fontSize: '10px', marginBottom: '4px'}}>Hiking Time</label>
+                                                    <input placeholder="e.g. 4-5 hours" value={day.hiking_time || ''} onChange={e => { const it=[...selectedPkg.itinerary]; it[idx].hiking_time=e.target.value; setSelectedPkg({...selectedPkg, itinerary:it}); }} style={CompactInput} />
+                                                </div>
+                                                <div>
+                                                    <label style={{...LabelStyle, fontSize: '10px', marginBottom: '4px'}}>Habitat</label>
+                                                    <input placeholder="e.g. Rainforest" value={day.habitat || ''} onChange={e => { const it=[...selectedPkg.itinerary]; it[idx].habitat=e.target.value; setSelectedPkg({...selectedPkg, itinerary:it}); }} style={CompactInput} />
+                                                </div>
+                                                <div>
+                                                    <label style={{...LabelStyle, fontSize: '10px', marginBottom: '4px'}}>Camp Name</label>
+                                                    <input placeholder="e.g. Mti Mkubwa Camp" value={day.camp_name || ''} onChange={e => { const it=[...selectedPkg.itinerary]; it[idx].camp_name=e.target.value; setSelectedPkg({...selectedPkg, itinerary:it}); }} style={CompactInput} />
+                                                </div>
+                                                <div>
+                                                    <label style={{...LabelStyle, fontSize: '10px', marginBottom: '4px'}}>Meals</label>
+                                                    <input placeholder="e.g. B, L, D" value={day.meals || ''} onChange={e => { const it=[...selectedPkg.itinerary]; it[idx].meals=e.target.value; setSelectedPkg({...selectedPkg, itinerary:it}); }} style={CompactInput} />
+                                                </div>
+                                            </div>
                                             <textarea
                                                 placeholder="Day details…"
-                                                value={day.description}
+                                                value={day.description || ''}
                                                 rows={3}
                                                 onChange={(e) => {
                                                     const it = [...selectedPkg.itinerary];
                                                     it[idx].description = e.target.value;
                                                     setSelectedPkg({...selectedPkg, itinerary: it});
                                                 }}
-                                                style={{ ...CompactInput, marginTop: '8px', height: '60px', resize: 'none' }}
+                                                style={{ ...CompactInput, marginTop: '10px', height: '60px', resize: 'none' }}
                                             />
                                         </div>
                                     ))}
                                     <button
-                                        onClick={() => setSelectedPkg({...selectedPkg, itinerary: [...(selectedPkg.itinerary || []), { title: '', description: '' }]})}
+                                        onClick={() => setSelectedPkg({...selectedPkg, itinerary: [...(selectedPkg.itinerary || []), { title: '', description: '', elevation_m: '', distance_km: '', hiking_time: '', habitat: '', camp_name: '', meals: '' }]})}
                                         style={{ width: '100%', padding: '12px', background: 'transparent', border: '1px dashed var(--border)', color: 'var(--text-dim)', fontSize: '0.7rem', cursor: 'pointer' }}
                                     >+ APPEND ASCENT PHASE</button>
                                 </div>

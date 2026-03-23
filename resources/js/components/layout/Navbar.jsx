@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { visualsData } from '../../data/visualsData';
 import { useVisuals } from '../../context/VisualsContext';
+import { trekkingService } from '../../services/api';
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [activeDropdowns, setActiveDropdowns] = useState([]);
+  const [meruPackages, setMeruPackages] = useState([]);
   const location = useLocation();
   const visuals = useVisuals();
 
@@ -26,6 +28,20 @@ export const Navbar = () => {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Fetch Mt Meru packages for dropdown
+  useEffect(() => {
+    let mounted = true;
+    trekkingService.getAll().then(res => {
+        if (mounted && res.data) {
+            const meru = res.data
+                .filter(r => r.slug && r.slug.startsWith('mt-meru'))
+                .sort((a, b) => (b.duration || 0) - (a.duration || 0)); // e.g. 4-day before 3-day
+            setMeruPackages(meru);
+        }
+    }).catch(err => console.error("Could not load Mt Meru packages", err));
+    return () => { mounted = false; };
   }, []);
 
   // Scroll to top when path changes
@@ -139,8 +155,13 @@ export const Navbar = () => {
                   Mt. Meru
                 </div>
                 <ul className="submenu">
-                  <li><Link to="/meru">4-Day Trek</Link></li>
-                  <li><Link to="/meru">3-Day Trek</Link></li>
+                  {meruPackages.length > 0 ? meruPackages.map(pkg => (
+                      <li key={pkg.id}>
+                          <Link to={`/trekking/meru/${pkg.slug}`}>{pkg.name}</Link>
+                      </li>
+                  )) : (
+                      <li><span style={{ padding: '0.8rem 1.2rem', display: 'block', opacity: 0.6 }}>Loading...</span></li>
+                  )}
                 </ul>
               </li>
               <li className={`has-submenu ${isDropdownActive('prep') ? 'mobile-active' : ''}`}>

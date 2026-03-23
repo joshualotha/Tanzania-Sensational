@@ -10,11 +10,13 @@ class TrekkingRoute extends Model
     protected $fillable = [
         'name', 'slug', 'meta_badge', 'description', 'difficulty', 'duration',
         'distance', 'elevation_gain', 'base_price', 'max_group_size', 
-        'hero_image', 'success_rate', 'highlights'
+        'hero_image', 'success_rate', 'highlights', 'inclusions', 'exclusions'
     ];
 
     protected $casts = [
         'highlights' => 'array',
+        'inclusions' => 'array',
+        'exclusions' => 'array',
     ];
 
     public function itineraryDays(): HasMany

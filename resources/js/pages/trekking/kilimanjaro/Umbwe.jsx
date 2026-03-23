@@ -130,62 +130,52 @@ const Umbwe = () => {
 
             {/* ─── EXPEDITION PACKAGES ─── */}
             <section className="lux-packages-section">
-                <h2 className="lux-heading" style={{ textAlign: 'center', fontSize: '2.5rem', marginBottom: '10px' }}>Available <em>Expeditions.</em></h2>
+                <h2 className="lux-heading" style={{ textAlign: 'center', fontSize: '2.5rem', marginBottom: '10px' }}>Available <em>Packages.</em></h2>
                 <div className="lux-packages-grid">
                     {loading ? (
                         [1, 2, 3].map((i) => (
                             <div key={i} className="lux-package-card skeleton" style={{ height: 420, background: 'rgba(255,255,255,0.08)' }} />
                         ))
-                    ) : departures.length === 0 ? (
+                    ) : (route?.variations || []).length === 0 ? (
                         <div style={{ textAlign: 'center', width: '100%', opacity: 0.8 }}>
-                            <p className="lux-body">No upcoming departures are currently published for this route.</p>
-                            <Link to="/booking" className="lux-btn" style={{ marginTop: 20, display: 'inline-flex' }}>Request a Private Date</Link>
+                            <p className="lux-body">No packages are currently available for this route.</p>
+                            <Link to="/contact" className="lux-btn" style={{ marginTop: 20, display: 'inline-flex' }}>Contact Us</Link>
                         </div>
                     ) : (
-                        departures.map((dep, index) => {
-                            const start = dep.departure_date ? new Date(dep.departure_date) : null;
-                            const end = dep.return_date ? new Date(dep.return_date) : null;
-                            const dateLabel = start
-                                ? `${start.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} – ${(end || start).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}`
-                                : 'TBA';
-                            const price = `$${Math.round((dep.price_cents || 0) / 100).toLocaleString()}`;
-
-                            return (
-                                <motion.div
-                                    key={dep.id}
-                                    className="lux-package-card"
-                                    initial={{ opacity: 0, y: 30 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true, margin: "-50px" }}
-                                    transition={{ duration: 0.8, delay: index * 0.1 }}
-                                >
-                                    <div className="lux-package-image">
-                                        <img src={route?.hero_image || visualsData.trekking.routes.umbwe} alt="Umbwe departure" />
+                        (route?.variations || []).map((pkg, index) => (
+                            <motion.div
+                                key={pkg.id}
+                                className="lux-package-card"
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: "-50px" }}
+                                transition={{ duration: 0.8, delay: index * 0.1 }}
+                            >
+                                <div className="lux-package-image">
+                                    <img src={pkg.hero_image || visualsData.trekking.routes.umbwe} alt={pkg.name} />
+                                </div>
+                                <div className="lux-package-content">
+                                    <div>
+                                        <span className="lux-package-duration">{pkg.duration} Days • {pkg.difficulty}</span>
+                                        <h3 className="lux-package-title">{pkg.name}</h3>
+                                        <p className="lux-package-desc">
+                                            {pkg.description ? pkg.description.substring(0, 120) + '...' : `Experience the ${pkg.name} with our expert guides.`}
+                                        </p>
                                     </div>
-                                    <div className="lux-package-content">
-                                        <div>
-                                            <span className="lux-package-duration">{dateLabel}</span>
-                                            <h3 className="lux-package-title">{price} <span style={{ opacity: 0.6, fontSize: '0.9rem' }}>/pp</span></h3>
-                                            <p className="lux-package-desc">{dep.status || 'Available'} • {dep.available_seats} seats left</p>
-                                        </div>
-                                        <div className="lux-package-footer">
-                                            <div style={{ display: 'flex', justifyContent: 'space-between', gap: 14, alignItems: 'center' }}>
-                                                <Link
-                                                    to={`/booking/departure/${dep.id}`}
-                                                    className="lux-link-arrow"
-                                                >
-                                                    Request booking
-                                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-                                                </Link>
-                                                <Link to={`/trekking/kilimanjaro/umbwe/${dep.id}`} className="lux-link-arrow" style={{ opacity: 0.8 }}>
-                                                    View details
-                                                </Link>
-                                            </div>
+                                    <div className="lux-package-footer">
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                            <span style={{ color: 'var(--gold)', fontFamily: 'var(--font-heading)', fontSize: '1.15rem' }}>
+                                                From ${Math.round(pkg.base_price).toLocaleString()} <span style={{ opacity: 0.6, fontSize: '0.8rem' }}>/pp</span>
+                                            </span>
+                                            <Link to={`/trekking/kilimanjaro/umbwe/${pkg.id}`} className="lux-link-arrow">
+                                                View details
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                                            </Link>
                                         </div>
                                     </div>
-                                </motion.div>
-                            );
-                        })
+                                </div>
+                            </motion.div>
+                        ))
                     )}
                 </div>
             </section>

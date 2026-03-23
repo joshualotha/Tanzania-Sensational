@@ -16,7 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->statefulApi();
 
-        $middleware->throttleApi('60,1');
+        $middleware->throttleApi('1000,1');
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

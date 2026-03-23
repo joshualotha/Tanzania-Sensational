@@ -345,10 +345,12 @@ body {
 
 .lux-day-desc {
     font-family: var(--font-body);
-    font-size: 1rem;
-    line-height: 1.8;
+    font-size: 1.05rem;
+    line-height: 1.85;
     color: var(--lux-mid);
     font-weight: 300;
+    white-space: pre-wrap;
+    margin-top: 10px;
 }
 
 /* ─── EXPEDITION PACKAGES ─── */
