@@ -559,7 +559,7 @@ nav.scrolled .dropdown-toggle {
   font-size: 0.65rem;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--cream-dim);
+  color: rgba(255, 255, 255, 0.6); /* Changed from var(--cream-dim) for visibility on dark */
   writing-mode: vertical-rl;
 }
 
@@ -1246,7 +1246,7 @@ section {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.2rem;
   font-style: italic;
-  color: var(--cream-dim);
+  color: rgba(255, 255, 255, 0.8); /* Boosted contrast for CTA on dark image */
   margin-bottom: 50px;
   line-height: 1.7;
 }
@@ -1292,7 +1292,7 @@ footer {
 
 .footer-contact-item {
   font-size: 0.82rem;
-  color: var(--cream-dim);
+  color: rgba(255, 255, 255, 0.6); /* Boosted contrast for Dark footer */
   display: flex;
   align-items: center;
   gap: 10px;
