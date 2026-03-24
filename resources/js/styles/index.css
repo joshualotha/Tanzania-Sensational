@@ -601,11 +601,11 @@ nav.scrolled .dropdown-toggle {
   line-height: 1;
 }
 
-.hero-badge-unit {
-  font-size: 0.65rem;
+.hero-badge-subtitle {
+  font-size: 0.7rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--cream-dim);
+  color: rgba(255, 255, 255, 0.8); /* Changed from var(--cream-dim) for readability */
   margin-top: 4px;
 }
 
