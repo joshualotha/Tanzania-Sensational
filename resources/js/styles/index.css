@@ -666,11 +666,13 @@ nav.scrolled .dropdown-toggle {
 }
 
 .stat-label {
+  font-family: 'Outfit', sans-serif;
   font-size: 0.72rem;
+  font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--white);
-  opacity: 0.8;
+  color: var(--dark);
+  opacity: 0.75;
   text-align: center;
 }
 
@@ -2101,6 +2103,7 @@ footer {
   .hero-content {
     padding: 20px !important;
     max-width: 100% !important;
+    background: radial-gradient(circle at center, rgba(13, 13, 11, 0.4) 0%, transparent 70%);
   }
 
   .hero-eyebrow {
@@ -2111,11 +2114,21 @@ footer {
     font-size: clamp(2rem, 10vw, 3rem) !important;
     line-height: 1.1 !important;
     margin: 0 auto 15px !important;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8) !important;
   }
 
+  .hero-eyebrow-text {
+    color: var(--gold) !important;
+    background: rgba(13, 13, 11, 0.6);
+    padding: 4px 12px;
+    border-radius: 40px;
+  }
+  
   .hero-subtitle {
     font-size: 1.1rem !important;
     margin-bottom: 32px !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8) !important;
+    color: #fff !important;
   }
 
   .hero-actions {
