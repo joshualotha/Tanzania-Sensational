@@ -47,10 +47,24 @@
     z-index: 1;
     padding-top: 140px;
     padding-bottom: 200px;
-    /* Space for the floating story card */
     max-width: 900px;
     margin: 0 auto;
     text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+@media (max-width: 480px) {
+    .premium-about-hero {
+        min-height: 75vh;
+    }
+    .premium-about-content {
+        padding-top: 100px;
+        padding-bottom: 140px;
+    }
+    .premium-hero-subtitle {
+        font-size: 1.1rem;
+    }
 }
 
 .premium-eyebrow {
@@ -66,10 +80,10 @@
 
 .premium-hero-title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(3.5rem, 6vw, 6rem);
+    font-size: clamp(2.2rem, 8vw, 5.5rem);
     font-weight: 500;
     line-height: 1.05;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
 .premium-hero-title em {
@@ -611,5 +625,14 @@
     .premium-exp-item {
         flex-direction: column;
         gap: 15px;
+    }
+
+    .premium-exp-title {
+        font-size: 2.2rem;
+    }
+    
+    .premium-exp-cta {
+        width: 100%;
+        justify-content: center;
     }
 }

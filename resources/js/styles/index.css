@@ -456,7 +456,7 @@ nav.scrolled .dropdown-toggle {
 
 .hero-title {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(3.5rem, 7vw, 7rem);
+  font-size: clamp(2.5rem, 8vw, 7rem);
   font-weight: 900;
   line-height: 0.95;
   letter-spacing: -0.02em;
@@ -676,7 +676,13 @@ nav.scrolled .dropdown-toggle {
 
 /* ─── SECTION COMMONS ─── */
 section {
-  padding: 120px 60px;
+  padding: 100px 5vw;
+}
+
+@media (max-width: 768px) {
+  section {
+    padding: 60px 20px;
+  }
 }
 
 .section-eyebrow {
@@ -2086,13 +2092,25 @@ footer {
   }
 
   /* Hero Section Refinement */
+  .hero {
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
   .hero-content {
-    padding: 0 20px 60px !important;
+    padding: 20px !important;
+    max-width: 100% !important;
+  }
+
+  .hero-eyebrow {
+    justify-content: center !important;
   }
 
   .hero-title {
-    font-size: clamp(2.2rem, 10vw, 3.2rem) !important;
+    font-size: clamp(2rem, 10vw, 3rem) !important;
     line-height: 1.1 !important;
+    margin: 0 auto 15px !important;
   }
 
   .hero-subtitle {
@@ -2159,6 +2177,10 @@ footer {
 
   /* Logo adjustment */
   .logo-crest img {
-    height: 44px !important;
+    height: 40px !important;
+  }
+  
+  .logo-crest--compact img {
+    height: 32px !important;
   }
 }

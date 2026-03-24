@@ -55,8 +55,13 @@
 
 .trek-info-hero-title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(3rem, 6vw, 5rem);
+    font-size: clamp(2rem, 8vw, 4.5rem);
     line-height: 1.1;
+}
+
+@media (max-width: 480px) {
+    .trek-info-hero { height: 50vh; }
+    .trek-info-hero-content { padding: 0 20px; }
 }
 
 /* Content Layout */
@@ -71,6 +76,17 @@
     padding: 80px 100px;
     box-shadow: 0 40px 100px rgba(0, 0, 0, 0.03);
     border: 1px solid #f0f0f0;
+}
+
+@media (max-width: 1024px) {
+    .trek-info-article { padding: 60px 40px; }
+}
+
+@media (max-width: 480px) {
+    .trek-info-article { padding: 40px 20px; }
+    .trek-info-container { padding: 40px 0 80px; }
+    .trek-info-section h2 { font-size: 2rem; }
+    .trek-info-section h3 { font-size: 1.5rem; }
 }
 
 .trek-info-section {

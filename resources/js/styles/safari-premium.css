@@ -53,10 +53,10 @@
 
 .premium-hero-title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(3.5rem, 7vw, 7rem);
+    font-size: clamp(2.2rem, 9vw, 6rem);
     font-weight: 500;
     line-height: 1.05;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
 .premium-hero-title em {
@@ -345,8 +345,21 @@
 }
 
 @media (max-width: 640px) {
-    .premium-hero-title { font-size: 3.2rem; }
+    .premium-hero-title { font-size: 2.5rem; }
     .premium-dest-grid { grid-template-columns: 1fr; }
-    .premium-stats-grid { flex-wrap: wrap; justify-content: center; }
-    .premium-stats-strip { bottom: 160px; }
+    .premium-stats-grid { 
+        flex-direction: column;
+        gap: 30px;
+        padding: 0 20px;
+    }
+    .premium-stats-strip { bottom: 120px; }
+    .premium-destinations-section { margin-top: -60px; padding: 0 20px 100px; }
+    .premium-dest-card { padding: 30px; }
+    .premium-dest-name { font-size: 1.8rem; }
+}
+
+@media (max-width: 480px) {
+    .premium-exp-container { gap: 40px; }
+    .premium-exp-title { font-size: 2.2rem; }
+    .premium-exp-cta { width: 100%; justify-content: center; }
 }
