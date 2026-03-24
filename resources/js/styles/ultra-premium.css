@@ -178,18 +178,25 @@ body {
 
 @media (max-width: 480px) {
     .lux-stats-grid {
-        flex-direction: column;
-        padding: 30px 20px;
-        gap: 30px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: 30px 15px;
+        gap: 20px;
     }
     .lux-stat-item {
         border-right: none;
         border-bottom: 1px solid var(--lux-border);
-        padding: 0 0 20px 0;
+        padding: 0 0 15px 0;
+        text-align: center;
     }
-    .lux-stat-item:last-child {
+    .lux-stat-item:nth-child(odd) {
+        border-right: 1px solid var(--lux-border);
+        padding-right: 10px;
+    }
+    .lux-stat-item:nth-child(3),
+    .lux-stat-item:nth-child(4) {
         border-bottom: none;
-        padding-bottom: 0;
+        padding-top: 10px;
     }
 }
 
