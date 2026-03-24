@@ -38,8 +38,11 @@
 .premium-about-overlay {
     position: absolute;
     inset: 0;
-    /* Richer, darker vignette leading down */
-    background: linear-gradient(to bottom, rgba(18, 22, 20, 0.4) 0%, rgba(18, 22, 20, 0.95) 100%);
+    /* Enhanced: Multi-layer gradient for better text isolation */
+    background: linear-gradient(to bottom, 
+        rgba(18, 22, 20, 0.2) 0%, 
+        rgba(18, 22, 20, 0.5) 40%, 
+        rgba(18, 22, 20, 0.9) 100%);
 }
 
 .premium-about-content {
@@ -84,6 +87,7 @@
     font-weight: 500;
     line-height: 1.05;
     margin-bottom: 25px;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Added for readability */
 }
 
 .premium-hero-title em {
@@ -95,9 +99,10 @@
     font-family: 'Outfit', sans-serif;
     font-size: 1.25rem;
     line-height: 1.6;
-    color: rgba(255, 255, 255, 0.8);
+    color: #fff; /* Changed from rgba(255,255,255,0.8) for better contrast */
     max-width: 600px;
     margin: 0 auto;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 /* ─── INTEGRATED STATS STRIP ─── */
@@ -143,7 +148,7 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.85); /* Increased from 0.5 for visibility */
 }
 
 /* ─── 2. THE LEGACY CARD (STORY) ─── */
@@ -236,8 +241,9 @@
     font-family: 'Outfit', sans-serif;
     font-size: 1.15rem;
     line-height: 1.7;
-    color: #555;
+    color: #222; /* Darkened from #555 for premium legibility */
     margin-bottom: 25px;
+    font-weight: 400; /* Increased from 300 for clearer rendering */
 }
 
 /* ─── 3. MISSION & VISION TWIN CARDS ─── */
@@ -295,7 +301,8 @@
     font-family: 'Outfit', sans-serif;
     font-size: 1.1rem;
     line-height: 1.7;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.9); /* Increased from 0.7 for high contrast on dark */
+    font-weight: 400;
 }
 
 /* ─── 4. THE PRINCIPLES (VALUES) ─── */
@@ -363,7 +370,8 @@
     font-family: 'Outfit', sans-serif;
     font-size: 0.95rem;
     line-height: 1.6;
-    color: #666;
+    color: #333; /* Darkened from #666 */
+    font-weight: 400;
 }
 
 /* ─── 5. EXPERIENCE DIFFERENCE & FINAL BAND ─── */

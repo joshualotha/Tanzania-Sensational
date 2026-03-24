@@ -67,7 +67,11 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.2) 60%, transparent 100%);
+    background: linear-gradient(to top, 
+        rgba(0, 0, 0, 0.9) 0%, 
+        rgba(0, 0, 0, 0.4) 40%, 
+        rgba(0, 0, 0, 0.1) 80%, 
+        transparent 100%);
     z-index: 2;
 }
 
@@ -107,7 +111,7 @@ body {
 
 .lux-btn-hero {
     background-color: var(--lux-tan) !important;
-    color: #fff !important;
+    color: var(--lux-dark) !important; /* Fixed: White on Tan had low contrast */
     padding: 20px 50px !important;
     font-size: 1rem !important;
     font-weight: 600 !important;
@@ -163,17 +167,19 @@ body {
 .lux-stat-label {
     font-family: var(--font-body);
     font-size: 0.7rem;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    color: var(--lux-mid);
+    color: var(--lux-dark); /* Darkened for accessibility */
     display: block;
     margin-bottom: 15px;
+    opacity: 0.8;
 }
 
 .lux-stat-value {
     font-family: var(--font-heading);
     font-size: 1.8rem;
-    color: var(--dark);
+    color: var(--lux-dark);
 }
 
 @media (max-width: 480px) {
@@ -307,9 +313,9 @@ body {
     font-family: var(--font-body);
     font-size: 1.1rem;
     line-height: 1.8;
-    color: var(--lux-mid);
+    color: var(--lux-dark); /* Darkened from lux-mid for sharp legibility */
     margin-bottom: 25px;
-    font-weight: 300;
+    font-weight: 400; /* Increased weight slightly for better rendering */
 }
 
 .lux-image-wrapper {

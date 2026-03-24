@@ -57,6 +57,7 @@
     font-family: 'Playfair Display', serif;
     font-size: clamp(2rem, 8vw, 4.5rem);
     line-height: 1.1;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Added for readability */
 }
 
 @media (max-width: 480px) {
@@ -114,7 +115,7 @@
 .trek-info-content {
     font-size: 1.1rem;
     line-height: 1.8;
-    color: #444;
+    color: #222; /* Darkened from #444 for sharpness */
 }
 
 .trek-info-content p {

@@ -1018,7 +1018,7 @@ section {
 
 .pillar-desc {
   font-size: 0.88rem;
-  color: var(--cream-dim);
+  color: #333; /* Darkened from var(--cream-dim) for sharpness */
   line-height: 1.7;
 }
 
@@ -1083,7 +1083,7 @@ section {
 
 .dep-date {
   font-size: 0.8rem;
-  color: var(--cream-dim);
+  color: rgba(255, 255, 255, 0.75); /* Boosted contrast on Green background */
   white-space: nowrap;
 }
 
@@ -1231,7 +1231,7 @@ section {
   font-family: 'Playfair Display', serif;
   font-size: clamp(2.5rem, 5vw, 4.5rem);
   font-weight: 700;
-  color: var(--dark);
+  color: var(--white); /* Changed to white for visibility on dark overlay */
   line-height: 1.1;
   margin-bottom: 24px;
 }
@@ -1285,7 +1285,7 @@ footer {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1rem;
   font-style: italic;
-  color: var(--cream-dim);
+  color: rgba(255, 255, 255, 0.7); /* Boosted contrast on Dark footer */
   line-height: 1.8;
   margin-bottom: 30px;
 }
