@@ -45,7 +45,7 @@ export const Departures = () => {
             <span className="section-eyebrow-text">Upcoming</span>
           </div>
           <h2 className="section-title" style={{ fontSize: '2.4rem' }}>Join a<br /><em>Group Departure</em></h2>
-          <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: '1.1rem', fontStyle: 'italic', color: 'var(--cream-dim)', marginTop: '20px', lineHeight: '1.8', marginBottom: '36px' }}>Traveling solo? Split the cost. Share the summit. Our group departures place solo adventurers into small, curated teams.</p>
+          <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: '1.15rem', fontStyle: 'italic', color: 'rgba(255,255,255,0.75)', marginTop: '20px', lineHeight: '1.8', marginBottom: '36px' }}>Traveling solo? Split the cost. Share the summit. Our group departures place solo adventurers into small, curated teams.</p>
           <Link to="/group-departures" className="btn-primary"><span>View All Departures</span></Link>
         </div>
         <div className="departures-list reveal">
@@ -66,7 +66,7 @@ export const Departures = () => {
                 <span className={`dep-seats ${dep.available_seats <= 3 ? 'low' : ''}`}>
                   {dep.available_seats} Seats Left
                 </span>
-                <div className="dep-price">${Math.round((dep.price_cents || 0) / 100)}<span style={{ fontSize: '0.75rem', color: 'var(--cream-dim)' }}>/pp</span></div>
+                <div className="dep-price">${Math.round((dep.price_cents || 0) / 100)}<span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.6)' }}>/pp</span></div>
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
                   <path d="M4 9h10M9 4l5 5-5 5" stroke="#c9a55a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
