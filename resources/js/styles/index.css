@@ -9,6 +9,19 @@
   box-sizing: border-box;
 }
 
+a {
+  text-decoration: none !important;
+  color: inherit;
+  transition: all 0.3s ease;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
 :root {
   --gold: #C9A84C;
   /* Summit Gold */
