@@ -7,7 +7,7 @@
     --booking-gold: #c9a84c;
     --booking-gold-dim: rgba(201, 168, 76, 0.15);
     --booking-text: #e8e4dc;
-    --booking-muted: rgba(255, 255, 255, 0.4);
+    --booking-muted: rgba(255, 255, 255, 0.7); /* Boosted from 0.4 for readability */
     --booking-success: #38a169;
     --booking-danger: #e53e3e;
 }

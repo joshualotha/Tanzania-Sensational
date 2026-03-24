@@ -156,7 +156,7 @@
 
 .datum-val {
     font-size: 0.9rem;
-    color: rgba(255,255,255,0.7);
+    color: rgba(255,255,255,0.9); /* Boosted from 0.7 for readability */
     font-family: 'Courier New', monospace; /* Technical coordinate feel */
 }
 
@@ -233,7 +233,7 @@
 .bespoke-text {
     font-size: 1.25rem;
     line-height: 2;
-    color: #444;
+    color: #222; /* Darkened from #444 */
     font-weight: 300;
 }
 
@@ -310,7 +310,7 @@
 .vital-text {
     font-size: 1.05rem;
     line-height: 1.6;
-    color: #444;
+    color: #222; /* Darkened from #444 */
     font-weight: 300;
 }
 

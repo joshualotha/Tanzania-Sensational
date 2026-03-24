@@ -7,7 +7,7 @@
 :root {
     --zan-bg: #FDFBF7;           /* Soft Cream */
     --zan-text: #2D3436;         /* Deep Charcoal */
-    --zan-text-light: #636E72;   /* Slate Gray */
+    --zan-text-light: #333;      /* Sharpened from #636E72 for elite contrast */
     --zan-accent: #4A9B9C;       /* Ocean Turquoise */
     --zan-sand: #D9C5B2;         /* Warm Sand */
     --zan-gold: #C9A84C;         /* Heritage Gold */

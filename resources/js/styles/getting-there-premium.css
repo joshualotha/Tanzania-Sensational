@@ -138,7 +138,7 @@
     font-family: 'Outfit', sans-serif;
     font-size: 1.25rem;
     line-height: 1.8;
-    color: #444;
+    color: #111; /* Darkened from #444 for elite legibility */
     margin-bottom: 30px;
 }
 
@@ -165,7 +165,7 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.2rem;
-    color: #888;
+    color: #444; /* Darkened from #888 */
 }
 
 /* ─── 3. PARCHMENT CARDS (INFO GRID) ─── */
@@ -262,7 +262,7 @@
 .gt-info-list li p {
     font-size: 1.05rem;
     line-height: 1.6;
-    color: #555;
+    color: #222; /* Darkened from #555 */
     margin: 0;
 }
 
