@@ -39,8 +39,8 @@
     /* Enhanced: Multi-layer gradient for better text isolation */
     background: linear-gradient(to bottom, 
         rgba(18, 22, 20, 0.2) 0%, 
-        rgba(18, 22, 20, 0.5) 40%, 
-        rgba(18, 22, 20, 0.9) 100%);
+        rgba(18, 22, 20, 0.4) 40%, 
+        rgba(18, 22, 20, 0.7) 100%);
 }
 
 .premium-safari-hero-content {
