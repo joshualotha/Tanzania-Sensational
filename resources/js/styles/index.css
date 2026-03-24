@@ -2116,7 +2116,7 @@ footer {
   }
 
   .hero-content {
-    padding: 20px !important;
+    padding: 0 20px !important; /* Reset padding to ensure true centering */
     max-width: 100% !important;
     background: radial-gradient(circle at center, rgba(13, 13, 11, 0.4) 0%, transparent 70%);
   }

@@ -360,6 +360,20 @@
     .pillar-badge-num { font-size: 2.2rem; }
     .expedition-strip { padding: 20px 30px; gap: 30px; overflow-x: auto; }
 }
+@media (max-width: 640px) {
+    .hero-visual {
+        align-items: center !important;
+        justify-content: center !important;
+        min-height: 60vh !important;
+    }
+    .hero-visual-content {
+        padding: 20px !important;
+        margin-bottom: 0 !important;
+    }
+    .dest-hero-title {
+        font-size: 3rem;
+    }
+}
 @media (max-width: 1200px) {
     .dest-hero-bespoke { grid-template-columns: 1fr; }
     .hero-title-pillar { height: auto; padding: 100px 40px; }

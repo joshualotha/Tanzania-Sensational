@@ -352,6 +352,16 @@
 }
 
 @media (max-width: 640px) {
+    .premium-safari-hero {
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        min-height: 70vh !important;
+    }
+    .premium-safari-hero-content {
+        padding: 40px 20px !important;
+        text-align: center !important;
+    }
     .premium-hero-title { font-size: 2.5rem; }
     .premium-dest-grid { grid-template-columns: 1fr; }
     .premium-stats-grid { 
