@@ -41,23 +41,27 @@ export function VisualsProvider({ children }) {
         let alive = true;
         (async () => {
             try {
-                const discovered = collectSectionsFromVisuals(visualsData);
-                const uniqueSections = Array.from(new Set(discovered.map((d) => d.section)));
+                let allItems = [];
+                let page = 1;
+                let lastPage = 1;
 
-                const results = await Promise.all(
-                    uniqueSections.map((section) =>
-                        visualAssetService
-                            .getAll({ params: { section, per_page: 96 } })
-                            .then((res) => ({ section, res }))
-                            .catch(() => ({ section, res: null }))
-                    )
-                );
+                // Sequentially fetch all assets, respecting the backend's 96 per_page limit
+                do {
+                    const res = await visualAssetService.getAll({ params: { per_page: 96, page } });
+                    const rows = Array.isArray(res?.data?.data) ? res.data.data : (Array.isArray(res?.data) ? res.data : []);
+                    allItems = [...allItems, ...rows];
+                    
+                    lastPage = res?.data?.last_page || 1;
+                    page++;
+                } while (page <= lastPage && alive);
 
+                // Group the fetched items by their section
                 const nextSections = {};
-                for (const { section, res } of results) {
-                    if (!res) continue;
-                    const urls = urlsFromResponse(res);
-                    if (urls.length > 0) nextSections[section] = urls;
+                for (const item of allItems) {
+                    if (!item || !item.section || !item.url) continue;
+                    const s = item.section;
+                    if (!nextSections[s]) nextSections[s] = [];
+                    nextSections[s].push(normalizeUrl(item.url));
                 }
 
                 if (alive) setSections(nextSections);
