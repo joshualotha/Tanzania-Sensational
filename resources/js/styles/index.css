@@ -190,8 +190,7 @@ body::before {
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 0;
-  background: linear-gradient(to bottom, rgba(13, 13, 11, 0.85) 0%, transparent 100%);
-  backdrop-filter: blur(2px);
+  background: transparent;
   transition: all 0.4s ease;
 }
 
@@ -206,6 +205,7 @@ body::before {
 nav.scrolled .nav-links a,
 nav.scrolled .dropdown-toggle {
   color: var(--dark);
+  text-shadow: none;
 }
 
 /* Center spacer — reserves space for the logo crest */
@@ -244,8 +244,8 @@ nav.scrolled .dropdown-toggle {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--white);
-  /* White on dark hero */
   text-decoration: none;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.3);
   transition: all 0.3s;
 }
 
@@ -424,11 +424,11 @@ nav.scrolled .dropdown-toggle {
   inset: 0;
   background:
     linear-gradient(175deg,
-      rgba(13, 13, 11, 0.2) 0%,
-      rgba(13, 13, 11, 0.05) 30%,
-      transparent 50%,
-      rgba(13, 13, 11, 0.35) 75%,
-      rgba(13, 13, 11, 0.7) 100%);
+      rgba(13, 13, 11, 0.08) 0%,
+      transparent 35%,
+      transparent 55%,
+      rgba(13, 13, 11, 0.25) 80%,
+      rgba(13, 13, 11, 0.5) 100%);
   z-index: 2;
 }
 
@@ -436,8 +436,7 @@ nav.scrolled .dropdown-toggle {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 120% 100% at 80% 50%, transparent 40%, rgba(13, 13, 11, 0.5) 100%),
-    linear-gradient(to right, rgba(13, 13, 11, 0.55) 0%, transparent 45%);
+    linear-gradient(to right, rgba(13, 13, 11, 0.4) 0%, transparent 40%);
   z-index: 3;
 }
 
