@@ -462,8 +462,36 @@ export const AdminVisuals = () => {
                                 <textarea
                                     value={selectedAsset.url}
                                     onChange={(e) => setSelectedAsset({ ...selectedAsset, url: e.target.value })}
-                                    style={{ ...CompactInput, height: 90, resize: 'none' }}
+                                    style={{ ...CompactInput, height: 60, resize: 'none' }}
                                 />
+                                <div style={{ marginTop: '10px' }}>
+                                    <label className="admin-btn-secondary" style={{ cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '0.75rem', padding: '6px 12px' }}>
+                                        {saving ? <Loader2 className="animate-spin" size={14} /> : <ImageIcon size={14} />} 
+                                        {saving ? 'Uploading...' : 'Upload Replacement Image'}
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            style={{ display: 'none' }}
+                                            disabled={saving}
+                                            onChange={async (e) => {
+                                                const file = e.target.files?.[0];
+                                                if (!file) return;
+                                                setSaving(true);
+                                                try {
+                                                    const folder = `visual-assets/${normalizeKey(selectedAsset.section || 'general')}`;
+                                                    const res = await adminService.upload(file, folder);
+                                                    if (res.data?.url) {
+                                                        setSelectedAsset({ ...selectedAsset, url: res.data.url });
+                                                    }
+                                                } catch (err) {
+                                                    alert('Replacement upload failed: ' + (err.response?.data?.message || err.message));
+                                                } finally {
+                                                    setSaving(false);
+                                                }
+                                            }}
+                                        />
+                                    </label>
+                                </div>
                             </div>
                         </div>
 
