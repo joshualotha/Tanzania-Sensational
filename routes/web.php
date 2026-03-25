@@ -42,6 +42,13 @@ Route::prefix('api')->middleware(['web'])->group(function() {
     // Auth
     Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:10,1');
     Route::post('/logout', [AuthController::class, 'logout']);
+
+    Route::get('/debug-logs', function() {
+        $logPath = storage_path('logs/laravel.log');
+        if (!file_exists($logPath)) return 'No log file found at ' . $logPath;
+        $logs = shell_exec('tail -n 100 ' . escapeshellarg($logPath));
+        return '<pre>' . htmlspecialchars($logs ?: 'Log file is empty or unreadable.') . '</pre>';
+    });
     
     // Protected Admin Routes
     Route::middleware(['auth', 'can:access-dashboard'])->group(function () {
