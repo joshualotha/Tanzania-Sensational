@@ -34,10 +34,14 @@ function collectSectionsFromVisuals(obj, prefix = '') {
 }
 
 export function VisualsProvider({ children }) {
-    const [sections, setSections] = useState({});
-    const [loaded, setLoaded] = useState(false);
+    const [sections, setSections] = useState(window.__INITIAL_VISUALS__ || {});
+    // If we have SSR visuals, we are loaded on frame 1, preventing the 2-second flash of old images!
+    const [loaded, setLoaded] = useState(!!window.__INITIAL_VISUALS__);
 
     useEffect(() => {
+        // If the server injected the visuals (standard page load), don't fetch them again!
+        if (window.__INITIAL_VISUALS__) return;
+
         let alive = true;
         (async () => {
             try {

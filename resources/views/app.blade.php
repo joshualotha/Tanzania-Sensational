@@ -28,6 +28,9 @@
     @if(!empty($m['schema']))
         <script type="application/ld+json">{!! json_encode($m['schema'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
     @endif
+    @if(isset($initialVisuals))
+        <script>window.__INITIAL_VISUALS__ = {!! json_encode($initialVisuals, JSON_UNESCAPED_SLASHES) !!};</script>
+    @endif
 </head>
 <body>
     <div id="root"></div>

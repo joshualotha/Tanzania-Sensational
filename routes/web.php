@@ -256,8 +256,16 @@ Route::get('/{any}', function (Request $request) {
         'url' => $appUrl,
     ];
 
+    // Inject visual assets directly into the HTML to prevent React from flashing old imagery
+    $initialVisuals = \App\Models\VisualAsset::all(['section', 'url'])
+        ->groupBy('section')
+        ->map(function ($items) {
+            return $items->pluck('url');
+        })->toArray();
+
     return view('app', [
         'meta' => $meta,
         'orgSchema' => $orgSchema,
+        'initialVisuals' => $initialVisuals,
     ]);
 })->where('any', '.*');
