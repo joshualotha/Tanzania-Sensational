@@ -1,80 +1,97 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import { departureService } from '../../services/api';
 import { Link } from 'react-router-dom';
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1, delayChildren: 0.2 }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, x: -20 },
+  visible: { 
+    opacity: 1, x: 0, 
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } 
+  }
+};
+
 export const Departures = () => {
-  const sectionRef = useRef(null);
   const [departures, setDepartures] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchDepartures = async () => {
-      try {
-        const response = await departureService.getAll();
-        setDepartures(Array.isArray(response.data) ? response.data : []);
-      } catch (error) {
-        console.error("Failed to fetch departures", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchDepartures();
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
-
-    if (sectionRef.current) {
-      const reveals = sectionRef.current.querySelectorAll('.reveal');
-      reveals.forEach(el => observer.observe(el));
-    }
-
-    return () => observer.disconnect();
+    departureService.getAll()
+      .then(res => setDepartures(Array.isArray(res.data) ? res.data : []))
+      .catch(err => console.error("Failed to fetch departures", err))
+      .finally(() => setLoading(false));
   }, []);
 
   return (
-    <section className="departures" ref={sectionRef}>
-      <div className="departures-inner">
-        <div className="reveal">
-          <div className="section-eyebrow">
+    <motion.section 
+      className="departures-v3"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-100px" }}
+      variants={containerVariants}
+    >
+      <div className="departures-inner-asymmetric">
+        <div className="departures-content-side">
+          <motion.div className="section-eyebrow" variants={itemVariants}>
             <div className="section-eyebrow-line"></div>
-            <span className="section-eyebrow-text">Upcoming</span>
-          </div>
-          <h2 className="section-title" style={{ fontSize: '2.4rem' }}>Join a<br /><em>Group Departure</em></h2>
-          <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: '1.15rem', fontStyle: 'italic', color: 'rgba(255,255,255,0.75)', marginTop: '20px', lineHeight: '1.8', marginBottom: '36px' }}>Traveling solo? Split the cost. Share the summit. Our group departures place solo adventurers into small, curated teams.</p>
-          <Link to="/group-departures" className="btn-primary"><span>View All Departures</span></Link>
+            <span className="section-eyebrow-text">Join a Team</span>
+          </motion.div>
+          
+          <motion.h2 className="section-title-light" variants={itemVariants}>
+            Group<br /><em>Departures</em>
+          </motion.h2>
+          
+          <motion.p className="departures-desc-v3" variants={itemVariants}>
+            Traveling solo? Split the cost. Share the summit. Our group departures place solo adventurers into small, curated teams of like-minded explorers.
+          </motion.p>
+          
+          <motion.div variants={itemVariants}>
+            <Link to="/group-departures" className="btn-secondary-light">
+              View All 2026 Dates
+            </Link>
+          </motion.div>
         </div>
-        <div className="departures-list reveal">
+
+        <div className="departures-list-v3">
           {loading ? (
-            [1, 2, 3].map(i => (
-              <div key={i} className="departure-row skeleton" style={{ height: '70px', background: 'rgba(255,255,255,0.02)', marginBottom: '10px' }}></div>
-            ))
+            [1, 2, 3].map(i => <div key={i} className="departure-skeleton-v3" />)
           ) : (
-            departures.slice(0, 5).map((dep, i) => (
-              <Link key={i} to={`/group-departures/${dep.id}`} className="departure-row">
-                <div>
-                  <div className="dep-route">{dep.trekking_route?.name} Route · {dep.trekking_route?.duration} Days</div>
-                  <div className="dep-date" style={{ marginTop: '4px' }}>
-                    {new Date(dep.departure_date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} – 
-                    {new Date(dep.return_date || dep.departure_date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+            departures.slice(0, 4).map((dep, i) => (
+              <motion.div key={dep.id || i} variants={itemVariants}>
+                <Link to={`/group-departures/${dep.id}`} className="departure-card-v3">
+                  <div className="dep-info-v3">
+                    <span className="dep-route-v3">{dep.trekking_route?.name} Route</span>
+                    <span className="dep-date-v3">
+                      {new Date(dep.departure_date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+                    </span>
                   </div>
-                </div>
-                <span className={`dep-seats ${dep.available_seats <= 3 ? 'low' : ''}`}>
-                  {dep.available_seats} Seats Left
-                </span>
-                <div className="dep-price">${Math.round((dep.price_cents || 0) / 100)}<span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.6)' }}>/pp</span></div>
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                  <path d="M4 9h10M9 4l5 5-5 5" stroke="#c9a55a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </Link>
+                  
+                  <div className="dep-meta-v3">
+                    <span className={`dep-seats-pill-v3 ${dep.available_seats <= 3 ? 'low' : ''}`}>
+                      {dep.available_seats} spots left
+                    </span>
+                    <span className="dep-price-v3">From ${Math.round((dep.price_cents || 0) / 100)}</span>
+                  </div>
+                  
+                  <div className="dep-arrow-v3">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </div>
+                </Link>
+              </motion.div>
             ))
           )}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };

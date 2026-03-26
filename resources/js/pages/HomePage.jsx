@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Hero } from '../components/sections/Hero';
 import { StatsStrip } from '../components/sections/StatsStrip';
-import { Routes } from '../components/sections/Routes';
+import { RoutesSection } from '../components/sections/Routes';
 import { Experience } from '../components/sections/Experience';
 import { Departures } from '../components/sections/Departures';
 import { Testimonials } from '../components/sections/Testimonials';
@@ -26,7 +26,7 @@ export const HomePage = () => {
             {cms?.content ? <CmsSection html={cms.content} /> : null}
             <Hero />
             <StatsStrip />
-            <Routes />
+            <RoutesSection />
             <Extensions />
             <Experience />
             <Departures />

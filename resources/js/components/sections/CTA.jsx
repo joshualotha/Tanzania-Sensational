@@ -1,44 +1,53 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { visualsData } from '../../data/visualsData';
 import { Link } from 'react-router-dom';
 import { useVisuals } from '../../context/VisualsContext';
 
 export const CTA = () => {
   const visuals = useVisuals();
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
-
-    if (sectionRef.current) {
-      const reveals = sectionRef.current.querySelectorAll('.reveal');
-      reveals.forEach(el => observer.observe(el));
-    }
-
-    return () => observer.disconnect();
-  }, []);
 
   return (
-    <section className="cta-banner" ref={sectionRef}>
-      <div className="cta-bg" style={{ backgroundImage: `url('${visuals.getSingle('home.ctaBg', visualsData.home.ctaBg)}')` }}></div>
-      <div className="cta-content reveal">
-        <h2 className="cta-title">The Summit<br />is <em>Waiting For You</em></h2>
-        <p className="cta-sub">Most people say "someday." Our clients say "I stood at the roof of Africa." Your journey begins with one conversation.</p>
-        <div className="cta-actions">
-          <Link to="/contact" className="btn-primary"><span>Plan My Trek</span></Link>
-          <a href="https://wa.me/255700000000" target="_blank" className="btn-secondary" style={{ color: '#25D366' }}>
+    <section className="cta-banner-v3">
+      <motion.div 
+        className="cta-bg-v3" 
+        style={{ backgroundImage: `url('${visuals.getSingle('home.ctaBg', visualsData.home.ctaBg)}')` }}
+        initial={{ scale: 1.1 }}
+        whileInView={{ scale: 1 }}
+        transition={{ duration: 1.5, ease: "easeOut" }}
+      />
+      <div className="cta-overlay-v3" />
+      
+      <div className="cta-content-v3">
+        <motion.h2 
+          className="cta-title-v3"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+        >
+          The Summit<br />is <em>Waiting For You</em>
+        </motion.h2>
+
+        <motion.div 
+          className="cta-btns-v3"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <Link to="/contact" className="nav-cta" style={{ position: 'relative' }}>
+            Plan My Journey
+          </Link>
+          <a 
+            href="https://wa.me/255700000000" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="btn-secondary-light"
+          >
             WhatsApp Us
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
           </a>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -1,43 +1,44 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15 }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, y: 0, 
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } 
+  }
+};
 
 export const StatsStrip = () => {
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
-
-    if (sectionRef.current) {
-      const items = sectionRef.current.querySelectorAll('.stat-item');
-      items.forEach(el => observer.observe(el));
-    }
-
-    return () => observer.disconnect();
-  }, []);
+  const stats = [
+    { num: '98%', label: 'Summit Success Rate' },
+    { num: '15+', label: 'Years of Expertise' },
+    { num: '3,200+', label: 'Summits Reached' },
+    { num: '24/7', label: 'On-Mountain Support' }
+  ];
 
   return (
-    <div className="stats" ref={sectionRef}>
-      <div className="stat-item">
-        <div className="stat-num">98%</div>
-        <div className="stat-label">Summit Success Rate</div>
-      </div>
-      <div className="stat-item">
-        <div className="stat-num">15+</div>
-        <div className="stat-label">Years of Expertise</div>
-      </div>
-      <div className="stat-item">
-        <div className="stat-num">3,200+</div>
-        <div className="stat-label">Summits Reached</div>
-      </div>
-      <div className="stat-item">
-        <div className="stat-num">24/7</div>
-        <div className="stat-label">On-Mountain Support</div>
-      </div>
-    </div>
+    <motion.div 
+      className="stats"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-50px" }}
+      variants={containerVariants}
+    >
+      {stats.map((stat, i) => (
+        <motion.div key={i} className="stat-item" variants={itemVariants}>
+          <div className="stat-num">{stat.num}</div>
+          <div className="stat-label">{stat.label}</div>
+        </motion.div>
+      ))}
+    </motion.div>
   );
 };

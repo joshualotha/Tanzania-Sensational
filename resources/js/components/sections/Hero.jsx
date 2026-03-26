@@ -75,28 +75,9 @@ export const Hero = () => {
       <div className="hero-v2-vignette" />
 
       {/* ── Floating Altitude Marker ── */}
-      <motion.div
-        className="hero-v2-altitude"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.2, duration: 0.8 }}
-      >
-        <div className="hero-v2-alt-num">5,895m</div>
-        <div className="hero-v2-alt-divider" />
-        <div className="hero-v2-alt-label">Uhuru Peak</div>
-      </motion.div>
 
       {/* ── Main Content ── */}
       <div className="hero-v2-content">
-        <motion.div
-          className="hero-v2-eyebrow"
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.3, duration: 0.7 }}
-        >
-          <span className="hero-v2-eyebrow-line" />
-          <span>Kilimanjaro & Mt. Meru Specialists · Est. 2009</span>
-        </motion.div>
 
         <motion.h1
           className="hero-v2-title"
