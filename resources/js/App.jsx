@@ -167,8 +167,17 @@ function App() {
                                     <Route path="/about" element={<AboutPage />} />
                                     <Route path="/contact" element={<ContactPage />} />
                                     <Route path="/safaris" element={<SafarisPage />} />
+                                    <Route path="/safaris/tanzania" element={<SafarisPage />} />
+                                    <Route path="/safaris/kenya" element={<SafarisPage />} />
+                                    <Route path="/safaris/uganda" element={<SafarisPage />} />
+                                    <Route path="/safaris/rwanda" element={<SafarisPage />} />
                                     <Route path="/safaris/destinations/:id" element={<DestinationDetail />} />
                                     <Route path="/safaris/packages" element={<SafariPackagesList />} />
+                                    <Route path="/safaris/family" element={<SafariPackagesList />} />
+                                    <Route path="/safaris/honeymoon" element={<SafariPackagesList />} />
+                                    <Route path="/safaris/luxury" element={<SafariPackagesList />} />
+                                    <Route path="/safaris/photographic" element={<SafariPackagesList />} />
+                                    <Route path="/safaris/group-joining" element={<SafariPackagesList />} />
                                     <Route path="/safaris/packages/:packageId" element={<SafariPackageDetail />} />
                                     <Route path="/zanzibar" element={<ZanzibarPage />} />
                                     <Route path="/blog" element={<BlogList />} />
@@ -216,7 +225,7 @@ function App() {
                                     <Route path="/trekking/kilimanjaro/machame" element={<Machame />} />
                                     <Route path="/trekking/kilimanjaro/rongai" element={<Rongai />} />
                                     <Route path="/trekking/kilimanjaro/marangu" element={<Marangu />} />
-                                    <Route path="/trekking/kilimanjaro/ northern-circuit" element={<NorthernCircuit />} />
+                                    <Route path="/trekking/kilimanjaro/northern-circuit" element={<NorthernCircuit />} />
                                     <Route path="/trekking/kilimanjaro/umbwe" element={<Umbwe />} />
                                     <Route path="/trekking/meru/:packageId" element={<PackageDetail />} />
                                     <Route path="/trekking/kilimanjaro/:routeId/:packageId" element={<PackageDetail />} />

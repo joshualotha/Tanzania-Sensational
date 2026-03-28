@@ -51,7 +51,7 @@
 .extension-name {
   font-family: 'Playfair Display', serif;
   font-size: 2.2rem;
-  color: var(--white);
+  color: #FFFFFF;
   margin-bottom: 15px;
 }
 .extension-desc {
@@ -90,5 +90,25 @@
   }
   .extension-name {
     font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .extensions {
+    padding: 60px 20px;
+  }
+  .extension-card {
+    height: 350px;
+  }
+  .extension-content {
+    padding: 24px;
+    max-width: 100%;
+  }
+  .extension-name {
+    font-size: 1.6rem;
+  }
+  .extension-desc {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
   }
 }

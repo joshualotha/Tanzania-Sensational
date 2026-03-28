@@ -28,8 +28,39 @@ export const RoutesSection = () => {
 
   useEffect(() => {
     trekkingService.getAll()
-      .then(res => setRoutes(res.data))
-      .catch(err => console.error("Failed to fetch routes", err))
+      .then(res => {
+        console.log("Routes API Response:", res);
+        const data = Array.isArray(res.data) ? res.data : (Array.isArray(res.data?.data) ? res.data.data : []);
+        console.log("Parsed Route Data:", data);
+        
+        if (data.length === 0) {
+          console.warn("No route data found in API response.");
+          setRoutes([]);
+          return;
+        }
+
+        // Define flagship packages to highlight on the home page
+        const featuredSlug = 'lemosho-8-days';
+        const trailSlugs = ['machame-7-days', 'marangu-6-days', 'northern-circuit-9-days', 'rongai-7-days'];
+        
+        let featured = data.find(r => r.slug === featuredSlug) || data.find(r => r.slug?.includes('lemosho')) || data[0];
+        let trails = data.filter(r => trailSlugs.includes(r.slug));
+        
+        // Fallback if the specific slugs aren't found
+        if (trails.length < 3) {
+          const remaining = data.filter(r => r.id !== featured?.id);
+          trails = [...trails, ...remaining].slice(0, 3);
+        } else {
+          trails = trails.slice(0, 3);
+        }
+        
+        const finalRoutes = featured ? [featured, ...trails] : [];
+        console.log("Final Routes to Render:", finalRoutes);
+        setRoutes(finalRoutes);
+      })
+      .catch(err => {
+        console.error("Failed to fetch routes:", err);
+      })
       .finally(() => setLoading(false));
   }, []);
 
@@ -51,11 +82,13 @@ export const RoutesSection = () => {
             <div className="section-eyebrow-line"></div>
             <span className="section-eyebrow-text">The Chosen Path</span>
           </motion.div>
-          <motion.h2 className="section-title-light-v3" variants={itemVariants}>
-            Choose Your<br /><em>Path to the Top</em>
-          </motion.h2>
+          <motion.h2 
+            className="section-title-light-v3" 
+            variants={itemVariants}
+            dangerouslySetInnerHTML={{ __html: visuals.getSingle('trekking.routes.header.title', 'Choose Your Path to the Top') }}
+          />
           <motion.p className="routes-desc-v3" variants={itemVariants}>
-            Every ascent tells a different story. From the legendary "Whiskey Route" to the scenic wilderness of Lemosho — we'll guide you to the summit.
+            {visuals.getSingle('trekking.routes.header.desc', 'Every ascent tells a different story. From the legendary "Whiskey Route" to the scenic wilderness of Lemosho — we\'ll guide you to the summit.')}
           </motion.p>
         </div>
 
@@ -80,7 +113,7 @@ export const RoutesSection = () => {
                     </div>
                     <h3 className="route-hero-title-v3">{featuredRoute.name}</h3>
                     <p className="route-hero-summary-v3">
-                      The most scenic approach, offering maximum acclimatization and breathtaking 360-degree views of the mountain.
+                      {featuredRoute.description || featuredRoute.summary || 'Experience one of the most iconic approaches to the summit of Kilimanjaro with our expert team.'}
                     </p>
                     <div className="route-hero-action-v3">
                       Explore This Path
