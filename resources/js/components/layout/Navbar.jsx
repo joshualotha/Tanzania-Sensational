@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { visualsData } from '../../data/visualsData';
 import { useVisuals } from '../../context/VisualsContext';
-import { trekkingService } from '../../services/api';
+import { trekkingService, destinationService } from '../../services/api';
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [activeDropdowns, setActiveDropdowns] = useState([]);
   const [meruPackages, setMeruPackages] = useState([]);
+  const [safariDestinations, setSafariDestinations] = useState([]);
   const location = useLocation();
   const visuals = useVisuals();
 
@@ -30,17 +31,24 @@ export const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Fetch Mt Meru packages for dropdown
+  // Fetch Mt Meru packages and Safari destinations for dropdown
   useEffect(() => {
     let mounted = true;
     trekkingService.getAll().then(res => {
         if (mounted && res.data) {
             const meru = res.data
                 .filter(r => r.slug && r.slug.startsWith('mt-meru'))
-                .sort((a, b) => (b.duration || 0) - (a.duration || 0)); // e.g. 4-day before 3-day
+                .sort((a, b) => (b.duration || 0) - (a.duration || 0));
             setMeruPackages(meru);
         }
     }).catch(err => console.error("Could not load Mt Meru packages", err));
+
+    destinationService.getAll().then(res => {
+        if (mounted && res.data) {
+            setSafariDestinations(res.data);
+        }
+    }).catch(err => console.error("Could not load Safari destinations", err));
+
     return () => { mounted = false; };
   }, []);
 
@@ -262,28 +270,28 @@ export const Navbar = () => {
               
               {/* ─── HORIZON MEGA MENU (Desktop) ─── */}
               <div className="mega-menu">
-                <div className="mega-menu-inner" style={{ gridTemplateColumns: '1fr 1fr 1fr 1fr' }}>
+                <div className="mega-menu-inner" style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
                   {/* Column 1: Destinations */}
-                  <div className="mega-col">
-                    <h3 className="mega-heading">Destinations</h3>
-                    <ul className="mega-sub-links">
-                      <li><Link to="/safaris/tanzania">Tanzania Safaris</Link></li>
-                      <li><Link to="/safaris/kenya">Kenya Safaris</Link></li>
-                      <li><Link to="/safaris/uganda">Uganda Safaris</Link></li>
-                      <li><Link to="/safaris/rwanda">Rwanda Safaris</Link></li>
-                    </ul>
-                  </div>
+                    <div className="mega-col">
+                      <h3 className="mega-heading">Destinations</h3>
+                      <ul className="mega-sub-links">
+                        {safariDestinations.length > 0 ? (
+                          safariDestinations.map(dest => (
+                            <li key={dest.id}>
+                              <Link to={`/safaris/destinations/${dest.id}`}>{dest.name}</Link>
+                            </li>
+                          ))
+                        ) : (
+                          <>
+                            <li><Link to="/safaris/tanzania">Tanzania Safaris</Link></li>
+                            <li><Link to="/safaris/kenya">Kenya Safaris</Link></li>
+                            <li><Link to="/safaris/uganda">Uganda Safaris</Link></li>
+                            <li><Link to="/safaris/rwanda">Rwanda Safaris</Link></li>
+                          </>
+                        )}
+                      </ul>
+                    </div>
 
-                  {/* Column 2: Experiences */}
-                  <div className="mega-col">
-                    <h3 className="mega-heading">Experiences</h3>
-                    <ul className="mega-sub-links">
-                      <li><Link to="/safaris/family">Family Safaris</Link></li>
-                      <li><Link to="/safaris/honeymoon">Honeymoon Safaris</Link></li>
-                      <li><Link to="/safaris/luxury">Luxury Safaris</Link></li>
-                      <li><Link to="/safaris/photographic">Photographic Safaris</Link></li>
-                    </ul>
-                  </div>
 
                   {/* Column 3: Packages */}
                   <div className="mega-col">
@@ -300,9 +308,9 @@ export const Navbar = () => {
                     <h3 className="mega-heading">Safari Guide</h3>
                     <ul className="mega-sub-links">
                       <li><Link to="/safari-guide/what-to-wear">What to Wear</Link></li>
-                      <li><Link to="/safari-guide/packing-list">Packing List</Link></li>
-                      <li><Link to="/safari-guide/best-time">Best Time to Visit</Link></li>
-                      <li><Link to="/safari-guide/etiquette">Safari Etiquette</Link></li>
+                      <li><Link to="/safari-guide/packing-guide">Packing List</Link></li>
+                      <li><Link to="/safari-guide/health-and-safety">Health & Safety</Link></li>
+                      <li><Link to="/safari-guide/local-custom">Safari Etiquette</Link></li>
                     </ul>
                   </div>
                 </div>
@@ -313,19 +321,16 @@ export const Navbar = () => {
                 <li className={`has-submenu ${isDropdownActive('safari-dest') ? 'mobile-active' : ''}`}>
                   <div className="dropdown-toggle" onClick={(e) => handleToggle(e, 'safari-dest')}>Destinations</div>
                   <ul className="submenu">
-                    <li><Link to="/safaris/tanzania">Tanzania</Link></li>
-                    <li><Link to="/safaris/kenya">Kenya</Link></li>
-                    <li><Link to="/safaris/uganda">Uganda</Link></li>
-                    <li><Link to="/safaris/rwanda">Rwanda</Link></li>
-                  </ul>
-                </li>
-                <li className={`has-submenu ${isDropdownActive('safari-exp') ? 'mobile-active' : ''}`}>
-                  <div className="dropdown-toggle" onClick={(e) => handleToggle(e, 'safari-exp')}>Experiences</div>
-                  <ul className="submenu">
-                    <li><Link to="/safaris/family">Family</Link></li>
-                    <li><Link to="/safaris/honeymoon">Honeymoon</Link></li>
-                    <li><Link to="/safaris/luxury">Luxury</Link></li>
-                    <li><Link to="/safaris/photographic">Photographic</Link></li>
+                    {safariDestinations.length > 0 ? (
+                      safariDestinations.map(dest => (
+                        <li key={dest.id}><Link to={`/safaris/destinations/${dest.id}`}>{dest.name}</Link></li>
+                      ))
+                    ) : (
+                      <>
+                        <li><Link to="/safaris/tanzania">Tanzania</Link></li>
+                        <li><Link to="/safaris/kenya">Kenya</Link></li>
+                      </>
+                    )}
                   </ul>
                 </li>
                 <li><Link to="/safaris/packages">Packages</Link></li>

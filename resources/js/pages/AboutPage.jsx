@@ -82,18 +82,6 @@ export const AboutPage = () => {
         }
     };
 
-    if (cms?.content) {
-        return (
-            <main style={{ background: '#050505', color: 'white', minHeight: '100vh' }}>
-                <section style={{ padding: '120px 20px 60px', maxWidth: 1100, margin: '0 auto' }}>
-                    <h1 style={{ fontSize: '3rem', fontWeight: 300 }}>{cms.title || 'About'}</h1>
-                    <div style={{ marginTop: 22 }}>
-                        <CmsSection html={cms.content} />
-                    </div>
-                </section>
-            </main>
-        );
-    }
 
     return (
         <div className="about-premium-root">

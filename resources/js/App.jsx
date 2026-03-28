@@ -57,7 +57,7 @@ import Rongai from './pages/trekking/kilimanjaro/Rongai';
 import Marangu from './pages/trekking/kilimanjaro/Marangu';
 import NorthernCircuit from './pages/trekking/kilimanjaro/NorthernCircuit';
 import Umbwe from './pages/trekking/kilimanjaro/Umbwe';
-import PackageDetail from './Pages/trekking/kilimanjaro/PackageDetail';
+import PackageDetail from './pages/trekking/kilimanjaro/PackageDetail';
 
 // Auth & Guard
 import { ProtectedRoute } from './components/auth/ProtectedRoute';

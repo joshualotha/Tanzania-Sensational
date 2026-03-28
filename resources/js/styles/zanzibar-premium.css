@@ -1,236 +1,661 @@
 /* ════════════════════════════════════════════
-   ZANZIBAR: THE TURQUOISE VOID
-   Ultra-Minimalist Masterwork (Simple but WOW)
+   ZANZIBAR: COASTAL STONE EDITION
+   Aligned with Safari & Trekking Design Language
    ════════════════════════════════════════════ */
 
-.zan-void-root {
-  background-color: var(--neutral);
-  color: var(--dark);
-  font-family: var(--font-body);
+.zan-root {
+  background-color: var(--bg-parchment, #F9F8F4);
+  color: var(--dark, #2C2C2B);
+  font-family: 'Outfit', sans-serif;
   overflow-x: hidden;
   position: relative;
 }
 
-/* ─── 0. INTENSE FILM GRAIN OVERLAY ─── */
-.zan-void-root::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.12'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 9999;
-  mix-blend-mode: overlay;
-  opacity: 0.4;
-}
-
-/* ─── 1. 100VH CINEMATIC PREAMBLE (HERO) ─── */
-.zan-void-hero {
-  height: 100vh;
+/* ─── 1. CINEMATIC HERO ─── */
+.zan-hero {
   position: relative;
+  min-height: 85vh;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
+  color: white;
   overflow: hidden;
-  background: var(--dark);
 }
 
-.zan-void-hero-bg {
+.zan-hero-bg {
   position: absolute;
   inset: 0;
   z-index: 0;
 }
 
-.zan-void-hero-bg img {
+.zan-hero-bg img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.9;
-  filter: contrast(1.1) brightness(0.85);
-  transform: scale(1.05);
-  transition: transform 10s ease-out;
+  object-position: center 40%;
 }
 
-.zan-void-root:hover .zan-void-hero-bg img {
-  transform: scale(1);
+.zan-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom,
+    rgba(18, 22, 20, 0.15) 0%,
+    transparent 40%,
+    rgba(18, 22, 20, 0.55) 100%);
 }
 
-.zan-void-hero-content {
+.zan-hero-content {
   position: relative;
-  z-index: 10;
+  z-index: 1;
+  padding-top: 100px;
+  padding-bottom: 200px;
+  max-width: 1000px;
+  margin: 0 auto;
   text-align: center;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
-.zan-void-h1 {
-  font-family: var(--font-heading);
-  font-size: clamp(6rem, 15vw, 14rem);
-  line-height: 0.8;
-  color: white;
-  letter-spacing: -0.05em;
-  margin-bottom: 24px;
-  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.2));
-}
-
-.zan-void-h1 em {
-  font-style: italic;
-  font-weight: 300;
+.zan-eyebrow {
   display: block;
-  font-size: 0.4em;
-  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+  font-weight: 700;
   text-transform: uppercase;
-  color: var(--primary);
-  margin-top: 20px;
+  letter-spacing: 0.3em;
+  color: var(--gold, #C9B99A);
+  margin-bottom: 25px;
 }
 
-/* ─── 2. THE STORY SPREADS (MASSIVE WHITESPACE) ─── */
-.zan-void-section {
-  padding: 300px 60px;
+.zan-hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 9vw, 6rem);
+  font-weight: 500;
+  line-height: 1.05;
+  margin-bottom: 25px;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.zan-hero-title em {
+  font-style: italic;
+  color: var(--gold, #C9B99A);
+}
+
+.zan-hero-subtitle {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: #fff;
+  max-width: 650px;
+  margin: 0 auto;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* ─── STAT STRIP ─── */
+.zan-stats-strip {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+  background: linear-gradient(to top, rgba(18, 22, 20, 0.6), transparent);
+}
+
+.zan-stats-grid {
+  display: flex;
+  gap: 80px;
+  padding: 0 40px;
+}
+
+.zan-stat-item {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  background: var(--neutral);
 }
 
-.zan-void-img-focal {
+.zan-stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  color: white;
+  font-weight: 600;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.zan-stat-num span {
+  color: var(--gold, #C9B99A);
+}
+
+.zan-stat-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ─── 2. EDITORIAL NARRATIVE ─── */
+.zan-editorial {
+  padding: 140px 5%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.zan-editorial-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  align-items: center;
+}
+
+.zan-editorial-text .zan-eyebrow {
+  color: var(--gold, #C9B99A);
+  margin-bottom: 20px;
+}
+
+.zan-section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.1;
+  margin-bottom: 30px;
+  color: var(--dark, #2C2C2B);
+  letter-spacing: -1px;
+}
+
+.zan-section-title em {
+  font-style: italic;
+  color: var(--gold, #C9B99A);
+}
+
+.zan-body {
+  font-size: 1.1rem;
+  line-height: 1.85;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.zan-editorial-img {
   width: 100%;
-  max-width: 1100px;
-  aspect-ratio: 16/9;
+  aspect-ratio: 4/5;
   overflow: hidden;
-  margin-bottom: 80px;
-  clip-path: inset(0 0 0 0); /* Clean cut */
-  box-shadow: 0 60px 120px rgba(0,0,0,0.08);
+  border-radius: 4px;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.08);
 }
 
-.zan-void-img-focal img {
+.zan-editorial-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.zan-void-section:hover .zan-void-img-focal img {
+.zan-editorial-img:hover img {
   transform: scale(1.05);
 }
 
-.zan-void-text-wrap {
-  max-width: 700px;
-}
-
-.zan-void-title {
-  font-family: var(--font-heading);
-  font-size: clamp(3rem, 6vw, 5.5rem);
-  margin-bottom: 40px;
-  color: var(--dark);
-  line-height: 1;
-}
-
-.zan-void-p {
-  font-family: var(--font-body);
-  font-size: 1.35rem;
-  line-height: 2;
-  color: var(--text-muted);
+.zan-img-caption {
+  display: block;
+  margin-top: 16px;
+  font-size: 0.8rem;
   font-style: italic;
+  color: #999;
+  letter-spacing: 0.02em;
 }
 
-/* ─── 3. THE HORIZON (FULL BLEED) ─── */
-.zan-void-horizon {
-  height: 100vh;
-  position: relative;
+/* ─── 3. REGIONAL MOSAIC GRID ─── */
+.zan-regions {
+  padding: 0 5% 140px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.zan-regions-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.zan-regions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.zan-region-card {
+  background: white;
+  padding: 40px;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 4px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+  transition: all 0.5s ease;
+  border-top: 2px solid transparent;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--dark);
+  flex-direction: column;
 }
 
-.zan-void-horizon-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  opacity: 0.7;
+.zan-region-card:hover {
+  transform: translateY(-10px);
+  border-top-color: var(--gold, #C9B99A);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
 }
 
-.zan-void-horizon-bg img {
+.zan-region-img {
+  height: 280px;
+  margin-bottom: 30px;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.zan-region-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 1s ease;
 }
 
-.zan-void-horizon-label {
+.zan-region-card:hover .zan-region-img img {
+  transform: scale(1.1);
+}
+
+.zan-region-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--gold, #C9B99A);
+  margin-bottom: 12px;
+  display: block;
+}
+
+.zan-region-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  margin-bottom: 16px;
+  color: var(--dark, #2C2C2B);
+}
+
+.zan-region-desc {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 25px;
+}
+
+.zan-region-link {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--dark, #2C2C2B);
+  transition: color 0.3s;
+}
+
+.zan-region-link:hover {
+  color: var(--gold, #C9B99A);
+}
+
+/* ─── 4. FULL-BLEED PARALLAX BREAK ─── */
+.zan-parallax {
   position: relative;
-  z-index: 10;
-  font-family: var(--font-label);
+  height: 70vh;
+  overflow: hidden;
+}
+
+.zan-parallax img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 120%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.zan-parallax-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom,
+    rgba(18, 22, 20, 0.2) 0%,
+    rgba(18, 22, 20, 0.4) 100%);
+  z-index: 1;
+}
+
+.zan-parallax-label {
+  position: absolute;
+  z-index: 2;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 0.8rem;
   letter-spacing: 0.6em;
   text-transform: uppercase;
-  color: var(--primary);
-  opacity: 0.8;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 700;
 }
 
-/* ─── 4. SIGNATURE EXPEDITION (FOCAL POINT) ─── */
-.zan-void-focus {
-  padding: 300px 60px;
-  background: white;
-}
-
-.zan-void-focus-inner {
+/* ─── 5. SIGNATURE EXPERIENCES ─── */
+.zan-experiences {
+  padding: 140px 5%;
   max-width: 1400px;
   margin: 0 auto;
+}
+
+.zan-experiences-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.zan-exp-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: 120px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
 }
 
-.zan-void-focus-img {
-  aspect-ratio: 3/4;
+.zan-exp-card {
+  background: white;
+  border-radius: 4px;
   overflow: hidden;
-  box-shadow: 0 80px 160px rgba(0,0,0,0.1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+  transition: all 0.5s ease;
+  display: flex;
+  flex-direction: column;
 }
 
-.zan-void-focus-img img {
+.zan-exp-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+}
+
+.zan-exp-img {
+  height: 300px;
+  overflow: hidden;
+}
+
+.zan-exp-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1s ease;
+}
+
+.zan-exp-card:hover .zan-exp-img img {
+  transform: scale(1.08);
+}
+
+.zan-exp-content {
+  padding: 35px 30px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.zan-exp-content .zan-eyebrow {
+  font-size: 0.65rem;
+  margin-bottom: 12px;
+}
+
+.zan-exp-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  margin-bottom: 15px;
+  color: var(--dark, #2C2C2B);
+}
+
+.zan-exp-desc {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #666;
+  margin-bottom: 25px;
+}
+
+.zan-exp-cta {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 30px;
+  background: var(--dark, #2C2C2B);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  text-decoration: none;
+  border-radius: 999px;
+  transition: all 0.4s ease;
+  width: fit-content;
+}
+
+.zan-exp-cta:hover {
+  background: var(--gold, #C9B99A);
+  color: var(--dark, #2C2C2B);
+  padding-right: 40px;
+}
+
+/* ─── 6. TESTIMONIAL BAND ─── */
+.zan-testimonial {
+  padding: 140px 5%;
+  background: #1a221f;
+  color: white;
+  text-align: center;
+}
+
+.zan-testimonial-quote {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.4;
+  font-style: italic;
+  margin-bottom: 40px;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.zan-testimonial-author {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--gold, #C9B99A);
+}
+
+/* ─── 7. CTA FOOTER BAND ─── */
+.zan-cta-band {
+  position: relative;
+  padding: 160px 40px;
+  color: white;
+  text-align: center;
+}
+
+.zan-cta-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.zan-cta-bg img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.zan-btn-void {
-  display: inline-block;
-  margin-top: 60px;
-  padding: 24px 80px;
-  background: var(--dark);
-  color: white;
-  font-family: var(--font-label);
-  font-size: 0.75rem;
-  letter-spacing: 0.4em;
+.zan-cta-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom,
+    rgba(18, 22, 20, 0.7) 0%,
+    rgba(18, 22, 20, 0.85) 100%);
+}
+
+.zan-cta-content {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.zan-cta-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1.1;
+  margin-bottom: 25px;
+}
+
+.zan-cta-title em {
+  font-style: italic;
+  color: var(--gold, #C9B99A);
+}
+
+.zan-cta-subtitle {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 50px;
+}
+
+.zan-btn-group {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.zan-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 45px;
+  background: white;
+  color: var(--dark, #2C2C2B);
+  font-size: 0.8rem;
+  font-weight: 700;
   text-transform: uppercase;
-  transition: all 0.5s;
+  letter-spacing: 0.2em;
+  text-decoration: none;
+  transition: all 0.4s ease;
 }
 
-.zan-btn-void:hover {
-  background: var(--primary);
-  padding: 24px 100px;
-  letter-spacing: 0.5em;
-}
-
-/* ─── FOOTER ─── */
-.zan-void-footer {
-  padding: 160px 40px;
-  text-align: center;
-  background: var(--dark);
+.zan-btn-primary:hover {
+  background: var(--gold, #C9B99A);
   color: white;
+  padding-left: 35px;
+  padding-right: 55px;
 }
 
-/* Responsive */
-@media (max-width: 1024px) {
-  .zan-void-focus-inner {
-    grid-template-columns: 1fr;
+.zan-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 45px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  text-decoration: none;
+  transition: all 0.4s ease;
+}
+
+.zan-btn-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+   ═══════════════════════════════════════ */
+
+@media (max-width: 1100px) {
+  .zan-editorial-grid {
     gap: 60px;
-    text-align: center;
   }
-  .zan-void-section {
-    padding: 160px 30px;
+  .zan-regions-grid,
+  .zan-exp-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
-  .zan-void-h1 {
-    font-size: 5rem;
+}
+
+@media (max-width: 850px) {
+  .zan-editorial-grid {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+  .zan-stats-grid {
+    gap: 40px;
+  }
+  .zan-editorial {
+    padding: 100px 5%;
+  }
+  .zan-parallax {
+    height: 50vh;
+  }
+}
+
+@media (max-width: 640px) {
+  .zan-hero {
+    min-height: 75vh;
+  }
+  .zan-hero-content {
+    padding-top: 60px;
+    padding-bottom: 140px;
+  }
+  .zan-hero-title {
+    font-size: 2.5rem;
+  }
+  .zan-stats-grid {
+    flex-direction: column;
+    gap: 25px;
+    padding: 0 20px;
+  }
+  .zan-stat-num {
+    font-size: 2rem;
+  }
+  .zan-regions-grid,
+  .zan-exp-grid {
+    grid-template-columns: 1fr;
+  }
+  .zan-region-card,
+  .zan-exp-card {
+    padding: 25px;
+  }
+  .zan-editorial {
+    padding: 80px 20px;
+  }
+  .zan-regions,
+  .zan-experiences {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .zan-cta-band {
+    padding: 100px 20px;
+  }
+  .zan-btn-group {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .zan-section-title {
+    font-size: 2rem;
+  }
+  .zan-region-name {
+    font-size: 1.6rem;
+  }
+  .zan-cta-title {
+    font-size: 2.2rem;
+  }
+  .zan-btn-primary,
+  .zan-btn-outline {
+    width: 100%;
+    justify-content: center;
   }
 }
