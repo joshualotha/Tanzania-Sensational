@@ -152,12 +152,18 @@ body::before {
   left: 50%;
   transform: translateX(-50%);
   z-index: 1002;
-  display: flex;
+  display: none; /* Hidden on Desktop — use the nav-logo inside island */
   align-items: center;
   justify-content: center;
   text-decoration: none;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: auto;
+}
+
+@media (max-width: 900px) {
+  .logo-crest {
+    display: flex !important; /* Show on mobile where nav-logo is hidden */
+  }
 }
 
 .logo-crest img {
