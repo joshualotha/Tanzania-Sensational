@@ -20,16 +20,12 @@ body {
 .lux-root {
     background-color: var(--lux-cream);
     min-height: 100vh;
-    padding-top: 140px;
-    /* Offset for desktop logo/crest */
+    /* Removed padding-top so hero can reach true top. Navbar handles its own overlay. */
+    position: relative;
 }
 
-@media (max-width: 900px) {
-    .lux-root {
-        padding-top: 100px;
-        /* Nav Buffer for mobile */
-    }
-}
+
+/* Hero handles its own layout over the root. */
 
 /* ─── HERO ─── */
 .lux-hero {
@@ -294,13 +290,20 @@ body {
     align-items: start;
 }
 
+@media (max-width: 900px) {
+    .lux-editorial-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+}
+
 .lux-heading {
     font-family: var(--font-heading);
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-size: clamp(2.2rem, 8vw, 3.5rem);
     font-weight: 400;
     color: var(--lux-dark);
-    line-height: 1.2;
-    margin-bottom: 40px;
+    line-height: 1.15;
+    margin-bottom: 30px;
 }
 
 .lux-heading em {

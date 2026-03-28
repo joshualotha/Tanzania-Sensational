@@ -95,6 +95,17 @@ export const Navbar = () => {
 
   return (
     <>
+      {/* ─── LOGO CREST — Floating brand mark ─── */}
+      <Link 
+        to="/" 
+        className={`logo-crest ${isScrolled ? 'logo-crest--compact' : ''}`}
+      >
+        <img 
+          src={visuals.getSingle('branding.logo', visualsData.branding.logo)} 
+          alt="Tanzania Sensational" 
+        />
+      </Link>
+
       <nav id="navbar" className={`${isScrolled ? 'scrolled' : ''} ${isMobileOpen ? 'mobile-open' : ''}`}>
         <div className="nav-island-inner">
           {/* Logo integrated into the island */}
@@ -348,6 +359,7 @@ export const Navbar = () => {
             <li><Link to="/zanzibar">Zanzibar</Link></li>
             <li><Link to="/group-departures">Departures</Link></li>
             <li><Link to="/about">About Us</Link></li>
+            <li><Link to="/contact">Contact</Link></li>
           </ul>
 
           <Link to="/contact" className="nav-cta">

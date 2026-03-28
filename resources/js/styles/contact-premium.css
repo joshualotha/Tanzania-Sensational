@@ -518,25 +518,29 @@
 
 @media (max-width: 640px) {
     .premium-hero {
-        min-height: 55vh;
+        min-height: 50vh;
     }
-
+    .premium-hero-content {
+        padding-top: 100px;
+        padding-bottom: 80px;
+    }
     .premium-hero-title {
-        font-size: 2.8rem;
+        font-size: clamp(2.2rem, 10vw, 3.2rem);
     }
 
     .premium-desk-section {
-        margin-top: -80px;
-        padding: 0 20px 60px;
+        margin-top: -60px;
+        padding: 0 15px 60px;
     }
 
     .premium-form-row {
         grid-template-columns: 1fr;
-        gap: 30px;
+        gap: 25px;
     }
 
     .premium-desk-card {
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
     }
 
     .premium-concierge {
@@ -548,7 +552,7 @@
     }
 
     .premium-form-title {
-        font-size: 2.2rem;
+        font-size: 2rem;
     }
 
     .premium-input,

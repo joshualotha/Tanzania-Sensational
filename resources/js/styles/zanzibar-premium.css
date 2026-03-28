@@ -601,45 +601,77 @@
 
 @media (max-width: 640px) {
   .zan-hero {
-    min-height: 75vh;
+    min-height: 70vh; /* Reduced from 75vh for mobile better fit */
+    justify-content: flex-start; /* Align content to top of center on mobile */
+    padding-top: 60px;
   }
   .zan-hero-content {
-    padding-top: 60px;
-    padding-bottom: 140px;
+    padding-top: 80px;
+    padding-bottom: 100px;
   }
   .zan-hero-title {
-    font-size: 2.5rem;
+    font-size: clamp(2.2rem, 10vw, 3.2rem);
+    letter-spacing: -1px;
+    margin-bottom: 20px;
+  }
+  .zan-hero-subtitle {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    padding: 0 10px;
+  }
+  .zan-stats-strip {
+    position: relative; /* Remove absolute on small mobile to avoid overlap */
+    background: #1a221f;
+    padding: 40px 20px;
+    margin-top: -40px; /* Slight overlap with hero */
+    z-index: 5;
   }
   .zan-stats-grid {
-    flex-direction: column;
-    gap: 25px;
-    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2x2 on mobile instead of column */
+    gap: 30px;
+    padding: 0;
+  }
+  .zan-stat-item {
+    padding: 0;
   }
   .zan-stat-num {
     font-size: 2rem;
   }
+  .zan-stat-label {
+    font-size: 0.6rem;
+  }
   .zan-regions-grid,
   .zan-exp-grid {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
   .zan-region-card,
   .zan-exp-card {
-    padding: 25px;
+    padding: 20px;
+  }
+  .zan-region-img,
+  .zan-exp-img {
+    height: 220px; /* Shorter for mobile */
   }
   .zan-editorial {
-    padding: 80px 20px;
+    padding: 60px 20px;
   }
-  .zan-regions,
-  .zan-experiences {
-    padding-left: 20px;
-    padding-right: 20px;
+  .zan-parallax {
+    height: 40vh;
   }
   .zan-cta-band {
-    padding: 100px 20px;
+    padding: 80px 20px;
   }
   .zan-btn-group {
+    width: 100%;
     flex-direction: column;
-    align-items: center;
+    gap: 15px;
+  }
+  .zan-btn-primary,
+  .zan-btn-outline {
+    width: 100%;
+    justify-content: center;
   }
 }
 

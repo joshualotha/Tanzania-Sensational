@@ -78,14 +78,6 @@ export const ContactPage = () => {
 
     return (
         <div className="contact-premium-root">
-            {cms?.content ? (
-                <section style={{ padding: '120px 20px 10px', maxWidth: 1100, margin: '0 auto', color: 'white' }}>
-                    <h1 style={{ fontSize: '2.6rem', fontWeight: 300 }}>{cms.title || 'Contact'}</h1>
-                    <div style={{ marginTop: 18 }}>
-                        <CmsSection html={cms.content} />
-                    </div>
-                </section>
-            ) : null}
 
             {/* ─── 1. HERO SECTION ─── */}
             <section className="premium-hero">

@@ -2679,14 +2679,17 @@ footer {
     display: none !important;
   }
 
-  /* Show hamburger — positioned top since no topbar */
+  /* Show hamburger — far right, aligned with logo */
   .mobile-hamburger {
     display: flex !important;
     position: fixed !important;
-    top: 20px !important;
-    right: 20px !important;
+    top: 15px !important;
+    right: 15px !important;
     background: transparent !important;
-    z-index: 1010 !important;
+    z-index: 1011 !important;
+    height: 36px !important;
+    padding: 0 !important;
+    width: 36px !important;
   }
 
   /* Show mobile overlay */
@@ -2697,23 +2700,23 @@ footer {
   /* Reposition logo — aligned horizontally with hamburger */
   .logo-crest {
     position: fixed !important;
-    top: 20px !important;
-    left: 20px !important;
+    top: 15px !important;
+    left: 15px !important;
     transform: none !important;
     z-index: 1010 !important;
   }
 
   .logo-crest img {
-    height: 44px !important;
+    height: 36px !important; /* Slightly smaller for tighter mobile screens */
     width: auto !important;
   }
 
   .logo-crest--compact {
-    top: 15px !important;
+    top: 12px !important;
   }
 
   .logo-crest--compact img {
-    height: 38px !important;
+    height: 32px !important;
   }
 
   /* Nav becomes a slide-out drawer */
@@ -2888,7 +2891,7 @@ footer {
    ═══════════════════════════════════════════ */
 @media (max-width: 480px) {
   section {
-    padding: 60px 20px !important;
+    padding: 60px 5% !important; /* Using percentage for better narrow screen breathing */
   }
 
   /* Hero Section Refinement */
