@@ -80,27 +80,29 @@ export const GroupDepartures = () => {
 
     return (
         <div className="utility-root">
-            {/* EXPEDITION HORIZON HERO */}
-            <section className="utility-hero">
-                <div className="utility-hero-bg">
+            {/* ─── CINEMATIC HERO ─── */}
+            <section className="gd-hero">
+                <div className="gd-hero-bg">
                     <img 
                         src={visuals.getSingle('trekking.prep.parkFeesEditorial', visualsData.trekking.prep.parkFeesEditorial)} 
                         alt="Expedition Team" 
                     />
+                    <div className="gd-hero-gradient"></div>
                 </div>
-                <div className="utility-hero-overlay"></div>
                 <motion.div 
-                    className="utility-hero-content" 
-                    initial="hidden" animate="visible" variants={fadeInUp}
+                    className="gd-hero-content" 
+                    initial="hidden" animate="visible" 
+                    variants={{ visible: { transition: { staggerChildren: 0.12 } } }}
                 >
-                    <div className="heritage-type-badge">
-                        <Users size={14} />
-                        <span>Open Expedition</span>
-                    </div>
-                    <h1 className="utility-hero-title">Expedition <em>Schedule</em></h1>
-                    <p className="utility-hero-subtitle">
+                    <motion.span className="gd-hero-eyebrow" variants={fadeInUp}>
+                        <Users size={14} /> Open Expedition
+                    </motion.span>
+                    <motion.h1 className="gd-hero-title" variants={fadeInUp}>
+                        Expedition <em>Schedule.</em>
+                    </motion.h1>
+                    <motion.p className="gd-hero-subtitle" variants={fadeInUp}>
                         Share the triumph. Our scheduled group climbs are capped at 12 participants to ensure a personalized, safe, and wildly successful summit bid.
-                    </p>
+                    </motion.p>
                 </motion.div>
             </section>
 

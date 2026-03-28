@@ -7,83 +7,95 @@
     font-family: 'Outfit', sans-serif;
 }
 
-/* ─── 1. EXPEDITION HORIZON HERO ─── */
-.utility-hero {
+/* ─── 1. CINEMATIC HERO ─── */
+.gd-hero {
     position: relative;
-    height: 80vh;
+    min-height: 85vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     overflow: hidden;
-    background: #000;
 }
 
-.utility-hero-bg {
+.gd-hero-bg {
     position: absolute;
     inset: 0;
-    z-index: 1;
+    z-index: 0;
 }
 
-.utility-hero-bg img {
+.gd-hero-bg img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.7;
+    object-position: center 35%;
+    animation: gdHeroZoom 25s ease-in-out infinite alternate;
 }
 
-.utility-hero-overlay {
+@keyframes gdHeroZoom {
+    from { transform: scale(1); }
+    to   { transform: scale(1.08); }
+}
+
+.gd-hero-gradient {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
-    z-index: 2;
+    z-index: 1;
+    background:
+        linear-gradient(to bottom,
+            rgba(18, 22, 20, 0.25) 0%,
+            transparent 35%,
+            rgba(18, 22, 20, 0.6) 100%),
+        radial-gradient(ellipse at center bottom,
+            rgba(18, 22, 20, 0.45) 0%,
+            transparent 70%);
 }
 
-.utility-hero-content {
+.gd-hero-content {
     position: relative;
-    z-index: 3;
-    max-width: 1000px;
-    padding: 0 40px;
+    z-index: 2;
+    max-width: 850px;
+    padding: 80px 30px 100px;
 }
 
-.heritage-type-badge {
+.gd-hero-eyebrow {
     display: inline-flex;
     align-items: center;
-    gap: 12px;
-    padding: 8px 16px;
-    background: var(--gold);
-    color: white;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 30px;
-}
-
-.utility-hero-title {
+    gap: 10px;
     font-family: 'Outfit', sans-serif;
-    font-size: clamp(3.5rem, 8vw, 6rem);
+    font-size: 0.72rem;
     font-weight: 700;
-    color: white;
-    margin-bottom: 20px;
-    line-height: 1;
-    letter-spacing: -0.02em;
-}
-
-.utility-hero-title em {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.35em;
     color: var(--gold);
+    margin-bottom: 28px;
 }
 
-.utility-hero-subtitle {
-    font-size: 1.25rem;
-    color: rgba(255,255,255,0.8);
-    max-width: 650px;
+.gd-hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 500;
+    line-height: 1.05;
+    color: white;
+    margin-bottom: 28px;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+.gd-hero-title em {
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 400;
+}
+
+.gd-hero-subtitle {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.85);
+    max-width: 620px;
     margin: 0 auto;
     font-weight: 300;
-    line-height: 1.6;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
 /* ─── 2. THE SCHEDULE LEDGER ─── */
@@ -298,5 +310,27 @@
     
     .private-cta-title {
         font-size: 2.5rem;
+    }
+
+    .private-exp-cta {
+        padding: 80px 24px;
+    }
+}
+
+@media (max-width: 640px) {
+    .gd-hero {
+        min-height: 70vh;
+    }
+
+    .gd-hero-content {
+        padding: 80px 20px 80px;
+    }
+
+    .gd-hero-title {
+        font-size: clamp(2.2rem, 10vw, 3.2rem);
+    }
+
+    .gd-hero-subtitle {
+        font-size: 1rem;
     }
 }

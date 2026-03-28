@@ -129,7 +129,7 @@ export const ContactPage = () => {
                                     <div className="premium-icon-wrap"><Phone size={20} strokeWidth={1.5} /></div>
                                     <div className="premium-contact-info">
                                         <span className="premium-contact-label">Direct Line (Arusha HQ)</span>
-                                        <a href="tel:+255784123456" className="premium-contact-val">+255 784 123 456</a>
+                                        <a href="tel:+255621220912" className="premium-contact-val">+255-621220912</a>
                                     </div>
                                 </div>
 
@@ -137,7 +137,7 @@ export const ContactPage = () => {
                                     <div className="premium-icon-wrap"><MessageCircle size={20} strokeWidth={1.5} /></div>
                                     <div className="premium-contact-info">
                                         <span className="premium-contact-label">Priority WhatsApp</span>
-                                        <a href="https://wa.me/255784123456" className="premium-contact-val" style={{ color: '#25D366' }}>Message an Expert</a>
+                                        <a href="https://wa.me/255621220912" className="premium-contact-val" style={{ color: '#25D366' }}>Message an Expert</a>
                                     </div>
                                 </div>
 
@@ -145,7 +145,7 @@ export const ContactPage = () => {
                                     <div className="premium-icon-wrap"><Mail size={20} strokeWidth={1.5} /></div>
                                     <div className="premium-contact-info">
                                         <span className="premium-contact-label">Official Inquiries</span>
-                                        <a href="mailto:expeditions@tanzaniasensational.com" className="premium-contact-val">expeditions@tzsafaris.com</a>
+                                        <a href="mailto:info@tssafaris.com" className="premium-contact-val">info@tssafaris.com</a>
                                     </div>
                                 </div>
                             </div>

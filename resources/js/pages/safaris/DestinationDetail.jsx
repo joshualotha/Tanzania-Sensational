@@ -53,54 +53,56 @@ export const DestinationDetail = () => {
             
             <div className="dest-content-veil">
             
-            {/* ─── 1. FULL HERITAGE HERO (BESPOKE) ─── */}
-            <header className="dest-hero-bespoke">
-                <div className="hero-visual-area">
+            {/* ─── 1. CINEMATIC HERO ─── */}
+            <header className="dest-hero-cinematic">
+                <div className="dest-hero-visual">
                     <img src={destination.hero_image} alt={destination.name} />
-                    <div className="hero-visual-overlay"></div>
+                    <div className="dest-hero-gradient"></div>
                 </div>
 
-                <div className="hero-content-bespoke">
-                    <div className="hero-pillar-badge" style={{ right: '60px' }}>
-                        <span className="pillar-badge-num">{destination.meta_elevation || "920"}</span>
-                        <span className="pillar-badge-label">Meters ASL</span>
-                    </div>
-
-                    <motion.div
-                        initial="hidden"
-                        animate="visible"
-                        variants={{
-                            visible: { transition: { staggerChildren: 0.1 } }
-                        }}
-                    >
-                        <motion.span className="pillar-eyebrow" variants={fadeInUp}>
-                            Expertly Curated Destination
-                        </motion.span>
-                        <motion.h1 className="pillar-title" variants={fadeInUp}>
-                            {destination.name}
-                            <em>The {destination.meta_subtitle ? destination.meta_subtitle.split(' ').pop() : 'Wilderness'}.</em>
-                        </motion.h1>
-                        <motion.div variants={fadeInUp} style={{ display: 'flex', gap: '20px', marginTop: '40px' }}>
-                            <Link to="/contact" className="btn-primary">
-                                <span>Begin Your Journey</span>
-                            </Link>
-                            <a href="#overview" className="btn-secondary">Explore Details</a>
-                        </motion.div>
+                <motion.div
+                    className="dest-hero-center"
+                    initial="hidden"
+                    animate="visible"
+                    variants={{
+                        visible: { transition: { staggerChildren: 0.12 } }
+                    }}
+                >
+                    <motion.span className="dest-hero-eyebrow" variants={fadeInUp}>
+                        Expertly Curated Destination
+                    </motion.span>
+                    <motion.h1 className="dest-hero-heading" variants={fadeInUp}>
+                        {destination.name}
+                        <em>{destination.meta_subtitle ? `. ${destination.meta_subtitle.split(' ').pop()}` : '. Wilderness'}.</em>
+                    </motion.h1>
+                    <motion.p className="dest-hero-lead" variants={fadeInUp}>
+                        {destination.overview ? destination.overview.substring(0, 160) + '…' : 'An untouched sanctuary where nature reveals its most extraordinary chapter.'}
+                    </motion.p>
+                    <motion.div className="dest-hero-actions" variants={fadeInUp}>
+                        <Link to="/contact" className="dest-btn-primary">
+                            Begin Your Journey <ArrowRight size={16} />
+                        </Link>
+                        <a href="#overview" className="dest-btn-ghost">Explore Details</a>
                     </motion.div>
-                </div>
+                </motion.div>
 
-                <div className="expedition-strip">
-                    <div className="expedition-datum">
-                        <span className="datum-label">Coordinates</span>
-                        <span className="datum-val">{destination.meta_coordinates || "-2.3333, 34.8333"}</span>
+                {/* Floating Expedition Strip */}
+                <div className="dest-expedition-strip">
+                    <div className="dest-strip-item">
+                        <span className="dest-strip-label">Coordinates</span>
+                        <span className="dest-strip-value">{destination.meta_coordinates || "-2.3333, 34.8333"}</span>
                     </div>
-                    <div className="expedition-datum">
-                        <span className="datum-label">Expedition Code</span>
-                        <span className="datum-val">NDW-{destination.slug.toUpperCase()}</span>
+                    <div className="dest-strip-item">
+                        <span className="dest-strip-label">Elevation</span>
+                        <span className="dest-strip-value">{destination.meta_elevation || "920"}m ASL</span>
                     </div>
-                    <div className="expedition-datum">
-                        <span className="datum-label">Tracking Protocol</span>
-                        <span className="datum-val">NDW.EXPLORE.ARCHIVE</span>
+                    <div className="dest-strip-item">
+                        <span className="dest-strip-label">Best Season</span>
+                        <span className="dest-strip-value">{destination.best_time || "Jun – Oct"}</span>
+                    </div>
+                    <div className="dest-strip-item">
+                        <span className="dest-strip-label">Encounter Rate</span>
+                        <span className="dest-strip-value">{destination.meta_encounter_rate || "95.8%"}</span>
                     </div>
                 </div>
             </header>

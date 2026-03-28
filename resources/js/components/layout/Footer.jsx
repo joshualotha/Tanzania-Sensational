@@ -15,11 +15,11 @@ export const Footer = () => {
           <p className="footer-tagline">East Africa's most trusted mountain trekking authority. Guiding adventurers to the roof of Africa since 2009.</p>
           <div className="footer-contact-item">
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 4l5 4 5-4M2 3h10a1 1 0 011 1v6a1 1 0 01-1 1H2a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="var(--secondary)" strokeWidth="1.2" strokeLinecap="round" /></svg>
-            <a href="mailto:info@tanzaniasensational.com">info@tanzaniasensational.com</a>
+            <a href="mailto:info@tssafaris.com">info@tssafaris.com</a>
           </div>
           <div className="footer-contact-item">
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2.5c0-.3.2-.5.5-.5h2.6c.2 0 .4.2.5.4l1 2.5c.1.2 0 .4-.1.6L5.5 6.5C6.3 8 7.9 9.6 9.5 10.5l1-1c.2-.1.4-.2.6-.1l2.5 1c.2.1.4.3.4.5v2.6c0 .3-.2.5-.5.5C5 13.5.5 9 .5 3.5c0-.3 0-.5.5-.5z" stroke="var(--secondary)" strokeWidth="1.2" /></svg>
-            <a href="tel:+255700000000">+255 700 000 000</a>
+            <a href="tel:+255621220912">+255-621220912</a>
           </div>
         </div>
         <div>

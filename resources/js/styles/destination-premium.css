@@ -29,135 +29,189 @@
     z-index: 1;
 }
 
-/* ─── 1. FULL HERITAGE HERO (BESPOKE) ─── */
-.dest-hero-bespoke {
+/* ─── 1. CINEMATIC HERO ─── */
+.dest-hero-cinematic {
     position: relative;
-    height: 100vh;
-    display: flex;
-    align-items: flex-end;
-    background: #000;
-}
-
-.hero-visual-area {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    z-index: 0;
-}
-
-.hero-visual-area img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    animation: heroZoom 20s ease-in-out infinite alternate;
-}
-
-.hero-visual-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, 
-        rgba(13, 13, 11, 0.15) 0%, 
-        transparent 40%, 
-        rgba(13, 13, 11, 0.55) 100%);
-    z-index: 1;
-}
-
-.hero-content-bespoke {
-    position: relative;
-    z-index: 10;
-    padding: 0 60px 100px;
-    width: 100%;
-    max-width: 1000px;
-}
-
-.hero-pillar-badge {
-    position: absolute;
-    top: -80px;
-    right: 0;
-    width: 160px;
-    height: 160px;
-    background: var(--gold);
-    border-radius: 50%;
+    min-height: 85vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
     color: white;
-    box-shadow: 0 20px 40px rgba(201, 168, 76, 0.25);
-    z-index: 20;
+    overflow: hidden;
 }
 
-.pillar-badge-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 3rem;
-    line-height: 1;
-    font-weight: 300;
+.dest-hero-visual {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
 }
 
-.pillar-badge-label {
-    font-size: 0.6rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-top: 4px;
-    opacity: 0.9;
+.dest-hero-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+    animation: heroZoom 25s ease-in-out infinite alternate;
 }
 
-.pillar-eyebrow {
-    font-size: 0.8rem;
-    letter-spacing: 0.4em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 25px;
+.dest-hero-gradient {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+        linear-gradient(to bottom,
+            rgba(18, 22, 20, 0.2) 0%,
+            transparent 35%,
+            rgba(18, 22, 20, 0.55) 100%),
+        radial-gradient(ellipse at center bottom,
+            rgba(18, 22, 20, 0.5) 0%,
+            transparent 70%);
+}
+
+.dest-hero-center {
+    position: relative;
+    z-index: 2;
+    max-width: 850px;
+    padding: 0 30px;
+    padding-top: 80px;
+    padding-bottom: 140px;
+}
+
+.dest-hero-eyebrow {
     display: block;
-    font-weight: 600;
-}
-
-.pillar-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(3.5rem, 8vw, 6.5rem);
-    line-height: 0.95;
-    margin-bottom: 30px;
-    color: var(--white);
-}
-
-.pillar-title em {
-    font-style: italic;
-    font-weight: 400;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.35em;
     color: var(--gold);
+    margin-bottom: 28px;
 }
 
-.expedition-strip {
+.dest-hero-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 500;
+    line-height: 1.05;
+    margin-bottom: 28px;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+.dest-hero-heading em {
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 400;
+}
+
+.dest-hero-lead {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.85);
+    max-width: 600px;
+    margin: 0 auto 40px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+}
+
+.dest-hero-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.dest-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 36px;
+    background: var(--gold);
+    color: #1a1a1a;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    text-decoration: none;
+    border-radius: 999px;
+    transition: all 0.4s ease;
+}
+
+.dest-btn-primary:hover {
+    background: white;
+    color: var(--dark);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+}
+
+.dest-btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 18px 36px;
+    background: transparent;
+    color: white;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 999px;
+    transition: all 0.4s ease;
+}
+
+.dest-btn-ghost:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.5);
+}
+
+/* ─── FLOATING EXPEDITION STRIP ─── */
+.dest-expedition-strip {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(13, 13, 11, 0.8);
-    backdrop-filter: blur(10px);
-    padding: 30px 60px;
+    z-index: 10;
     display: flex;
-    gap: 60px;
-    z-index: 15;
-    border-top: 1px solid rgba(255,255,255,0.05);
+    justify-content: center;
+    gap: 0;
+    background: rgba(13, 13, 11, 0.75);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(201, 168, 76, 0.15);
 }
 
-.expedition-datum {
+.dest-strip-item {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    align-items: center;
+    gap: 6px;
+    padding: 28px 50px;
+    border-right: 1px solid rgba(255,255,255,0.06);
 }
 
-.datum-label {
+.dest-strip-item:last-child {
+    border-right: none;
+}
+
+.dest-strip-label {
+    font-family: 'Outfit', sans-serif;
     font-size: 0.6rem;
-    color: var(--gold);
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
     font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--gold);
 }
 
-.datum-val {
-    font-size: 0.9rem;
-    color: rgba(255,255,255,0.9); /* Boosted from 0.7 for readability */
-    font-family: 'Courier New', monospace; /* Technical coordinate feel */
+.dest-strip-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: rgba(255,255,255,0.9);
 }
 
 /* ─── 2. METADATA PILLAR & NARRATIVE ─── */
@@ -354,32 +408,36 @@
 }
 
 /* RESPONSIVE */
-@media (max-width: 992px) {
-    .hero-content-bespoke { padding: 0 30px 60px; }
-    .hero-pillar-badge { width: 120px; height: 120px; top: -60px; right: 30px; }
-    .pillar-badge-num { font-size: 2.2rem; }
-    .expedition-strip { padding: 20px 30px; gap: 30px; overflow-x: auto; }
-}
-@media (max-width: 640px) {
-    .hero-visual {
-        align-items: center !important;
-        justify-content: center !important;
-        min-height: 60vh !important;
-    }
-    .hero-visual-content {
-        padding: 20px !important;
-        margin-bottom: 0 !important;
-    }
-    .dest-hero-title {
-        font-size: 3rem;
-    }
-}
 @media (max-width: 1200px) {
-    .dest-hero-bespoke { grid-template-columns: 1fr; }
-    .hero-title-pillar { height: auto; padding: 100px 40px; }
-    .hero-pillar-badge { top: 0; left: 50%; transform: translate(-50%, -50%); }
-    .expedition-strip { position: relative; padding: 30px 40px; }
     .bespoke-overview-grid { grid-template-columns: 1fr; gap: 60px; }
-    .triptych-plate { grid-template-columns: 1fr; }
-    .plate-media { grid-column: span 1; height: 400px; }
+    .metadata-pillar { position: static; }
+    .dest-strip-item { padding: 24px 35px; }
+}
+
+@media (max-width: 992px) {
+    .dest-expedition-strip { flex-wrap: wrap; }
+    .dest-strip-item { flex: 1 1 45%; padding: 20px 25px; }
+    .narrative-ledger-grid { grid-template-columns: 1fr; }
+    .minimalist-gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+}
+
+@media (max-width: 640px) {
+    .dest-hero-cinematic { min-height: 70vh; }
+    .dest-hero-center { padding-top: 80px; padding-bottom: 100px; }
+    .dest-hero-heading { font-size: clamp(2.2rem, 10vw, 3.2rem); }
+    .dest-hero-lead { font-size: 1rem; }
+    .dest-hero-actions { flex-direction: column; width: 100%; }
+    .dest-btn-primary,
+    .dest-btn-ghost { width: 100%; justify-content: center; }
+    .dest-expedition-strip { flex-direction: column; }
+    .dest-strip-item { flex: 1 1 100%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); padding: 18px 20px; }
+    .dest-strip-item:last-child { border-bottom: none; }
+    .bespoke-overview-grid { padding: 80px 20px; gap: 40px; }
+    .metadata-pillar { padding: 40px 24px; }
+    .narrative-ledger-grid { padding: 60px 20px; }
+    .narrative-card-ledger { padding: 40px 24px; }
+    .mosaic-gallery { padding: 80px 20px; }
+    .minimalist-gallery-grid { grid-template-columns: 1fr; }
+    .bespoke-section-title { font-size: 2.4rem; }
+    .smart-cta-section { padding: 100px 24px !important; }
 }
