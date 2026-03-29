@@ -214,12 +214,16 @@ const PackageDetail = () => {
                 </section>
             )}
 
-            {/* ─── DETAILED ITINERARY ─── */}
-            <section className="lux-itinerary-section" style={{ backgroundColor: '#fff' }}>
-                <h2 className="lux-heading" style={{ textAlign: 'center', fontSize: '2.5rem', marginBottom: '60px' }}>The <em>Journey.</em></h2>
-                <div className="lux-itinerary-list" style={{ maxWidth: '1000px' }}>
-                    {pkg.itinerary.map((day, index) => (
-                        <motion.div
+            {/* ─── MAIN CONTENT BLOCK: ITINERARY (LEFT) & BOOKING CARD (RIGHT) ─── */}
+            <section style={{ backgroundColor: '#fff', padding: '100px 5vw' }}>
+                <div className="lux-itinerary-grid" style={{ maxWidth: '1400px', margin: '0 auto' }}>
+                    
+                    {/* LEFT: ITINERARY */}
+                    <div className="lux-itinerary-section" style={{ padding: 0, margin: 0, maxWidth: '800px' }}>
+                        <h2 className="lux-heading" style={{ fontSize: '3rem', marginBottom: '60px' }}>The <em>Journey.</em></h2>
+                        <div className="lux-itinerary-list">
+                            {pkg.itinerary.map((day, index) => (
+                                <motion.div
                             key={index}
                             className="lux-itinerary-item"
                             initial="hidden"
@@ -266,6 +270,40 @@ const PackageDetail = () => {
                             </div>
                         </motion.div>
                     ))}
+                        </div>
+                    </div> {/* End of LEFT COLUMN */}
+
+                    {/* RIGHT: BOOKING CARD */}
+                    <div className="lux-package-sidebar">
+                        <div className="lux-sticky-card">
+                            <span style={{ textTransform: 'uppercase', letterSpacing: '2px', fontSize: '0.65rem', color: 'var(--lux-tan)', display: 'block', marginBottom: '10px' }}>Reserve Your Summit</span>
+                            <div style={{ fontSize: '2rem', fontWeight: 'bold', fontFamily: 'var(--font-heading)', color: 'var(--lux-dark)', marginBottom: '5px' }}>
+                                ${pkg.base_price?.toLocaleString() || 'TBA'}
+                            </div>
+                            <div style={{ fontSize: '0.8rem', color: 'var(--lux-mid)', marginBottom: '25px', opacity: 0.8 }}>
+                                Per Person • Standard Rate
+                            </div>
+
+                            <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 30px', borderTop: '1px solid var(--lux-border)', paddingTop: '20px' }}>
+                                <li style={{ display: 'flex', gap: '10px', marginBottom: '12px', fontSize: '0.9rem', color: 'var(--lux-dark)' }}>
+                                    <span style={{ color: 'var(--lux-tan)' }}>✓</span> {pkg.duration} Mountain Duration
+                                </li>
+                                <li style={{ display: 'flex', gap: '10px', marginBottom: '12px', fontSize: '0.9rem', color: 'var(--lux-dark)' }}>
+                                    <span style={{ color: 'var(--lux-tan)' }}>✓</span> Elite Guiding Team
+                                </li>
+                                <li style={{ display: 'flex', gap: '10px', marginBottom: '12px', fontSize: '0.9rem', color: 'var(--lux-dark)' }}>
+                                    <span style={{ color: 'var(--lux-tan)' }}>✓</span> All-Inclusive Base Camp
+                                </li>
+                            </ul>
+
+                            <Link to={`/contact?interest=${trek?.slug}`} className="lux-btn lux-btn-hero" style={{ display: 'block', textAlign: 'center', width: '100%', textDecoration: 'none' }}>
+                                Check Availability
+                            </Link>
+                            <div style={{ fontSize: '0.7rem', color: '#999', marginTop: '15px', textAlign: 'center' }}>
+                                No payment required today.
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 

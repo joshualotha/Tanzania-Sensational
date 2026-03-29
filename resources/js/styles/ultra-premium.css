@@ -548,3 +548,39 @@ body {
     background: var(--lux-dark);
     color: var(--lux-cream);
 }
+
+.lux-btn-full {
+    padding: 0 5vw;
+    background: var(--lux-dark);
+}
+
+/* ─── TREKKING PACKAGE DETAILS GRID ─── */
+.lux-itinerary-grid {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 80px;
+    align-items: start;
+}
+
+.lux-package-sidebar {
+    position: sticky;
+    top: 120px;
+}
+
+.lux-sticky-card {
+    background: #fff;
+    border: 1px solid var(--lux-border);
+    padding: 40px 30px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.03);
+}
+
+@media (max-width: 1024px) {
+    .lux-itinerary-grid {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+    .lux-package-sidebar {
+        position: relative;
+        top: 0;
+    }
+}
