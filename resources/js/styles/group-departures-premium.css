@@ -285,35 +285,193 @@
     color: var(--dark);
 }
 
+/* ─── VISIBILITY CLASSES ─── */
+.mobile-only {
+    display: none;
+}
+
+.desktop-only {
+    display: block;
+}
+
 @media (max-width: 900px) {
+    .mobile-only {
+        display: flex;
+    }
+    
+    .desktop-only {
+        display: none !important;
+    }
+    
     .utility-content {
-        padding: 60px 20px;
+        padding: 40px 20px;
     }
     
-    .dep-table, .dep-table tbody, .dep-table tr, .dep-table td, .dep-table th {
-        display: block;
+    .ledger-wrapper {
+        background: transparent;
+        border: none;
+        padding: 0;
+        overflow: visible;
     }
     
-    .dep-table th {
+    .ledger-wrapper::before {
         display: none;
     }
-    
-    .dep-row td {
+
+    /* ─── PREMIUM MOBILE CARDS ─── */
+    .dep-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .dep-card {
+        background: var(--white);
+        border: 1px solid var(--border-light);
+        border-radius: 6px;
+        overflow: hidden;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .dep-card-header {
+        background: rgba(201, 168, 76, 0.04);
         padding: 20px;
-        text-align: center;
+        border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+    }
+
+    .dep-card-date {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: var(--dark);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 6px;
+    }
+
+    .dep-card-route {
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: #555;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .gold-icon {
+        color: var(--gold);
+        flex-shrink: 0;
+    }
+
+    .dep-card-body {
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
         border-bottom: 1px solid var(--border-light);
     }
-    
-    .dep-row td:last-child {
-        border-bottom: none;
+
+    .dep-card-metric {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .dep-card-metric:last-child {
+        text-align: right;
+    }
+
+    .metric-label {
+        font-size: 0.6rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--gold);
+    }
+
+    .metric-value {
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: var(--dark);
+    }
+
+    .metric-value span {
+        font-size: 0.7rem;
+        color: #999;
+        font-weight: 400;
+        margin-right: 4px;
+    }
+
+    .metric-value.mono {
+        font-family: var(--font-mono, monospace);
+        font-weight: 400;
+    }
+
+    .dep-card-footer {
+        padding: 16px 20px 20px;
+        background: #faf9f7;
     }
     
+    /* Center the status horizontally above buttons */
+    .dep-card-footer .dep-status {
+        display: flex;
+        justify-content: center;
+        margin: 0 auto 16px;
+        width: fit-content;
+    }
+
+    .dep-card-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .dep-card-actions.single {
+        grid-template-columns: 1fr;
+    }
+
+    .dep-btn-outline {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 14px 0;
+        border: 1px solid var(--gold);
+        background: transparent;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--gold);
+        text-decoration: none;
+        border-radius: 2px;
+    }
+
+    .dep-btn-fill {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 14px 0;
+        background: var(--gold);
+        color: white;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        text-decoration: none;
+        border-radius: 2px;
+    }
+
     .private-cta-title {
         font-size: 2.5rem;
     }
 
     .private-exp-cta {
         padding: 80px 24px;
+        margin-top: 80px;
     }
 }
 
@@ -334,3 +492,71 @@
         font-size: 1rem;
     }
 }
+
+/* ─── GROUP DEPARTURE DETAILS PAGE ─── */
+.dep-detail-stats {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+}
+
+.dep-detail-section {
+    background: var(--bg-parchment);
+    padding: 80px 40px;
+}
+
+.dep-detail-main {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 60px;
+}
+
+.dep-detail-inc-exc {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 50px;
+}
+
+.dep-detail-sidebar-sticky {
+    position: sticky;
+    top: 120px;
+}
+
+/* DETAILS PAGE RESPONSIVE */
+@media (max-width: 1024px) {
+    .dep-detail-main {
+        grid-template-columns: 1fr;
+    }
+    .dep-detail-sidebar-sticky {
+        position: relative;
+        top: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .dep-detail-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .dep-detail-section {
+        padding: 60px 20px;
+    }
+    
+    .dep-detail-inc-exc {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dep-detail-stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+

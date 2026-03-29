@@ -113,7 +113,7 @@ export const GroupDepartures = () => {
                     initial="hidden" whileInView="visible" viewport={{ once: true }}
                     variants={fadeInUp}
                 >
-                    <table className="dep-table">
+                    <table className="dep-table desktop-only">
                         <thead>
                             <tr>
                                 <th>Dates</th>
@@ -128,11 +128,12 @@ export const GroupDepartures = () => {
                             {loading ? (
                                 [1, 2, 3, 4].map((i) => (
                                     <motion.tr key={i} className="dep-row" variants={fadeInUp}>
-                                        <td className="dep-date" style={{ opacity: 0.5 }}>Loading…</td>
-                                        <td className="dep-route" style={{ opacity: 0.5 }}>Loading…</td>
-                                        <td className="dep-price" style={{ opacity: 0.5 }}>—</td>
-                                        <td><span className="dep-status available" style={{ opacity: 0.5 }}>Loading</span></td>
-                                        <td>—</td>
+                                        <td className="dep-date" style={{ opacity: 0.5 }} data-label="Dates">Loading…</td>
+                                        <td className="dep-route" style={{ opacity: 0.5 }} data-label="Route Expedition">Loading…</td>
+                                        <td className="dep-price" style={{ opacity: 0.5 }} data-label="Investment">—</td>
+                                        <td data-label="Status"><span className="dep-status available" style={{ opacity: 0.5 }}>Loading</span></td>
+                                        <td data-label="Spots left">—</td>
+                                        <td data-label="Action">—</td>
                                     </motion.tr>
                                 ))
                             ) : error ? (
@@ -150,24 +151,24 @@ export const GroupDepartures = () => {
                             ) : (
                                 rows.map((dep) => (
                                     <motion.tr key={dep.id} className="dep-row" variants={fadeInUp}>
-                                        <td className="dep-date">
+                                        <td className="dep-date" data-label="Dates">
                                             {dep.dateLabel}
                                         </td>
-                                        <td className="dep-route">
+                                        <td className="dep-route" data-label="Route Expedition">
                                             {dep.routeName}
                                         </td>
-                                        <td className="dep-price">
+                                        <td className="dep-price" data-label="Investment">
                                             <span>From</span>{dep.price}
                                         </td>
-                                        <td>
+                                        <td data-label="Status">
                                             <span className={`dep-status ${(dep.status || 'available').toLowerCase()}`}>
                                                 {dep.status}
                                             </span>
                                         </td>
-                                        <td className="dep-price" style={{ fontFamily: 'var(--font-mono)' }}>
+                                        <td className="dep-price" style={{ fontFamily: 'var(--font-mono)' }} data-label="Spots left">
                                             {Number(dep.spotsLeft) > 0 ? dep.spotsLeft : 'FULL'}
                                         </td>
-                                        <td>
+                                        <td data-label="Action">
                                             <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                                                 <Link to={`/group-departures/${dep.id}`} className="dep-action-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                                                     Details <Eye size={12} />
@@ -188,6 +189,83 @@ export const GroupDepartures = () => {
                             )}
                         </motion.tbody>
                     </table>
+
+                    {/* ─── PREMIUM MOBILE CARDS (NATIVE-FEEL) ─── */}
+                    <div className="dep-cards mobile-only">
+                        {loading ? (
+                            [1, 2, 3].map((i) => (
+                                <motion.div key={i} className="dep-card" variants={fadeInUp} style={{ opacity: 0.5 }}>
+                                    <div className="dep-card-header">
+                                        <div className="dep-card-date">Loading…</div>
+                                        <div className="dep-card-route">Loading…</div>
+                                    </div>
+                                    <div className="dep-card-body">
+                                        <div className="dep-card-metric">
+                                            <span className="metric-label">Investment</span>
+                                            <span className="metric-value">—</span>
+                                        </div>
+                                    </div>
+                                    <div className="dep-card-footer">
+                                        <span className="dep-status available">Processing</span>
+                                    </div>
+                                </motion.div>
+                            ))
+                        ) : error ? (
+                            <motion.div className="dep-card" variants={fadeInUp}>
+                                <div className="dep-card-body" style={{ textAlign: 'center', color: '#7a6f65', justifyContent: 'center' }}>
+                                    Couldn’t load departures right now. Please refresh.
+                                </div>
+                            </motion.div>
+                        ) : rows.length === 0 ? (
+                            <motion.div className="dep-card" variants={fadeInUp}>
+                                <div className="dep-card-body" style={{ textAlign: 'center', color: '#7a6f65', justifyContent: 'center' }}>
+                                    No group departures are currently scheduled.
+                                </div>
+                            </motion.div>
+                        ) : (
+                            rows.map((dep) => (
+                                <motion.div key={dep.id} className="dep-card" variants={fadeInUp}>
+                                    <div className="dep-card-header">
+                                        <div className="dep-card-date">
+                                            <Calendar size={18} className="gold-icon" />
+                                            <span>{dep.dateLabel}</span>
+                                        </div>
+                                        <div className="dep-card-route">
+                                            <Map size={15} className="gold-icon" />
+                                            <span>{dep.routeName}</span>
+                                        </div>
+                                    </div>
+
+                                    <div className="dep-card-body">
+                                        <div className="dep-card-metric">
+                                            <span className="metric-label">Investment</span>
+                                            <span className="metric-value"><span>From</span> {dep.price}</span>
+                                        </div>
+                                        <div className="dep-card-metric">
+                                            <span className="metric-label">Spots left</span>
+                                            <span className="metric-value mono">{Number(dep.spotsLeft) > 0 ? dep.spotsLeft : 'FULL'}</span>
+                                        </div>
+                                    </div>
+
+                                    <div className="dep-card-footer">
+                                        <span className={`dep-status ${(dep.status || 'available').toLowerCase()}`}>
+                                            {dep.status}
+                                        </span>
+                                        <div className={`dep-card-actions ${dep.status === 'Full' ? 'single' : ''}`}>
+                                            <Link to={`/group-departures/${dep.id}`} className="dep-btn-outline">
+                                                Details
+                                            </Link>
+                                            {dep.status !== 'Full' && (
+                                                <Link to={`/group-departures/${dep.id}`} className="dep-btn-fill">
+                                                    Reserve
+                                                </Link>
+                                            )}
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            ))
+                        )}
+                    </div>
                 </motion.div>
 
                 {/* PRIVATE EXPEDITION CTA */}

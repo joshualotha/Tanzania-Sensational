@@ -134,7 +134,7 @@ export const DepartureDetail = () => {
 
             {/* QUICK STATS STRIP */}
             <section style={{ background: 'var(--dark)', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '0' }}>
+                <div className="dep-detail-stats">
                     <StatItem icon={<Calendar size={16} />} label="Summit Night" value={viewModel.summitNight} />
                     <StatItem icon={<Mountain size={16} />} label="Difficulty" value={viewModel.difficulty} />
                     <StatItem icon={<Users size={16} />} label="Group Size" value={viewModel.groupSize} />
@@ -144,8 +144,8 @@ export const DepartureDetail = () => {
             </section>
 
             {/* MAIN CONTENT */}
-            <section style={{ background: 'var(--bg-parchment)', padding: '80px 40px' }}>
-                <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 380px', gap: '60px' }}>
+            <section className="dep-detail-section">
+                <div className="dep-detail-main">
                     
                     {/* LEFT COLUMN */}
                     <div>
@@ -181,7 +181,7 @@ export const DepartureDetail = () => {
                         </motion.div>
 
                         {/* INCLUSIONS & EXCLUSIONS */}
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', marginTop: '50px' }}>
+                        <div className="dep-detail-inc-exc">
                             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
                                 <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.2rem', color: 'var(--dark)', marginBottom: '18px' }}>Inclusions</h3>
                                 <ul style={{ listStyle: 'none', padding: 0 }}>
@@ -209,7 +209,7 @@ export const DepartureDetail = () => {
 
                     {/* RIGHT SIDEBAR */}
                     <div>
-                        <div style={{ position: 'sticky', top: '120px' }}>
+                        <div className="dep-detail-sidebar-sticky">
                             {/* BOOKING CARD */}
                             <div style={{ background: 'var(--dark)', color: 'white', padding: '35px 30px', borderRadius: '4px', marginBottom: '20px' }}>
                                 <div style={{ fontSize: '0.65rem', color: 'var(--gold)', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '8px' }}>Per Person</div>
