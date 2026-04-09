@@ -247,5 +247,500 @@
       "https://images.unsplash.com/photo-1521651201144-634f700b36ef?w=800&q=80",
       "https://images.unsplash.com/photo-1541018867375-7f311c63ec94?w=800&q=80"
     ]
+  },
+  {
+    "id": "kilimanjaro",
+    "name": "Mount Kilimanjaro",
+    "subtitle": "The Roof of Africa",
+    "tag": "ALPINE MAJESTY",
+    "shortDesc": "Ascend the tallest free-standing mountain in the world. Traverse five distinct climate zones, from lush rainforest to ancient glaciers, on a transformative journey to the summit.",
+    "overview": "Rising majestically from the African plains, Mount Kilimanjaro is a dormant volcano and the highest peak on the continent at 5,895 meters. It stands as a beacon for adventurers, offering a multi-day trek through incredibly diverse ecosystems—starting in dense, primate-filled forests and ending in the surreal, icy silence of the arctic summit zone.",
+    "overviewQuote": "To climb Kilimanjaro is to walk from the equator to the North Pole in a matter of days—a journey not just of elevation, but of the spirit.",
+    "experience": {
+      "atmosphere": "The atmosphere shifts dramatically with every thousand meters of elevation. The lower slopes are humid and alive with the sounds of Colobus monkeys, while the alpine desert is stark, vast, and quiet. At the summit, the air is thin, crisp, and charged with the profound silence of the sky.",
+      "wildlife": "While not a traditional safari destination, the lower slopes host elephants, leopards, and diverse birdlife. As you ascend, the flora takes center stage, with alien-looking giant lobelias and groundsels dominating the moorlands.",
+      "impact": "Standing at Uhuru Peak as the sun rises over the curvature of the earth is a life-defining moment. It is a testament to human endurance and the raw, awe-inspiring power of the natural world."
+    },
+    "atmosphereVitals": [
+      {
+        "label": "Sensory Vibe",
+        "text": "Stark, shifting extremes from jungle to ice."
+      },
+      {
+        "label": "Audio Profile",
+        "text": "Forest canopy calls fading into alpine wind."
+      },
+      {
+        "label": "Visibility",
+        "text": "Above the clouds with infinite horizons."
+      },
+      {
+        "label": "Ambient Temp",
+        "text": "25°C at base dropping to -15°C at summit."
+      }
+    ],
+    "atmosphereFooter": "Five climate zones compressed into one mountain.",
+    "wildlifeVitals": [
+      {
+        "label": "Flora Stat",
+        "text": "Unique afro-alpine gigantism species."
+      },
+      {
+        "label": "Key Species",
+        "text": "Colobus monkeys, endemic birds, Giant Lobelia."
+      },
+      {
+        "label": "Bio Profile",
+        "text": "Sky island ecosystem isolated by altitude."
+      },
+      {
+        "label": "Success Rate",
+        "text": "85-95% (Route dependent)"
+      }
+    ],
+    "wildlifeFooter": "A botanical wonderland leading to eternal ice.",
+    "encounterRate": "100%",
+    "expeditionTier": "Summit Tier 01",
+    "trackingMethod": "Guided Alpine Ascent",
+    "heroImg": "https://images.unsplash.com/photo-1520610360706-03517c5bba1b?w=2000&q=85&auto=format&fit=crop",
+    "coordinates": "3.0674° S, 37.3556° E",
+    "elevation": "5,895m (Uhuru Peak)",
+    "highlights": [
+      "Uhuru Peak Summit",
+      "Five Climate Zones",
+      "Giant Groundsel Forest",
+      "Rebmann Glacier",
+      "Sunrise above the clouds"
+    ],
+    "duration": "6–9 Days",
+    "bestTime": "Jan to March & June to October",
+    "wildlifeList": [
+      "Colobus Monkey",
+      "Blue Monkey",
+      "Four-striped Grass Mouse",
+      "White-necked Raven"
+    ],
+    "gallery": [
+      "https://images.unsplash.com/photo-1589553416260-f586c8f1514f?w=800&q=80",
+      "https://images.unsplash.com/photo-1579998135891-b6a1e3e6f982?w=800&q=80",
+      "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800&q=80",
+      "https://images.unsplash.com/photo-1498426002933-72797e5510b6?w=800&q=80",
+      "https://images.unsplash.com/photo-1520610360706-03517c5bba1b?w=800&q=80",
+      "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800&q=80"
+    ]
+  },
+  {
+    "id": "lake-manyara",
+    "name": "Lake Manyara",
+    "subtitle": "The Pink Lake",
+    "tag": "RIFT VALLEY JEWEL",
+    "shortDesc": "Nestled at the base of the Great Rift Valley escarpment, this lush oasis is famous for its tree-climbing lions, massive elephant herds, and shores painted pink by thousands of flamingos.",
+    "overview": "Described by Ernest Hemingway as 'the loveliest I had seen in Africa,' Lake Manyara National Park is a compact, breathtakingly beautiful reserve. The alkaline lake takes up much of the park, creating a vibrant ecosystem where dense groundwater forests give way to open grassy floodplains and the steep, dramatic cliffs of the Rift Valley.",
+    "overviewQuote": "It is a pocket-sized Serengeti—a lush, concentrated burst of life where the escarpment meets the water.",
+    "experience": {
+      "atmosphere": "The park feels incredibly vibrant and dense. Stepping into the groundwater forest is like entering a primeval jungle, echoing with the chatter of troops of baboons. As the forest opens up to the lake, the air becomes clear, and the horizon shimmers with a vast, pink ribbon of flamingos against the blue water.",
+      "wildlife": "Manyara is uniquely famous for lions that exhibit the unusual behavior of lounging in the branches of acacia trees. The park is also an absolute haven for bird enthusiasts, hosting over 400 species, alongside resident herds of elephants, hippos, and giraffes.",
+      "impact": "It offers the perfect overture to a Tanzanian safari—a concentrated, multi-layered introduction to the incredible diversity of East African flora and fauna in a setting of exquisite scenic beauty."
+    },
+    "atmosphereVitals": [
+      {
+        "label": "Sensory Vibe",
+        "text": "Lush, jungle-like density opening to water."
+      },
+      {
+        "label": "Audio Profile",
+        "text": "Baboon barks and the murmur of flamingos."
+      },
+      {
+        "label": "Visibility",
+        "text": "Dramatic Rift Valley escarpment backdrop."
+      },
+      {
+        "label": "Ambient Temp",
+        "text": "Pleasant 15°C mornings to 29°C afternoons."
+      }
+    ],
+    "atmosphereFooter": "Where the Rift Valley wall meets a shimmering lake.",
+    "wildlifeVitals": [
+      {
+        "label": "Predator Stat",
+        "text": "Famous tree-climbing lion populations."
+      },
+      {
+        "label": "Key Species",
+        "text": "Flamingos, Elephants, Baboons, Tree Lions."
+      },
+      {
+        "label": "Bio Profile",
+        "text": "Groundwater forest meeting alkaline lake."
+      },
+      {
+        "label": "Encounter Prob",
+        "text": "92.0% (Lakeside Grazers)"
+      }
+    ],
+    "wildlifeFooter": "Over 400 bird species recorded — unparalleled avian diversity.",
+    "encounterRate": "92.0%",
+    "expeditionTier": "Heritage Tier 02",
+    "trackingMethod": "Lakeside Guided Patrol",
+    "heroImg": "https://images.unsplash.com/photo-1549366021-9f761d450615?w=2000&q=85&auto=format&fit=crop",
+    "coordinates": "3.5833° S, 35.8333° E",
+    "elevation": "960m",
+    "highlights": [
+      "Tree-Climbing Lions",
+      "Huge Baboon Troops",
+      "Thousands of Flamingos",
+      "Groundwater Forest",
+      "Rift Valley Escarpment"
+    ],
+    "duration": "1–2 Days",
+    "bestTime": "June to October (Large Mammals) / Nov to April (Birding & Waterfalls)",
+    "wildlifeList": [
+      "Lion",
+      "Elephant",
+      "Baboon",
+      "Giraffe",
+      "Hippo",
+      "Flamingo"
+    ],
+    "gallery": [
+      "https://images.unsplash.com/photo-1549366021-9f761d450615?w=800&q=80",
+      "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=800&q=80",
+      "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800&q=80",
+      "https://images.unsplash.com/photo-1589308454676-e1af9491a670?w=800&q=80",
+      "https://images.unsplash.com/photo-1520114878144-6123749968dd?w=800&q=80",
+      "https://images.unsplash.com/photo-1518173335487-347a0e39129d?w=800&q=80"
+    ]
+  },
+  {
+    "id": "zanzibar",
+    "name": "Zanzibar",
+    "subtitle": "The Spice Island",
+    "tag": "SWAHILI PARADISE",
+    "shortDesc": "Trade the dusty savannahs for impossibly turquoise waters and white sand. Zanzibar is a hypnotic blend of pristine beaches, coral reefs, and the ancient, winding alleys of Stone Town.",
+    "overview": "Floating off the coast of mainland Tanzania, the Zanzibar Archipelago is a tropical paradise steeped in a rich, complex history. Known globally for its spice plantations and Swahili culture, the main island of Unguja offers a breathtaking contrast between the vibrant, historical labyrinth of Stone Town and the quiet, luxurious seclusion of its palm-fringed eastern shores.",
+    "overviewQuote": "Where the scent of cloves meets the salt of the Indian Ocean, time slows to the rhythm of dhow sails on the horizon.",
+    "experience": {
+      "atmosphere": "The air in Zanzibar is thick with humidity and fragrant with nutmeg, cinnamon, and sea salt. The coastal vibe is utterly relaxed—a barefoot luxury where the days are measured by the shifting tides of the turquoise Indian Ocean and the evening calls to prayer echoing through ancient streets.",
+      "wildlife": "While mostly celebrated for its stunning marine life—including dolphins, sea turtles, and kaleidoscopic coral reefs—Zanzibar is also home to the rare red colobus monkeys of Jozani Forest, offering a different kind of wild encounter.",
+      "impact": "It is the ultimate epilogue to a mainland safari. Zanzibar washes away the dust of the Serengeti, replacing adrenaline with deep relaxation and a beautiful immersion into Swahili coastal life."
+    },
+    "atmosphereVitals": [
+      {
+        "label": "Sensory Vibe",
+        "text": "Barefoot luxury wrapped in spiced sea breezes."
+      },
+      {
+        "label": "Audio Profile",
+        "text": "Lapping waves, rustling palms & distant calls to prayer."
+      },
+      {
+        "label": "Visibility",
+        "text": "Crystal clear turquoise water over white coral sand."
+      },
+      {
+        "label": "Ambient Temp",
+        "text": "Tropical 25°C to 32°C year-round."
+      }
+    ],
+    "atmosphereFooter": "A rhythmic slow-down on the shores of the Indian Ocean.",
+    "wildlifeVitals": [
+      {
+        "label": "Marine Stat",
+        "text": "Pristine coral atolls with exceptional visibility."
+      },
+      {
+        "label": "Key Species",
+        "text": "Green Turtles, Bottlenose Dolphins, Red Colobus."
+      },
+      {
+        "label": "Bio Profile",
+        "text": "Vibrant Indian Ocean reef ecosystems."
+      },
+      {
+        "label": "Encounter Prob",
+        "text": "98.5% (Marine & Reef Dives)"
+      }
+    ],
+    "wildlifeFooter": "World-class diving around Mnemba Atoll.",
+    "encounterRate": "98.5%",
+    "expeditionTier": "Retreat Tier 01",
+    "trackingMethod": "Dhow Sailing & Dive Tech",
+    "heroImg": "https://images.unsplash.com/photo-1589308454676-e1af9491a670?w=2000&q=85&auto=format&fit=crop",
+    "coordinates": "6.1659° S, 39.2026° E",
+    "elevation": "Sea Level",
+    "highlights": [
+      "Pristine White Beaches",
+      "Historic Stone Town",
+      "Spice Farm Tours",
+      "Mnemba Atoll Snorkeling",
+      "Sunset Dhow Cruises"
+    ],
+    "duration": "3–7 Days",
+    "bestTime": "June to October & Dec to Feb",
+    "wildlifeList": [
+      "Red Colobus Monkey",
+      "Green Turtle",
+      "Bottlenose Dolphin",
+      "Whale Shark",
+      "Reef Fish"
+    ],
+    "gallery": [
+      "https://images.unsplash.com/photo-1589308454676-e1af9491a670?w=800&q=80",
+      "https://images.unsplash.com/photo-1549366021-9f761d450615?w=800&q=80",
+      "https://images.unsplash.com/photo-1518173335487-347a0e39129d?w=800&q=80",
+      "https://images.unsplash.com/photo-1521651201144-634f700b36ef?w=800&q=80",
+      "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=800&q=80",
+      "https://images.unsplash.com/photo-1581852015102-142a2c317022?w=800&q=80"
+    ]
+  },
+  {
+    "id": "ruaha",
+    "name": "Ruaha National Park",
+    "subtitle": "The Untamed South",
+    "tag": "SOUTHERN WILDERNESS",
+    "shortDesc": "Journey to the heart of Tanzania's rawest wilderness. An ancient landscape of colossal baobabs, sweeping sand rivers, and predator-rich plains far from the northern crowds.",
+    "overview": "Ruaha National Park is a massive, untamed stretch of wilderness in Southern Tanzania. It is renowned for its harsh, rugged beauty, characterized by rolling hills, rocky escarpments, and the life-giving Great Ruaha River. Because it is less accessible than the northern parks, Ruaha offers a deeply exclusive and spectacular safari experience, completely void of crowds.",
+    "overviewQuote": "There is a quiet violence to Ruaha's beauty. It is an ancient, unyielding earth where survival is earned every single day.",
+    "experience": {
+      "atmosphere": "The park feels fiercely wild. The sun bakes the red earth, and the colossal baobabs stand stark against intensely blue skies. During the dry season, the shrinking river forces wildlife into tight, dramatic concentrations. The atmosphere is quiet, vast, and steeped in raw, predatory tension.",
+      "wildlife": "Ruaha boasts one of the largest elephant populations in East Africa and is a critical stronghold for endangered African wild dogs. It's also famous for its large prides of lions—frequently seen taking down large prey like buffalo—and a striking diversity of antelope species, including Greater Kudu and Sable.",
+      "impact": "Visiting Ruaha is for the safari purist. It removes the gloss of more commercial destinations and delivers an authentic, exhilarating connection to an ancient and untouched Africa."
+    },
+    "atmosphereVitals": [
+      {
+        "label": "Sensory Vibe",
+        "text": "Raw wilderness, baked earth, and ancient silence."
+      },
+      {
+        "label": "Audio Profile",
+        "text": "Lion roars echoing far across the sand rivers."
+      },
+      {
+        "label": "Visibility",
+        "text": "Vast sweeps of rugged baobab-studded plains."
+      },
+      {
+        "label": "Ambient Temp",
+        "text": "Scorching up to 35°C in dry season."
+      }
+    ],
+    "atmosphereFooter": "A harsh, majestic landscape demanding absolute respect.",
+    "wildlifeVitals": [
+      {
+        "label": "Predator Stat",
+        "text": "10% of the world's remaining lion population."
+      },
+      {
+        "label": "Key Species",
+        "text": "Lions, Wild Dogs, Elephants, Greater Kudu."
+      },
+      {
+        "label": "Bio Profile",
+        "text": "Convergence zone of eastern and southern flora/fauna."
+      },
+      {
+        "label": "Encounter Prob",
+        "text": "88.0% (High predator activity during dry season)"
+      }
+    ],
+    "wildlifeFooter": "One of the last strongholds for the African Wild Dog.",
+    "encounterRate": "88.0%",
+    "expeditionTier": "Frontier Tier 03",
+    "trackingMethod": "Deep Bush Walking & 4x4",
+    "heroImg": "https://images.unsplash.com/photo-1616422285623-149ebaa17714?w=2000&q=85&auto=format&fit=crop",
+    "coordinates": "7.6167° S, 34.8833° E",
+    "elevation": "750m – 1,868m",
+    "highlights": [
+      "Huge Lion Prides",
+      "African Wild Dogs",
+      "Vast Baobab Forests",
+      "Walking Safaris",
+      "Zero Crowd Density"
+    ],
+    "duration": "3–5 Days",
+    "bestTime": "June to November (River bed congregations)",
+    "wildlifeList": [
+      "Lion",
+      "African Wild Dog",
+      "Elephant",
+      "Greater Kudu",
+      "Cheetah",
+      "Leopard"
+    ],
+    "gallery": [
+      "https://images.unsplash.com/photo-1616422285623-149ebaa17714?w=800&q=80",
+      "https://images.unsplash.com/photo-1549366021-9f761d450615?w=800&q=80",
+      "https://images.unsplash.com/photo-1581852015102-142a2c317022?w=800&q=80",
+      "https://images.unsplash.com/photo-1520114878144-6123749968dd?w=800&q=80",
+      "https://images.unsplash.com/photo-1534177616072-ef7dc120449d?w=800&q=80",
+      "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800&q=80"
+    ]
+  },
+  {
+    "id": "nyerere",
+    "name": "Nyerere National Park",
+    "subtitle": "The Great River",
+    "tag": "RIVERINE MIGHT",
+    "shortDesc": "Explore the largest wildlife sanctuary on the continent by boat, vehicle, and foot. A sprawling, watery Eden defined by the mighty Rufiji River and its resident predators.",
+    "overview": "Formerly the northern part of the Selous Game Reserve, Nyerere National Park is spectacularly expansive, larger than Switzerland. Its lifeblood is the massive Rufiji River, which carves a complex network of channels, lakes, and swamps through the wilderness. This aquatic environment allows for uniquely varied safari experiences, shifting seamlessly from dusty game drives to silent, gliding boat safaris.",
+    "overviewQuote": "Drifting down the Rufiji as crocodiles slip into the dark water and elephants drink on the banks—it is the continent perfectly distilled.",
+    "experience": {
+      "atmosphere": "The presence of so much water in a hot, equatorial environment creates a lush, dynamic atmosphere. The air carries the scent of damp earth and blooming river vegetation. The pace can be languid and dreamlike on a boat, instantly contrasting with the sudden, explosive energy of a predator hunt on the adjacent plains.",
+      "wildlife": "Nyerere supports enormous numbers of hippos and crocodiles. It is another critical haven for African wild dogs, alongside large populations of buffalo, lions, and bush-dwelling elephants. The birdcries along the river—especially the iconic call of the African Fish Eagle—provide a constant, evocative soundtrack.",
+      "impact": "It offers an immersion that feels deeply explorative. Because you can traverse the landscape by boat and on foot, you connect with the environment on a more intimate, multi-sensory level than traditional vehicle-only safaris."
+    },
+    "atmosphereVitals": [
+      {
+        "label": "Sensory Vibe",
+        "text": "Humid riverine lushness meeting dry bush."
+      },
+      {
+        "label": "Audio Profile",
+        "text": "Hippo grunts and the cry of the Fish Eagle."
+      },
+      {
+        "label": "Visibility",
+        "text": "Vast waterways winding through palm forests."
+      },
+      {
+        "label": "Ambient Temp",
+        "text": "Hot and humid 22°C to 36°C."
+      }
+    ],
+    "atmosphereFooter": "Life orchestrated by the flow of the mighty Rufiji.",
+    "wildlifeVitals": [
+      {
+        "label": "Marine Stat",
+        "text": "Dense populations of hippos and huge crocodiles."
+      },
+      {
+        "label": "Key Species",
+        "text": "Wild Dogs, Hippos, Crocs, Buffalo, Elephants."
+      },
+      {
+        "label": "Bio Profile",
+        "text": "Aquatic labyrinth within a massive dry reserve."
+      },
+      {
+        "label": "Encounter Prob",
+        "text": "91.5% (Riverine zones)"
+      }
+    ],
+    "wildlifeFooter": "Superb aquatic birding with over 440 species.",
+    "encounterRate": "91.5%",
+    "expeditionTier": "Frontier Tier 03",
+    "trackingMethod": "Boat Safari & Bush Walk",
+    "heroImg": "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=2000&q=85&auto=format&fit=crop",
+    "coordinates": "8.8000° S, 37.8333° E",
+    "elevation": "100m – 400m",
+    "highlights": [
+      "Boat Safaris on Rufiji",
+      "Huge Hippo Pods",
+      "African Wild Dogs",
+      "Lush Lakes and Swamps",
+      "Fly Camping"
+    ],
+    "duration": "3–4 Days",
+    "bestTime": "June to October (Dry Season)",
+    "wildlifeList": [
+      "Hippo",
+      "Crocodile",
+      "African Wild Dog",
+      "Lion",
+      "Buffalo",
+      "Elephant"
+    ],
+    "gallery": [
+      "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=800&q=80",
+      "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800&q=80",
+      "https://images.unsplash.com/photo-1581852015102-142a2c317022?w=800&q=80",
+      "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=800&q=80",
+      "https://images.unsplash.com/photo-1518173335487-347a0e39129d?w=800&q=80",
+      "https://images.unsplash.com/photo-1534177616072-ef7dc120449d?w=800&q=80"
+    ]
+  },
+  {
+    "id": "mahale",
+    "name": "Mahale Mountains",
+    "subtitle": "The Primate Peaks",
+    "tag": "CHIMPANZEE SANCTUARY",
+    "shortDesc": "Where forested mountains meet the crystal-clear waters of Lake Tanganyika. A remote, roadless paradise offering the most intimate chimpanzee encounters on Earth.",
+    "overview": "Tucked away in the far west of Tanzania, Mahale Mountains National Park is breathtakingly isolated. Accessible only by boat across the massive, deep blue expanse of Lake Tanganyika, or by light aircraft, there are no roads here. Dense, pristine rainforest cascades straight down the mountain slopes to white sandy beaches along the lake shore, creating a truly otherworldly environment.",
+    "overviewQuote": "To sit quietly in the dappled forest light at Mahale, watching a chimpanzee hold the hand of its young, is to look directly into the mirror of our own evolution.",
+    "experience": {
+      "atmosphere": "Mahale feels like a secret garden at the end of the world. The absence of vehicles means the sounds of the jungle—the hooting of chimps, the call of turacos, the rustle of leaves—are entirely unspoiled. The humidity of the forest is perfectly countered by the crystalline, fresh waters of the lake.",
+      "wildlife": "The undisputed stars of Mahale are its populations of wild chimpanzees. Trekking through the steep, humid forest to find them is demanding, but sitting quietly among them as they groom, play, and forage is a profound privilege. The lake itself holds hundreds of endemic cichlid fish species.",
+      "impact": "It is perhaps the most emotionally resonant wildlife experience available in Africa. The effort required to reach Mahale is instantly rewarded by the profound sense of connection felt when locking eyes with a wild chimpanzee."
+    },
+    "atmosphereVitals": [
+      {
+        "label": "Sensory Vibe",
+        "text": "Steep, humid jungle meeting crystal fresh water."
+      },
+      {
+        "label": "Audio Profile",
+        "text": "Echoing chimpanzee pant-hoots in deep forest."
+      },
+      {
+        "label": "Visibility",
+        "text": "Dappled forest light & endless lake blue."
+      },
+      {
+        "label": "Ambient Temp",
+        "text": "Warm and humid 20°C to 28°C."
+      }
+    ],
+    "atmosphereFooter": "A roadless paradise accessible only by boat or air.",
+    "wildlifeVitals": [
+      {
+        "label": "Primate Stat",
+        "text": "Home to about 1,000 wild chimpanzees."
+      },
+      {
+        "label": "Key Species",
+        "text": "Chimpanzees, Red Colobus, Forest Birds, Cichlids."
+      },
+      {
+        "label": "Bio Profile",
+        "text": "Afromontane forest bordering a rift valley lake."
+      },
+      {
+        "label": "Encounter Prob",
+        "text": "90.0% (With experienced trackers)"
+      }
+    ],
+    "wildlifeFooter": "Researchers have studied the chimps here since 1965.",
+    "encounterRate": "90.0%",
+    "expeditionTier": "Exclusive Tier 04",
+    "trackingMethod": "Deep Forest Trekking",
+    "heroImg": "https://images.unsplash.com/photo-1520114878144-6123749968dd?w=2000&q=85&auto=format&fit=crop",
+    "coordinates": "6.1167° S, 29.7333° E",
+    "elevation": "773m – 2,462m",
+    "highlights": [
+      "Chimpanzee Trekking",
+      "Lake Tanganyika Beaches",
+      "Zero Vehicles",
+      "Pristine Jungle",
+      "Endemic Cichlid Snorkeling"
+    ],
+    "duration": "3–4 Days",
+    "bestTime": "July to October (Drier paths for trekking)",
+    "wildlifeList": [
+      "Chimpanzee",
+      "Red Colobus Monkey",
+      "Leopard",
+      "Bushbuck",
+      "Warthog",
+      "Cichlid Fish"
+    ],
+    "gallery": [
+      "https://images.unsplash.com/photo-1520114878144-6123749968dd?w=800&q=80",
+      "https://images.unsplash.com/photo-1518173335487-347a0e39129d?w=800&q=80",
+      "https://images.unsplash.com/photo-1549366021-9f761d450615?w=800&q=80",
+      "https://images.unsplash.com/photo-1589553416260-f586c8f1514f?w=800&q=80",
+      "https://images.unsplash.com/photo-1498426002933-72797e5510b6?w=800&q=80",
+      "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800&q=80"
+    ]
   }
 ]

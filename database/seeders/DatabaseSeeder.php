@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             PagesSeeder::class,
             BlogPostsSeeder::class,
             StaticAssetsSeeder::class,
+            GearItemsSeeder::class,
         ]);
     }
 }

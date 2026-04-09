@@ -24,7 +24,7 @@ class PagesSeeder extends Seeder
                 'meta_title' => 'About Us | Tanzania Sensational',
                 'meta_description' => 'Learn about our team, our approach, and how we run premium trekking and safari experiences in Tanzania.',
                 'og_image' => null,
-                'content' => '<p>About page content can be managed in the dashboard CMS.</p>',
+                'content' => '<p class="cms-note">This page has a dedicated design component. Content is managed through the component code, not the CMS.</p>',
             ],
             [
                 'slug' => 'contact',
@@ -48,11 +48,47 @@ class PagesSeeder extends Seeder
                 'meta_title' => 'Our Guides | Tanzania Sensational',
                 'meta_description' => 'Meet the mountain and safari professionals behind Tanzania Sensational. Experienced, safety-first, and deeply local.',
                 'og_image' => null,
-                'content' => $this->html('Our Guides', [
-                    'Deep local knowledge and professional training',
-                    'Safety-first leadership on every departure',
-                    'Clear communication before, during, and after your trip',
-                ]),
+                'content' => $this->enhancedHtml('Our Guides', '
+                    <p>At Tanzania Sensational, our guides are the heart of every expedition. Each member of our team is a certified professional with extensive local knowledge, advanced wilderness first aid training, and years of experience leading trekkers to the summit of Kilimanjaro and through Tanzania\'s most spectacular safari regions.</p>
+                    
+                    <h3>Guide Qualifications & Training</h3>
+                    <ul>
+                        <li><strong>Kilimanjaro National Park Certification:</strong> All guides hold valid KINAPA guiding licenses</li>
+                        <li><strong>Wilderness First Responder (WFR) or equivalent:</strong> Advanced medical training for remote environments</li>
+                        <li><strong>Altitude Medicine Certification:</strong> Specialized training in altitude sickness recognition and treatment</li>
+                        <li><strong>Language Proficiency:</strong> Fluent in English, Swahili, and often additional local languages</li>
+                        <li><strong>Minimum 5 Years Experience:</strong> Most guides have 10+ years leading expeditions</li>
+                    </ul>
+                    
+                    <h3>Our Leadership Philosophy</h3>
+                    <p>We believe in proactive, transparent leadership. Your guide will:</p>
+                    <ul>
+                        <li>Conduct daily health checks and altitude assessments</li>
+                        <li>Maintain clear communication about daily plans and weather conditions</li>
+                        <li>Set a sustainable pace that prioritizes acclimatization</li>
+                        <li>Foster a supportive team environment among all expedition members</li>
+                        <li>Share cultural and natural history insights throughout your journey</li>
+                    </ul>
+                    
+                    <h3>Meet Some of Our Lead Guides</h3>
+                    <div class="guide-profiles">
+                        <div class="guide-profile">
+                            <h4>Joseph M.</h4>
+                            <p><em>Lead Guide & Expedition Manager</em><br>
+                            12 years experience, 200+ summits. Specializes in technical routes and altitude medicine.</p>
+                        </div>
+                        <div class="guide-profile">
+                            <h4>Sarah K.</h4>
+                            <p><em>Safari Specialist & Cultural Guide</em><br>
+                            8 years experience in Northern Circuit parks. Expert in wildlife behavior and photography.</p>
+                        </div>
+                        <div class="guide-profile">
+                            <h4>Michael T.</h4>
+                            <p><em>Senior Kilimanjaro Guide</em><br>
+                            15 years experience, fluent in 4 languages. Known for exceptional client care and summit success rates.</p>
+                        </div>
+                    </div>
+                '),
             ],
             [
                 'slug' => 'company-safety-protocols',
@@ -60,11 +96,45 @@ class PagesSeeder extends Seeder
                 'meta_title' => 'Safety Protocols | Tanzania Sensational',
                 'meta_description' => 'Our safety standards for trekking and safari operations, including briefings, altitude monitoring, and contingency planning.',
                 'og_image' => null,
-                'content' => $this->html('Safety Protocols', [
-                    'Pre-trek briefings and gear checks',
-                    'Altitude awareness and conservative pacing',
-                    'Reliable communications and evacuation planning',
-                ]),
+                'content' => $this->enhancedHtml('Safety Protocols', '
+                    <p>Safety is our highest priority. We implement comprehensive protocols developed over decades of experience in high-altitude trekking and wilderness travel. Our systems are designed to prevent issues before they arise and to respond effectively if challenges occur.</p>
+                    
+                    <h3>Pre-Trek Safety Measures</h3>
+                    <ul>
+                        <li><strong>Comprehensive Medical Screening:</strong> All participants complete health questionnaires reviewed by our team</li>
+                        <li><strong>Detailed Gear Check:</strong> Mandatory inspection of all essential equipment before departure</li>
+                        <li><strong>Thorough Briefings:</strong> Day-by-day itinerary review, altitude awareness training, and emergency procedures</li>
+                        <li><strong>Weather Monitoring:</strong> Daily consultation with meteorological services and park authorities</li>
+                        <li><strong>Equipment Verification:</strong> All group safety equipment (oxygen, medical kits, communications) tested and certified</li>
+                    </ul>
+                    
+                    <h3>On-Mountain Safety Systems</h3>
+                    <ul>
+                        <li><strong>Daily Health Assessments:</strong> Morning and evening pulse oximetry checks, symptom monitoring</li>
+                        <li><strong>Conservative Acclimatization:</strong> "Climb high, sleep low" routing, extra acclimatization days on key routes</li>
+                        <li><strong>Guide-to-Client Ratios:</strong> Maximum 1:3 ratio on summit day, 1:4 during regular trekking days</li>
+                        <li><strong>Communications Network:</strong> Satellite phones at guide level, VHF radios throughout team</li>
+                        <li><strong>Emergency Oxygen:</strong> Carried on all climbs above 4,000m, guides trained in administration</li>
+                    </ul>
+                    
+                    <h3>Emergency Response & Evacuation</h3>
+                    <ul>
+                        <li><strong>24/7 Operations Center:</strong> Dedicated team monitoring all expeditions</li>
+                        <li><strong>Helicopter Evacuation Protocol:</strong> Pre-arranged agreements with emergency services</li>
+                        <li><strong>Medical Kits:</strong> Comprehensive wilderness first aid supplies including medications for altitude illness</li>
+                        <li><strong>Contingency Planning:</strong> Alternate routes and descent plans for changing conditions</li>
+                        <li><strong>Local Hospital Partnerships:</strong> Relationships with facilities in Moshi and Arusha for rapid transfer</li>
+                    </ul>
+                    
+                    <h3>Safari Safety Standards</h3>
+                    <ul>
+                        <li><strong>Vehicle Safety:</strong> Regularly maintained 4x4 vehicles with safety equipment</li>
+                        <li><strong>Wildlife Protocols:</strong> Strict adherence to park regulations and safe viewing distances</li>
+                        <li><strong>Guide Training:</strong> Specialized training in animal behavior and emergency response</li>
+                        <li><strong>Communication:</strong> Radio contact between vehicles and with park authorities</li>
+                        <li><strong>Health Precautions:</strong> Water purification, food safety standards, and malaria prevention guidance</li>
+                    </ul>
+                '),
             ],
             [
                 'slug' => 'safari-guide-local-custom',

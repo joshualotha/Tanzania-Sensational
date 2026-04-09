@@ -13,8 +13,9 @@ class DestinationsSeeder extends Seeder
         $destinations = json_decode($json, true);
 
         foreach ($destinations as $dest) {
-            Destination::create([
-                'slug' => $dest['id'],
+            Destination::updateOrCreate(
+                ['slug' => $dest['id']],
+                [
                 'name' => $dest['name'],
                 'meta_subtitle' => $dest['subtitle'] ?? null,
                 'meta_tag' => $dest['tag'] ?? null,
