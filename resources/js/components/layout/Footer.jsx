@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Linkedin, Instagram, Facebook, Youtube } from 'lucide-react';
 import { visualsData } from '../../data/visualsData';
 import { useVisuals } from '../../context/VisualsContext';
 
@@ -36,20 +37,18 @@ export const Footer = () => {
         <div>
           <div className="footer-heading">Plan Your Trip</div>
           <ul className="footer-links">
-            <li><Link to="/meru">Mt. Meru</Link></li>
+            <li><Link to="/safaris">Safaris</Link></li>
+            <li><Link to="/zanzibar">Zanzibar</Link></li>
+            <li><Link to="/trekking/after/training">Training Guide</Link></li>
+            <li><Link to="/trekking/after/gear-list">Packing List</Link></li>
             <li><Link to="/group-departures">Group Departures</Link></li>
-            <li><Link to="/gear-checklist">Gear Checklist</Link></li>
-            <li><Link to="/training-guide">Training Guide</Link></li>
             <li><Link to="/faq">FAQ</Link></li>
-            <li><Link to="/safari-addons">Safari Add-ons</Link></li>
           </ul>
         </div>
         <div>
           <div className="footer-heading">Company</div>
           <ul className="footer-links">
             <li><Link to="/about">About Us</Link></li>
-            <li><Link to="/company/our-guides">Our Guides</Link></li>
-            <li><Link to="/company/safety-protocols">Safety Protocols</Link></li>
             <li><Link to="/blog">Trekker's Blog</Link></li>
             <li><Link to="/contact">Contact</Link></li>
           </ul>
@@ -58,10 +57,18 @@ export const Footer = () => {
       <div className="footer-bottom">
         <span className="footer-copy">© 2026 Tanzania Sensational. All rights reserved. Moshi, Tanzania.</span>
         <div className="footer-socials">
-          <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" className="social-link">in</a>
-          <a href="https://www.instagram.com" target="_blank" rel="noreferrer" className="social-link">ig</a>
-          <a href="https://www.facebook.com" target="_blank" rel="noreferrer" className="social-link">fb</a>
-          <a href="https://www.youtube.com" target="_blank" rel="noreferrer" className="social-link">yt</a>
+          <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" className="social-link">
+            <Linkedin size={18} />
+          </a>
+          <a href="https://www.instagram.com" target="_blank" rel="noreferrer" className="social-link">
+            <Instagram size={18} />
+          </a>
+          <a href="https://www.facebook.com" target="_blank" rel="noreferrer" className="social-link">
+            <Facebook size={18} />
+          </a>
+          <a href="https://www.youtube.com" target="_blank" rel="noreferrer" className="social-link">
+            <Youtube size={18} />
+          </a>
         </div>
       </div>
     </footer>

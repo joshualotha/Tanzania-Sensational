@@ -6,6 +6,24 @@
     min-height: 100vh;
     font-family: 'Outfit', sans-serif;
     overflow-x: hidden;
+    transition: background 0.5s ease, color 0.5s ease;
+}
+
+/* ─── ORGANIC THEME OVERRIDES ─── */
+.faq-organic-root {
+    --paper: #F9F8F4;
+    --soil: #2C2C2B;
+    --clay: #BFA373;
+    --forest: #3D5A3E;
+    --grass: #BFA373;
+    --gold: #BFA373; 
+    
+    background: var(--paper) !important;
+    color: var(--soil) !important;
+}
+
+.faq-organic-root .utility-hero-overlay {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, var(--paper) 100%) !important;
 }
 
 /* ─── SHARED HERO SECTION ─── */
@@ -156,27 +174,183 @@
 }
 
 /* ─── FAQ ACCORDIONS ─── */
+.faq-controls-section {
+    background: rgba(255, 255, 255, 0.02);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 40px 5%;
+}
+
+.faq-controls-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.faq-search-wrapper {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.search-icon {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.5);
+    pointer-events: none;
+}
+
+.faq-search-input {
+    width: 100%;
+    padding: 18px 20px 18px 55px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: white;
+    font-size: 1rem;
+    font-family: 'Outfit', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.faq-search-input:focus {
+    outline: none;
+    border-color: var(--gold);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 3px rgba(201, 165, 90, 0.1);
+}
+
+.clear-search {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.clear-search:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+}
+
+.faq-category-filter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.filter-label {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.category-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.category-btn {
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.category-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.category-btn.active {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--dark);
+    font-weight: 600;
+}
+
 .faq-container {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 60px auto 0;
+}
+
+.faq-category-block {
+    margin-bottom: 60px;
+}
+
+.faq-category-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.category-icon {
+    font-size: 2rem;
 }
 
 .faq-category-title {
     font-family: 'Playfair Display', serif;
-    font-size: 2rem;
+    font-size: 2.2rem;
     color: var(--gold);
-    margin: 60px 0 30px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 15px;
+    margin: 0;
+    border: none;
+    padding: 0;
+}
+
+.faq-count {
+    margin-left: auto;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+.faq-items-wrapper {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    overflow: hidden;
 }
 
 .faq-item {
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 25px 0;
+    padding: 0;
+    transition: background 0.3s ease;
+}
+
+.faq-item:last-child {
+    border-bottom: none;
+}
+
+.faq-item:hover {
+    background: rgba(255, 255, 255, 0.03);
 }
 
 .faq-question {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     font-weight: 500;
     color: white;
     cursor: pointer;
@@ -185,26 +359,152 @@
     align-items: center;
     gap: 20px;
     transition: color 0.3s ease;
+    padding: 25px 30px;
 }
 
 .faq-question:hover {
     color: var(--gold);
 }
 
+.question-text {
+    flex: 1;
+    padding-right: 20px;
+}
+
 .faq-icon {
     flex-shrink: 0;
     transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .faq-icon.open {
     transform: rotate(180deg);
+    color: var(--gold);
+}
+
+.faq-answer-container {
+    overflow: hidden;
 }
 
 .faq-answer {
     color: rgba(255, 255, 255, 0.7);
-    line-height: 1.7;
-    margin-top: 20px;
-    padding-right: 40px;
+    line-height: 1.8;
+    padding: 0 30px 30px;
+    font-size: 1.05rem;
+}
+
+.no-results {
+    text-align: center;
+    padding: 80px 20px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.no-results h3 {
+    font-size: 1.8rem;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.no-results p {
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 25px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.reset-filters-btn {
+    padding: 12px 28px;
+    background: var(--gold);
+    border: none;
+    color: var(--dark);
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.reset-filters-btn:hover {
+    background: #e0b870;
+    transform: translateY(-2px);
+}
+
+.faq-contact-cta {
+    text-align: center;
+    padding: 60px 40px;
+    background: linear-gradient(135deg, rgba(201, 165, 90, 0.1) 0%, rgba(16, 16, 16, 0.2) 100%);
+    border: 1px solid rgba(201, 165, 90, 0.2);
+    border-radius: 20px;
+    margin-top: 80px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-icon {
+    margin-bottom: 25px;
+    color: var(--gold);
+}
+
+.faq-contact-cta h3 {
+    font-size: 2rem;
+    color: white;
+    margin-bottom: 15px;
+    font-family: 'Playfair Display', serif;
+}
+
+.faq-contact-cta p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.1rem;
+    max-width: 500px;
+    margin: 0 auto 30px;
+    line-height: 1.6;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 30px;
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.cta-btn.primary {
+    background: var(--gold);
+    color: var(--dark);
+    border: 2px solid var(--gold);
+}
+
+.cta-btn.primary:hover {
+    background: #e0b870;
+    border-color: #e0b870;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(201, 165, 90, 0.2);
+}
+
+.cta-btn.secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.cta-btn.secondary:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    transform: translateY(-3px);
 }
 
 /* ─── DEPARTURES TABLE ─── */
@@ -285,4 +585,165 @@
 .dep-btn:hover {
     background: var(--gold);
     color: var(--dark);
+}
+/* ─── CINEMATIC BENTO FAQ ─── */
+
+.faq-organic-root.bento-theme {
+    background-color: #050505;
+    color: #F5F5F7;
+}
+
+.faq-organic-root.bento-theme .utility-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 100px 40px;
+}
+
+/* Cinematic Transition */
+.bento-hero-curtain {
+    height: 300px;
+    background: linear-gradient(to bottom, var(--paper) 0%, transparent 100%);
+    position: relative;
+    z-index: 1;
+}
+
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+    grid-auto-rows: minmax(320px, auto);
+}
+
+.bento-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 32px;
+    padding: 50px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+}
+
+.bento-card:hover {
+    transform: translateY(-8px) scale(1.01);
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+}
+
+.bento-card-bg-img {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.15;
+    transition: opacity 0.6s ease;
+}
+
+.bento-card-bg-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.bento-card:hover .bento-card-bg-img {
+    opacity: 0.3;
+}
+
+.bento-card-gradient {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(to top, #050505 20%, transparent 100%);
+}
+
+.bento-card-content {
+    position: relative;
+    z-index: 2;
+    margin-top: auto;
+}
+
+/* Accents */
+.bento-accent-pill {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #FF4A5A;
+    background: rgba(255, 74, 90, 0.1);
+    padding: 6px 14px;
+    border-radius: 99px;
+    margin-bottom: 20px;
+    width: fit-content;
+}
+
+.bento-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    line-height: 1;
+    margin-bottom: 25px;
+    color: #FFF;
+}
+
+.bento-card-title em {
+    font-style: italic;
+    color: #FF4A5A;
+    font-weight: 300;
+}
+
+/* Question List inside Bento */
+.bento-qa-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.bento-qa-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 20px 0;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.bento-qa-item:last-child {
+    border-bottom: none;
+}
+
+.bento-q {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bento-a {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 15px;
+    overflow: hidden;
+}
+
+/* Grid Logic */
+.span-12 { grid-column: span 12; }
+.span-8 { grid-column: span 8; }
+.span-4 { grid-column: span 4; }
+.span-6 { grid-column: span 6; }
+
+@media (max-width: 1024px) {
+    .span-8, .span-4, .span-6 {
+        grid-column: span 12;
+    }
+    
+    .bento-grid {
+        grid-auto-rows: auto;
+    }
 }

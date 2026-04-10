@@ -95,17 +95,6 @@ export const Navbar = () => {
 
   return (
     <>
-      {/* ─── LOGO CREST — Floating brand mark ─── */}
-      <Link 
-        to="/" 
-        className={`logo-crest ${isScrolled ? 'logo-crest--compact' : ''}`}
-      >
-        <img 
-          src={visuals.getSingle('branding.logo', visualsData.branding.logo)} 
-          alt="Tanzania Sensational" 
-        />
-      </Link>
-
       <nav id="navbar" className={`${isScrolled ? 'scrolled' : ''} ${isMobileOpen ? 'mobile-open' : ''}`}>
         <div className="nav-island-inner">
           {/* Logo integrated into the island */}
@@ -365,16 +354,17 @@ export const Navbar = () => {
           <Link to="/contact" className="nav-cta">
             Plan Your Journey
           </Link>
+
+          {/* Mobile Toggle inside the island */}
+          <button
+            className={`mobile-hamburger ${isMobileOpen ? 'open' : ''} ${isScrolled ? 'scrolled' : ''}`}
+            onClick={() => setIsMobileOpen(!isMobileOpen)}
+          >
+            <span></span><span></span><span></span>
+          </button>
         </div>
       </nav>
 
-      {/* Mobile Toggle & Menu - Preserved Logic but potentially needs CSS updates */}
-      <button
-        className={`mobile-hamburger ${isMobileOpen ? 'open' : ''} ${isScrolled ? 'scrolled' : ''}`}
-        onClick={() => setIsMobileOpen(!isMobileOpen)}
-      >
-        <span></span><span></span><span></span>
-      </button>
 
       {isMobileOpen && <div className="mobile-overlay" onClick={() => setIsMobileOpen(false)}></div>}
     </>

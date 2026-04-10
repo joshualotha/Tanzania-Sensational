@@ -234,5 +234,17 @@ class PagesSeeder extends Seeder
 <ul>{$li}</ul>
 HTML;
     }
+
+    private function enhancedHtml(string $title, string $content): string
+    {
+        $escapedTitle = e($title);
+        // Trim any extra whitespace from the content
+        $trimmedContent = trim($content);
+        
+        return <<<HTML
+<h1>{$escapedTitle}</h1>
+{$trimmedContent}
+HTML;
+    }
 }
 

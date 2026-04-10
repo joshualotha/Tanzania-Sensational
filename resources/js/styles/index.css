@@ -146,37 +146,9 @@ body::before {
 }
 
 /* ─── LOGO CREST — Overflows the navbar like a premium lodge emblem ─── */
+/* Logo Crest hidden — using integrated nav-logo */
 .logo-crest {
-  position: fixed;
-  top: 38px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1002;
-  display: none; /* Hidden on Desktop — use the nav-logo inside island */
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  pointer-events: auto;
-}
-
-@media (max-width: 900px) {
-  .logo-crest {
-    display: flex !important; /* Show on mobile where nav-logo is hidden */
-  }
-}
-
-.logo-crest img {
-  height: 100px;
-  width: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.5));
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.logo-crest:hover img {
-  transform: scale(1.06);
-  filter: drop-shadow(0 6px 24px rgba(201, 168, 76, 0.35));
+  display: none !important;
 }
 
 /* Scrolled state — logo shrinks but stays below topbar */
@@ -2586,7 +2558,7 @@ footer {
   display: block;
   width: 24px;
   height: 2px;
-  background: var(--white);
+  background: var(--dark); /* Changed from white to dark for visibility on light island */
   transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   transform-origin: center;
 }
@@ -2685,17 +2657,18 @@ footer {
     display: none !important;
   }
 
-  /* Show hamburger — far right, aligned with logo */
+  /* Show hamburger — part of the island */
   .mobile-hamburger {
     display: flex !important;
-    position: fixed !important;
-    top: 15px !important;
-    right: 15px !important;
-    background: transparent !important;
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
     z-index: 1011 !important;
-    height: 36px !important;
+    height: 32px !important;
+    width: 32px !important;
     padding: 0 !important;
-    width: 36px !important;
+    background: transparent !important;
+    margin-left: auto;
   }
 
   /* Show mobile overlay */
@@ -2703,143 +2676,104 @@ footer {
     display: block !important;
   }
 
-  /* Reposition logo — aligned horizontally with hamburger */
-  .logo-crest {
-    position: fixed !important;
-    top: 15px !important;
-    left: 15px !important;
-    transform: none !important;
-    z-index: 1010 !important;
-  }
-
-  .logo-crest img {
-    height: 36px !important; /* Slightly smaller for tighter mobile screens */
-    width: auto !important;
-  }
-
-  .logo-crest--compact {
-    top: 12px !important;
-  }
-
-  .logo-crest--compact img {
-    height: 32px !important;
-  }
-
-  /* Nav becomes a slide-out drawer */
+  /* Island Navbar on Mobile - Explicitly override min-width and width to force floating */
   #navbar {
     position: fixed !important;
-    top: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    left: auto !important;
-    width: 320px !important;
-    max-width: 85vw !important;
-    z-index: 1005 !important;
+    top: 24px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 85% !important; /* Take up 85% of width */
+    min-width: 0 !important; /* CRITICAL: Override desktop min-width: 100% */
+    max-width: 360px !important; /* Keep it compact and pill-like */
+    z-index: 1010 !important;
     padding: 0 !important;
     display: block !important;
-    background: var(--neutral) !important;
-    border-left: 1px solid rgba(31, 41, 38, 0.1);
-    box-shadow: -20px 0 60px rgba(0, 0, 0, 0.15);
-    transform: translateX(100%) !important;
-    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
-    overflow-y: auto !important;
-    border-radius: 0 !important;
-  }
-
-  #navbar.mobile-open {
-    transform: translateX(0) !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 999px !important;
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    overflow: visible !important;
   }
 
   .nav-island-inner {
-    background: transparent !important;
-    backdrop-filter: none !important;
-    border: none !important;
-    box-shadow: none !important;
-    padding: 100px 30px 40px !important;
+    background: rgba(247, 244, 239, 0.72) !important;
+    backdrop-filter: blur(24px) saturate(200%) !important;
+    border: 1px solid rgba(140, 109, 82, 0.18) !important;
+    box-shadow: 0 12px 50px rgba(31, 41, 38, 0.15) !important;
+    padding: 12px 24px !important; /* Slightly tighter internal padding for smaller pill */
     display: flex !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    border-radius: 0 !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    border-radius: 999px !important;
     width: 100% !important;
+    min-height: 64px !important;
   }
 
   .nav-logo {
-    display: none !important;
+    display: block !important;
+    height: 36px !important;
+    margin-right: 0 !important;
   }
 
-  /* Stack all links vertically and ensure they are visible */
-  .nav-links--left,
-  .nav-links--right {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    justify-content: flex-start !important;
-    display: flex !important;
-    flex-direction: column !important;
-    height: auto !important;
-    opacity: 1 !important;
-    visibility: visible !important;
+  .nav-cta {
+    display: none !important; /* Hide secondary CTA to keep island clean on mobile */
   }
 
+  /* Nav Links as a premium floating dropdown */
   .nav-links {
+    position: absolute !important;
+    top: calc(100% + 12px) !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: var(--neutral) !important;
+    border: 1px solid rgba(140, 109, 82, 0.15) !important;
+    border-radius: 28px !important;
+    padding: 24px !important;
+    box-shadow: 0 30px 60px rgba(31, 41, 38, 0.18) !important;
     display: flex !important;
     flex-direction: column !important;
     gap: 0 !important;
-    width: 100% !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: translateY(-20px) scale(0.95) !important;
+    transform-origin: top center !important;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    max-height: 70vh !important;
+    overflow-y: auto !important;
+  }
+
+  #navbar.mobile-open .nav-links {
     opacity: 1 !important;
     visibility: visible !important;
+    transform: translateY(0) scale(1) !important;
   }
 
   .nav-links li {
     width: 100% !important;
-    display: block !important;
-    height: auto !important;
+    border-bottom: 1px solid rgba(140, 109, 82, 0.08) !important;
   }
 
   .nav-links a,
   .nav-links .dropdown-toggle {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    padding: 18px 0 !important;
-    font-size: 0.95rem !important;
+    padding: 16px 0 !important;
+    font-size: 0.85rem !important;
+    letter-spacing: 0.1em !important;
     color: var(--dark) !important;
-    border-bottom: 1px solid rgba(26, 26, 23, 0.1) !important;
-    text-decoration: none !important;
-    white-space: normal !important;
-    gap: 10px !important;
-    height: auto !important;
-  }
-
-  .nav-links a:hover,
-  .nav-links .dropdown-toggle:hover {
-    color: var(--primary) !important;
-    padding-left: 10px !important;
-    transition: all 0.3s;
-  }
-
-  /* Hide logo spacer on mobile */
-  .nav-logo-spacer {
-    display: none !important;
-  }
-
-  /* Dropdowns become accordion style */
-  .mega-menu {
-    display: none !important;
+    justify-content: space-between !important;
   }
 
   .dropdown-menu.mobile-only {
     display: block !important;
     position: static !important;
+    background: rgba(140, 109, 82, 0.03) !important;
+    padding: 0 0 0 15px !important;
+    border: none !important;
+    box-shadow: none !important;
     opacity: 1 !important;
     visibility: visible !important;
     transform: none !important;
-    box-shadow: none !important;
-    background: rgba(140, 109, 82, 0.05) !important;
-    padding: 0 0 0 20px !important;
-    border: none !important;
-    min-width: 100% !important;
-    backdrop-filter: none !important;
-    overflow: hidden !important;
   }
 
   .nav-links li.dropdown.mobile-active > .dropdown-menu {
@@ -2849,46 +2783,35 @@ footer {
   /* 2nd Level: Tips > Preparation etc */
   .dropdown-menu .has-submenu .submenu {
     position: static !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: none !important;
-    box-shadow: none !important;
-    background: transparent !important;
-    padding: 0 0 0 20px !important;
-    border: none !important;
     display: none !important;
-    overflow: hidden !important;
+    padding: 0 0 0 15px !important;
+    background: transparent !important;
   }
 
   .dropdown-menu .has-submenu.mobile-active > .submenu {
     display: block !important;
   }
 
-  /* 3rd Level Indent on Mobile (Preparation > Route) */
-  .dropdown-menu .submenu .has-submenu .submenu {
-    padding-left: 20px !important;
-  }
-
   .dropdown-menu .dropdown-toggle::after {
     content: '+' !important;
-    font-size: 1.2rem !important;
-    transition: transform 0.3s !important;
+    font-size: 1rem !important;
+    opacity: 0.4;
     margin-left: auto;
-    opacity: 0.5;
   }
 
   .dropdown-menu .has-submenu.mobile-active > .dropdown-toggle::after {
-    content: '\2212' !important; /* Minus sign */
-    transform: none !important;
+    content: '\2212' !important;
     opacity: 1;
     color: var(--primary);
   }
 
-  /* Right links group — now seamless with left group */
-  .nav-links--right {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-    border-top: none !important;
+  /* Hide logo spacer on mobile */
+  .nav-logo-spacer {
+    display: none !important;
+  }
+
+  .mega-menu {
+    display: none !important;
   }
 }
 /* ═══════════════════════════════════════════
@@ -3027,12 +2950,4 @@ footer {
     border-bottom: 1px solid rgba(31, 41, 38, 0.08) !important;
   }
 
-  /* Logo adjustment */
-  .logo-crest img {
-    height: 40px !important;
-  }
-  
-  .logo-crest--compact img {
-    height: 32px !important;
-  }
 }
