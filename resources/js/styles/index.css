@@ -874,6 +874,11 @@ body::before {
 
 /* ── Mobile Responsive ── */
 @media (max-width: 768px) {
+  .hero-v2 {
+    height: 85vh !important;
+    min-height: 600px !important;
+  }
+
   .hero-v2-altitude {
     display: none;
   }
@@ -892,8 +897,13 @@ body::before {
 }
 
 @media (max-width: 480px) {
+  .hero-v2 {
+    height: 82vh !important;
+    min-height: 560px !important;
+  }
+
   .hero-v2-content {
-    padding: 0 20px 80px;
+    padding: 0 20px 40px !important; /* Reduced bottom padding */
     text-align: center;
   }
 
@@ -2652,9 +2662,36 @@ footer {
 
 @media (max-width: 900px) {
 
-  /* Hide topbar on mobile */
+  /* Show topbar on mobile */
   .topbar {
+    display: flex !important;
+    height: 36px !important;
+    padding: 0 16px !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+
+  /* Hide contact info on mobile as requested — Translation and Book Now only */
+  .contact-info, 
+  .topbar-divider {
     display: none !important;
+  }
+
+  .topbar-left {
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  /* Ensure GTranslate flags look premium on mobile TopBar */
+  .gtranslate_wrapper {
+    display: block !important;
+    transform: scale(0.85);
+    transform-origin: left center;
+  }
+
+  .topbar-cta {
+    padding: 4px 16px !important;
+    font-size: 0.62rem !important;
   }
 
   /* Show hamburger — part of the island */
@@ -2679,7 +2716,7 @@ footer {
   /* Island Navbar on Mobile - Explicitly override min-width and width to force floating */
   #navbar {
     position: fixed !important;
-    top: 24px !important;
+    top: 52px !important; /* Adjusted to sit below the visible TopBar (32px + 20px gap) */
     left: 50% !important;
     transform: translateX(-50%) !important;
     width: 85% !important; /* Take up 85% of width */
@@ -2825,6 +2862,8 @@ footer {
 
   /* Hero Section Refinement */
   .hero {
+    height: 82vh !important;
+    min-height: 520px !important;
     align-items: center !important;
     justify-content: center !important;
     text-align: center !important;

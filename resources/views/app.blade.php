@@ -31,6 +31,10 @@
     @if(isset($initialVisuals))
         <script>window.__INITIAL_VISUALS__ = {!! json_encode($initialVisuals, JSON_UNESCAPED_SLASHES) !!};</script>
     @endif
+
+    <!-- GTranslate Integration -->
+    <script>window.gtranslateSettings = {"default_language":"en","languages":["en","fr","it","es","de","zh-CN"],"wrapper_selector":".gtranslate_wrapper"}</script>
+    <script src="https://cdn.gtranslate.net/widgets/latest/flags.js" defer></script>
 </head>
 <body>
     <div id="root"></div>
