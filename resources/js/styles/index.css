@@ -145,6 +145,48 @@ body::before {
   background: var(--gold-light);
 }
 
+/* GTranslate Widget Styles */
+.gtranslate_wrapper {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 12px;
+}
+
+.gtranslate_wrapper select {
+  background: transparent;
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.68rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: 'Outfit', sans-serif;
+  cursor: pointer;
+}
+
+.gtranslate_wrapper select:hover {
+  border-color: var(--gold);
+}
+
+.gtranslate_wrapper select option {
+  background: #0D0D0B;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Make GTranslate flags smaller */
+.gtranslate_wrapper img,
+.gtranslate_wrapper .gt_flag {
+  width: 16px !important;
+  height: 12px !important;
+  vertical-align: middle !important;
+  margin-right: 4px !important;
+}
+
+.gtranslate_wrapper .gt_float_switcher img,
+.gtranslate_wrapper .gt_float_switcher .gt_flag {
+  width: 20px !important;
+  height: 15px !important;
+}
+
 /* ─── LOGO CREST — Overflows the navbar like a premium lodge emblem ─── */
 /* Logo Crest hidden — using integrated nav-logo */
 .logo-crest {
@@ -2665,33 +2707,55 @@ footer {
   /* Show topbar on mobile */
   .topbar {
     display: flex !important;
-    height: 36px !important;
-    padding: 0 16px !important;
-    justify-content: space-between !important;
-    align-items: center !important;
+    height: 32px !important;
+    padding: 0 20px !important;
+    justify-content: center !important; /* Center on mobile if needed, or keep between */
   }
 
-  /* Hide contact info on mobile as requested — Translation and Book Now only */
-  .contact-info, 
   .topbar-divider {
     display: none !important;
   }
 
-  .topbar-left {
-    display: flex !important;
-    align-items: center !important;
-  }
-
-  /* Ensure GTranslate flags look premium on mobile TopBar */
-  .gtranslate_wrapper {
-    display: block !important;
-    transform: scale(0.85);
-    transform-origin: left center;
-  }
-
-  .topbar-cta {
-    padding: 4px 16px !important;
+  .topbar-item {
     font-size: 0.62rem !important;
+    letter-spacing: 0.04em !important;
+  }
+
+  /* Hide email and phone on narrow mobile, show only translation and Book Now */
+  @media (max-width: 480px) {
+    .topbar-item[href^="mailto"],
+    .phone-item {
+      display: none !important;
+    }
+    /* Topbar Layout on Mobile */
+    .topbar {
+      justify-content: space-between !important;
+      padding: 0 15px !important;
+    }
+
+    .topbar-left {
+      display: flex !important;
+      align-items: center !important;
+      gap: 12px !important;
+    }
+
+    .gtranslate_wrapper {
+      margin-right: 0 !important;
+    }
+
+    .gtranslate_wrapper select {
+      font-size: 0.62rem !important;
+      padding: 2px 6px !important;
+      border-color: rgba(201, 168, 76, 0.45) !important;
+    }
+
+    /* Hide contact info on narrow mobile, show only translator and Book Now */
+    @media (max-width: 480px) {
+      .topbar-item[href^="mailto"],
+      .phone-item {
+        display: none !important;
+      }
+    }
   }
 
   /* Show hamburger — part of the island */
