@@ -64,6 +64,17 @@ export const RoutesSection = () => {
       .finally(() => setLoading(false));
   }, []);
 
+  const getBaseRouteUrl = (slug) => {
+    if (!slug) return '/#routes';
+    if (slug.includes('lemosho')) return '/trekking/kilimanjaro/lemosho';
+    if (slug.includes('machame')) return '/trekking/kilimanjaro/machame';
+    if (slug.includes('marangu')) return '/trekking/kilimanjaro/marangu';
+    if (slug.includes('rongai')) return '/trekking/kilimanjaro/rongai';
+    if (slug.includes('northern')) return '/trekking/kilimanjaro/northern-circuit';
+    if (slug.includes('umbwe')) return '/trekking/kilimanjaro/umbwe';
+    return `/trekking/kilimanjaro/${slug}`;
+  };
+
   const featuredRoute = routes[0];
   const trailRoutes = routes.slice(1, 4);
 
@@ -99,7 +110,7 @@ export const RoutesSection = () => {
             {/* ── Featured Hero Card ── */}
             {featuredRoute && (
               <motion.div className="route-hero-card-v3" variants={itemVariants}>
-                <Link to={`/trekking/kilimanjaro/${featuredRoute.slug}`} className="route-hero-inner-v3">
+                <Link to={getBaseRouteUrl(featuredRoute.slug)} className="route-hero-inner-v3">
                   <div 
                     className="route-hero-img-v3" 
                     style={{
@@ -130,7 +141,7 @@ export const RoutesSection = () => {
             <div className="routes-trail-grid-v3">
               {trailRoutes.map((route, i) => (
                 <motion.div key={route.id} className="route-card-v3" variants={itemVariants}>
-                  <Link to={`/trekking/kilimanjaro/${route.slug}`} className="route-card-inner-v3">
+                  <Link to={getBaseRouteUrl(route.slug)} className="route-card-inner-v3">
                     <div 
                       className="route-card-img-v3" 
                       style={{

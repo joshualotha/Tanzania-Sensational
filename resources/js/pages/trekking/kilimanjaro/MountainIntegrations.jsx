@@ -105,17 +105,68 @@ export const LiveWeatherWidget = ({ zone = "Rainforest", compact = false }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Simulating a real API fetch for Kilimanjaro
-        const timer = setTimeout(() => {
-            setWeather({
-                "Rainforest": { temp: "22°C", condition: "Tropical Rain", humidity: "92%", wind: "12 km/h", icon: "🌧️" },
-                "Moorland": { temp: "12°C", condition: "Foggy / Mist", humidity: "75%", wind: "18 km/h", icon: "🌫️" },
-                "Alpine Desert": { temp: "3°C", condition: "High UV / Clear", humidity: "20%", wind: "24 km/h", icon: "☀️" },
-                "Arctic": { temp: "-17°C", condition: "Snow / Strong Winds", humidity: "10%", wind: "52 km/h", icon: "❄️" }
-            }[zone] || { temp: "20°C", condition: "Partly Cloudy", humidity: "60%", wind: "10 km/h", icon: "⛅" });
-            setLoading(false);
-        }, 800);
-        return () => clearTimeout(timer);
+        let mounted = true;
+
+        const getWeatherDetails = (code) => {
+            if (code === 0) return { condition: "Clear Sky", icon: "☀️" };
+            if (code === 1) return { condition: "Mainly Clear", icon: "🌤️" };
+            if (code === 2) return { condition: "Partly Cloudy", icon: "⛅" };
+            if (code === 3) return { condition: "Overcast", icon: "☁️" };
+            if ([45, 48].includes(code)) return { condition: "Fog", icon: "🌫️" };
+            if ([51, 53, 55, 56, 57].includes(code)) return { condition: "Drizzle", icon: "🌦️" };
+            if ([61, 63, 65, 66, 67].includes(code)) return { condition: "Rain", icon: "🌧️" };
+            if ([71, 73, 75, 77].includes(code)) return { condition: "Snow", icon: "❄️" };
+            if ([80, 81, 82].includes(code)) return { condition: "Showers", icon: "🌧️" };
+            if ([85, 86].includes(code)) return { condition: "Snow Showers", icon: "❄️" };
+            if ([95, 96, 99].includes(code)) return { condition: "Thunderstorm", icon: "⛈️" };
+            return { condition: "Variable", icon: "🌡️" };
+        };
+
+        const fetchWeather = async () => {
+            // Coordinate mapping for Kilimanjaro ecological zones
+            const zoneCoords = {
+                "Rainforest": { lat: -3.18, lon: 37.26 },
+                "Moorland": { lat: -3.04, lon: 37.21 },
+                "Alpine Desert": { lat: -3.08, lon: 37.36 },
+                "Arctic": { lat: -3.0674, lon: 37.3556 }
+            };
+            const coords = zoneCoords[zone] || zoneCoords["Rainforest"];
+
+            try {
+                // Open-Meteo is a free, open-source weather API that requires no key
+                const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code`);
+                const data = await response.json();
+                
+                if (!mounted) return;
+
+                const current = data.current;
+                const codeContext = getWeatherDetails(current.weather_code);
+
+                setWeather({
+                    temp: `${Math.round(current.temperature_2m)}°C`,
+                    condition: codeContext.condition,
+                    humidity: `${current.relative_humidity_2m}%`,
+                    wind: `${current.wind_speed_10m} km/h`,
+                    icon: codeContext.icon
+                });
+            } catch (error) {
+                if (!mounted) return;
+                console.error("Open-Meteo fetch failed, falling back to simulated data", error);
+                
+                // Fallback to simulated data if API fails or blocks
+                setWeather({
+                    "Rainforest": { temp: "API ERR", condition: "Fallback Rain", humidity: "92%", wind: "12 km/h", icon: "🌧️" },
+                    "Moorland": { temp: "API ERR", condition: "Fallback Mist", humidity: "75%", wind: "18 km/h", icon: "🌫️" },
+                    "Alpine Desert": { temp: "API ERR", condition: "Fallback Clear", humidity: "20%", wind: "24 km/h", icon: "☀️" },
+                    "Arctic": { temp: "API ERR", condition: "Fallback Snow", humidity: "10%", wind: "52 km/h", icon: "❄️" }
+                }[zone] || { temp: "API ERR", condition: "Fallback Cloudy", humidity: "60%", wind: "10 km/h", icon: "⛅" });
+            } finally {
+                if (mounted) setLoading(false);
+            }
+        };
+
+        fetchWeather();
+        return () => { mounted = false; };
     }, [zone]);
 
     if (loading) return (
