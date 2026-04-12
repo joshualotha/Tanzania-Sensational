@@ -30,8 +30,8 @@ body {
 /* ─── HERO ─── */
 .lux-hero {
     position: relative;
-    height: 60vh;
-    min-height: 400px;
+    height: calc(60vh + 2cm);
+    min-height: 475px;
     width: 100%;
     overflow: hidden;
     display: flex;
@@ -41,8 +41,8 @@ body {
 
 @media (max-width: 480px) {
     .lux-hero {
-        height: 50vh;
-        min-height: 350px;
+        height: calc(50vh + 2cm);
+        min-height: 425px;
         padding: 0 20px 30px;
     }
 }

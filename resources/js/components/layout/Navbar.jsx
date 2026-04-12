@@ -5,7 +5,6 @@ import { useVisuals } from '../../context/VisualsContext';
 import { trekkingService, destinationService } from '../../services/api';
 
 export const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [activeDropdowns, setActiveDropdowns] = useState([]);
   const [meruPackages, setMeruPackages] = useState([]);
@@ -22,14 +21,7 @@ export const Navbar = () => {
     window.scrollTo({ top, behavior: 'smooth' });
   };
 
-  // Scroll logic
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 60);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+
 
   // Fetch Mt Meru packages and Safari destinations for dropdown
   useEffect(() => {
@@ -95,7 +87,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <nav id="navbar" className={`${isScrolled ? 'scrolled' : ''} ${isMobileOpen ? 'mobile-open' : ''}`}>
+      <nav id="navbar" className={isMobileOpen ? 'mobile-open' : ''}>
         <div className="nav-island-inner">
           {/* Logo integrated into the island */}
           <Link to="/" className="nav-logo">
@@ -357,7 +349,7 @@ export const Navbar = () => {
 
           {/* Mobile Toggle inside the island */}
           <button
-            className={`mobile-hamburger ${isMobileOpen ? 'open' : ''} ${isScrolled ? 'scrolled' : ''}`}
+            className={`mobile-hamburger ${isMobileOpen ? 'open' : ''}`}
             onClick={() => setIsMobileOpen(!isMobileOpen)}
           >
             <span></span><span></span><span></span>
