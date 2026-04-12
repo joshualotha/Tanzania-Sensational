@@ -49,7 +49,7 @@ const Rongai = () => {
             {/* ─── HERO ─── */}
             <section className="lux-hero">
                 <img
-                    src={visuals.getSingle('trekking.routes.rongai', visualsData.trekking.routes.rongai)}
+                    src={route?.hero_image || visuals.getSingle('trekking.routes.rongai', visualsData.trekking.routes.rongai)}
                     alt="Rongai Route Landscape"
                 />
                 <div className="lux-hero-overlay"></div>
@@ -115,20 +115,12 @@ const Rongai = () => {
                         className="lux-image-wrapper"
                     >
                         <img
-                            src={visualsData.trekking.routes.rongaiEditorial}
+                            src={route?.editorial_image || visuals.getSingle('trekking.routes.rongaiEditorial', visualsData.trekking.routes.rongaiEditorial)}
                             alt="Northern Side View"
                         />
                         <div className="lux-image-caption">The quiet, sweeping views of the northern approach.</div>
                     </motion.div>
                 </div>
-            </section>
-
-            {/* ─── FULL BLEED PARALLAX ─── */}
-            <section className="lux-full-bleed">
-                <img
-                    src={visualsData.trekking.routes.lemosho}
-                    alt="Mawenzi Tarn"
-                />
             </section>
 
             {/* ─── EXPEDITION PACKAGES ─── */}

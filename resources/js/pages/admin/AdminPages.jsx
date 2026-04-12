@@ -147,13 +147,13 @@ export const AdminPages = () => {
                     </div>
 
                     {!activePage ? (
-                        <div style={{ color: 'var(--text-dim)' }}>
+                        <div style={{ color: 'var(--text-dim-light)' }}>
                             Missing page record for <strong>{activeSlug}</strong>. Create it above.
                         </div>
                     ) : (
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 14 }}>
                             <label style={{ display: 'grid', gap: 6 }}>
-                                <span style={{ fontSize: 12, color: 'var(--text-dim)', letterSpacing: 1, textTransform: 'uppercase' }}>Title</span>
+                                <span style={{ fontSize: 12, color: 'var(--text-dim-light)', letterSpacing: 1, textTransform: 'uppercase' }}>Title</span>
                                 <input
                                     value={form.title}
                                     onChange={(e) => setForm((s) => ({ ...s, title: e.target.value }))}
@@ -162,7 +162,7 @@ export const AdminPages = () => {
                             </label>
 
                             <label style={{ display: 'grid', gap: 6 }}>
-                                <span style={{ fontSize: 12, color: 'var(--text-dim)', letterSpacing: 1, textTransform: 'uppercase' }}>Content (HTML)</span>
+                                <span style={{ fontSize: 12, color: 'var(--text-dim-light)', letterSpacing: 1, textTransform: 'uppercase' }}>Content (HTML)</span>
                                 <textarea
                                     value={form.content}
                                     onChange={(e) => setForm((s) => ({ ...s, content: e.target.value }))}
@@ -173,7 +173,7 @@ export const AdminPages = () => {
 
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
                                 <label style={{ display: 'grid', gap: 6 }}>
-                                    <span style={{ fontSize: 12, color: 'var(--text-dim)', letterSpacing: 1, textTransform: 'uppercase' }}>Meta title</span>
+                                    <span style={{ fontSize: 12, color: 'var(--text-dim-light)', letterSpacing: 1, textTransform: 'uppercase' }}>Meta title</span>
                                     <input
                                         value={form.meta_title}
                                         onChange={(e) => setForm((s) => ({ ...s, meta_title: e.target.value }))}
@@ -181,7 +181,7 @@ export const AdminPages = () => {
                                     />
                                 </label>
                                 <label style={{ display: 'grid', gap: 6 }}>
-                                    <span style={{ fontSize: 12, color: 'var(--text-dim)', letterSpacing: 1, textTransform: 'uppercase' }}>OG image URL</span>
+                                    <span style={{ fontSize: 12, color: 'var(--text-dim-light)', letterSpacing: 1, textTransform: 'uppercase' }}>OG image URL</span>
                                     <input
                                         value={form.og_image}
                                         onChange={(e) => setForm((s) => ({ ...s, og_image: e.target.value }))}
@@ -206,7 +206,7 @@ export const AdminPages = () => {
                             </div>
 
                             <label style={{ display: 'grid', gap: 6 }}>
-                                <span style={{ fontSize: 12, color: 'var(--text-dim)', letterSpacing: 1, textTransform: 'uppercase' }}>Meta description</span>
+                                <span style={{ fontSize: 12, color: 'var(--text-dim-light)', letterSpacing: 1, textTransform: 'uppercase' }}>Meta description</span>
                                 <textarea
                                     value={form.meta_description}
                                     onChange={(e) => setForm((s) => ({ ...s, meta_description: e.target.value }))}

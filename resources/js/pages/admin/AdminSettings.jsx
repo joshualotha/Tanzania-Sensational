@@ -110,7 +110,7 @@ export const AdminSettings = () => {
 
             <div className="admin-panel shadow-premium" style={{ padding: '40px' }}>
                 {loading ? (
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 12, color: 'var(--text-dim)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12, color: 'var(--text-dim-light)' }}>
                         <Loader2 className="animate-spin" size={18} /> Loading settings…
                     </div>
                 ) : (
@@ -172,7 +172,7 @@ const Section = ({ title, children }) => (
 
 const Field = ({ label, value, onChange }) => (
     <label style={{ display: 'grid', gap: 6 }}>
-        <span style={{ fontSize: '0.7rem', color: 'var(--text-dim)' }}>{label}</span>
+        <span style={{ fontSize: '0.7rem', color: 'var(--text-dim-light)' }}>{label}</span>
         <input
             value={value || ''}
             onChange={(e) => onChange(e.target.value)}

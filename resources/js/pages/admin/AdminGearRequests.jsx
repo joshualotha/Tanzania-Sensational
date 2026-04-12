@@ -79,14 +79,14 @@ export const AdminGearRequests = () => {
                                         }}
                                     >
                                         <td style={{ color: 'white', fontWeight: 600 }}>{r.customer_name}</td>
-                                        <td style={{ color: 'var(--text-dim)' }}>{r.email}</td>
+                                        <td style={{ color: 'var(--text-dim-light)' }}>{r.email}</td>
                                         <td>
                                             <span className={`status-pill status-${(r.status || '').toLowerCase()}`}>{String(r.status || '').toUpperCase()}</span>
                                         </td>
                                     </tr>
                                 ))}
                                 {filtered.length === 0 && (
-                                    <tr><td colSpan={3} style={{ padding: 30, color: 'var(--text-dim)' }}>No requests.</td></tr>
+                                    <tr><td colSpan={3} style={{ padding: 30, color: 'var(--text-dim-light)' }}>No requests.</td></tr>
                                 )}
                             </tbody>
                         </table>
@@ -118,7 +118,7 @@ export const AdminGearRequests = () => {
                             <div>
                                 <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: 'var(--gold)', letterSpacing: '0.2em', textTransform: 'uppercase' }}>Request</div>
                                 <div style={{ color: 'white', fontSize: '1.3rem', marginTop: 6 }}>{selected.customer_name}</div>
-                                <div style={{ color: 'var(--text-dim)', marginTop: 2 }}>{selected.email}</div>
+                                <div style={{ color: 'var(--text-dim-light)', marginTop: 2 }}>{selected.email}</div>
                             </div>
                             <button onClick={() => setShowModal(false)} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.4)', cursor: 'pointer' }}>
                                 <X size={18} />

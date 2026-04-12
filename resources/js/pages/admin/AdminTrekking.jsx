@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-    Plus, Search, Edit3, Trash2, Mountain, Compass, 
-    ChevronRight, X, Shield, Activity, Camera, Save, 
-    Loader2, AlertTriangle, Layers, Info, TrendingUp
+import {
+    Plus, Search, Edit3, Trash2, Mountain, Compass,
+    ChevronRight, X, Shield, Activity, Camera, Save,
+    Loader2, AlertTriangle, Layers, Info, TrendingUp, Upload
 } from 'lucide-react';
 import { adminService, trekkingService } from '../../services/api';
 import '../../styles/admin-premium.css';
@@ -16,6 +16,13 @@ export const AdminTrekking = () => {
     const [isCurating, setIsCurating] = useState(false);
     const [saving, setSaving] = useState(false);
     const [showCurator, setShowCurator] = useState(false);
+    const [uploadingImage, setUploadingImage] = useState(false);
+    const [imagePreview, setImagePreview] = useState(null);
+    const fileInputRef = useRef(null);
+    const [uploadingEditorial1, setUploadingEditorial1] = useState(false);
+    const [uploadingEditorial2, setUploadingEditorial2] = useState(false);
+    const editorialFileInputRef1 = useRef(null);
+    const editorialFileInputRef2 = useRef(null);
 
     useEffect(() => {
         fetchPackages();
@@ -35,13 +42,20 @@ export const AdminTrekking = () => {
 
     const handleOpenCurator = (pkg = null) => {
         if (pkg) {
-            setSelectedPkg({ 
-                ...pkg, 
+            console.log('Opening route for edit:', {
+                id: pkg.id,
+                name: pkg.name,
+                editorial_image: pkg.editorial_image,
+                editorial_image_2: pkg.editorial_image_2
+            });
+            setSelectedPkg({
+                ...pkg,
                 highlights: pkg.highlights || [],
                 inclusions: pkg.inclusions || [],
                 exclusions: pkg.exclusions || [],
                 itinerary: pkg.itinerary_days || pkg.itinerary || []
             });
+            setImagePreview(pkg.hero_image || null);
         } else {
             setSelectedPkg({
                 name: 'New trekking route',
@@ -57,14 +71,109 @@ export const AdminTrekking = () => {
                 exclusions: [],
                 itinerary: []
             });
+            setImagePreview('https://images.unsplash.com/photo-1549449875-9689b1473215?auto=format&fit=crop&q=80');
         }
         setIsCurating(true);
         setShowCurator(true);
     };
 
+    const handleImageUpload = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        // Validate file type
+        if (!file.type.startsWith('image/')) {
+            alert('Please select a valid image file.');
+            return;
+        }
+
+        // Validate file size (5MB max)
+        if (file.size > 5 * 1024 * 1024) {
+            alert('Image size must be less than 5MB.');
+            return;
+        }
+
+        try {
+            setUploadingImage(true);
+            const response = await adminService.upload(file, 'trekking-routes');
+            const imageUrl = response.data.url;
+            
+            setSelectedPkg({ ...selectedPkg, hero_image: imageUrl });
+            setImagePreview(imageUrl);
+        } catch (error) {
+            console.error('Image upload failed:', error);
+            alert('Failed to upload image. Please try again.');
+        } finally {
+            setUploadingImage(false);
+        }
+    };
+
+    const handleEditorialUpload1 = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        if (!file.type.startsWith('image/')) {
+            alert('Please select a valid image file.');
+            return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+            alert('Image size must be less than 5MB.');
+            return;
+        }
+
+        try {
+            setUploadingEditorial1(true);
+            const response = await adminService.upload(file, 'trekking-routes/editorial');
+            const imageUrl = response.data.url;
+            
+            setSelectedPkg({ ...selectedPkg, editorial_image: imageUrl });
+        } catch (error) {
+            console.error('Editorial image upload failed:', error);
+            alert('Failed to upload image. Please try again.');
+        } finally {
+            setUploadingEditorial1(false);
+        }
+    };
+
+    const handleEditorialUpload2 = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        if (!file.type.startsWith('image/')) {
+            alert('Please select a valid image file.');
+            return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+            alert('Image size must be less than 5MB.');
+            return;
+        }
+
+        try {
+            setUploadingEditorial2(true);
+            const response = await adminService.upload(file, 'trekking-routes/editorial');
+            const imageUrl = response.data.url;
+            
+            setSelectedPkg({ ...selectedPkg, editorial_image_2: imageUrl });
+        } catch (error) {
+            console.error('Editorial image upload failed:', error);
+            alert('Failed to upload image. Please try again.');
+        } finally {
+            setUploadingEditorial2(false);
+        }
+    };
+
     const handleSave = async () => {
         setSaving(true);
         try {
+            console.log('Saving trekking route with editorial images:', {
+                id: selectedPkg.id,
+                editorial_image: selectedPkg.editorial_image,
+                editorial_image_2: selectedPkg.editorial_image_2,
+                editorial_content: selectedPkg.editorial_content
+            });
+            
             if (selectedPkg.id && !String(selectedPkg.id).startsWith('ascent-')) {
                 await adminService.updateTrekking(selectedPkg.id, selectedPkg);
             } else {
@@ -75,6 +184,7 @@ export const AdminTrekking = () => {
             setShowCurator(false);
             setSelectedPkg(null);
         } catch (error) {
+            console.error('Save error:', error);
             alert("Unable to save changes. Please try again.");
         } finally {
             setSaving(false);
@@ -114,13 +224,13 @@ export const AdminTrekking = () => {
                     <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--gold)', letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '12px' }}>Trips</h2>
                     <h1 className="admin-page-title" style={{ fontSize: '3.5rem', fontWeight: 300 }}>Trekking routes</h1>
                 </div>
-                
+
                 <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
                     <div className="admin-search-wrapper" style={{ border: '1px solid var(--border)', background: 'rgba(255,255,255,0.02)' }}>
                         <Search size={18} color="var(--gold-dim)" />
-                        <input 
-                            type="text" 
-                            placeholder="Search routes…" 
+                        <input
+                            type="text"
+                            placeholder="Search routes…"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             style={{ background: 'transparent', border: 'none', color: 'white', padding: '12px 10px', fontFamily: 'var(--font-mono)', fontSize: '0.75rem' }}
@@ -175,7 +285,7 @@ export const AdminTrekking = () => {
                                 </div>
                                 <div style={{ padding: '20px 25px', borderTop: '1px solid rgba(255,255,255,0.03)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                     <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-mono)' }}>${pkg.base_price.toLocaleString()}</span>
-                                    <button 
+                                    <button
                                         onClick={(e) => { e.stopPropagation(); handleDelete(pkg.id); }}
                                         style={{ background: 'none', border: 'none', color: '#ff4444', opacity: 0.3, cursor: 'pointer' }}
                                     >
@@ -229,12 +339,235 @@ export const AdminTrekking = () => {
                                     <AdminInput label="Success Probability" value={selectedPkg.success_rate} onChange={v => setSelectedPkg({...selectedPkg, success_rate: v})} />
                                     <AdminInput label="Base Capital ($)" value={selectedPkg.base_price} type="number" onChange={v => setSelectedPkg({...selectedPkg, base_price: v})} />
                                 </div>
-                                <AdminInput label="Prime Visual Asset (URL)" value={selectedPkg.hero_image} onChange={v => setSelectedPkg({...selectedPkg, hero_image: v})} />
+                            </div>
+
+                            <div className="curator-section">
+                                <h5 style={SubHeadStyle}>Prime Visual Asset</h5>
+                                
+                                {/* Image Preview */}
+                                {imagePreview && (
+                                    <div style={{ 
+                                        marginBottom: '15px', 
+                                        border: '1px solid var(--border)', 
+                                        borderRadius: '4px',
+                                        overflow: 'hidden',
+                                        height: '200px',
+                                        position: 'relative'
+                                    }}>
+                                        <img 
+                                            src={imagePreview} 
+                                            alt="Hero preview" 
+                                            style={{ 
+                                                width: '100%', 
+                                                height: '100%', 
+                                                objectFit: 'cover',
+                                                opacity: 0.9 
+                                            }} 
+                                        />
+                                    </div>
+                                )}
+
+                                {/* Upload Button */}
+                                <div style={{ 
+                                    marginBottom: '15px',
+                                    display: 'flex',
+                                    gap: '10px',
+                                    alignItems: 'center'
+                                }}>
+                                    <input
+                                        type="file"
+                                        ref={fileInputRef}
+                                        accept="image/*"
+                                        onChange={handleImageUpload}
+                                        style={{ display: 'none' }}
+                                        disabled={uploadingImage}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => fileInputRef.current?.click()}
+                                        disabled={uploadingImage}
+                                        style={{
+                                            flex: 1,
+                                            padding: '12px',
+                                            background: uploadingImage ? 'rgba(212, 175, 55, 0.1)' : 'rgba(255,255,255,0.02)',
+                                            border: '1px dashed var(--border)',
+                                            color: uploadingImage ? 'var(--gold-dim)' : 'var(--text-dim)',
+                                            fontSize: '0.75rem',
+                                            fontFamily: 'var(--font-mono)',
+                                            cursor: uploadingImage ? 'not-allowed' : 'pointer',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            gap: '8px',
+                                            borderRadius: '4px'
+                                        }}
+                                    >
+                                        {uploadingImage ? (
+                                            <>
+                                                <Loader2 size={14} className="animate-spin" />
+                                                Uploading...
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Upload size={14} />
+                                                Upload Image
+                                            </>
+                                        )}
+                                    </button>
+                                </div>
+
+                                {/* OR Divider */}
+                                <div style={{ 
+                                    marginBottom: '15px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '10px'
+                                }}>
+                                    <div style={{ flex: 1, height: '1px', background: 'var(--border)' }}></div>
+                                    <span style={{ fontSize: '0.6rem', color: 'var(--text-dim)', fontFamily: 'var(--font-mono)' }}>OR USE URL</span>
+                                    <div style={{ flex: 1, height: '1px', background: 'var(--border)' }}></div>
+                                </div>
+
+                                {/* URL Input */}
+                                <AdminInput 
+                                    label="Image URL (alternative)" 
+                                    value={selectedPkg.hero_image} 
+                                    onChange={v => {
+                                        setSelectedPkg({...selectedPkg, hero_image: v});
+                                        setImagePreview(v);
+                                    }} 
+                                />
                             </div>
 
                             <div className="curator-section">
                                 <h5 style={SubHeadStyle}>Summit Narrative</h5>
                                 <AdminTextarea label="Description" value={selectedPkg.description} rows={6} onChange={v => setSelectedPkg({...selectedPkg, description: v})} />
+                            </div>
+
+                            <div className="curator-section">
+                                <h5 style={SubHeadStyle}>Editorial Content Images</h5>
+                                
+                                {/* Editorial Image 1 */}
+                                <div style={{ marginBottom: '20px' }}>
+                                    <label style={LabelStyle}>Editorial Image (Section 1)</label>
+                                    <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
+                                        <input
+                                            type="file"
+                                            ref={editorialFileInputRef1}
+                                            accept="image/*"
+                                            onChange={handleEditorialUpload1}
+                                            style={{ display: 'none' }}
+                                            disabled={uploadingEditorial1}
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={() => editorialFileInputRef1.current?.click()}
+                                            disabled={uploadingEditorial1}
+                                            style={{
+                                                flex: 1,
+                                                padding: '10px',
+                                                background: uploadingEditorial1 ? 'rgba(201, 168, 76, 0.1)' : 'transparent',
+                                                border: '1px dashed var(--border)',
+                                                color: uploadingEditorial1 ? 'var(--gold-dim)' : 'var(--text-dim-light)',
+                                                fontSize: '0.7rem',
+                                                fontFamily: 'var(--font-mono)',
+                                                cursor: uploadingEditorial1 ? 'not-allowed' : 'pointer',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                gap: '8px'
+                                            }}
+                                        >
+                                            {uploadingEditorial1 ? (
+                                                <>
+                                                    <Loader2 size={12} className="animate-spin" />
+                                                    Uploading...
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <Upload size={12} />
+                                                    Upload Editorial Image
+                                                </>
+                                            )}
+                                        </button>
+                                    </div>
+                                    <AdminInput 
+                                        label="Editorial Image URL (alternative)" 
+                                        value={selectedPkg.editorial_image || ''} 
+                                        onChange={v => setSelectedPkg({...selectedPkg, editorial_image: v})} 
+                                    />
+                                    {selectedPkg.editorial_image && (
+                                        <div style={{ height: '120px', background: '#000', border: '1px solid var(--border)', marginTop: '10px', overflow: 'hidden' }}>
+                                            <img src={selectedPkg.editorial_image} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Editorial Image 2 */}
+                                <div style={{ marginBottom: '20px' }}>
+                                    <label style={LabelStyle}>Editorial Image (Section 2)</label>
+                                    <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
+                                        <input
+                                            type="file"
+                                            ref={editorialFileInputRef2}
+                                            accept="image/*"
+                                            onChange={handleEditorialUpload2}
+                                            style={{ display: 'none' }}
+                                            disabled={uploadingEditorial2}
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={() => editorialFileInputRef2.current?.click()}
+                                            disabled={uploadingEditorial2}
+                                            style={{
+                                                flex: 1,
+                                                padding: '10px',
+                                                background: uploadingEditorial2 ? 'rgba(201, 168, 76, 0.1)' : 'transparent',
+                                                border: '1px dashed var(--border)',
+                                                color: uploadingEditorial2 ? 'var(--gold-dim)' : 'var(--text-dim-light)',
+                                                fontSize: '0.7rem',
+                                                fontFamily: 'var(--font-mono)',
+                                                cursor: uploadingEditorial2 ? 'not-allowed' : 'pointer',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                gap: '8px'
+                                            }}
+                                        >
+                                            {uploadingEditorial2 ? (
+                                                <>
+                                                    <Loader2 size={12} className="animate-spin" />
+                                                    Uploading...
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <Upload size={12} />
+                                                    Upload Editorial Image 2
+                                                </>
+                                            )}
+                                        </button>
+                                    </div>
+                                    <AdminInput 
+                                        label="Editorial Image 2 URL (alternative)" 
+                                        value={selectedPkg.editorial_image_2 || ''} 
+                                        onChange={v => setSelectedPkg({...selectedPkg, editorial_image_2: v})} 
+                                    />
+                                    {selectedPkg.editorial_image_2 && (
+                                        <div style={{ height: '120px', background: '#000', border: '1px solid var(--border)', marginTop: '10px', overflow: 'hidden' }}>
+                                            <img src={selectedPkg.editorial_image_2} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Editorial Content Text */}
+                                <div>
+                                    <AdminTextarea 
+                                        label="Editorial Content (Optional)" 
+                                        value={selectedPkg.editorial_content || ''} 
+                                        rows={4} 
+                                        onChange={v => setSelectedPkg({...selectedPkg, editorial_content: v})} 
+                                    />
+                                </div>
                             </div>
 
                             <div className="curator-section">
@@ -342,7 +675,7 @@ export const AdminTrekking = () => {
                                     ))}
                                     <button
                                         onClick={() => setSelectedPkg({...selectedPkg, itinerary: [...(selectedPkg.itinerary || []), { title: '', description: '', elevation_m: '', distance_km: '', hiking_time: '', habitat: '', camp_name: '', meals: '' }]})}
-                                        style={{ width: '100%', padding: '12px', background: 'transparent', border: '1px dashed var(--border)', color: 'var(--text-dim)', fontSize: '0.7rem', cursor: 'pointer' }}
+                                        style={{ width: '100%', padding: '12px', background: 'transparent', border: '1px dashed var(--border)', color: 'var(--text-dim-light)', fontSize: '0.7rem', cursor: 'pointer' }}
                                     >+ APPEND ASCENT PHASE</button>
                                 </div>
                             </div>
@@ -384,7 +717,7 @@ const SectionHeadStyle = {
 const SubHeadStyle = {
     fontFamily: 'var(--font-mono)',
     fontSize: '0.6rem',
-    color: 'var(--text-dim)',
+    color: 'var(--text-dim-light)',
     textTransform: 'uppercase',
     letterSpacing: '0.15em',
     paddingBottom: '10px',
@@ -396,7 +729,7 @@ const LabelStyle = {
     display: 'block',
     fontFamily: 'var(--font-mono)',
     fontSize: '0.6rem',
-    color: 'var(--text-dim)',
+    color: 'var(--text-dim-light)',
     textTransform: 'uppercase',
     marginBottom: '8px'
 };
@@ -404,10 +737,10 @@ const LabelStyle = {
 const AdminInput = ({ label, value, onChange, type = "text" }) => (
     <div style={{ marginBottom: '15px' }}>
         <label style={LabelStyle}>{label}</label>
-        <input 
-            type={type} 
-            value={value || ''} 
-            onChange={e => onChange(e.target.value)} 
+        <input
+            type={type}
+            value={value || ''}
+            onChange={e => onChange(e.target.value)}
             style={{ width: '100%', background: '#000', border: '1px solid var(--border)', padding: '10px 12px', color: 'white', fontSize: '0.85rem' }}
         />
     </div>
@@ -416,10 +749,10 @@ const AdminInput = ({ label, value, onChange, type = "text" }) => (
 const AdminTextarea = ({ label, value, rows, onChange }) => (
     <div style={{ marginBottom: '15px' }}>
         <label style={LabelStyle}>{label}</label>
-        <textarea 
-            rows={rows} 
-            value={value || ''} 
-            onChange={e => onChange(e.target.value)} 
+        <textarea
+            rows={rows}
+            value={value || ''}
+            onChange={e => onChange(e.target.value)}
             style={{ width: '100%', background: '#000', border: '1px solid var(--border)', padding: '12px', color: 'white', fontSize: '0.85rem', resize: 'none', lineHeight: '1.6' }}
         />
     </div>
@@ -449,7 +782,7 @@ const EditableList = ({ label, items, onAdd, onUpdate, onRemove }) => (
                     <button onClick={() => onRemove(i)} style={{ background: 'none', border: 'none', color: '#ff4444', opacity: 0.5, cursor: 'pointer' }}><X size={12} /></button>
                 </div>
             ))}
-            <button onClick={onAdd} style={{ width: '100%', padding: '6px', background: 'transparent', border: '1px dashed var(--border)', color: 'var(--text-dim)', fontSize: '0.65rem' }}>+ ADD</button>
+            <button onClick={onAdd} style={{ width: '100%', padding: '6px', background: 'transparent', border: '1px dashed var(--border)', color: 'var(--text-dim-light)', fontSize: '0.65rem' }}>+ ADD</button>
         </div>
     </div>
 );

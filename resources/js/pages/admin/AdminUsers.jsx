@@ -113,7 +113,7 @@ export const AdminUsers = () => {
                 )}
 
                 {loading ? (
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 12, color: 'var(--text-dim)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12, color: 'var(--text-dim-light)' }}>
                         <Loader2 className="animate-spin" size={18} /> Loading users…
                     </div>
                 ) : (
@@ -131,7 +131,7 @@ export const AdminUsers = () => {
                                 {sorted.map((u) => (
                                     <tr key={u.id}>
                                         <td style={{ fontWeight: 600, color: 'white' }}>{u.name}</td>
-                                        <td style={{ color: 'var(--text-dim)' }}>{u.email}</td>
+                                        <td style={{ color: 'var(--text-dim-light)' }}>{u.email}</td>
                                         <td>
                                             <span className={`status-pill status-${(u.role || 'manager').toLowerCase()}`}>
                                                 {(u.role || 'manager').toUpperCase()}
@@ -151,7 +151,7 @@ export const AdminUsers = () => {
                                 ))}
                                 {sorted.length === 0 && (
                                     <tr>
-                                        <td colSpan={4} style={{ color: 'var(--text-dim)', padding: 30 }}>No users found.</td>
+                                        <td colSpan={4} style={{ color: 'var(--text-dim-light)', padding: 30 }}>No users found.</td>
                                     </tr>
                                 )}
                             </tbody>
@@ -198,7 +198,7 @@ export const AdminUsers = () => {
                             <Field label="Name" value={form.name} onChange={(v) => setForm(s => ({ ...s, name: v }))} />
                             <Field label="Email" value={form.email} onChange={(v) => setForm(s => ({ ...s, email: v }))} />
                             <label style={{ display: 'grid', gap: 6 }}>
-                                <span style={{ fontSize: '0.7rem', color: 'var(--text-dim)' }}>Role</span>
+                                <span style={{ fontSize: '0.7rem', color: 'var(--text-dim-light)' }}>Role</span>
                                 <select
                                     value={form.role}
                                     onChange={(e) => setForm(s => ({ ...s, role: e.target.value }))}
@@ -234,7 +234,7 @@ export const AdminUsers = () => {
 
 const Field = ({ label, value, onChange, type = 'text', placeholder }) => (
     <label style={{ display: 'grid', gap: 6 }}>
-        <span style={{ fontSize: '0.7rem', color: 'var(--text-dim)' }}>{label}</span>
+        <span style={{ fontSize: '0.7rem', color: 'var(--text-dim-light)' }}>{label}</span>
         <input
             value={value || ''}
             type={type}

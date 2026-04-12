@@ -109,7 +109,7 @@ export const AdminInquiries = () => {
                                             <span style={{ fontSize: '0.6rem', color: 'var(--gold)', fontFamily: 'var(--font-mono)', letterSpacing: '0.1em' }}>{new Date(inq.created_at).toLocaleDateString()}</span>
                                             <span style={{ fontSize: '1.2rem', color: 'white', fontWeight: 300 }}>{inq.first_name} {inq.last_name}</span>
                                         </div>
-                                        <p style={{ fontSize: '0.8rem', color: 'var(--text-dim)', maxWidth: '400px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{inq.objective}</p>
+                                        <p style={{ fontSize: '0.8rem', color: 'var(--text-dim-light)', maxWidth: '400px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{inq.objective}</p>
                                     </div>
                                 </div>
                                 <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'flex-end' }}>
@@ -120,7 +120,7 @@ export const AdminInquiries = () => {
                         )) : (
                             <div style={{ padding: '100px', textAlign: 'center', background: 'rgba(255,255,255,0.01)', border: '1px dashed var(--border)' }}>
                                 <Inbox size={64} style={{ marginBottom: '30px', opacity: 0.1 }} />
-                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--text-dim)', letterSpacing: '0.2em' }}>No inquiries found</span>
+                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--text-dim-light)', letterSpacing: '0.2em' }}>No inquiries found</span>
                             </div>
                         )}
                     </AnimatePresence>
@@ -191,7 +191,7 @@ export const AdminInquiries = () => {
                                 style={{ height: '600px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.01)', border: '1px dashed var(--border)' }}
                             >
                                 <Briefcase size={64} color="rgba(255,255,255,0.03)" style={{ marginBottom: '30px' }} />
-                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--text-dim)', letterSpacing: '0.3em', textTransform: 'uppercase' }}>Select an inquiry to view details</span>
+                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--text-dim-light)', letterSpacing: '0.3em', textTransform: 'uppercase' }}>Select an inquiry to view details</span>
                             </motion.div>
                         )}
                     </AnimatePresence>
@@ -218,7 +218,7 @@ const SectionHeadStyle = {
 const SubHeadStyle = {
     fontFamily: 'var(--font-mono)',
     fontSize: '0.6rem',
-    color: 'var(--text-dim)',
+    color: 'var(--text-dim-light)',
     textTransform: 'uppercase',
     letterSpacing: '0.15em',
     paddingBottom: '12px',

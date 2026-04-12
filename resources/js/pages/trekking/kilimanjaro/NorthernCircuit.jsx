@@ -46,7 +46,7 @@ const NorthernCircuit = () => {
             {/* ─── HERO ─── */}
             <section className="lux-hero">
                 <img
-                    src={visuals.getSingle('trekking.routes.northern', visualsData.trekking.routes.northern)}
+                    src={route?.hero_image || visuals.getSingle('trekking.routes.northern', visualsData.trekking.routes.northern)}
                     alt="Northern Circuit Landscape"
                 />
                 <div className="lux-hero-overlay"></div>
@@ -112,20 +112,12 @@ const NorthernCircuit = () => {
                         className="lux-image-wrapper"
                     >
                         <img
-                            src={visualsData.trekking.during.connectivity}
+                            src={route?.editorial_image || visuals.getSingle('trekking.routes.northernEditorial', visualsData.trekking.routes.northernEditorial)}
                             alt="Northern Slopes"
                         />
                         <div className="lux-image-caption">The isolated, breathtaking expanse of the northern slopes.</div>
                     </motion.div>
                 </div>
-            </section>
-
-            {/* ─── FULL BLEED PARALLAX ─── */}
-            <section className="lux-full-bleed">
-                <img
-                    src={visualsData.trekking.during.connectivity}
-                    alt="Starry sky over Kili"
-                />
             </section>
 
             {/* ─── EXPEDITION PACKAGES ─── */}

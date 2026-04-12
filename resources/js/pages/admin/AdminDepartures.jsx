@@ -189,7 +189,7 @@ const DeparturePanel = ({ dep, routes, isExpanded, onToggle, onSave, onDelete, s
                         <div style={{ fontSize: '1.4rem', color: 'white', fontWeight: 300, marginBottom: '6px' }}>
                             {routes.find(r => r.id == formData.trekking_route_id)?.name || 'UNASSIGNED_EXPEDITION'}
                         </div>
-                        <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)', fontFamily: 'var(--font-mono)', display: 'flex', gap: '20px', alignItems: 'center' }}>
+                        <div style={{ fontSize: '0.7rem', color: 'var(--text-dim-light)', fontFamily: 'var(--font-mono)', display: 'flex', gap: '20px', alignItems: 'center' }}>
                             <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Calendar size={12} color="var(--gold-dim)" /> {formData.departure_date}</span>
                             <span style={{ width: '4px', height: '4px', background: 'var(--gold)', borderRadius: '50%' }}></span>
                             <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Users size={12} color="var(--gold-dim)" /> {formData.available_seats - formData.booked_seats} AVAILABLE</span>
@@ -309,7 +309,7 @@ const LabelStyle = {
     alignItems: 'center',
     gap: '10px',
     fontSize: '0.65rem',
-    color: 'var(--text-dim)',
+    color: 'var(--text-dim-light)',
     marginBottom: '10px',
     textTransform: 'uppercase',
     letterSpacing: '0.15em',
@@ -346,7 +346,7 @@ const EditableList = ({ label, items, onUpdate, onAdd, onRemove }) => (
                     <button onClick={() => onRemove(i)} style={{ background: 'none', border: 'none', color: '#ff4444', opacity: 0.3, cursor: 'pointer' }}><X size={16} /></button>
                 </div>
             ))}
-            <button onClick={onAdd} style={{ width: '100%', padding: '12px', background: 'transparent', border: '1px dashed var(--border)', color: 'var(--text-dim)', fontSize: '0.75rem', cursor: 'pointer' }}>+ APPEND INITIAL ENTRY</button>
+            <button onClick={onAdd} style={{ width: '100%', padding: '12px', background: 'transparent', border: '1px dashed var(--border)', color: 'var(--text-dim-light)', fontSize: '0.75rem', cursor: 'pointer' }}>+ APPEND INITIAL ENTRY</button>
         </div>
     </div>
 );

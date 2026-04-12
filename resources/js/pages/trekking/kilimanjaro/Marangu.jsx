@@ -46,7 +46,7 @@ const Marangu = () => {
             {/* ─── HERO ─── */}
             <section className="lux-hero">
                 <img
-                    src={visuals.getSingle('trekking.routes.marangu', visualsData.trekking.routes.marangu)}
+                    src={route?.hero_image || visuals.getSingle('trekking.routes.marangu', visualsData.trekking.routes.marangu)}
                     alt="Marangu Route Landscape"
                 />
                 <div className="lux-hero-overlay"></div>
@@ -100,7 +100,7 @@ const Marangu = () => {
                         className="lux-image-wrapper"
                     >
                         <img
-                            src={visualsData.trekking.routes.maranguEditorial}
+                            src={route?.editorial_image || visuals.getSingle('trekking.routes.maranguEditorial', visualsData.trekking.routes.maranguEditorial)}
                             alt="Marangu Huts"
                         />
                         <div className="lux-image-caption">The iconic A-frame dormitories unique to the Marangu Route.</div>
@@ -118,14 +118,6 @@ const Marangu = () => {
                         </p>
                     </motion.div>
                 </div>
-            </section>
-
-            {/* ─── FULL BLEED PARALLAX ─── */}
-            <section className="lux-full-bleed">
-                <img
-                    src={visualsData.trekking.common.trailLandscape}
-                    alt="Kilimanjaro Trail"
-                />
             </section>
 
             {/* ─── EXPEDITION PACKAGES ─── */}

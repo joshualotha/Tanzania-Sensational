@@ -102,7 +102,7 @@ export const AdminDashboard = () => {
                             </span>
                         </div>
                         <div style={{ color: 'white', fontSize: '2.5rem', fontWeight: 300, marginBottom: '5px' }}>{m.value}</div>
-                        <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.1em', fontFamily: 'var(--font-mono)' }}>{m.label}</div>
+                        <div style={{ fontSize: '0.7rem', color: 'var(--text-dim-light)', textTransform: 'uppercase', letterSpacing: '0.1em', fontFamily: 'var(--font-mono)' }}>{m.label}</div>
                         
                         <div style={{ position: 'absolute', bottom: 0, right: 0, opacity: 0.05, transform: 'rotate(-20deg) translate(20px, 20px)' }}>
                             <m.icon size={120} color="white" />
@@ -123,7 +123,7 @@ export const AdminDashboard = () => {
                         </div>
                         <button
                             className="admin-btn-mini"
-                            style={{ padding: '8px 15px', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border)', fontSize: '0.6rem', fontFamily: 'var(--font-mono)', color: 'var(--text-dim)' }}
+                            style={{ padding: '8px 15px', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border)', fontSize: '0.6rem', fontFamily: 'var(--font-mono)', color: 'var(--text-dim-light)' }}
                             onClick={() => navigate('/ops-7f3d/bookings')}
                         >
                             View all
@@ -148,7 +148,7 @@ export const AdminDashboard = () => {
                                 >
                                     <td>
                                         <div style={{ fontWeight: 600 }}>{b.customer_name}</div>
-                                        <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)', fontFamily: 'var(--font-mono)' }}>{b.email}</div>
+                                        <div style={{ fontSize: '0.7rem', color: 'var(--text-dim-light)', fontFamily: 'var(--font-mono)' }}>{b.email}</div>
                                     </td>
                                     <td style={{ fontSize: '0.8rem' }}>{b.safari_package?.name || b.departure?.trekking_route?.name || 'CUSTOM'}</td>
                                     <td>
@@ -194,7 +194,7 @@ export const AdminDashboard = () => {
                             </div>
                             <div>
                                 <div style={{ color: 'white', fontWeight: 600, fontSize: '0.9rem' }}>Access is enabled.</div>
-                                <div style={{ color: 'var(--text-dim)', fontSize: '0.75rem', marginTop: '4px' }}>Admin and Manager roles are supported.</div>
+                                <div style={{ color: 'var(--text-dim-light)', fontSize: '0.75rem', marginTop: '4px' }}>Admin and Manager roles are supported.</div>
                             </div>
                         </div>
                     </div>
@@ -221,7 +221,7 @@ const SectionHeadStyle = {
 const DistributionBar = ({ label, value, total, color }) => (
     <div>
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', fontSize: '0.75rem' }}>
-            <span style={{ color: 'var(--text-dim)' }}>{label}</span>
+            <span style={{ color: 'var(--text-dim-light)' }}>{label}</span>
             <span style={{ color: 'white', fontFamily: 'var(--font-mono)' }}>{value}</span>
         </div>
         <div style={{ height: '4px', background: 'rgba(255,255,255,0.05)', borderRadius: '10px', overflow: 'hidden' }}>

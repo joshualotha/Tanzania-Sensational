@@ -166,7 +166,7 @@ export const AdminVisuals = () => {
                                         background: isActive ? 'var(--gold-glow)' : 'transparent',
                                         border: '1px solid',
                                         borderColor: isActive ? 'var(--gold)' : 'transparent',
-                                        color: isActive ? 'white' : 'var(--text-dim)',
+                                        color: isActive ? 'white' : 'var(--text-dim-light)',
                                         textAlign: 'left',
                                         fontSize: '0.8rem',
                                         fontFamily: 'var(--font-sans)',
@@ -180,7 +180,7 @@ export const AdminVisuals = () => {
                                         letterSpacing: '0.02em'
                                     }}
                                 >
-                                    <Icon size={16} color={isActive ? 'var(--gold)' : 'var(--text-dim)'} />
+                                    <Icon size={16} color={isActive ? 'var(--gold)' : 'var(--text-dim-light)'} />
                                     {cat.label}
                                 </button>
                             );
@@ -200,7 +200,7 @@ export const AdminVisuals = () => {
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '25px', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '15px' }}>
                                     <div>
                                         <h3 style={{ fontSize: '1.2rem', color: 'white', marginBottom: '6px' }}>{placement.name}</h3>
-                                        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: 'var(--text-dim)' }}>
+                                        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: 'var(--text-dim-light)' }}>
                                             {placement.section} • {isGallery ? 'Multiple images allowed' : 'Single image strictly enforced'}
                                         </div>
                                     </div>
@@ -231,7 +231,7 @@ export const AdminVisuals = () => {
                                 {placementAssets.length === 0 ? (
                                     <div style={{ padding: '40px 20px', textAlign: 'center', border: '1px dashed var(--border)', borderRadius: '4px', background: 'rgba(0,0,0,0.2)' }}>
                                         <ImageIcon size={32} color="var(--border)" style={{ margin: '0 auto 10px' }} />
-                                        <div style={{ color: 'var(--text-dim)', fontSize: '0.85rem' }}>No image set for this section. <br/>It may fallback to placeholder defaults.</div>
+                                        <div style={{ color: 'var(--text-dim-light)', fontSize: '0.85rem' }}>No image set for this section. <br/>It may fallback to placeholder defaults.</div>
                                     </div>
                                 ) : (
                                     <div style={{ 

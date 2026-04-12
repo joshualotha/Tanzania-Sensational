@@ -306,7 +306,7 @@ export const AdminSafarisList = () => {
 const LabelStyle = {
     display: 'block',
     fontSize: '0.65rem',
-    color: 'var(--text-dim)',
+    color: 'var(--text-dim-light)',
     marginBottom: '10px',
     textTransform: 'uppercase',
     letterSpacing: '0.1em',

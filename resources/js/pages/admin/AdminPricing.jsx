@@ -147,12 +147,12 @@ export const AdminPricing = () => {
             ) : null}
 
             <div className="admin-panel shadow-premium" style={{ padding: 26 }}>
-                <div style={{ color: 'var(--text-dim)', marginBottom: 16, lineHeight: 1.6 }}>
+                <div style={{ color: 'var(--text-dim-light)', marginBottom: 16, lineHeight: 1.6 }}>
                     These rules power the <strong>price estimate</strong> shown on each trekking route page. Add one rule per season and group-size range.
                 </div>
 
                 {!activeRoute ? (
-                    <div style={{ color: 'var(--text-dim)' }}>No trekking routes found.</div>
+                    <div style={{ color: 'var(--text-dim-light)' }}>No trekking routes found.</div>
                 ) : (activeRoute.pricing_rules?.length ? (
                     <div style={{ display: 'grid', gap: 10 }}>
                         {activeRoute.pricing_rules.map((rule) => (
@@ -202,7 +202,7 @@ export const AdminPricing = () => {
                         ))}
                     </div>
                 ) : (
-                    <div style={{ color: 'var(--text-dim)' }}>
+                    <div style={{ color: 'var(--text-dim-light)' }}>
                         No pricing rules yet for this route. Click <strong>Add rule</strong> to set them up.
                     </div>
                 ))}
@@ -223,7 +223,7 @@ export const AdminPricing = () => {
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 18 }}>
                             <div>
                                 <h2 style={{ color: 'white', fontWeight: 300, margin: 0, fontSize: '1.8rem' }}>Add pricing rule</h2>
-                                <div style={{ color: 'var(--text-dim)', marginTop: 6 }}>{activeRoute?.name}</div>
+                                <div style={{ color: 'var(--text-dim-light)', marginTop: 6 }}>{activeRoute?.name}</div>
                             </div>
                             <button onClick={() => !adding && setShowAdd(false)} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.25)', cursor: 'pointer' }}>
                                 <X size={24} />
@@ -232,21 +232,21 @@ export const AdminPricing = () => {
 
                         <div style={{ display: 'grid', gridTemplateColumns: '160px 1fr 1fr 1fr', gap: 10 }}>
                             <label style={{ display: 'grid', gap: 6 }}>
-                                <span style={{ fontSize: 12, color: 'var(--text-dim)', letterSpacing: 1, textTransform: 'uppercase' }}>Season</span>
+                                <span style={{ fontSize: 12, color: 'var(--text-dim-light)', letterSpacing: 1, textTransform: 'uppercase' }}>Season</span>
                                 <select value={addForm.season} onChange={(e) => setAddForm((s) => ({ ...s, season: e.target.value }))} style={{ background: '#0a0a0a', border: '1px solid var(--border)', color: 'white', padding: '10px 12px' }}>
                                     {SEASONS.map((s) => <option key={s.value} value={s.value}>{s.label}</option>)}
                                 </select>
                             </label>
                             <label style={{ display: 'grid', gap: 6 }}>
-                                <span style={{ fontSize: 12, color: 'var(--text-dim)', letterSpacing: 1, textTransform: 'uppercase' }}>Min group size</span>
+                                <span style={{ fontSize: 12, color: 'var(--text-dim-light)', letterSpacing: 1, textTransform: 'uppercase' }}>Min group size</span>
                                 <input type="number" min={1} max={20} value={addForm.min_group_size} onChange={(e) => setAddForm((s) => ({ ...s, min_group_size: Number(e.target.value) }))} style={{ background: '#0a0a0a', border: '1px solid var(--border)', color: 'white', padding: '10px 12px' }} />
                             </label>
                             <label style={{ display: 'grid', gap: 6 }}>
-                                <span style={{ fontSize: 12, color: 'var(--text-dim)', letterSpacing: 1, textTransform: 'uppercase' }}>Max group size</span>
+                                <span style={{ fontSize: 12, color: 'var(--text-dim-light)', letterSpacing: 1, textTransform: 'uppercase' }}>Max group size</span>
                                 <input type="number" min={1} max={20} value={addForm.max_group_size} onChange={(e) => setAddForm((s) => ({ ...s, max_group_size: Number(e.target.value) }))} style={{ background: '#0a0a0a', border: '1px solid var(--border)', color: 'white', padding: '10px 12px' }} />
                             </label>
                             <label style={{ display: 'grid', gap: 6 }}>
-                                <span style={{ fontSize: 12, color: 'var(--text-dim)', letterSpacing: 1, textTransform: 'uppercase' }}>Price per person (cents)</span>
+                                <span style={{ fontSize: 12, color: 'var(--text-dim-light)', letterSpacing: 1, textTransform: 'uppercase' }}>Price per person (cents)</span>
                                 <input type="number" min={0} value={addForm.price_per_person_cents} onChange={(e) => setAddForm((s) => ({ ...s, price_per_person_cents: Number(e.target.value) }))} style={{ background: '#0a0a0a', border: '1px solid var(--border)', color: 'white', padding: '10px 12px' }} />
                             </label>
                         </div>

@@ -9,8 +9,9 @@ class TrekkingRoute extends Model
 {
     protected $fillable = [
         'name', 'slug', 'meta_badge', 'description', 'difficulty', 'duration',
-        'distance', 'elevation_gain', 'base_price', 'max_group_size', 
-        'hero_image', 'success_rate', 'highlights', 'inclusions', 'exclusions'
+        'distance', 'elevation_gain', 'base_price', 'max_group_size',
+        'hero_image', 'editorial_image', 'editorial_image_2', 'editorial_content',
+        'success_rate', 'highlights', 'inclusions', 'exclusions'
     ];
 
     protected $casts = [

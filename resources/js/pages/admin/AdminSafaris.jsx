@@ -270,7 +270,7 @@ export const AdminSafaris = () => {
                                     ))}
                                     <button
                                         onClick={() => setSelectedSafari({...selectedSafari, itinerary: [...(selectedSafari.itinerary || []), { day: (selectedSafari.itinerary?.length || 0) + 1, title: '', desc: '' }]})}
-                                        style={{ width: '100%', padding: '12px', background: 'transparent', border: '1px dashed var(--border)', color: 'var(--text-dim)', fontSize: '0.7rem', cursor: 'pointer' }}
+                                        style={{ width: '100%', padding: '12px', background: 'transparent', border: '1px dashed var(--border)', color: 'var(--text-dim-light)', fontSize: '0.7rem', cursor: 'pointer' }}
                                     >+ APPEND MILESTONE</button>
                                 </div>
                             </div>
@@ -340,7 +340,7 @@ const SectionHeadStyle = {
 const SubHeadStyle = {
     fontFamily: 'var(--font-mono)',
     fontSize: '0.6rem',
-    color: 'var(--text-dim)',
+    color: 'var(--text-dim-light)',
     textTransform: 'uppercase',
     letterSpacing: '0.15em',
     paddingBottom: '10px',
@@ -352,7 +352,7 @@ const LabelStyle = {
     display: 'block',
     fontFamily: 'var(--font-mono)',
     fontSize: '0.6rem',
-    color: 'var(--text-dim)',
+    color: 'var(--text-dim-light)',
     textTransform: 'uppercase',
     marginBottom: '8px'
 };
@@ -405,7 +405,7 @@ const EditableList = ({ label, items, onAdd, onUpdate, onRemove }) => (
                     <button onClick={() => onRemove(i)} style={{ background: 'none', border: 'none', color: '#ff4444', opacity: 0.5, cursor: 'pointer' }}><X size={12} /></button>
                 </div>
             ))}
-            <button onClick={onAdd} style={{ width: '100%', padding: '6px', background: 'transparent', border: '1px dashed var(--border)', color: 'var(--text-dim)', fontSize: '0.65rem' }}>+ ADD</button>
+            <button onClick={onAdd} style={{ width: '100%', padding: '6px', background: 'transparent', border: '1px dashed var(--border)', color: 'var(--text-dim-light)', fontSize: '0.65rem' }}>+ ADD</button>
         </div>
     </div>
 );

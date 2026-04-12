@@ -280,7 +280,7 @@ const SectionHeadStyle = {
 const SubHeadStyle = {
     fontFamily: 'var(--font-mono)',
     fontSize: '0.6rem',
-    color: 'var(--text-dim)',
+    color: 'var(--text-dim-light)',
     textTransform: 'uppercase',
     letterSpacing: '0.15em',
     paddingBottom: '10px',
@@ -292,7 +292,7 @@ const LabelStyle = {
     display: 'block',
     fontFamily: 'var(--font-mono)',
     fontSize: '0.6rem',
-    color: 'var(--text-dim)',
+    color: 'var(--text-dim-light)',
     textTransform: 'uppercase',
     marginBottom: '8px'
 };

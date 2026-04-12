@@ -46,7 +46,7 @@ const Umbwe = () => {
             {/* ─── HERO ─── */}
             <section className="lux-hero">
                 <img
-                    src={visuals.getSingle('trekking.routes.umbwe', visualsData.trekking.routes.umbwe)}
+                    src={route?.hero_image || visuals.getSingle('trekking.routes.umbwe', visualsData.trekking.routes.umbwe)}
                     alt="Umbwe Route Ridge"
                 />
                 <div className="lux-hero-overlay"></div>
@@ -100,7 +100,7 @@ const Umbwe = () => {
                         className="lux-image-wrapper"
                     >
                         <img
-                            src={visualsData.trekking.routes.umbweEditorial}
+                            src={route?.editorial_image || visuals.getSingle('trekking.routes.umbweEditorial', visualsData.trekking.routes.umbweEditorial)}
                             alt="Steep Ridge"
                         />
                         <div className="lux-image-caption">The steepest, most direct path to the roof of Africa.</div>
@@ -118,14 +118,6 @@ const Umbwe = () => {
                         </p>
                     </motion.div>
                 </div>
-            </section>
-
-            {/* ─── FULL BLEED PARALLAX ─── */}
-            <section className="lux-full-bleed">
-                <img
-                    src={visualsData.trekking.routes.northernEditorial}
-                    alt="Looking down from ridge"
-                />
             </section>
 
             {/* ─── EXPEDITION PACKAGES ─── */}

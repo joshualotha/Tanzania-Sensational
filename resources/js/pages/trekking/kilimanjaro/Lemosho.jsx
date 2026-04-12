@@ -49,7 +49,7 @@ const Lemosho = () => {
             {/* ─── HERO ─── */}
             <section className="lux-hero">
                 <img
-                    src={visuals.getSingle('trekking.routes.lemosho', visualsData.trekking.routes.lemosho)}
+                    src={route?.hero_image || visuals.getSingle('trekking.routes.lemosho', visualsData.trekking.routes.lemosho)}
                     alt="Lemosho Route Landscape"
                 />
                 <div className="lux-hero-overlay"></div>
@@ -115,20 +115,12 @@ const Lemosho = () => {
                         className="lux-image-wrapper"
                     >
                         <img
-                            src={visualsData.trekking.during.routine}
+                            src={route?.editorial_image || visuals.getSingle('trekking.during.routine', visualsData.trekking.during.routine)}
                             alt="Shira Plateau"
                         />
                         <div className="lux-image-caption">Crossing the vast expanse of the Shira Plateau.</div>
                     </motion.div>
                 </div>
-            </section>
-
-            {/* ─── FULL BLEED PARALLAX ─── */}
-            <section className="lux-full-bleed">
-                <img
-                    src={visualsData.planning.meruHero}
-                    alt="Kilimanjaro Summit"
-                />
             </section>
 
             {/* ─── EXPEDITION PACKAGES ─── */}

@@ -132,8 +132,14 @@ export const adminService = {
     
     // Trekking
     getTrekking: () => api.get('/trekking-routes'),
-    createTrekking: (data) => api.post('/admin/trekking-routes', data),
-    updateTrekking: (id, data) => api.put(`/admin/trekking-routes/${id}`, data),
+    createTrekking: (data) => {
+        console.log('Creating trekking with data:', data);
+        return api.post('/admin/trekking-routes', data);
+    },
+    updateTrekking: (id, data) => {
+        console.log('Updating trekking', id, 'with data:', data);
+        return api.put(`/admin/trekking-routes/${id}`, data);
+    },
     deleteTrekking: (id) => api.delete(`/admin/trekking-routes/${id}`),
 
     // Destinations

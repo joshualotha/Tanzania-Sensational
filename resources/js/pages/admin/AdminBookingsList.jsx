@@ -236,7 +236,7 @@ export const AdminBookingsList = () => {
                             </tbody>
                         </table>
                         {filteredBookings.length === 0 && (
-                            <div style={{ padding: '100px', textAlign: 'center', color: 'var(--text-dim)' }}>
+                            <div style={{ padding: '100px', textAlign: 'center', color: 'var(--text-dim-light)' }}>
                                 <Shield size={48} style={{ marginBottom: '20px', opacity: 0.1 }} />
                                 <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', letterSpacing: '0.2em' }}>No matching bookings</p>
                             </div>
@@ -269,7 +269,7 @@ export const AdminBookingsList = () => {
                             <div>
                                 <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: 'var(--gold)', letterSpacing: '0.2em', textTransform: 'uppercase' }}>Reply</div>
                                 <div style={{ color: 'white', marginTop: 6, fontSize: '1.2rem' }}>{selectedBooking.customer_name}</div>
-                                <div style={{ color: 'var(--text-dim)', marginTop: 2, fontSize: '0.85rem' }}>{selectedBooking.email}</div>
+                                <div style={{ color: 'var(--text-dim-light)', marginTop: 2, fontSize: '0.85rem' }}>{selectedBooking.email}</div>
                             </div>
                             <button onClick={() => !replySending && setIsReplying(false)} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.4)', cursor: 'pointer' }}>
                                 <X size={20} />
@@ -283,7 +283,7 @@ export const AdminBookingsList = () => {
                         )}
 
                         <label style={{ display: 'grid', gap: 6, marginBottom: 12 }}>
-                            <span style={{ fontSize: '0.7rem', color: 'var(--text-dim)' }}>Subject</span>
+                            <span style={{ fontSize: '0.7rem', color: 'var(--text-dim-light)' }}>Subject</span>
                             <input
                                 value={replySubject}
                                 onChange={(e) => setReplySubject(e.target.value)}
@@ -292,7 +292,7 @@ export const AdminBookingsList = () => {
                         </label>
 
                         <label style={{ display: 'grid', gap: 6 }}>
-                            <span style={{ fontSize: '0.7rem', color: 'var(--text-dim)' }}>Message</span>
+                            <span style={{ fontSize: '0.7rem', color: 'var(--text-dim-light)' }}>Message</span>
                             <textarea
                                 value={replyMessage}
                                 onChange={(e) => setReplyMessage(e.target.value)}
@@ -362,11 +362,11 @@ export const AdminBookingsList = () => {
                                 <h5 style={SubHeadStyle}>Estimated price</h5>
                                 <div style={{ background: 'rgba(0,0,0,0.3)', padding: 18, borderLeft: '3px solid var(--gold)' }}>
                                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
-                                        <span style={{ fontSize: '0.6rem', color: 'var(--text-dim)', textTransform: 'uppercase' }}>Total</span>
+                                        <span style={{ fontSize: '0.6rem', color: 'var(--text-dim-light)', textTransform: 'uppercase' }}>Total</span>
                                         <span style={{ color: 'white', fontFamily: 'var(--font-mono)' }}>${(((selectedBooking.total_price ?? 0) || ((selectedBooking.total_price_cents ?? 0) / 100)) || 0).toLocaleString()}</span>
                                     </div>
                                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                        <span style={{ fontSize: '0.6rem', color: 'var(--text-dim)', textTransform: 'uppercase' }}>Status</span>
+                                        <span style={{ fontSize: '0.6rem', color: 'var(--text-dim-light)', textTransform: 'uppercase' }}>Status</span>
                                         <span style={{ color: 'var(--gold)', fontFamily: 'var(--font-mono)', fontSize: '0.8rem' }}>{selectedBooking.status}</span>
                                     </div>
                                 </div>
@@ -425,7 +425,7 @@ const SectionHeadStyle = {
 const SubHeadStyle = {
     fontFamily: 'var(--font-mono)',
     fontSize: '0.6rem',
-    color: 'var(--text-dim)',
+    color: 'var(--text-dim-light)',
     textTransform: 'uppercase',
     letterSpacing: '0.15em',
     paddingBottom: '10px',

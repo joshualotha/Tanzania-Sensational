@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-    Plus, Search, Edit3, Trash2, MapPin, Compass, 
-    ChevronRight, X, Shield, Globe, Camera, Save, 
-    Loader2, AlertTriangle, Layers, Info
+import {
+    Plus, Search, Edit3, Trash2, MapPin, Compass,
+    ChevronRight, X, Shield, Globe, Camera, Save,
+    Loader2, AlertTriangle, Layers, Info, Upload
 } from 'lucide-react';
 import { destinationService, adminService } from '../../services/api';
 import '../../styles/admin-premium.css';
@@ -16,6 +16,10 @@ export const AdminDestinations = () => {
     const [isCurating, setIsCurating] = useState(false);
     const [saving, setSaving] = useState(false);
     const [showCurator, setShowCurator] = useState(false);
+    const [uploadingImage, setUploadingImage] = useState(false);
+    const [uploadingGallery, setUploadingGallery] = useState(false);
+    const heroFileInputRef = useRef(null);
+    const galleryFileInputRef = useRef(null);
 
     useEffect(() => {
         fetchDestinations();
@@ -51,6 +55,62 @@ export const AdminDestinations = () => {
         }
         setIsCurating(true);
         setShowCurator(true);
+    };
+
+    const handleHeroUpload = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        if (!file.type.startsWith('image/')) {
+            alert('Please select a valid image file.');
+            return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+            alert('Image size must be less than 5MB.');
+            return;
+        }
+
+        try {
+            setUploadingImage(true);
+            const response = await adminService.upload(file, 'destinations');
+            const imageUrl = response.data.url;
+            
+            setSelectedDest({ ...selectedDest, hero_image: imageUrl });
+        } catch (error) {
+            console.error('Hero image upload failed:', error);
+            alert('Failed to upload image. Please try again.');
+        } finally {
+            setUploadingImage(false);
+        }
+    };
+
+    const handleGalleryUpload = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        if (!file.type.startsWith('image/')) {
+            alert('Please select a valid image file.');
+            return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+            alert('Image size must be less than 5MB.');
+            return;
+        }
+
+        try {
+            setUploadingGallery(true);
+            const response = await adminService.upload(file, 'destinations/gallery');
+            const imageUrl = response.data.url;
+            
+            setSelectedDest({ ...selectedDest, gallery: [...(selectedDest.gallery || []), imageUrl] });
+        } catch (error) {
+            console.error('Gallery image upload failed:', error);
+            alert('Failed to upload image. Please try again.');
+        } finally {
+            setUploadingGallery(false);
+        }
     };
 
     const handleSave = async () => {
@@ -162,7 +222,7 @@ export const AdminDestinations = () => {
                                 </div>
                                 <div style={{ padding: '25px 30px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                                        <div style={{ fontSize: '0.6rem', color: 'var(--text-dim)', textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>Sector Address</div>
+                                        <div style={{ fontSize: '0.6rem', color: 'var(--text-dim-light)', textTransform: 'uppercase', fontFamily: 'var(--font-mono)' }}>Sector Address</div>
                                         <div style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-mono)' }}>/{dest.slug}</div>
                                     </div>
                                     <div style={{ display: 'flex', gap: '15px' }}>
@@ -230,8 +290,61 @@ export const AdminDestinations = () => {
 
                             <div className="curator-section">
                                 <h5 style={SubHeadStyle}>Atmospheric Assets</h5>
-                                <AdminInput label="Hero Visual URL" value={selectedDest.hero_image} onChange={v => setSelectedDest({...selectedDest, hero_image: v})} />
-                                <div style={{ height: '180px', background: '#000', border: '1px solid var(--border)', marginTop: '10px', overflow: 'hidden' }}>
+                                
+                                {/* Hero Image Upload */}
+                                <div style={{ marginBottom: '15px' }}>
+                                    <label style={LabelStyle}>Hero Visual</label>
+                                    <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
+                                        <input
+                                            type="file"
+                                            ref={heroFileInputRef}
+                                            accept="image/*"
+                                            onChange={handleHeroUpload}
+                                            style={{ display: 'none' }}
+                                            disabled={uploadingImage}
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={() => heroFileInputRef.current?.click()}
+                                            disabled={uploadingImage}
+                                            style={{
+                                                flex: 1,
+                                                padding: '10px',
+                                                background: uploadingImage ? 'rgba(201, 168, 76, 0.1)' : 'transparent',
+                                                border: '1px dashed var(--border)',
+                                                color: uploadingImage ? 'var(--gold-dim)' : 'var(--text-dim-light)',
+                                                fontSize: '0.7rem',
+                                                fontFamily: 'var(--font-mono)',
+                                                cursor: uploadingImage ? 'not-allowed' : 'pointer',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                gap: '8px'
+                                            }}
+                                        >
+                                            {uploadingImage ? (
+                                                <>
+                                                    <Loader2 size={12} className="animate-spin" />
+                                                    Uploading...
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <Upload size={12} />
+                                                    Upload Hero
+                                                </>
+                                            )}
+                                        </button>
+                                    </div>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+                                        <div style={{ flex: 1, height: '1px', background: 'var(--border)' }}></div>
+                                        <span style={{ fontSize: '0.55rem', color: 'var(--text-dim-light)', fontFamily: 'var(--font-mono)' }}>OR USE URL</span>
+                                        <div style={{ flex: 1, height: '1px', background: 'var(--border)' }}></div>
+                                    </div>
+                                    <AdminInput label="Hero Visual URL" value={selectedDest.hero_image} onChange={v => setSelectedDest({...selectedDest, hero_image: v})} />
+                                </div>
+
+                                {/* Hero Preview */}
+                                <div style={{ height: '180px', background: '#000', border: '1px solid var(--border)', overflow: 'hidden' }}>
                                     <img src={selectedDest.hero_image} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                 </div>
 
@@ -249,11 +362,34 @@ export const AdminDestinations = () => {
                                                 </button>
                                             </div>
                                         ))}
+                                        <input
+                                            type="file"
+                                            ref={galleryFileInputRef}
+                                            accept="image/*"
+                                            onChange={handleGalleryUpload}
+                                            style={{ display: 'none' }}
+                                            disabled={uploadingGallery}
+                                        />
                                         <button
-                                            onClick={() => setSelectedDest({...selectedDest, gallery: [...(selectedDest.gallery || []), '']})}
-                                            style={{ aspectRatio: '1', border: '1px dashed var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-dim)', cursor: 'pointer', background: 'transparent' }}
+                                            type="button"
+                                            onClick={() => galleryFileInputRef.current?.click()}
+                                            disabled={uploadingGallery}
+                                            style={{
+                                                aspectRatio: '1',
+                                                border: '1px dashed var(--border)',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                color: uploadingGallery ? 'var(--gold-dim)' : 'var(--text-dim-light)',
+                                                cursor: uploadingGallery ? 'not-allowed' : 'pointer',
+                                                background: uploadingGallery ? 'rgba(201, 168, 76, 0.1)' : 'transparent'
+                                            }}
                                         >
-                                            <Plus size={16} />
+                                            {uploadingGallery ? (
+                                                <Loader2 size={16} className="animate-spin" />
+                                            ) : (
+                                                <Plus size={16} />
+                                            )}
                                         </button>
                                     </div>
                                 </div>
@@ -302,7 +438,7 @@ const SectionHeadStyle = {
 const SubHeadStyle = {
     fontFamily: 'var(--font-mono)',
     fontSize: '0.6rem',
-    color: 'var(--text-dim)',
+    color: 'var(--text-dim-light)',
     textTransform: 'uppercase',
     letterSpacing: '0.15em',
     paddingBottom: '10px',
@@ -314,7 +450,7 @@ const LabelStyle = {
     display: 'block',
     fontFamily: 'var(--font-mono)',
     fontSize: '0.6rem',
-    color: 'var(--text-dim)',
+    color: 'var(--text-dim-light)',
     textTransform: 'uppercase',
     marginBottom: '8px'
 };
