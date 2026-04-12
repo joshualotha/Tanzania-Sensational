@@ -5,9 +5,9 @@
     # Block access to internal Laravel directories
     RewriteRule ^(app|bootstrap|config|database|resources|routes|storage|tests|vendor)(/|$) - [F,L]
 
-    # <IfModule mod_negotiation.c>
-    #     Options -MultiViews -Indexes
-    # </IfModule>
+    # Disable directory indexing and force fallback to index.php
+    Options -Indexes
+    DirectoryIndex index.php
 
     RewriteEngine On
 
