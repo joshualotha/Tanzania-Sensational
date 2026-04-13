@@ -1,199 +1,224 @@
-/* ── INTERACTIVE EXPLORER (THE CHOSEN PATH) ── */
-.explorer-routes-wrapper {
+/* ── PRACTICAL CINEMATIC CAROUSEL (ROUTES) ── */
+.carousel-routes-wrapper {
+  padding: 120px 0 100px 0;
+  background: var(--bg-parchment, #F7F4EF);
+  font-family: 'DM Sans', sans-serif;
+  color: var(--dark, #1F2926);
   position: relative;
-  width: 100%;
-  min-height: 90vh; /* Immersive full screen feel */
-  background: #000;
-  color: #fff;
   overflow: hidden;
-  display: flex;
-  align-items: center;
 }
 
-/* Background image crossfading layers */
-.explorer-bg-layer {
-  position: absolute;
-  inset: 0;
+.carousel-routes-header {
+  max-width: 1400px;
+  margin: 0 auto 60px auto;
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.carousel-header-left {
+  max-width: 600px;
+}
+
+.carousel-eyebrow {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold, #C9A84C);
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.carousel-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  line-height: 1.1;
+  color: var(--dark);
+}
+
+.carousel-title em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold);
+}
+
+.carousel-header-right {
+  padding-bottom: 15px;
+}
+
+.carousel-view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--dark);
+  text-decoration: none;
+  border-bottom: 1px solid var(--gold);
+  padding-bottom: 5px;
+  transition: all 0.3s ease;
+}
+
+.carousel-view-all:hover {
+  color: var(--gold);
+  gap: 15px;
+}
+
+/* ── HORIZONTAL SCROLL TRACK ── */
+.carousel-track-container {
+  width: 100%;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 30px;
+  overflow-x: auto;
+  padding: 0 40px 60px 40px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none; /* Firefox */
+}
+
+.carousel-track::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+/* ── PORTRAIT CARDS ── */
+.carousel-card {
+  flex: 0 0 400px; /* Fixed width for standard magazine pacing */
+  scroll-snap-align: start;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  background: #FFF;
+  border-radius: 4px;
+  border: 1px solid rgba(31, 41, 38, 0.05);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(31, 41, 38, 0.08);
+}
+
+.carousel-card-media {
+  width: 100%;
+  height: 480px; /* Very tall editorial impact */
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-card-media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0;
-  transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 10s ease;
-  z-index: 1;
+  transition: transform 1.2s ease;
+}
+
+.carousel-card:hover .carousel-card-media img {
   transform: scale(1.05);
 }
 
-.explorer-bg-layer.is-active {
-  opacity: 0.7;
-  transform: scale(1);
-}
-
-/* Gradient block making text highly readable on left side */
-.explorer-overlay {
+.carousel-badge {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(to right, rgba(22, 26, 23, 0.95) 0%, rgba(22, 26, 23, 0.5) 60%, rgba(22, 26, 23, 0.1) 100%);
-  z-index: 2;
-  pointer-events: none;
-}
-
-.explorer-inner {
-  position: relative;
-  z-index: 3;
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 120px 40px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: 100px;
-}
-
-/* Editorial intro typography */
-.explorer-eyebrow {
-  display: block;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 40px;
-}
-
-/* Route Navigation Tabs */
-.explorer-menu {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.explorer-menu-item {
-  margin: 15px 0;
-}
-
-.explorer-route-tab {
-  background: transparent;
-  border: none;
-  color: rgba(255, 255, 255, 0.25);
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
-  text-align: left;
-  line-height: 1.1;
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
-  padding-left: 0;
-  cursor: pointer;
-}
-
-.explorer-route-tab:hover {
-  color: rgba(255, 255, 255, 0.6);
-  transform: translateX(15px);
-}
-
-.explorer-route-tab.is-active {
-  color: #fff;
-  padding-left: 50px;
-  transform: translateX(0);
-}
-
-.explorer-route-tab.is-active::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 30px;
-  height: 1px;
+  top: 20px;
+  left: 20px;
   background: var(--gold);
+  color: #fff;
+  padding: 6px 16px;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 700;
+  border-radius: 2px;
 }
 
-/* Route Details Sliding Panel */
-.explorer-content-panel {
-  background: rgba(31, 41, 38, 0.3); /* Subtle glass */
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 60px;
-  border-radius: 4px;
-  position: relative;
-  overflow: hidden;
+.carousel-card-content {
+  padding: 35px 30px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Internal glass highlight */
-.explorer-content-panel::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
-}
-
-.explorer-meta {
+.carousel-card-meta {
   display: flex;
   align-items: center;
   gap: 15px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--gold);
-  margin-bottom: 25px;
+  margin-bottom: 15px;
+  font-weight: 700;
 }
 
-.explorer-summary {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 1.15rem;
-  line-height: 1.8;
-  color: rgba(255, 255, 255, 0.9);
-  font-weight: 300;
-  margin-bottom: 40px;
+.carousel-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: var(--dark);
 }
 
-/* Button CTA */
-.explorer-cta {
+.carousel-card-desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #535C58;
+  margin-bottom: 30px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.carousel-card-cta {
+  margin-top: auto;
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  font-family: 'DM Sans', sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #fff;
-  text-decoration: none;
-  background: var(--gold);
-  padding: 16px 32px;
-  border-radius: 999px;
-  transition: all 0.3s ease;
-  border: 1px solid var(--gold);
+  color: var(--dark);
+  transition: all 0.3s;
 }
 
-.explorer-cta:hover {
-  background: transparent;
+.carousel-card:hover .carousel-card-cta {
+  gap: 18px;
   color: var(--gold);
-  gap: 20px;
 }
 
-/* Mobile Adjustments */
-@media (max-width: 1024px) {
-  .explorer-inner {
-    grid-template-columns: 1fr;
-    gap: 60px;
-    padding: 80px 20px;
-  }
-  
-  .explorer-overlay {
-    background: linear-gradient(to bottom, rgba(22, 26, 23, 0.9) 0%, rgba(22, 26, 23, 0.7) 50%, rgba(22, 26, 23, 0.95) 100%);
+/* ── MOBILE ── */
+@media (max-width: 900px) {
+  .carousel-routes-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
   }
 }
 
 @media (max-width: 640px) {
-  .explorer-route-tab {
-    font-size: 2.2rem;
+  .carousel-routes-wrapper {
+    padding: 80px 0;
   }
-  .explorer-content-panel {
-    padding: 30px 20px;
+  .carousel-routes-header {
+    padding: 0 20px;
+    margin-bottom: 40px;
+  }
+  .carousel-track {
+    padding: 0 20px 40px 20px;
+    gap: 20px;
+  }
+  .carousel-card {
+    flex: 0 0 85vw; /* Fills screen leaving hint of next card */
+  }
+  .carousel-card-media {
+    height: 380px;
   }
 }

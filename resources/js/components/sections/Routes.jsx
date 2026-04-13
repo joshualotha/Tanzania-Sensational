@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
 import { visualsData } from '../../data/visualsData';
 import { trekkingService } from '../../services/api';
 import { useVisuals } from '../../context/VisualsContext';
@@ -15,7 +14,6 @@ const staticRoutesFallback = [
 
 export const RoutesSection = () => {
   const [routes, setRoutes] = useState(staticRoutesFallback);
-  const [activeSlug, setActiveSlug] = useState(staticRoutesFallback[0].slug);
   const visuals = useVisuals();
 
   useEffect(() => {
@@ -55,70 +53,49 @@ export const RoutesSection = () => {
     return `/trekking/kilimanjaro/${slug}`;
   };
 
-  const activeRoute = routes.find(r => r.slug === activeSlug) || routes[0];
-
   return (
-    <section className="explorer-routes-wrapper" id="routes">
-      
-      {/* Absolute Fading Backgrounds */}
-      {routes.map((route) => (
-        <img 
-          key={`bg-${route.slug}`} 
-          className={`explorer-bg-layer ${route.slug === activeSlug ? 'is-active' : ''}`}
-          src={route.hero_image || visuals.getSingle(`trekking.routes.${route.slug}`, visualsData.trekking.routes?.[route.slug])}
-          alt={route.name}
-        />
-      ))}
-      <div className="explorer-overlay"></div>
-
-      <div className="explorer-inner">
-        
-        {/* Left Column: Menu */}
-        <div>
-          <span className="explorer-eyebrow">The Chosen Path</span>
-          <ul className="explorer-menu">
-            {routes.map((route) => (
-              <li key={`menu-${route.slug}`} className="explorer-menu-item">
-                <button 
-                  className={`explorer-route-tab ${route.slug === activeSlug ? 'is-active' : ''}`}
-                  onMouseEnter={() => setActiveSlug(route.slug)}
-                  onClick={() => setActiveSlug(route.slug)}
-                >
-                  {route.name}
-                </button>
-              </li>
-            ))}
-          </ul>
+    <section className="carousel-routes-wrapper" id="routes">
+      <div className="carousel-routes-header">
+        <div className="carousel-header-left">
+          <span className="carousel-eyebrow">The Chosen Path</span>
+          <h2 className="carousel-title" dangerouslySetInnerHTML={{ __html: visuals.getSingle('trekking.routes.header.title', 'Choose Your Path <em>to the Top.</em>') }} />
         </div>
+        <div className="carousel-header-right">
+          <Link to="/trekking/prep/best-routes" className="carousel-view-all">
+            Compare All Routes <ArrowRight size={16} />
+          </Link>
+        </div>
+      </div>
 
-        {/* Right Column: Sliding Active Content */}
-        <div>
-          <AnimatePresence mode="wait">
-            <motion.div 
-              key={activeRoute.slug}
-              className="explorer-content-panel"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.4 }}
-            >
-              <div className="explorer-meta">
-                <span>{activeRoute.duration} Days</span>
-                <span>—</span>
-                <span>{activeRoute.difficulty || 'Expert Tracking'}</span>
+      <div className="carousel-track-container">
+        <div className="carousel-track">
+          {routes.map((route, index) => (
+            <Link key={`route-${route.slug}`} to={getBaseRouteUrl(route.slug)} className="carousel-card">
+              <div className="carousel-card-media">
+                {index === 0 && <span className="carousel-badge">Signature</span>}
+                <img 
+                  src={route.hero_image || visuals.getSingle(`trekking.routes.${route.slug}`, visualsData.trekking.routes?.[route.slug])} 
+                  alt={route.name} 
+                  loading="lazy"
+                />
               </div>
-              
-              <p className="explorer-summary">
-                {activeRoute.description || activeRoute.summary || 'Experience one of the most iconic approaches to the summit of Kilimanjaro with our elite ground team.'}
-              </p>
-
-              <Link to={getBaseRouteUrl(activeRoute.slug)} className="explorer-cta">
-                Study This Path <ArrowRight size={16} />
-              </Link>
-            </motion.div>
-          </AnimatePresence>
+              <div className="carousel-card-content">
+                <div className="carousel-card-meta">
+                  <span>{route.duration} Days</span>
+                  <span>•</span>
+                  <span>{route.difficulty || 'Expert Tracking'}</span>
+                </div>
+                <h3 className="carousel-card-title">{route.name}</h3>
+                <p className="carousel-card-desc">
+                  {route.description || route.summary || 'Experience one of the most iconic approaches to the summit of Kilimanjaro with our elite ground team.'}
+                </p>
+                <div className="carousel-card-cta">
+                  Study Route <ArrowRight size={14} />
+                </div>
+              </div>
+            </Link>
+          ))}
         </div>
-
       </div>
     </section>
   );
