@@ -403,6 +403,7 @@ body::before {
   z-index: 2000;
   opacity: 0;
   visibility: hidden;
+  pointer-events: none;
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   border-radius: 4px;
 }
@@ -420,6 +421,7 @@ body::before {
 .mega-dropdown:hover .mega-menu {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
   transform: translateX(-50%) translateY(0);
 }
 
@@ -3091,7 +3093,7 @@ section {
   display: none;
   position: fixed;
   inset: 0;
-  z-index: 999;
+  z-index: 1015; /* Increased to be above navbar (1010) and hamburger (1011) */
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(4px);
 }
@@ -3290,6 +3292,7 @@ section {
     gap: 0 !important;
     opacity: 0 !important;
     visibility: hidden !important;
+    pointer-events: none !important;
     transform: translateY(-20px) scale(0.95) !important;
     transform-origin: top center !important;
     transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
@@ -3300,6 +3303,7 @@ section {
   #navbar.mobile-open .nav-links {
     opacity: 1 !important;
     visibility: visible !important;
+    pointer-events: auto !important;
     transform: translateY(0) scale(1) !important;
   }
 
