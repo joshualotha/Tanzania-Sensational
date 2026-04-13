@@ -666,7 +666,27 @@
     .safari-det-hero { height: 70vh; }
     .safari-det-hero-content { padding: 40px 16px; }
     .safari-det-overview { font-size: 1rem; }
-    .safari-det-metrics { grid-template-columns: 1fr 1fr; }
+    .safari-det-metrics { 
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        gap: 5px;
+        padding: 10px;
+        overflow-x: auto;
+    }
+    .safari-metric {
+        flex: 1;
+        padding: 5px;
+    }
+    .safari-m-val {
+        font-size: 1.2rem !important;
+        margin-bottom: 2px;
+    }
+    .safari-metric span {
+        font-size: 0.55rem !important;
+        letter-spacing: 0.1em !important;
+    }
     .safari-det-body { padding: 40px 16px; gap: 30px; }
     .safari-itin-head { font-size: 1.8rem; margin-bottom: 24px; }
     .safari-day-title { font-size: 1.3rem; }

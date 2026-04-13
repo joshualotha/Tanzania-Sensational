@@ -429,9 +429,33 @@
     .dest-hero-actions { flex-direction: column; width: 100%; }
     .dest-btn-primary,
     .dest-btn-ghost { width: 100%; justify-content: center; }
-    .dest-expedition-strip { flex-direction: column; }
-    .dest-strip-item { flex: 1 1 100%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); padding: 18px 20px; }
-    .dest-strip-item:last-child { border-bottom: none; }
+    .dest-expedition-strip {
+        position: relative;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        gap: 5px;
+        padding: 20px 10px;
+        margin-top: -1px;
+        width: 100%;
+        overflow-x: auto;
+    }
+    .dest-strip-item {
+        flex: 1;
+        border-right: none;
+        border-bottom: none;
+        padding: 0 5px;
+    }
+    .dest-strip-item:last-child {
+        border-bottom: none;
+    }
+    .dest-strip-label {
+        font-size: 0.55rem !important;
+        letter-spacing: 0.1em !important;
+    }
+    .dest-strip-value {
+        font-size: 1.2rem !important;
+    }
     .bespoke-overview-grid { padding: 80px 20px; gap: 40px; }
     .metadata-pillar { padding: 40px 24px; }
     .narrative-ledger-grid { padding: 60px 20px; }
