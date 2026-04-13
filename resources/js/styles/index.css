@@ -88,8 +88,8 @@ body::before {
   align-items: center;
   justify-content: space-between;
   padding: 0 40px;
-  background: var(--neutral);
-  border-bottom: 1px solid rgba(140, 109, 82, 0.15);
+  background: var(--gold);
+  border-bottom: none;
   font-family: 'Outfit', sans-serif;
 }
 
@@ -105,22 +105,22 @@ body::before {
   gap: 6px;
   font-size: 0.68rem;
   letter-spacing: 0.06em;
-  color: var(--text);
+  color: var(--dark);
   text-decoration: none;
   transition: color 0.3s;
 }
 
 .topbar-item:hover {
-  color: var(--gold);
+  color: white;
 }
 
 .topbar-item svg {
-  stroke: var(--gold);
+  stroke: var(--dark);
   opacity: 0.8;
 }
 
 .topbar-divider {
-  color: rgba(31, 41, 38, 0.15);
+  color: rgba(31, 41, 38, 0.3);
   font-size: 0.7rem;
   margin: 0 8px;
 }
@@ -135,15 +135,15 @@ body::before {
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--neutral);
-  background: var(--gold);
+  color: white;
+  background: var(--dark);
   padding: 5px 22px;
   text-decoration: none;
   transition: all 0.3s;
 }
 
 .topbar-cta:hover {
-  background: #d4b45f;
+  background: #111;
 }
 
 /* GTranslate Widget Styles */
@@ -155,22 +155,23 @@ body::before {
 
 .gtranslate_wrapper select {
   background: transparent;
-  border: 1px solid rgba(140, 109, 82, 0.3);
-  color: var(--text);
+  border: 1px solid rgba(31, 41, 38, 0.3);
+  color: var(--dark);
   font-size: 0.68rem;
   padding: 2px 8px;
   border-radius: 4px;
   font-family: 'Outfit', sans-serif;
   cursor: pointer;
+  transition: border-color 0.3s;
 }
 
 .gtranslate_wrapper select:hover {
-  border-color: var(--gold);
+  border-color: var(--dark);
 }
 
 .gtranslate_wrapper select option {
-  background: var(--neutral);
-  color: var(--text);
+  background: var(--gold);
+  color: var(--dark);
 }
 
 /* Make GTranslate flags smaller */
