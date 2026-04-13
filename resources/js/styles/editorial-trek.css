@@ -236,3 +236,10 @@
         padding: 60px 40px;
     }
 }
+@media (max-width: 480px) {
+    .editorial-hero { height: 60vh !important; min-height: 400px; }
+    .editorial-hero-content { padding: 0 16px !important; }
+    .editorial-hero-title { font-size: 2rem !important; }
+    .editorial-body { padding: 40px 16px !important; }
+    .editorial-section-title { font-size: 1.6rem !important; }
+}

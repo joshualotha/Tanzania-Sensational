@@ -747,3 +747,15 @@
         grid-auto-rows: auto;
     }
 }
+
+@media (max-width: 480px) {
+    .utility-hero { height: 60vh !important; min-height: 400px; }
+    .utility-hero-title { font-size: 2rem !important; }
+    .utility-body { padding: 40px 16px !important; }
+    .utility-content { padding: 0 !important; }
+    .faq-item-question { font-size: 1rem !important; padding: 16px 0 !important; }
+    .faq-item-answer { font-size: 0.9rem !important; padding: 0 0 16px !important; }
+    .gear-grid { grid-template-columns: 1fr !important; }
+    .gear-card { padding: 20px !important; }
+    .training-grid { grid-template-columns: 1fr !important; }
+}

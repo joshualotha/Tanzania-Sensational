@@ -627,8 +627,51 @@
     }
     .safari-det-body {
         grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 60px 20px;
     }
     .safari-det-metrics {
         grid-template-columns: 1fr 1fr;
+        padding: 0 20px;
     }
+    .safari-pkgs-hero { height: 70vh; }
+    .safari-pkgs-content { padding: 0 20px; }
+    .discovery-filter-sec { padding: 40px 20px 0; }
+    .filter-bar { flex-direction: column; gap: 20px; align-items: stretch; }
+    .filter-categories { flex-wrap: wrap; }
+    .safari-pkgs-grid-sec { padding: 40px 20px 80px; }
+    .heritage-card-info { padding: 24px; }
+    .card-pkg-title { font-size: 1.4rem; }
+    .safari-det-hero-content { padding: 60px 20px; }
+    .safari-itin-head { font-size: 2.2rem; }
+    .safari-det-brief { font-size: 1.1rem; }
+    .safari-day-card { padding-left: 0; margin-bottom: 60px; }
+    .safari-day-card::before { display: none; }
+    .safari-day-title { font-size: 1.6rem; }
+    .safari-day-meta { flex-direction: column; gap: 20px; padding: 20px; }
+    .safari-sidebar { position: static; }
+    .safari-sb-card { padding: 30px; }
+    .safari-m-val { font-size: 2rem; }
+    .safari-metric { padding: 24px 0; }
+}
+
+@media (max-width: 480px) {
+    .safari-pkgs-hero { height: 60vh; min-height: 400px; }
+    .safari-pkgs-content { padding: 0 16px; }
+    .safari-pkgs-subtitle { font-size: 1rem; }
+    .heritage-card-media { height: 220px; }
+    .heritage-card-info { padding: 20px; }
+    .card-pkg-title { font-size: 1.2rem; }
+    .card-pkg-desc { font-size: 0.9rem; margin-bottom: 20px; }
+    .safari-det-hero { height: 70vh; }
+    .safari-det-hero-content { padding: 40px 16px; }
+    .safari-det-overview { font-size: 1rem; }
+    .safari-det-metrics { grid-template-columns: 1fr 1fr; }
+    .safari-det-body { padding: 40px 16px; gap: 30px; }
+    .safari-itin-head { font-size: 1.8rem; margin-bottom: 24px; }
+    .safari-day-title { font-size: 1.3rem; }
+    .safari-day-desc { font-size: 0.95rem; }
+    .safari-sb-card { padding: 24px; }
+    .category-btn { padding: 8px 14px; font-size: 0.65rem; }
+    .heritage-status-badge { font-size: 0.6rem; padding: 6px 12px; }
 }

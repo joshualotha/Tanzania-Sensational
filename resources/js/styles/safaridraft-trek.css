@@ -240,3 +240,10 @@
         gap: 60px;
     }
 }
+@media (max-width: 480px) {
+    .draft-hero { height: 60vh !important; min-height: 400px; }
+    .draft-hero-title { font-size: 2rem !important; }
+    .draft-body { padding: 40px 16px !important; }
+    .draft-grid { grid-template-columns: 1fr !important; }
+    .draft-card { padding: 24px !important; }
+}

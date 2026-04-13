@@ -570,3 +570,12 @@
         height: 350px;
     }
 }
+@media (max-width: 480px) {
+    .contact-hero-premium { height: 60vh !important; min-height: 400px; }
+    .contact-hero-title { font-size: 2rem !important; }
+    .contact-hero-subtitle { font-size: 0.95rem !important; }
+    .contact-body-premium { padding: 40px 16px !important; }
+    .contact-form-grid { grid-template-columns: 1fr !important; }
+    .contact-sidebar { padding: 24px !important; }
+    .contact-info-card { padding: 20px !important; }
+}

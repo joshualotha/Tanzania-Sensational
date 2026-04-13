@@ -812,3 +812,14 @@
         padding: 30px 20px;
     }
 }
+@media (max-width: 480px) {
+    .premium-safari-hero { height: 70vh !important; min-height: 400px; }
+    .premium-safari-hero-content { padding: 0 16px !important; }
+    .premium-hero-title { font-size: 2.2rem !important; }
+    .premium-hero-subtitle { font-size: 0.95rem !important; max-width: 100% !important; }
+    .safari-destinations-grid { padding: 60px 16px !important; }
+    .dest-card-premium { height: 300px !important; }
+    .dest-card-name { font-size: 1.4rem !important; }
+    .safari-manifest-section { padding: 60px 16px !important; }
+    .safari-manifest-grid { gap: 24px !important; }
+}

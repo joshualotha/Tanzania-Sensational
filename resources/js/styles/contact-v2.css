@@ -550,3 +550,8 @@
         padding: 40px 24px;
     }
 }
+@media (max-width: 480px) {
+    .contact-hero-v2 { height: 60vh !important; min-height: 400px; }
+    .contact-form-wrapper { padding: 30px 16px !important; }
+    .contact-form-row { flex-direction: column !important; gap: 16px !important; }
+}
