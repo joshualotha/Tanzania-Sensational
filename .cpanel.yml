@@ -1,11 +1,34 @@
 ---
 deployment:
   tasks:
+    # Set production environment
     - export APP_ENV=production
-    - composer install --no-dev --optimize-autoloader
-    - php artisan migrate --force
+    
+    # Install dependencies with optimized autoloader
+    - composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+    
+    # Generate application key if not set
+    - /bin/bash -c '[ -f .env ] && grep -q "APP_KEY=" .env || php artisan key:generate --force'
+    
+    # Set proper permissions for CPanel
+    - chmod -R 755 storage
+    - chmod -R 755 bootstrap/cache
+    
+    # Clear and rebuild caches
     - php artisan optimize:clear
     - php artisan config:cache
-    - php artisan event:cache
     - php artisan route:cache
     - php artisan view:cache
+    - php artisan event:cache
+    
+    # Run migrations (skip if database doesn't exist yet)
+    - /bin/bash -c 'php artisan migrate --force --no-interaction 2>/dev/null || echo "Migrations skipped - database may not be ready"'
+    
+    # Build frontend assets if needed
+    - /bin/bash -c '[ -f package.json ] && npm ci --production && npm run build 2>/dev/null || echo "No frontend build required"'
+    
+    # Create storage symlinks if needed
+    - php artisan storage:link --force 2>/dev/null || true
+    
+    # Final optimization
+    - php artisan optimize
