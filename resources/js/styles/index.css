@@ -622,9 +622,9 @@ body::before {
 }
 
 .hero-v2-subtitle {
-  font-family: var(--font-label);
-  font-size: 0.95rem;
-  font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 300;
   font-style: normal;
   color: rgba(255, 255, 255, 0.9);
   margin-bottom: 48px;
@@ -632,8 +632,6 @@ body::before {
   margin-right: auto;
   max-width: 600px;
   line-height: 1.7;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
 }
 
 /* ── CTA Buttons ── */
