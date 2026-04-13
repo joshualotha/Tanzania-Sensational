@@ -1,2 +1,8 @@
 *
 !.gitignore
+!destinations/
+!destinations/**/*
+!trekking-routes/
+!trekking-routes/**/*
+!visual-assets/
+!visual-assets/**/*
