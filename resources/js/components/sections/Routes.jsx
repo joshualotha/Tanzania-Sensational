@@ -22,22 +22,27 @@ const itemVariants = {
   }
 };
 
+// Instantly available fallback data so the user never has to wait for a skeleton loader.
+const staticRoutesFallback = [
+  { slug: 'lemosho-8-days', name: 'Lemosho Route', duration: 8, difficulty: 'High', description: 'Experience one of the most remote and profound approaches to the summit of Kilimanjaro with our elite ground team.', hero_image: visualsData.trekking.routes?.lemosho },
+  { slug: 'machame-7-days', name: 'Machame Route', duration: 7, difficulty: 'High', hero_image: visualsData.trekking.routes?.machame },
+  { slug: 'northern-circuit-9-days', name: 'Northern Circuit', duration: 9, difficulty: 'Extreme', hero_image: visualsData.trekking.routes?.northern },
+  { slug: 'rongai-7-days', name: 'Rongai Route', duration: 7, difficulty: 'Moderate', hero_image: visualsData.trekking.routes?.rongai }
+];
+
 export const RoutesSection = () => {
-  const [routes, setRoutes] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [routes, setRoutes] = useState(staticRoutesFallback);
+  const [loading, setLoading] = useState(false); // No skeleton loader by default!
   const visuals = useVisuals();
 
   useEffect(() => {
+    // Silently fetch fresh data in the background and swap it seamlessly
     trekkingService.getAll()
       .then(res => {
         const data = Array.isArray(res.data) ? res.data : (Array.isArray(res.data?.data) ? res.data.data : []);
         
-        if (data.length === 0) {
-          setRoutes([]);
-          return;
-        }
+        if (data.length === 0) return;
 
-        // Define flagship packages to highlight
         const featuredSlug = 'lemosho-8-days';
         const trailSlugs = ['machame-7-days', 'northern-circuit-9-days', 'rongai-7-days'];
         
@@ -45,16 +50,17 @@ export const RoutesSection = () => {
         let trails = data.filter(r => trailSlugs.includes(r.slug));
         
         if (trails.length < 3) {
-          const remaining = data.filter(r => r.id !== featured?.id);
+          const remaining = data.filter(r => r.slug !== featured?.slug);
           trails = [...trails, ...remaining].slice(0, 3);
         } else {
           trails = trails.slice(0, 3);
         }
         
-        setRoutes(featured ? [featured, ...trails] : []);
+        if (featured) {
+            setRoutes([featured, ...trails]);
+        }
       })
-      .catch(err => console.error("Failed to fetch routes:", err))
-      .finally(() => setLoading(false));
+      .catch(err => console.error("Failed to sync live routes:", err));
   }, []);
 
   const getBaseRouteUrl = (slug) => {
@@ -82,9 +88,7 @@ export const RoutesSection = () => {
           </p>
         </div>
 
-        {loading ? (
-          <div className="org-skeleton">Preparing the Ascent...</div>
-        ) : routes.length > 0 ? (
+        {routes.length > 0 ? (
           <motion.div 
             className="org-content-grid"
             initial="hidden"
@@ -94,7 +98,7 @@ export const RoutesSection = () => {
           >
             {/* ── Featured Route ── */}
             {featuredRoute && (
-              <motion.div variants={itemVariants}>
+              <motion.div variants={itemVariants} key={`feat-${featuredRoute.slug}`}>
                 <Link to={getBaseRouteUrl(featuredRoute.slug)} className="org-featured-card">
                   <div className="org-featured-media">
                     <div className="org-badge-absolute">Signature Expedition</div>
@@ -119,7 +123,7 @@ export const RoutesSection = () => {
             {/* ── Trails List ── */}
             <motion.div className="org-trails-list" variants={containerVariants}>
               {trailRoutes.map((route) => (
-                <motion.div key={route.id} variants={itemVariants}>
+                <motion.div key={`trail-${route.slug}`} variants={itemVariants}>
                   <Link to={getBaseRouteUrl(route.slug)} className="org-trail-card">
                     <div className="org-trail-media">
                       <img src={route.hero_image || visuals.getSingle(`trekking.routes.${route.slug}`, visualsData.trekking.routes?.[route.slug])} alt={route.name} />
@@ -134,17 +138,13 @@ export const RoutesSection = () => {
               ))}
             </motion.div>
           </motion.div>
-        ) : (
-          <div className="org-skeleton">Updating tracking paths...</div>
-        )}
+        ) : null}
 
-        {!loading && routes.length > 0 && (
-          <div className="org-footer-actions">
-            <Link to="/trekking/prep/best-routes" className="org-btn-outline">
-              Compare All Routes <ArrowRight size={16} />
-            </Link>
-          </div>
-        )}
+        <div className="org-footer-actions">
+          <Link to="/trekking/prep/best-routes" className="org-btn-outline">
+            Compare All Routes <ArrowRight size={16} />
+          </Link>
+        </div>
       </div>
     </section>
   );
