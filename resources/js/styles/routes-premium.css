@@ -1,308 +1,199 @@
-/* ─── ORGANIC ROUTES SECTION (THE CHOSEN PATH) ─── */
-.organic-routes-wrapper {
+/* ── INTERACTIVE EXPLORER (THE CHOSEN PATH) ── */
+.explorer-routes-wrapper {
   position: relative;
-  padding: 180px 40px;
-  background: var(--bg-parchment, #F7F4EF);
-  color: var(--dark, #1F2926);
-  font-family: 'DM Sans', sans-serif;
+  width: 100%;
+  min-height: 90vh; /* Immersive full screen feel */
+  background: #000;
+  color: #fff;
   overflow: hidden;
-}
-
-.organic-routes-inner {
-  max-width: 1400px;
-  margin: 0 auto;
-  position: relative;
-}
-
-/* ── Typography & Header ── */
-.org-routes-header {
-  text-align: center;
-  margin-bottom: 100px;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.org-eyebrow {
-  display: block;
-  font-size: 0.7rem;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: var(--gold, #C9A84C);
-  margin-bottom: 30px;
-  font-weight: 700;
-}
-
-.org-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(3rem, 6vw, 4.5rem);
-  line-height: 1.1;
-  color: var(--dark);
-  margin-bottom: 35px;
-}
-
-.org-title em {
-  font-style: italic;
-  font-weight: 400;
-  color: var(--gold);
-}
-
-.org-desc {
-  font-size: 1.15rem;
-  line-height: 1.8;
-  color: #535C58;
-  font-weight: 300;
-}
-
-/* ── Content Grid ── */
-.org-content-grid {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 80px;
+  display: flex;
   align-items: center;
 }
 
-/* ── Featured Route (Asymmetric large format) ── */
-.org-featured-card {
-  position: relative;
-  display: block;
-  color: inherit;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  text-decoration: none;
-}
-
-.org-featured-card:hover {
-  transform: translateY(-5px);
-}
-
-.org-featured-media {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 4/5;
-  overflow: hidden;
-  border-radius: 4px 40px 4px 4px; /* Organic subtle leaf shape */
-}
-
-.org-featured-media img {
+/* Background image crossfading layers */
+.explorer-bg-layer {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 1.2s ease;
-}
-
-.org-featured-card:hover .org-featured-media img {
+  opacity: 0;
+  transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 10s ease;
+  z-index: 1;
   transform: scale(1.05);
 }
 
-.org-badge-absolute {
+.explorer-bg-layer.is-active {
+  opacity: 0.7;
+  transform: scale(1);
+}
+
+/* Gradient block making text highly readable on left side */
+.explorer-overlay {
   position: absolute;
-  top: 30px;
-  left: -20px;
-  background: var(--gold);
-  color: var(--dark);
-  padding: 10px 24px;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
+  inset: 0;
+  background: linear-gradient(to right, rgba(22, 26, 23, 0.95) 0%, rgba(22, 26, 23, 0.5) 60%, rgba(22, 26, 23, 0.1) 100%);
   z-index: 2;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  pointer-events: none;
 }
 
-.org-featured-body {
-  padding: 40px 20px 0 0;
-}
-
-.org-route-meta {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  color: var(--gold);
-  margin-bottom: 20px;
-  text-transform: uppercase;
-}
-
-.org-route-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-  color: var(--dark);
-}
-
-.org-route-summary {
-  font-size: 1.05rem;
-  line-height: 1.7;
-  color: #535C58;
-  margin-bottom: 30px;
-}
-
-.org-route-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--dark);
-  border-bottom: 1px solid var(--gold);
-  padding-bottom: 8px;
-  transition: all 0.3s ease;
-}
-
-.org-featured-card:hover .org-route-cta {
-  gap: 15px;
-  color: var(--gold);
-}
-
-/* ── Secondary Trail Grid ── */
-.org-trails-list {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-.org-trail-card {
+.explorer-inner {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 120px 40px;
   display: grid;
-  grid-template-columns: 140px 1fr;
-  gap: 30px;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
-  text-decoration: none;
-  background: #FFF;
-  padding: 20px;
+  gap: 100px;
+}
+
+/* Editorial intro typography */
+.explorer-eyebrow {
+  display: block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 40px;
+}
+
+/* Route Navigation Tabs */
+.explorer-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.explorer-menu-item {
+  margin: 15px 0;
+}
+
+.explorer-route-tab {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.25);
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  text-align: left;
+  line-height: 1.1;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  padding-left: 0;
+  cursor: pointer;
+}
+
+.explorer-route-tab:hover {
+  color: rgba(255, 255, 255, 0.6);
+  transform: translateX(15px);
+}
+
+.explorer-route-tab.is-active {
+  color: #fff;
+  padding-left: 50px;
+  transform: translateX(0);
+}
+
+.explorer-route-tab.is-active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 1px;
+  background: var(--gold);
+}
+
+/* Route Details Sliding Panel */
+.explorer-content-panel {
+  background: rgba(31, 41, 38, 0.3); /* Subtle glass */
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 60px;
   border-radius: 4px;
-  border: 1px solid rgba(140, 109, 82, 0.1);
-  transition: all 0.4s ease;
-}
-
-.org-trail-card:hover {
-  background: var(--dark);
-  color: #FFF;
-  transform: translateX(10px);
-  border-color: var(--dark);
-  box-shadow: 0 20px 40px rgba(31, 41, 38, 0.08);
-}
-
-.org-trail-media {
-  width: 100%;
-  aspect-ratio: 1/1;
+  position: relative;
   overflow: hidden;
-  border-radius: 2px;
 }
 
-.org-trail-media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.8s ease;
+/* Internal glass highlight */
+.explorer-content-panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
 }
 
-.org-trail-card:hover .org-trail-media img {
-  transform: scale(1.1);
-}
-
-.org-trail-meta {
-  font-size: 0.65rem;
+.explorer-meta {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--gold);
-  margin-bottom: 12px;
-  display: block;
+  margin-bottom: 25px;
 }
 
-.org-trail-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.4rem;
-  margin-bottom: 15px;
-  color: var(--dark);
-  transition: color 0.4s;
+.explorer-summary {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 300;
+  margin-bottom: 40px;
 }
 
-.org-trail-card:hover .org-trail-title {
-  color: #FFF;
-}
-
-.org-trail-arrow {
-  color: var(--gold);
-  transition: transform 0.3s;
-}
-
-.org-trail-card:hover .org-trail-arrow {
-  transform: translateX(5px);
-}
-
-/* ── Skeleton Loader ── */
-.org-skeleton {
-  min-height: 400px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-size: 1.5rem;
-  color: var(--gold);
-  opacity: 0.6;
-  animation: pulseOpacity 2s infinite ease-in-out;
-}
-
-@keyframes pulseOpacity {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 0.8; }
-}
-
-/* ── View All CTA ── */
-.org-footer-actions {
-  margin-top: 80px;
-  text-align: center;
-}
-
-.org-btn-outline {
+/* Button CTA */
+.explorer-cta {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  padding: 16px 40px;
-  border: 1px solid var(--dark);
-  color: var(--dark);
+  font-family: 'DM Sans', sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+  background: var(--gold);
+  padding: 16px 32px;
   border-radius: 999px;
-  transition: all 0.4s ease;
+  transition: all 0.3s ease;
+  border: 1px solid var(--gold);
 }
 
-.org-btn-outline:hover {
-  background: var(--dark);
-  color: #FFF;
+.explorer-cta:hover {
+  background: transparent;
+  color: var(--gold);
+  gap: 20px;
 }
 
-/* ── Responsive ── */
+/* Mobile Adjustments */
 @media (max-width: 1024px) {
-  .org-content-grid {
+  .explorer-inner {
     grid-template-columns: 1fr;
     gap: 60px;
+    padding: 80px 20px;
   }
-  .org-badge-absolute {
-    left: 20px;
+  
+  .explorer-overlay {
+    background: linear-gradient(to bottom, rgba(22, 26, 23, 0.9) 0%, rgba(22, 26, 23, 0.7) 50%, rgba(22, 26, 23, 0.95) 100%);
   }
 }
 
 @media (max-width: 640px) {
-  .organic-routes-wrapper {
-    padding: 100px 20px;
+  .explorer-route-tab {
+    font-size: 2.2rem;
   }
-  .org-trail-card {
-    grid-template-columns: 100px 1fr;
-    gap: 20px;
-    padding: 15px;
-  }
-  .org-route-title {
-    font-size: 2rem;
-  }
-  .org-title {
-    font-size: 2.5rem;
+  .explorer-content-panel {
+    padding: 30px 20px;
   }
 }
