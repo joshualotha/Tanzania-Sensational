@@ -25,7 +25,7 @@
     "name": "vendor"
   },
   "node_modules/canvg/lib/index.es.js": {
-    "file": "assets/index.es-BoxZOmS_.js",
+    "file": "assets/index.es-Jd_mHV3u.js",
     "name": "index.es",
     "src": "node_modules/canvg/lib/index.es.js",
     "isDynamicEntry": true,
@@ -44,7 +44,7 @@
     "isDynamicEntry": true
   },
   "resources/js/main.jsx": {
-    "file": "assets/main-Bu41FpJB.js",
+    "file": "assets/main-CA1tbJTV.js",
     "name": "main",
     "src": "resources/js/main.jsx",
     "isEntry": true,
@@ -59,7 +59,7 @@
       "node_modules/canvg/lib/index.es.js"
     ],
     "css": [
-      "assets/main-2fPO9U9x.css"
+      "assets/main-CQ4XRXMQ.css"
     ]
   }
 }

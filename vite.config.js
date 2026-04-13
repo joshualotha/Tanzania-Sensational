@@ -6,7 +6,7 @@ export default defineConfig({
     plugins: [
         laravel({
             input: ['resources/js/main.jsx'],
-            publicDirectory: '',
+            publicDirectory: '.',
             buildDirectory: 'build',
             refresh: true,
         }),
