@@ -89,7 +89,7 @@ body::before {
   justify-content: space-between;
   padding: 0 40px;
   background: var(--neutral);
-  border-bottom: 1px solid rgba(140, 109, 82, 0.1);
+  border-bottom: 1px solid rgba(140, 109, 82, 0.15);
   font-family: 'Outfit', sans-serif;
 }
 
@@ -105,8 +105,7 @@ body::before {
   gap: 6px;
   font-size: 0.68rem;
   letter-spacing: 0.06em;
-  color: var(--dark);
-  opacity: 0.7;
+  color: var(--text);
   text-decoration: none;
   transition: color 0.3s;
 }
@@ -136,7 +135,7 @@ body::before {
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--dark);
+  color: var(--neutral);
   background: var(--gold);
   padding: 5px 22px;
   text-decoration: none;
@@ -144,7 +143,7 @@ body::before {
 }
 
 .topbar-cta:hover {
-  background: var(--gold-light);
+  background: #d4b45f;
 }
 
 /* GTranslate Widget Styles */
@@ -156,8 +155,8 @@ body::before {
 
 .gtranslate_wrapper select {
   background: transparent;
-  border: 1px solid rgba(201, 168, 76, 0.3);
-  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(140, 109, 82, 0.3);
+  color: var(--text);
   font-size: 0.68rem;
   padding: 2px 8px;
   border-radius: 4px;
@@ -170,8 +169,8 @@ body::before {
 }
 
 .gtranslate_wrapper select option {
-  background: #0D0D0B;
-  color: rgba(255, 255, 255, 0.9);
+  background: var(--neutral);
+  color: var(--text);
 }
 
 /* Make GTranslate flags smaller */
