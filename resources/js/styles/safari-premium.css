@@ -364,12 +364,40 @@
     }
     .premium-hero-title { font-size: 2.5rem; }
     .premium-dest-grid { grid-template-columns: 1fr; }
-    .premium-stats-grid { 
-        flex-direction: column;
-        gap: 30px;
-        padding: 0 20px;
+    .premium-stats-strip {
+        position: relative;
+        bottom: auto;
+        background: #1a221f;
+        padding: 24px 16px;
+        margin-top: -1px;
+        width: 100%;
+        z-index: 5;
     }
-    .premium-stats-strip { bottom: 120px; }
+    
+    .premium-stats-grid { 
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 0;
+        width: 100%;
+    }
+
+    .premium-stat-item {
+        flex: 1;
+        padding: 0 5px;
+    }
+
+    .premium-stat-num {
+        font-size: 1.6rem !important;
+        margin-bottom: 5px;
+    }
+
+    .premium-stat-label {
+        font-size: 0.55rem !important;
+        line-height: 1.2;
+    }
     .premium-destinations-section { margin-top: -60px; padding: 0 20px 100px; }
     .premium-dest-card { padding: 30px; }
     .premium-dest-name { font-size: 1.8rem; }

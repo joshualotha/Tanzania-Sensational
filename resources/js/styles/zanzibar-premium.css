@@ -620,26 +620,33 @@
     padding: 0 10px;
   }
   .zan-stats-strip {
-    position: relative; /* Remove absolute on small mobile to avoid overlap */
+    position: relative;
     background: #1a221f;
-    padding: 40px 20px;
-    margin-top: -40px; /* Slight overlap with hero */
+    padding: 24px 16px;
+    margin-top: -1px;
+    width: 100%;
     z-index: 5;
   }
   .zan-stats-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* 2x2 on mobile instead of column */
-    gap: 30px;
+    display: flex;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: space-between;
+    gap: 10px;
     padding: 0;
+    width: 100%;
   }
   .zan-stat-item {
-    padding: 0;
+    flex: 1;
+    padding: 0 5px;
   }
   .zan-stat-num {
-    font-size: 2rem;
+    font-size: 1.6rem !important;
+    margin-bottom: 5px;
   }
   .zan-stat-label {
-    font-size: 0.6rem;
+    font-size: 0.55rem !important;
+    line-height: 1.2;
   }
   .zan-regions-grid,
   .zan-exp-grid {
