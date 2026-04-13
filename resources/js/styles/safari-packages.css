@@ -43,7 +43,7 @@
     position: relative;
     z-index: 3;
     max-width: 1000px;
-    padding: 0 40px;
+    padding: 140px 40px 60px; /* Top padding clears island navbar */
 }
 
 .heritage-status-badge {
@@ -635,7 +635,7 @@
         padding: 0 20px;
     }
     .safari-pkgs-hero { height: 70vh; }
-    .safari-pkgs-content { padding: 0 20px; }
+    .safari-pkgs-content { padding: 120px 20px 40px; }
     .discovery-filter-sec { padding: 40px 20px 0; }
     .filter-bar { flex-direction: column; gap: 20px; align-items: stretch; }
     .filter-categories { flex-wrap: wrap; }
@@ -657,7 +657,7 @@
 
 @media (max-width: 480px) {
     .safari-pkgs-hero { height: 60vh; min-height: 400px; }
-    .safari-pkgs-content { padding: 0 16px; }
+    .safari-pkgs-content { padding: 100px 16px 40px; }
     .safari-pkgs-subtitle { font-size: 1rem; }
     .heritage-card-media { height: 220px; }
     .heritage-card-info { padding: 20px; }
