@@ -1,10 +1,6 @@
 ---
 deployment:
   tasks:
-    # Sync public files immediately before any PHP crashes can abort the script
-    - /bin/cp -R public/* $HOME/public_html/ || true
-    - /bin/cp public/.htaccess $HOME/public_html/ || true
-
     # Set production environment
     - export APP_ENV=production
     
