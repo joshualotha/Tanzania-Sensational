@@ -164,13 +164,16 @@ export const SafarisPage = () => {
                                     <Link to={`/safaris/destinations/${dest.id}`} className="premium-dest-card">
                                         <div className="premium-dest-img-wrap">
                                             <img src={dest.hero_image || visualsData.safaris.listHero} alt={dest.name} />
+                                            <div className="premium-dest-img-overlay"></div>
                                         </div>
-                                        <span className="premium-dest-tag">{dest.meta_tag || 'Wilderness'}</span>
-                                        <h3 className="premium-dest-name">{dest.name}</h3>
-                                        <p className="premium-dest-desc">{dest.overview ? dest.overview.substring(0, 100) + '...' : ''}</p>
-                                        <div className="premium-dest-link">
-                                            <span>Detailed Dossier</span>
-                                            <ArrowRight size={16} color="var(--gold)" />
+                                        <div className="premium-dest-content">
+                                            <span className="premium-dest-tag">{dest.meta_tag || 'Wilderness'}</span>
+                                            <h3 className="premium-dest-name">{dest.name}</h3>
+                                            <p className="premium-dest-desc">{dest.overview ? dest.overview.substring(0, 100) + '...' : ''}</p>
+                                            <div className="premium-dest-link">
+                                                <span>Detailed Dossier</span>
+                                                <ArrowRight size={16} color="currentColor" />
+                                            </div>
                                         </div>
                                     </Link>
                                 </motion.div>
