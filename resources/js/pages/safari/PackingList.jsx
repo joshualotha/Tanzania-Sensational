@@ -3,17 +3,17 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { visualsData } from '../../data/visualsData';
 import { useVisuals } from '../../context/VisualsContext';
-import { Check, Camera, Sun, Shield, Droplets, Heart, Package } from 'lucide-react';
-import '../../styles/ultra-premium.css';
+import { Check, Shield, Sun, Heart, Camera, Package } from 'lucide-react';
+import '../../styles/safari-field-guide.css';
 
 const PackingList = () => {
     useEffect(() => { window.scrollTo(0, 0); }, []);
     const visuals = useVisuals();
     const [checked, setChecked] = useState({});
 
-    const fadeInUp = {
-        hidden: { opacity: 0, y: 30 },
-        visible: { opacity: 1, y: 0, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }
+    const fade = {
+        hidden: { opacity: 0, y: 40 },
+        visible: { opacity: 1, y: 0, transition: { duration: 1.4, ease: [0.16, 1, 0.3, 1] } }
     };
 
     const toggle = (id) => setChecked(prev => ({ ...prev, [id]: !prev[id] }));
@@ -93,127 +93,102 @@ const PackingList = () => {
     const progress = Math.round((checkedCount / totalItems) * 100);
 
     return (
-        <div className="lux-root">
-            {/* ─── HERO ─── */}
-            <section className="lux-hero">
-                <img
-                    src={visuals.getSingle('safari.packingHero', visualsData.planning.gearHero)}
-                    alt="Packing for Safari"
-                />
-                <div className="lux-hero-overlay"></div>
-                <div className="lux-hero-content">
-                    <motion.span className="lux-hero-eyebrow" initial="hidden" animate="visible" variants={fadeInUp}>The Complete Checklist</motion.span>
-                    <motion.h1 className="lux-hero-title" initial="hidden" animate="visible" variants={fadeInUp} transition={{ delay: 0.1 }}>
-                        Packing <em>List.</em>
-                    </motion.h1>
+        <div className="field-root">
+
+            {/* ═══ HERO ═══ */}
+            <section className="field-hero">
+                <div className="field-hero-img">
+                    <img src={visuals.getSingle('safari.packingHero', visualsData.planning.gearHero)} alt="Safari gear laid out" />
                 </div>
+                <div className="field-hero-gradient" />
+                <motion.div className="field-hero-content" initial="hidden" animate="visible" variants={fade}>
+                    <span className="field-hero-eyebrow">The Complete Checklist</span>
+                    <h1 className="field-hero-title">Packing <em>List</em></h1>
+                    <p className="field-hero-subtitle">
+                        Every item battle-tested across hundreds of expeditions. Tick them off as you pack.
+                    </p>
+                </motion.div>
             </section>
 
-            {/* ─── PROGRESS BAR ─── */}
-            <section className="lux-progress-strip">
-                <div className="lux-progress-inner">
-                    <span className="lux-progress-text">
-                        <strong>{checkedCount}</strong> of {totalItems} items packed
-                    </span>
-                    <div className="lux-progress-track">
-                        <motion.div
-                            className="lux-progress-fill"
-                            initial={{ width: 0 }}
-                            animate={{ width: `${progress}%` }}
-                            transition={{ duration: 0.5, ease: 'easeOut' }}
-                        />
-                    </div>
-                    <span className="lux-progress-pct" style={{ color: progress === 100 ? '#2d8b4e' : 'var(--lux-tan)' }}>
-                        {progress === 100 ? '✓ Ready!' : `${progress}%`}
-                    </span>
-                </div>
-            </section>
-
-            {/* ─── EDITORIAL INTRO ─── */}
-            <section className="lux-section">
-                <div className="lux-editorial-grid">
-                    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeInUp}>
-                        <h2 className="lux-heading">Pack Light, Pack <em>Right.</em></h2>
-                        <p className="lux-body">
-                            The golden rule of safari packing: soft-sided luggage only. Most bush camps and lodges use light aircraft transfers with strict 15kg (33lb) weight limits in soft duffel bags — no hard-shell suitcases allowed.
-                        </p>
-                        <p className="lux-body">
-                            Every item on this list has been battle-tested across hundreds of expeditions. The critical items are non-negotiable; the optional ones enhance comfort. Tick them off as you pack.
-                        </p>
-                    </motion.div>
+            {/* ═══ PROGRESS BAR ═══ */}
+            <section className="field-progress">
+                <span className="field-progress-text">
+                    <strong>{checkedCount}</strong> of {totalItems} items packed
+                </span>
+                <div className="field-progress-track">
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1.5, ease: "easeOut" }}
-                        className="lux-image-wrapper"
-                    >
-                        <img
-                            src={visuals.getSingle('safari.packingEditorial', visualsData.trekking.routes.lemosho)}
-                            alt="Safari Luggage"
-                        />
-                        <div className="lux-image-caption">Soft duffel bags are the only acceptable luggage for bush flights.</div>
-                    </motion.div>
+                        className="field-progress-fill"
+                        initial={{ width: 0 }}
+                        animate={{ width: `${progress}%` }}
+                        transition={{ duration: 0.5 }}
+                    />
                 </div>
+                <span className="field-progress-pct" style={{ color: progress === 100 ? '#4ade80' : undefined }}>
+                    {progress === 100 ? '✓ Ready' : `${progress}%`}
+                </span>
             </section>
 
-            {/* ─── CHECKLIST ─── */}
+            {/* ═══ EDITORIAL INTRO — SPLIT ═══ */}
+            <div className="field-split">
+                <div className="field-split-text">
+                    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }} variants={fade}>
+                        <span className="field-chapter-eyebrow">Before You Pack</span>
+                        <h2 className="field-chapter-title">Pack Light, Pack <em>Right</em></h2>
+                        <p className="field-chapter-body">
+                            The golden rule of safari packing: soft-sided luggage only. Most bush camps use light aircraft transfers with strict 15kg weight limits in soft duffel bags — no hard-shell suitcases allowed.
+                        </p>
+                        <p className="field-chapter-body">
+                            The critical items are non-negotiable. The optional ones enhance comfort. Everything here has earned its place.
+                        </p>
+                    </motion.div>
+                </div>
+                <motion.div className="field-split-img" initial={{ opacity: 0, scale: 1.05 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1.5 }}>
+                    <img src={visuals.getSingle('safari.packingEditorial', visualsData.trekking.routes.lemosho)} alt="Safari duffel bag" />
+                </motion.div>
+            </div>
+
+            {/* ═══ CHECKLIST CATEGORIES ═══ */}
             {categories.map((cat, i) => (
-                <section key={i} className={`lux-section ${i % 2 === 0 ? 'lux-section-alt' : ''}`}>
-                    <motion.div
-                        className="lux-checklist-block"
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                        variants={fadeInUp}
-                    >
-                        <div className="lux-checklist-header">
-                            <div className="lux-checklist-icon">{cat.icon}</div>
-                            <h3 className="lux-checklist-cat-title">{cat.name}</h3>
+                <section key={i} className={`field-checklist-section ${i % 2 !== 0 ? 'field-section-alt' : ''}`}>
+                    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fade}>
+                        <div className="field-checklist-header">
+                            <span className="field-checklist-icon">{cat.icon}</span>
+                            <h3 className="field-checklist-cat">{cat.name}</h3>
                         </div>
-                        <div className="lux-checklist-items">
-                            {cat.items.map((item) => (
-                                <motion.div
-                                    key={item.id}
-                                    className={`lux-checklist-item ${checked[item.id] ? 'checked' : ''}`}
-                                    onClick={() => toggle(item.id)}
-                                    whileHover={{ scale: 1.01 }}
-                                    whileTap={{ scale: 0.99 }}
-                                >
-                                    <div className="lux-checkbox">
-                                        {checked[item.id] && <Check size={14} />}
-                                    </div>
-                                    <span className="lux-checklist-label">{item.label}</span>
-                                    {item.critical && (
-                                        <span className="lux-essential-badge">ESSENTIAL</span>
-                                    )}
-                                </motion.div>
-                            ))}
-                        </div>
+                        {cat.items.map((item) => (
+                            <motion.div
+                                key={item.id}
+                                className={`field-check-item ${checked[item.id] ? 'checked' : ''}`}
+                                onClick={() => toggle(item.id)}
+                                whileTap={{ scale: 0.99 }}
+                            >
+                                <div className="field-check-box">
+                                    {checked[item.id] && <Check size={13} />}
+                                </div>
+                                <span className="field-check-label">{item.label}</span>
+                                {item.critical && <span className="field-check-badge">Essential</span>}
+                            </motion.div>
+                        ))}
                     </motion.div>
                 </section>
             ))}
 
-            {/* ─── FULL BLEED PARALLAX ─── */}
-            <section className="lux-full-bleed">
-                <img
-                    src={visuals.getSingle('safari.packingFullBleed', visualsData.planning.meruHero)}
-                    alt="Safari Ready"
-                />
+            {/* ═══ FULL BLEED ═══ */}
+            <section className="field-bleed">
+                <img src={visuals.getSingle('safari.packingFullBleed', visualsData.planning.meruHero)} alt="Safari expedition ready" />
+                <span className="field-bleed-caption">Ready for the bush</span>
             </section>
 
-            {/* ─── CTA ─── */}
-            <section className="lux-cta">
-                <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-                    <h2 className="lux-heading" style={{ marginBottom: '20px' }}>Stay Safe in the <em>Bush.</em></h2>
-                    <p className="lux-body" style={{ maxWidth: '600px', margin: '0 auto 30px' }}>
-                        Now that you're packed and ready, learn about health precautions and safety protocols for your Tanzanian adventure.
+            {/* ═══ CTA ═══ */}
+            <section className="field-cta">
+                <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fade}>
+                    <h2 className="field-cta-title">Stay Safe in the <em>Bush</em></h2>
+                    <p className="field-cta-body">
+                        Now that you're packed, learn about health precautions and safety protocols for your Tanzanian adventure.
                     </p>
-                    <Link to="/safari-guide/health-and-safety" className="lux-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px' }}>
+                    <Link to="/safari-guide/health-and-safety" className="field-btn">
                         Health & Safety Guide
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                            <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
                     </Link>
                 </motion.div>
             </section>

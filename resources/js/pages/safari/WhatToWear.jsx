@@ -3,199 +3,154 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { visualsData } from '../../data/visualsData';
 import { useVisuals } from '../../context/VisualsContext';
-import { Sun, Wind, Droplets, Camera, Shield, Check } from 'lucide-react';
-import '../../styles/ultra-premium.css';
+import { Check } from 'lucide-react';
+import '../../styles/safari-field-guide.css';
 
 const WhatToWear = () => {
     useEffect(() => { window.scrollTo(0, 0); }, []);
     const visuals = useVisuals();
 
-    const fadeInUp = {
-        hidden: { opacity: 0, y: 30 },
-        visible: { opacity: 1, y: 0, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }
+    const fade = {
+        hidden: { opacity: 0, y: 40 },
+        visible: { opacity: 1, y: 0, transition: { duration: 1.4, ease: [0.16, 1, 0.3, 1] } }
     };
-
-    const wardrobe = [
-        {
-            category: 'Color Philosophy',
-            icon: <Camera size={20} />,
-            title: 'The Safari Palette',
-            desc: 'Leave the bright whites and neon tones at home. On safari, your wardrobe should blend with the landscape, not compete with it. Khaki, olive, tan, and muted earth tones are the gold standard.',
-            items: ['Khaki & Olive (primary)', 'Tan & Beige (secondary)', 'Avoid: White, Black, Bright Blue', 'Avoid: Neon or Fluorescent Colors']
-        },
-        {
-            category: 'Fabric Science',
-            icon: <Wind size={20} />,
-            title: 'Breathable is Everything',
-            desc: 'The African sun is relentless, but your clothing doesn\'t have to be. Choose lightweight, moisture-wicking fabrics that dry quickly and resist wrinkles. Cotton is acceptable in camp, but synthetic blends rule the field.',
-            items: ['Quick-dry synthetics (primary)', 'Merino wool (excellent)', 'Linen (acceptable in camp)', 'Avoid: Heavy denim, Pure cotton']
-        },
-        {
-            category: 'Layering Strategy',
-            icon: <Droplets size={20} />,
-            title: 'The Temperature Swing',
-            desc: 'Safari mornings begin at 4 AM in near-freezing game drive vehicles. By noon, you\'ll be baking in 35°C heat. The solution? Strategic layering that sheds as the day warms.',
-            items: ['Base: Light, breathable tee', 'Mid: Fleece or light sweater', 'Outer: Windproof jacket (mornings)', 'Hat: Wide-brimmed essential']
-        }
-    ];
 
     const occasions = [
         {
-            time: 'Morning Game Drive',
-            temp: '5-15°C (41-59°F)',
-            outfit: 'Long pants + long-sleeve shirt + fleece + windproof jacket + beanie + gloves',
-            note: 'The 4 AM departures are genuinely cold. Dress as if you\'re going skiing.'
+            num: '01',
+            title: 'Morning Game Drive',
+            desc: 'The 4 AM departures are genuinely cold. Open-top vehicles at 5°C with wind chill will test your resolve if you\'re underprepared. Dress as if you\'re going skiing.',
+            items: ['Long pants', 'Long-sleeve shirt', 'Heavy fleece', 'Windproof jacket', 'Beanie', 'Gloves']
         },
         {
-            time: 'Midday at Camp',
-            temp: '28-35°C (82-95°F)',
-            outfit: 'Shorts + short-sleeve shirt + sun hat + sunglasses',
-            note: 'Light, airy, and sunscreen-reliant. This is when the pool calls.'
+            num: '02',
+            title: 'Midday at Camp',
+            desc: 'By noon, the mercury has swung 30 degrees. Camp is where you shed everything and embrace the equatorial heat. Light, airy, sunscreen-heavy.',
+            items: ['Shorts', 'Short-sleeve shirt', 'Wide-brim sun hat', 'Sunglasses', 'SPF 50+', 'Camp sandals']
         },
         {
-            time: 'Evening Sundowner',
-            temp: '18-25°C (64-77°F)',
-            outfit: 'Smart casual: chinos + collared shirt + light jacket',
-            note: 'Safari camps elevate at dusk. Think "refined bush elegance."'
+            num: '03',
+            title: 'Evening Sundowner',
+            desc: 'Safari camps elevate at dusk. The bush bar, the fire pit, the long table under the stars — this is where "refined bush elegance" earns its meaning.',
+            items: ['Chinos or clean trousers', 'Collared shirt', 'Light jacket', 'Closed-toe shoes', 'Watch (no phone)', 'A good story']
         },
         {
-            time: 'Walking Safari',
-            temp: 'Variable',
-            outfit: 'Long pants + closed-toe shoes + neutral colors + sun protection',
-            note: 'Neutral colors are non-negotiable. White and bright colors startle wildlife.'
+            num: '04',
+            title: 'Walking Safari',
+            desc: 'On foot in Big Five territory, neutral colors are non-negotiable. White and bright colors startle wildlife. You are entering their home, not a fashion show.',
+            items: ['Long pants (earth tones)', 'Neutral long-sleeve', 'Closed-toe boots', 'Gaiters (optional)', 'Sun protection', 'Binoculars']
         }
     ];
 
     return (
-        <div className="lux-root">
-            {/* ─── HERO ─── */}
-            <section className="lux-hero">
-                <img
-                    src={visuals.getSingle('safari.whatToWearHero', visualsData.safaris.listHero)}
-                    alt="Safari Style"
-                />
-                <div className="lux-hero-overlay"></div>
-                <div className="lux-hero-content">
-                    <motion.span className="lux-hero-eyebrow" initial="hidden" animate="visible" variants={fadeInUp}>The Field Manual</motion.span>
-                    <motion.h1 className="lux-hero-title" initial="hidden" animate="visible" variants={fadeInUp} transition={{ delay: 0.1 }}>
-                        What to <em>Wear.</em>
-                    </motion.h1>
+        <div className="field-root">
+
+            {/* ═══ HERO ═══ */}
+            <section className="field-hero">
+                <div className="field-hero-img">
+                    <img src={visuals.getSingle('safari.whatToWearHero', visualsData.safaris.listHero)} alt="Safari attire in the bush" />
                 </div>
+                <div className="field-hero-gradient" />
+                <motion.div className="field-hero-content" initial="hidden" animate="visible" variants={fade}>
+                    <span className="field-hero-eyebrow">The Field Manual</span>
+                    <h1 className="field-hero-title">What to <em>Wear</em></h1>
+                    <p className="field-hero-subtitle">
+                        Your clothing is your first line of defense. Against the sun, the cold, the insects, and bad photographs.
+                    </p>
+                </motion.div>
             </section>
 
-            {/* ─── EDITORIAL INTRO ─── */}
-            <section className="lux-section">
-                <div className="lux-editorial-grid">
-                    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeInUp}>
-                        <h2 className="lux-heading">Dress Like a <em>Professional.</em></h2>
-                        <p className="lux-body">
-                            On safari, your clothing serves three critical purposes: blending into the environment, regulating your body temperature across extreme swings, and protecting you from the equatorial sun and insects.
+            {/* ═══ CHAPTER 1 — THE PHILOSOPHY ═══ */}
+            <div className="field-split">
+                <div className="field-split-text">
+                    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }} variants={fade}>
+                        <span className="field-chapter-num">01</span>
+                        <span className="field-chapter-eyebrow">Color Philosophy</span>
+                        <h2 className="field-chapter-title">The Safari <em>Palette</em></h2>
+                        <p className="field-chapter-body">
+                            Leave the bright whites and neon tones at home. On safari, your wardrobe should blend with the landscape, not compete with it.
                         </p>
-                        <p className="lux-body">
-                            The experienced safari hand doesn't dress for Instagram — they dress for the bush. Neutral tones, practical layers, and fabrics that perform under harsh conditions are the hallmarks of someone who understands the terrain.
+                        <p className="field-chapter-body">
+                            Khaki, olive, tan, and muted earth tones are the gold standard. These colors don't attract tsetse flies, don't spook game, and photograph beautifully against the golden hour light.
                         </p>
-                        <p className="lux-body">
-                            Here is the complete field manual for dressing correctly on a Tanzanian safari.
-                        </p>
-                    </motion.div>
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1.5, ease: "easeOut" }}
-                        className="lux-image-wrapper"
-                    >
-                        <img
-                            src={visuals.getSingle('safari.whatToWearEditorial', visualsData.planning.meruHero)}
-                            alt="Safari Wardrobe"
-                        />
-                        <div className="lux-image-caption">Neutral tones blend seamlessly into the savanna landscape.</div>
                     </motion.div>
                 </div>
+                <motion.div className="field-split-img" initial={{ opacity: 0, scale: 1.05 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1.5 }}>
+                    <img src={visuals.getSingle('safari.whatToWearEditorial', visualsData.planning.meruHero)} alt="Earth-toned safari clothing" />
+                </motion.div>
+            </div>
+
+            {/* ═══ PULL QUOTE ═══ */}
+            <motion.section className="field-pullquote" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 1.2 }}>
+                <p className="field-pullquote-text">
+                    "The experienced safari hand doesn't dress for Instagram — they dress for the bush."
+                </p>
+                <span className="field-pullquote-attr">Field Notes, Northern Tanzania</span>
+            </motion.section>
+
+            {/* ═══ CHAPTER 2 — FABRIC SCIENCE ═══ */}
+            <div className="field-split reversed field-split-dark">
+                <motion.div className="field-split-img" initial={{ opacity: 0, scale: 1.05 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1.5 }}>
+                    <img src={visuals.getSingle('safari.whatToWearFullBleed', visualsData.safaris.migrationHero)} alt="Breathable safari fabrics" />
+                </motion.div>
+                <div className="field-split-text">
+                    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }} variants={fade}>
+                        <span className="field-chapter-num">02</span>
+                        <span className="field-chapter-eyebrow">Fabric Science</span>
+                        <h2 className="field-chapter-title">Breathable is <em>Everything</em></h2>
+                        <p className="field-chapter-body">
+                            The African sun is relentless, but your clothing doesn't have to be. Choose lightweight, moisture-wicking fabrics that dry quickly and resist wrinkles.
+                        </p>
+                        <p className="field-chapter-body">
+                            Cotton is acceptable in camp, but synthetic blends dominate the field. Quick-dry nylon and merino wool are the fabrics of choice for professionals who spend weeks in the bush.
+                        </p>
+                    </motion.div>
+                </div>
+            </div>
+
+            {/* ═══ FULL BLEED BREAK ═══ */}
+            <section className="field-bleed">
+                <img src={visuals.getSingle('safari.whatToWearFullBleed', visualsData.safaris.migrationHero)} alt="Savanna landscape" />
+                <span className="field-bleed-caption">Serengeti, Tanzania</span>
             </section>
 
-            {/* ─── WARDROBE PRINCIPLES ─── */}
-            <section className="lux-section lux-section-alt">
-                <motion.h2 className="lux-heading" style={{ textAlign: 'center', marginBottom: '60px' }} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-                    The Three <em>Pillars.</em>
-                </motion.h2>
-                <div className="lux-pillar-grid">
-                    {wardrobe.map((item, i) => (
-                        <motion.div
-                            key={i}
-                            className="lux-pillar-card"
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true }}
-                            variants={fadeInUp}
-                            transition={{ delay: i * 0.15 }}
-                        >
-                            <div className="lux-pillar-icon">{item.icon}</div>
-                            <span className="lux-pillar-tag">{item.category}</span>
-                            <h3 className="lux-pillar-title">{item.title}</h3>
-                            <p className="lux-pillar-desc">{item.desc}</p>
-                            <ul className="lux-pillar-list">
-                                {item.items.map((itm, j) => (
-                                    <li key={j}>
-                                        <Check size={14} />
-                                        {itm}
-                                    </li>
-                                ))}
+            {/* ═══ CHAPTER 3 — THE DAILY ROTATION ═══ */}
+            <section className="field-chapter">
+                <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fade}>
+                    <span className="field-chapter-num">03</span>
+                    <span className="field-chapter-eyebrow">The Daily Rotation</span>
+                    <h2 className="field-chapter-title">Four Outfits for <em>Four Moments</em></h2>
+                    <p className="field-chapter-body">
+                        A single safari day swings from near-freezing to scorching heat. The solution is not one outfit — it's four strategic wardrobe changes built into your day.
+                    </p>
+                </motion.div>
+            </section>
+
+            <section className="field-details-section" style={{ paddingTop: 0 }}>
+                {occasions.map((item, i) => (
+                    <motion.div className="field-detail-row" key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fade} transition={{ delay: i * 0.08 }}>
+                        <span className="field-detail-num">{item.num}</span>
+                        <div>
+                            <h3 className="field-detail-title">{item.title}</h3>
+                            <p className="field-detail-desc">{item.desc}</p>
+                            <ul className="field-detail-items">
+                                {item.items.map((itm, j) => <li key={j}>{itm}</li>)}
                             </ul>
-                        </motion.div>
-                    ))}
-                </div>
+                        </div>
+                    </motion.div>
+                ))}
             </section>
 
-            {/* ─── FULL BLEED PARALLAX ─── */}
-            <section className="lux-full-bleed">
-                <img
-                    src={visuals.getSingle('safari.whatToWearFullBleed', visualsData.safaris.migrationHero)}
-                    alt="Safari Landscape"
-                />
-            </section>
-
-            {/* ─── OCCASION GUIDE ─── */}
-            <section className="lux-section">
-                <motion.h2 className="lux-heading" style={{ textAlign: 'center', marginBottom: '60px' }} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-                    The Daily <em>Rotation.</em>
-                </motion.h2>
-                <div className="lux-occasion-list">
-                    {occasions.map((item, i) => (
-                        <motion.div
-                            key={i}
-                            className="lux-occasion-row"
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true }}
-                            variants={fadeInUp}
-                            transition={{ delay: i * 0.1 }}
-                        >
-                            <div>
-                                <h4 className="lux-occasion-time">{item.time}</h4>
-                                <span className="lux-occasion-temp">{item.temp}</span>
-                            </div>
-                            <div>
-                                <p className="lux-occasion-outfit"><strong>Wear:</strong> {item.outfit}</p>
-                                <p className="lux-occasion-note">{item.note}</p>
-                            </div>
-                        </motion.div>
-                    ))}
-                </div>
-            </section>
-
-            {/* ─── CTA ─── */}
-            <section className="lux-cta">
-                <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-                    <h2 className="lux-heading" style={{ marginBottom: '20px' }}>Ready for the <em>Bush?</em></h2>
-                    <p className="lux-body" style={{ maxWidth: '600px', margin: '0 auto 30px' }}>
+            {/* ═══ CTA ═══ */}
+            <section className="field-cta">
+                <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fade}>
+                    <h2 className="field-cta-title">Ready for the <em>Bush?</em></h2>
+                    <p className="field-cta-body">
                         Now that you know what to wear, explore our complete packing list to ensure nothing is left behind.
                     </p>
-                    <Link to="/safari-guide/packing-guide" className="lux-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px' }}>
-                        View Full Packing List
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                            <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
+                    <Link to="/safari-guide/packing-guide" className="field-btn">
+                        View Packing List
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
                     </Link>
                 </motion.div>
             </section>

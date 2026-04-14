@@ -3,16 +3,16 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { visualsData } from '../../data/visualsData';
 import { useVisuals } from '../../context/VisualsContext';
-import { Shield, AlertTriangle, Droplets, Syringe, Heart, Phone, Activity, CheckCircle } from 'lucide-react';
-import '../../styles/ultra-premium.css';
+import { Shield, CheckCircle } from 'lucide-react';
+import '../../styles/safari-field-guide.css';
 
 const HealthAndSafety = () => {
     useEffect(() => { window.scrollTo(0, 0); }, []);
     const visuals = useVisuals();
 
-    const fadeInUp = {
-        hidden: { opacity: 0, y: 30 },
-        visible: { opacity: 1, y: 0, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }
+    const fade = {
+        hidden: { opacity: 0, y: 40 },
+        visible: { opacity: 1, y: 0, transition: { duration: 1.4, ease: [0.16, 1, 0.3, 1] } }
     };
 
     const vaccinations = [
@@ -26,25 +26,25 @@ const HealthAndSafety = () => {
 
     const safety = [
         {
-            icon: <Droplets size={24} />,
+            num: '01',
             title: 'Water Safety',
             desc: 'Never drink tap water in Tanzania. Stick to sealed bottled water or purified water provided by your lodge. Avoid ice cubes unless you\'re certain they were made from purified water.',
-            items: ['Bottled water only (check seal)', 'No tap water for brushing teeth', 'Avoid ice in local establishments', 'Use water purification tablets as backup']
+            items: ['Bottled water only (check seal)', 'No tap water for brushing teeth', 'Avoid ice in local establishments', 'Use purification tablets as backup']
         },
         {
-            icon: <AlertTriangle size={24} />,
+            num: '02',
             title: 'Wildlife Encounters',
             desc: 'Wild animals are unpredictable and dangerous when approached. Your guide\'s instructions are absolute law. Stay in the vehicle unless explicitly told it\'s safe to exit.',
             items: ['Never approach wild animals', 'Keep limbs inside the vehicle', 'Speak quietly during sightings', 'Follow guide instructions immediately']
         },
         {
-            icon: <Activity size={24} />,
+            num: '03',
             title: 'Emergency Protocols',
             desc: 'All reputable safari operators have emergency evacuation plans. Know your camp\'s nearest medical facility and evacuation procedure before departing.',
             items: ['Flying Doctors Service (AMREF)', 'Satellite phone in remote camps', 'Nearest hospital identified on arrival', 'Travel insurance covers evacuation']
         },
         {
-            icon: <Syringe size={24} />,
+            num: '04',
             title: 'Malaria Prevention',
             desc: 'Tanzania is a high-risk malaria zone. Consult your doctor 4-6 weeks before travel for the appropriate prophylaxis. Combine medication with physical barriers.',
             items: ['Start prophylaxis before travel', 'Use DEET 30%+ repellent daily', 'Sleep under treated mosquito nets', 'Wear long sleeves after dusk']
@@ -59,66 +59,55 @@ const HealthAndSafety = () => {
     ];
 
     return (
-        <div className="lux-root">
-            {/* ─── HERO ─── */}
-            <section className="lux-hero">
-                <img
-                    src={visuals.getSingle('safari.healthHero', visualsData.trekking.health.vaccinations)}
-                    alt="Health & Safety"
-                />
-                <div className="lux-hero-overlay"></div>
-                <div className="lux-hero-content">
-                    <motion.span className="lux-hero-eyebrow" initial="hidden" animate="visible" variants={fadeInUp}>Your Safety, Our Priority</motion.span>
-                    <motion.h1 className="lux-hero-title" initial="hidden" animate="visible" variants={fadeInUp} transition={{ delay: 0.1 }}>
-                        Health & <em>Safety.</em>
-                    </motion.h1>
+        <div className="field-root">
+
+            {/* ═══ HERO ═══ */}
+            <section className="field-hero">
+                <div className="field-hero-img">
+                    <img src={visuals.getSingle('safari.healthHero', visualsData.trekking.health.vaccinations)} alt="Health and safety in Tanzania" />
                 </div>
+                <div className="field-hero-gradient" />
+                <motion.div className="field-hero-content" initial="hidden" animate="visible" variants={fade}>
+                    <span className="field-hero-eyebrow">Your Safety, Our Priority</span>
+                    <h1 className="field-hero-title">Health & <em>Safety</em></h1>
+                    <p className="field-hero-subtitle">
+                        The vast majority of health risks are entirely preventable with proper preparation and awareness.
+                    </p>
+                </motion.div>
             </section>
 
-            {/* ─── EDITORIAL INTRO ─── */}
-            <section className="lux-section">
-                <div className="lux-editorial-grid">
-                    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeInUp}>
-                        <h2 className="lux-heading">Prepare with <em>Confidence.</em></h2>
-                        <p className="lux-body">
-                            Tanzania is a safe and welcoming destination for travelers who take sensible precautions. The vast majority of health risks are entirely preventable with proper preparation and awareness.
+            {/* ═══ CHAPTER 1 — PREPARE WITH CONFIDENCE ═══ */}
+            <div className="field-split">
+                <div className="field-split-text">
+                    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }} variants={fade}>
+                        <span className="field-chapter-num">01</span>
+                        <span className="field-chapter-eyebrow">Before You Go</span>
+                        <h2 className="field-chapter-title">Prepare with <em>Confidence</em></h2>
+                        <p className="field-chapter-body">
+                            Tanzania is a safe and welcoming destination for travelers who take sensible precautions. This guide covers the essential vaccinations, daily safety protocols, and emergency procedures that every traveler should understand before departure.
                         </p>
-                        <p className="lux-body">
-                            This guide covers the essential vaccinations, daily safety protocols, and emergency procedures that every traveler to Tanzania should understand before departure.
-                        </p>
-                        <p className="lux-body">
+                        <p className="field-chapter-body">
                             Consult your travel physician 4-6 weeks before your trip for personalized medical advice based on your health history.
                         </p>
                     </motion.div>
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1.5, ease: "easeOut" }}
-                        className="lux-image-wrapper"
-                    >
-                        <img
-                            src={visuals.getSingle('safari.healthEditorial', visualsData.trekking.during.routine)}
-                            alt="Medical Preparedness"
-                        />
-                        <div className="lux-image-caption">Professional medical support is available throughout your journey.</div>
-                    </motion.div>
                 </div>
+                <motion.div className="field-split-img" initial={{ opacity: 0, scale: 1.05 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1.5 }}>
+                    <img src={visuals.getSingle('safari.healthEditorial', visualsData.trekking.during.routine)} alt="Medical preparation" />
+                </motion.div>
+            </div>
+
+            {/* ═══ VACCINATION TABLE ═══ */}
+            <section className="field-chapter">
+                <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fade}>
+                    <span className="field-chapter-num">02</span>
+                    <span className="field-chapter-eyebrow">Immunisation</span>
+                    <h2 className="field-chapter-title">Vaccination <em>Requirements</em></h2>
+                </motion.div>
             </section>
 
-            {/* ─── VACCINATION TABLE ─── */}
-            <section className="lux-section lux-section-alt">
-                <motion.h2 className="lux-heading" style={{ textAlign: 'center', marginBottom: '50px' }} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-                    Vaccination <em>Requirements.</em>
-                </motion.h2>
-                <div style={{ overflowX: 'auto' }}>
-                    <motion.table
-                        className="lux-vax-table"
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                        variants={fadeInUp}
-                    >
+            <section className="field-table-section" style={{ paddingTop: 0 }}>
+                <motion.div style={{ overflowX: 'auto' }} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fade}>
+                    <table className="field-table">
                         <thead>
                             <tr>
                                 <th>Vaccination</th>
@@ -130,99 +119,98 @@ const HealthAndSafety = () => {
                             {vaccinations.map((vax, i) => (
                                 <tr key={i}>
                                     <td>
-                                        <div className="lux-vax-name">
-                                            {vax.critical ? <Shield size={16} style={{ color: 'var(--lux-tan)' }} /> : <CheckCircle size={16} style={{ color: '#16a34a' }} />}
+                                        <div className="field-table-name">
+                                            {vax.critical ? <Shield size={15} style={{ color: 'var(--field-gold)' }} /> : <CheckCircle size={15} style={{ color: '#16a34a' }} />}
                                             {vax.name}
                                         </div>
                                     </td>
                                     <td>
-                                        <span className={`lux-vax-badge ${vax.status.toLowerCase()}`}>
-                                            {vax.status.toUpperCase()}
+                                        <span className={`field-table-badge ${vax.status.toLowerCase()}`}>
+                                            {vax.status}
                                         </span>
                                     </td>
-                                    <td className="lux-vax-desc">{vax.desc}</td>
+                                    <td className="field-table-desc">{vax.desc}</td>
                                 </tr>
                             ))}
                         </tbody>
-                    </motion.table>
-                </div>
+                    </table>
+                </motion.div>
             </section>
 
-            {/* ─── SAFETY PILLARS ─── */}
-            <section className="lux-section">
-                <motion.h2 className="lux-heading" style={{ textAlign: 'center', marginBottom: '60px' }} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-                    The Four <em>Pillars.</em>
-                </motion.h2>
-                <div className="lux-safety-grid">
-                    {safety.map((item, i) => (
-                        <motion.div
-                            key={i}
-                            className="lux-safety-card"
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true }}
-                            variants={fadeInUp}
-                            transition={{ delay: i * 0.15 }}
-                        >
-                            <div className="lux-safety-icon">{item.icon}</div>
-                            <h3 className="lux-safety-title">{item.title}</h3>
-                            <p className="lux-safety-desc">{item.desc}</p>
-                            <ul className="lux-safety-bullets">
-                                {item.items.map((bullet, j) => (
-                                    <li key={j}>{bullet}</li>
-                                ))}
+            {/* ═══ PULL QUOTE ═══ */}
+            <motion.section className="field-pullquote" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 1.2 }}>
+                <p className="field-pullquote-text">
+                    "The best insurance policy is preparation. The second best is actual insurance."
+                </p>
+                <span className="field-pullquote-attr">Safari Safety Guidebook</span>
+            </motion.section>
+
+            {/* ═══ CHAPTER 3 — SAFETY PILLARS ═══ */}
+            <section className="field-chapter">
+                <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fade}>
+                    <span className="field-chapter-num">03</span>
+                    <span className="field-chapter-eyebrow">In the Field</span>
+                    <h2 className="field-chapter-title">The Four <em>Pillars</em></h2>
+                    <p className="field-chapter-body">
+                        Four critical areas of safety awareness that will keep you protected throughout your Tanzanian journey.
+                    </p>
+                </motion.div>
+            </section>
+
+            <section className="field-details-section" style={{ paddingTop: 0 }}>
+                {safety.map((item, i) => (
+                    <motion.div className="field-detail-row" key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fade} transition={{ delay: i * 0.08 }}>
+                        <span className="field-detail-num">{item.num}</span>
+                        <div>
+                            <h3 className="field-detail-title">{item.title}</h3>
+                            <p className="field-detail-desc">{item.desc}</p>
+                            <ul className="field-detail-items">
+                                {item.items.map((bullet, j) => <li key={j}>{bullet}</li>)}
                             </ul>
-                        </motion.div>
-                    ))}
-                </div>
+                        </div>
+                    </motion.div>
+                ))}
             </section>
 
-            {/* ─── FULL BLEED PARALLAX ─── */}
-            <section className="lux-full-bleed">
-                <img
-                    src={visuals.getSingle('safari.healthFullBleed', visualsData.safaris.migrationHero)}
-                    alt="Safety in the Wild"
-                />
+            {/* ═══ FULL BLEED ═══ */}
+            <section className="field-bleed">
+                <img src={visuals.getSingle('safari.healthFullBleed', visualsData.safaris.migrationHero)} alt="Wilderness safety" />
+                <span className="field-bleed-caption">Ngorongoro Crater, Tanzania</span>
             </section>
 
-            {/* ─── EMERGENCY CONTACTS ─── */}
-            <section className="lux-section lux-section-alt">
-                <motion.h2 className="lux-heading" style={{ textAlign: 'center', marginBottom: '50px' }} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-                    Emergency <em>Contacts.</em>
-                </motion.h2>
-                <div className="lux-contact-list">
+            {/* ═══ EMERGENCY CONTACTS ═══ */}
+            <section className="field-chapter">
+                <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fade}>
+                    <span className="field-chapter-num">04</span>
+                    <span className="field-chapter-eyebrow">Critical Numbers</span>
+                    <h2 className="field-chapter-title">Emergency <em>Contacts</em></h2>
+                </motion.div>
+            </section>
+
+            <section className="field-details-section" style={{ paddingTop: 0 }}>
+                <div className="field-contacts">
                     {emergencyContacts.map((contact, i) => (
-                        <motion.div
-                            key={i}
-                            className="lux-contact-row"
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true }}
-                            variants={fadeInUp}
-                            transition={{ delay: i * 0.08 }}
-                        >
+                        <motion.div className="field-contact-row" key={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fade} transition={{ delay: i * 0.08 }}>
                             <div>
-                                <h4 className="lux-contact-name">{contact.name}</h4>
-                                <span className="lux-contact-desc">{contact.desc}</span>
+                                <div className="field-contact-name">{contact.name}</div>
+                                <span className="field-contact-desc">{contact.desc}</span>
                             </div>
-                            <div className="lux-contact-number">{contact.number}</div>
+                            <div className="field-contact-number">{contact.number}</div>
                         </motion.div>
                     ))}
                 </div>
             </section>
 
-            {/* ─── CTA ─── */}
-            <section className="lux-cta">
-                <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-                    <h2 className="lux-heading" style={{ marginBottom: '20px' }}>Respect the <em>Culture.</em></h2>
-                    <p className="lux-body" style={{ maxWidth: '600px', margin: '0 auto 30px' }}>
+            {/* ═══ CTA ═══ */}
+            <section className="field-cta">
+                <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fade}>
+                    <h2 className="field-cta-title">Respect the <em>Culture</em></h2>
+                    <p className="field-cta-body">
                         Understanding local customs and etiquette will enrich your experience and show respect for the communities you visit.
                     </p>
-                    <Link to="/safari-guide/local-customs" className="lux-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px' }}>
+                    <Link to="/safari-guide/local-customs" className="field-btn">
                         Safari Etiquette Guide
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                            <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
                     </Link>
                 </motion.div>
             </section>

@@ -6,8 +6,8 @@
       "_vendor-Sl7zWA3v.js"
     ]
   },
-  "_icons-Dd-Y7tCl.js": {
-    "file": "assets/icons-Dd-Y7tCl.js",
+  "_icons-Ly6md3dc.js": {
+    "file": "assets/icons-Ly6md3dc.js",
     "name": "icons",
     "imports": [
       "_vendor-Sl7zWA3v.js"
@@ -25,7 +25,7 @@
     "name": "vendor"
   },
   "node_modules/canvg/lib/index.es.js": {
-    "file": "assets/index.es-ByhFgXM2.js",
+    "file": "assets/index.es-CwnNPix4.js",
     "name": "index.es",
     "src": "node_modules/canvg/lib/index.es.js",
     "isDynamicEntry": true,
@@ -33,7 +33,7 @@
       "_vendor-Sl7zWA3v.js",
       "resources/js/main.jsx",
       "_motion-DJXHHhY7.js",
-      "_icons-Dd-Y7tCl.js",
+      "_icons-Ly6md3dc.js",
       "_charts-HEa4HZex.js"
     ]
   },
@@ -44,14 +44,14 @@
     "isDynamicEntry": true
   },
   "resources/js/main.jsx": {
-    "file": "assets/main-D5vAVdRc.js",
+    "file": "assets/main-DZTdcw4K.js",
     "name": "main",
     "src": "resources/js/main.jsx",
     "isEntry": true,
     "imports": [
       "_motion-DJXHHhY7.js",
       "_vendor-Sl7zWA3v.js",
-      "_icons-Dd-Y7tCl.js",
+      "_icons-Ly6md3dc.js",
       "_charts-HEa4HZex.js"
     ],
     "dynamicImports": [
@@ -59,7 +59,7 @@
       "node_modules/canvg/lib/index.es.js"
     ],
     "css": [
-      "assets/main-CqL_4nzo.css"
+      "assets/main-Cbb0EKx3.css"
     ]
   }
 }
