@@ -144,7 +144,7 @@ export const Navbar = () => {
                     <ul className="mega-sub-links">
                       <li><Link to="/trekking/prep/best-time">Best Time to Climb</Link></li>
                       <li><Link to="/trekking/prep/best-routes">Best Routes</Link></li>
-                      <li><Link to="/trekking/prep/why-us">Why Ndauwo?</Link></li>
+                      <li><Link to="/trekking/prep/why-us">Why Choose us</Link></li>
                       <li><Link to="/trekking/prep/tipping-guide">Tipping Guide</Link></li>
                       <li><Link to="/trekking/prep/park-fees">Park Fees</Link></li>
                       <li><Link to="/trekking/prep/toilets">Toilets on Kili</Link></li>
