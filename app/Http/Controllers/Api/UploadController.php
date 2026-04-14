@@ -10,8 +10,16 @@ class UploadController extends Controller
 {
     public function store(Request $request)
     {
+        // Add a check to return a precise error if max_upload_size in PHP.ini is intercepting
+        if (!$request->hasFile('file') && $request->header('Content-Length') > 0) {
+            return response()->json([
+                'message' => 'Upload failed. The file exceeds the server\'s maximum upload limit or is corrupted.',
+                'errors' => ['file' => ['File exceeds server PHP limits.']]
+            ], 422);
+        }
+
         $validated = $request->validate([
-            'file' => 'required|file|mimes:jpg,jpeg,png,webp,gif|max:5120',
+            'file' => 'required|file|mimes:jpg,jpeg,png,webp,gif,svg,heic|max:20480',
             'folder' => 'nullable|string|max:80',
         ]);
 
