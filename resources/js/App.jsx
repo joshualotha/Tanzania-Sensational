@@ -103,7 +103,7 @@ class ErrorBoundary extends React.Component {
         super(props);
         this.state = { hasError: false };
     }
-    static getDerivedStateFromError(error) { return { hasError: true }; }
+    static getDerivedStateFromError(error) { return { hasError: true, error: error }; }
     componentDidCatch(error, errorInfo) { console.error("Page error:", error, errorInfo); }
     render() {
         if (this.state.hasError) {
@@ -113,6 +113,11 @@ class ErrorBoundary extends React.Component {
                     <p style={{ opacity: 0.7, marginTop: '10px', maxWidth: 560, textAlign: 'center', lineHeight: 1.6 }}>
                         Please refresh and try again. If it keeps happening, contact us and we’ll help right away.
                     </p>
+                    {this.state.error && (
+                        <div style={{ padding: '20px', background: 'rgba(255,0,0,0.1)', color: '#ffaaaa', marginTop: '20px', borderRadius: '4px', maxWidth: '800px', wordBreak: 'break-all' }}>
+                            <code>{this.state.error.toString()}</code>
+                        </div>
+                    )}
                     <div style={{ marginTop: 24, display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
                         <button onClick={() => window.location.reload()} style={{ background: 'transparent', border: '1px solid var(--gold)', color: 'var(--gold)', padding: '10px 20px', cursor: 'pointer' }}>
                             Refresh page
