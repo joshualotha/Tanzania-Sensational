@@ -55,13 +55,13 @@ export const Footer = () => {
               Stories from <em>the summit</em>
             </h3>
             <p className="footer-cta-sub">
-              Trail dispatches, expedition stories & exclusive departure alerts — delivered to your inbox.
+              Trail dispatches, expedition stories & exclusive departure alerts, delivered to your inbox.
             </p>
           </div>
           <form className="footer-cta-form" onSubmit={handleSubscribe}>
             <div className={`footer-input-wrap ${subscribed ? 'subscribed' : ''}`}>
               {subscribed ? (
-                <span className="footer-subscribed-msg">✦ Asante sana — you're in!</span>
+                <span className="footer-subscribed-msg">✦ Asante sana, you're in!</span>
               ) : (
                 <>
                   <input

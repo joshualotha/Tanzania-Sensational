@@ -189,13 +189,13 @@ body::before {
   height: 15px !important;
 }
 
-/* ─── LOGO CREST — Overflows the navbar like a premium lodge emblem ─── */
-/* Logo Crest hidden — using integrated nav-logo */
+/* ─── LOGO CREST, Overflows the navbar like a premium lodge emblem ─── */
+/* Logo Crest hidden, using integrated nav-logo */
 .logo-crest {
   display: none !important;
 }
 
-/* Scrolled state — logo shrinks but stays below topbar */
+/* Scrolled state, logo shrinks but stays below topbar */
 .logo-crest--compact {
   top: 38px;
 }
@@ -275,7 +275,7 @@ body::before {
 }
 
 
-/* Center spacer — reserves space for the logo crest */
+/* Center spacer, reserves space for the logo crest */
 .nav-logo-spacer {
   width: 160px;
   flex-shrink: 0;
@@ -519,7 +519,7 @@ body::before {
 
 /* ─── HERO ─── */
 /* ═══════════════════════════════════════════════════════
-   HERO V2 — Cinematic Full-Bleed with Crossfade Slideshow
+   HERO V2, Cinematic Full-Bleed with Crossfade Slideshow
    ═══════════════════════════════════════════════════════ */
 
 .hero-v2 {
@@ -2000,7 +2000,7 @@ section {
   align-items: center;
 }
 
-/* ─── FOOTER (Organic Editorial — Premium) ─── */
+/* ─── FOOTER (Organic Editorial, Premium) ─── */
 :root {
   --footer-bg: #EDE8DF;
   --footer-bg-warm: #E8E1D5;
@@ -2024,7 +2024,7 @@ section {
   background-size: 180px;
 }
 
-/* ── Watermark — large decorative italic ── */
+/* ── Watermark, large decorative italic ── */
 .footer-watermark {
   position: absolute;
   top: 50%;
@@ -3040,7 +3040,7 @@ section {
 }
 
 /* ═══════════════════════════════════════════
-   MOBILE NAVIGATION — Hamburger & Drawer
+   MOBILE NAVIGATION, Hamburger & Drawer
    ═══════════════════════════════════════════ */
 
 /* Hamburger toggle button */
@@ -3088,7 +3088,7 @@ section {
   background: var(--gold);
 }
 
-/* Mobile overlay backdrop (legacy — kept for compatibility) */
+/* Mobile overlay backdrop (legacy, kept for compatibility) */
 .mobile-overlay {
   display: none;
   position: fixed;
@@ -3099,7 +3099,7 @@ section {
 }
 
 /* ═══════════════════════════════════════════
-   FULL-SCREEN MOBILE DRAWER — Cinematic Takeover
+   FULL-SCREEN MOBILE DRAWER, Cinematic Takeover
    Inspired by Singita, &Beyond, Aesop
    ═══════════════════════════════════════════ */
 .mobile-drawer {
@@ -3464,7 +3464,7 @@ section {
     }
   }
 
-  /* Show hamburger — part of the island */
+  /* Show hamburger, part of the island */
   .mobile-hamburger {
     display: flex !important;
     position: relative !important;
@@ -3528,7 +3528,7 @@ section {
     display: none !important; /* Hide secondary CTA to keep island clean on mobile */
   }
 
-  /* Nav Links — HIDDEN on mobile, replaced by mobile-drawer */
+  /* Nav Links, HIDDEN on mobile, replaced by mobile-drawer */
   .nav-links {
     display: none !important;
   }

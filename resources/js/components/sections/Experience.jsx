@@ -63,14 +63,14 @@ export const Experience = () => {
         </motion.h2>
         
         <motion.p className="experience-body" variants={itemVariants}>
-          High-altitude trekking demands more than enthusiasm — it demands experience, certified professionals, and a team that's brought thousands of clients safely to Uhuru Peak and back. That's us.
+          High-altitude trekking demands more than enthusiasm, it demands experience, certified professionals, and a team that's brought thousands of clients safely to Uhuru Peak and back. That's us.
         </motion.p>
         
         <div className="pillars">
           {[
             { id: '01', title: 'Certified Wilderness Guides', desc: 'Every guide holds Wilderness First Responder certification. Daily health checks using pulse oximetry keep you and your summit in sight.' },
-            { id: '02', title: 'Acclimatization-First Strategy', desc: 'Our routes are designed around the "Climb High, Sleep Low" principle — the gold standard for altitude safety and summit success.' },
-            { id: '03', title: 'Real-Time Pricing & Group Flexibility', desc: 'Solo traveler or a group of 15 — our pricing scales with you. Join existing departures or charter a private expedition, entirely your call.' }
+            { id: '02', title: 'Acclimatization-First Strategy', desc: 'Our routes are designed around the "Climb High, Sleep Low" principle, the gold standard for altitude safety and summit success.' },
+            { id: '03', title: 'Real-Time Pricing & Group Flexibility', desc: 'Solo traveler or a group of 15, our pricing scales with you. Join existing departures or charter a private expedition, entirely your call.' }
           ].map((p, i) => (
             <motion.div key={p.id} className="pillar" variants={itemVariants}>
               <span className="pillar-num">{p.id}</span>

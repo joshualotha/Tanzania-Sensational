@@ -66,7 +66,7 @@ export const ZanzibarPage = () => {
         {
             name: 'Spice Plantation Tour',
             tag: 'Cultural Immersion',
-            desc: 'Walk through the aromatic groves that gave Zanzibar its name. Clove, cinnamon, vanilla, and cardamom — harvested and tasted fresh from the source.',
+            desc: 'Walk through the aromatic groves that gave Zanzibar its name. Clove, cinnamon, vanilla, and cardamom, harvested and tasted fresh from the source.',
             img: visualsData.zanzibar.expSpice
         },
         {
@@ -147,7 +147,7 @@ export const ZanzibarPage = () => {
                             Where History <em>Breathes.</em>
                         </motion.h2>
                         <motion.p className="zan-body" variants={fadeInUp}>
-                            In the labyrinth of Stone Town, time is not a line — it is a scent of cloves and aging coral rag. Every carved doorway tells a dynasty's story. Every narrow alley opens to a courtyard where Swahili, Arabic, Indian, and European influences have fused into something entirely its own.
+                            In the labyrinth of Stone Town, time is not a line, it is a scent of cloves and aging coral rag. Every carved doorway tells a dynasty's story. Every narrow alley opens to a courtyard where Swahili, Arabic, Indian, and European influences have fused into something entirely its own.
                         </motion.p>
                         <motion.p className="zan-body" variants={fadeInUp}>
                             UNESCO recognized this living museum as a World Heritage Site, but no designation can capture the feeling of watching a crimson sunset from the Forodhani Gardens while the aroma of grilled octopus and urojo rises from the night market below.

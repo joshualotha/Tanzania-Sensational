@@ -81,7 +81,7 @@ class BlogPostsSeeder extends Seeder
                 [
                     'title' => $p['title'],
                     'meta_title' => $p['title'] . ' | Tanzania Sensational',
-                    'excerpt' => 'A practical, field-tested guide from our team in Tanzania — designed to help you plan with confidence.',
+                    'excerpt' => 'A practical, field-tested guide from our team in Tanzania, designed to help you plan with confidence.',
                     'meta_description' => 'Read expert trekking and safari guidance from Tanzania Sensational. Planning tips, route insights, and on-the-ground advice.',
                     'author' => 'Tanzania Sensational',
                     'category' => $p['category'],
@@ -101,12 +101,12 @@ class BlogPostsSeeder extends Seeder
 <ul>
   <li>Plan for changing conditions: sun, rain, wind, and cold can happen in one day.</li>
   <li>Prioritize fit and layering over brand names.</li>
-  <li>Slow is smooth, smooth is fast — acclimatization is everything.</li>
+  <li>Slow is smooth, smooth is fast, acclimatization is everything.</li>
 </ul>
 <h2>What we recommend</h2>
 <p>Use a simple system: moisture-wicking base layers, an insulating mid-layer, and a weather shell. Bring the essentials, skip the clutter, and keep your daypack organized.</p>
 <blockquote>“If you’re warm, hydrated, and moving at the right pace, Kilimanjaro becomes a joy instead of a grind.”</blockquote>
-<p>If you’d like help choosing a route and date, send a booking request — we’ll confirm details and arrange payment offline by email.</p>
+<p>If you’d like help choosing a route and date, send a booking request, we’ll confirm details and arrange payment offline by email.</p>
 HTML;
     }
 }

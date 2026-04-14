@@ -13,7 +13,7 @@ class PagesSeeder extends Seeder
             [
                 'slug' => 'home',
                 'title' => 'Home',
-                'meta_title' => 'Tanzania Sensational — Kilimanjaro, Safari & Zanzibar',
+                'meta_title' => 'Tanzania Sensational, Kilimanjaro, Safari & Zanzibar',
                 'meta_description' => 'Premium Kilimanjaro & Meru trekking expeditions, Tanzania safaris, and Zanzibar beach extensions. Submit a booking request and we’ll confirm by email.',
                 'og_image' => null,
                 'content' => null,

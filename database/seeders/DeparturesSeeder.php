@@ -59,7 +59,7 @@ class DeparturesSeeder extends Seeder
                 'status' => $dep['status'] ?? 'Available',
                 'summit_night' => $dep['summitNight'] ?? $departureDate->copy()->addDays($route->duration - 1)->format('F j, Y'),
                 'meeting_point' => $dep['meetingPoint'] ?? 'Kilimanjaro International Airport (JRO)',
-                'briefing_date' => $dep['briefingDate'] ?? $departureDate->copy()->subDay()->format('F j, Y — 6:00 PM'),
+                'briefing_date' => $dep['briefingDate'] ?? $departureDate->copy()->subDay()->format('F j, Y, 6:00 PM'),
                 'description' => $dep['description'] ?? "Join our expert-led expedition on the spectacular {$route->name}.",
                 'inclusions' => $dep['inclusions'] ?? null,
                 'exclusions' => $dep['exclusions'] ?? null
@@ -87,7 +87,7 @@ class DeparturesSeeder extends Seeder
                         'status' => 'Available',
                         'summit_night' => $departureDate->copy()->addDays($route->duration - 1)->format('F j, Y'),
                         'meeting_point' => 'Kilimanjaro International Airport (JRO)',
-                        'briefing_date' => $departureDate->copy()->subDay()->format('F j, Y — 6:00 PM'),
+                        'briefing_date' => $departureDate->copy()->subDay()->format('F j, Y, 6:00 PM'),
                         'description' => "An exclusive group departure for the {$route->name}. Experience premium service on the roof of Africa.",
                         'inclusions' => [
                             "All park entry and camping fees",

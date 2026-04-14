@@ -24,19 +24,19 @@ export const Testimonials = () => {
 
   const testimonials = [
     {
-      text: "The guides were extraordinary — they knew exactly when to push and when to rest. Reaching Uhuru Peak at sunrise was the most profound moment of my life.",
+      text: "The guides were extraordinary, they knew exactly when to push and when to rest. Reaching Uhuru Peak at sunrise was the most profound moment of my life.",
       author: "James Hartwell",
       origin: "London, United Kingdom",
       img: visuals.getSingle('home.testimonial1', visualsData.home.testimonial1)
     },
     {
-      text: "I joined a group departure as a solo traveler and couldn't have been more impressed. The safety protocols, the food, the team's energy — truly world-class.",
+      text: "I joined a group departure as a solo traveler and couldn't have been more impressed. The safety protocols, the food, the team's energy, truly world-class.",
       author: "Sarah Chen",
       origin: "San Francisco, USA",
       img: visuals.getSingle('home.testimonial2', visualsData.home.testimonial2)
     },
     {
-      text: "8 Tage Lemosho Route — absolut unvergesslich. Professionell, sicher, und die persönliche Betreuung war unübertroffen. Nächstes Ziel: Mt. Meru.",
+      text: "8 Tage Lemosho Route, absolut unvergesslich. Professionell, sicher, und die persönliche Betreuung war unübertroffen. Nächstes Ziel: Mt. Meru.",
       author: "Klaus Müller",
       origin: "Munich, Germany",
       img: visuals.getSingle('home.testimonial3', visualsData.home.testimonial3)

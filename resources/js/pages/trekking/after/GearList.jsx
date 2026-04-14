@@ -87,7 +87,7 @@ const GearList = () => {
 
         doc.setFontSize(10);
         doc.setTextColor(gold);
-        doc.text("TANZANIA SENSATIONAL — KILIMANJARO & MERU", 20, 32);
+        doc.text("TANZANIA SENSATIONAL, KILIMANJARO & MERU", 20, 32);
 
         let y = 60;
 

@@ -96,7 +96,7 @@ export const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.7 }}
         >
-          East Africa's most trusted trekking authority — where every ascent becomes a story worth telling.
+          East Africa's most trusted trekking authority, where every ascent becomes a story worth telling.
         </motion.p>
 
         <motion.div

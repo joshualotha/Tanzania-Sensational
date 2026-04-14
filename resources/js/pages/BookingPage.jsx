@@ -40,7 +40,7 @@ export const BookingPage = () => {
                     setPageMeta({
                         hero_image: null,
                         title: 'Book Your Expedition',
-                        subtitle: 'Choose a departure or safari package, then submit your booking request. No payment is collected online — our team confirms details by email.',
+                        subtitle: 'Choose a departure or safari package, then submit your booking request. No payment is collected online, our team confirms details by email.',
                     });
                     return;
                 }

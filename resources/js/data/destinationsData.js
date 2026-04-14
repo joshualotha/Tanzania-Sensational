@@ -63,10 +63,10 @@ export const destinationsData = [
         wildlifeVitals: [
             { label: "Predator Stat", text: "Highest lion density per square km in Africa." },
             { label: "Key Species", text: "Big Five including critically endangered black rhino." },
-            { label: "Bio Profile", text: "Self-contained Eden — a microcosm of East Africa." },
+            { label: "Bio Profile", text: "Self-contained Eden, a microcosm of East Africa." },
             { label: "Encounter Prob", text: "98.2% (Enclosed ecosystem)" }
         ],
-        wildlifeFooter: "UNESCO World Heritage Site — protected since 1979.",
+        wildlifeFooter: "UNESCO World Heritage Site, protected since 1979.",
         encounterRate: "98.2%",
         expeditionTier: "Prestige Tier 01",
         trackingMethod: "Crater Floor GPS Grid",
@@ -102,10 +102,10 @@ export const destinationsData = [
         wildlifeVitals: [
             { label: "Predator Stat", text: "Tree-climbing lions and leopards in residence." },
             { label: "Key Species", text: "Largest elephant herds in Tanzania (3,000+)." },
-            { label: "Bio Profile", text: "Dry season refuge — extraordinary animal concentration." },
+            { label: "Bio Profile", text: "Dry season refuge, extraordinary animal concentration." },
             { label: "Encounter Prob", text: "94.5% (Dry Season Peak)" }
         ],
-        wildlifeFooter: "Home to over 550 bird species — a birder's paradise.",
+        wildlifeFooter: "Home to over 550 bird species, a birder's paradise.",
         encounterRate: "94.5%",
         expeditionTier: "Heritage Tier 02",
         trackingMethod: "River System GPS Tracking",
