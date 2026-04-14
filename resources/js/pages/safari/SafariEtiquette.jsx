@@ -154,34 +154,29 @@ const SafariEtiquette = () => {
             </section>
 
             {/* ─── GUIDELINES ─── */}
-            <section className="lux-section" style={{ background: 'var(--lux-offwhite)' }}>
+            <section className="lux-section lux-section-alt">
                 <motion.h2 className="lux-heading" style={{ textAlign: 'center', marginBottom: '60px' }} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
                     The Field <em>Manual.</em>
                 </motion.h2>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '40px', maxWidth: '1000px', margin: '0 auto' }}>
+                <div className="lux-guideline-list">
                     {guidelines.map((item, i) => (
                         <motion.div
                             key={i}
+                            className="lux-guideline-row"
                             initial="hidden"
                             whileInView="visible"
                             viewport={{ once: true }}
                             variants={fadeInUp}
                             transition={{ delay: i * 0.1 }}
-                            style={{ display: 'grid', gridTemplateColumns: '80px 1fr', gap: '30px', background: 'white', padding: '40px', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.06)', border: '1px solid var(--lux-border)' }}
                         >
-                            <div style={{ width: '80px', height: '80px', background: 'var(--lux-tan)', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
-                                {item.icon}
-                            </div>
+                            <div className="lux-guideline-icon">{item.icon}</div>
                             <div>
-                                <span style={{ fontSize: '0.7rem', color: 'var(--lux-tan)', textTransform: 'uppercase', letterSpacing: '0.15em', fontWeight: 600 }}>{item.category}</span>
-                                <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.6rem', color: 'var(--lux-dark)', margin: '8px 0 15px' }}>{item.title}</h3>
-                                <p style={{ fontSize: '0.95rem', lineHeight: '1.7', color: 'var(--lux-mid)', marginBottom: '20px' }}>{item.desc}</p>
-                                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                                <span className="lux-guideline-tag">{item.category}</span>
+                                <h3 className="lux-guideline-title">{item.title}</h3>
+                                <p className="lux-guideline-desc">{item.desc}</p>
+                                <ul className="lux-guideline-details">
                                     {item.details.map((detail, j) => (
-                                        <li key={j} style={{ fontSize: '0.9rem', color: 'var(--lux-dark)', display: 'flex', alignItems: 'flex-start', gap: '10px', paddingLeft: '5px' }}>
-                                            <div style={{ width: '8px', height: '8px', background: 'var(--lux-tan)', borderRadius: '50%', marginTop: '6px', flexShrink: 0 }} />
-                                            {detail}
-                                        </li>
+                                        <li key={j}>{detail}</li>
                                     ))}
                                 </ul>
                             </div>
@@ -203,26 +198,24 @@ const SafariEtiquette = () => {
                 <motion.h2 className="lux-heading" style={{ textAlign: 'center', marginBottom: '50px' }} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
                     Cultural <em>Taboos.</em>
                 </motion.h2>
-                <p style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto 40px', fontSize: '1.05rem', lineHeight: '1.7', color: 'var(--lux-mid)' }}>
+                <p className="lux-body" style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto 40px' }}>
                     Avoiding these behaviors will prevent unintentional offense and demonstrate your respect for Tanzanian culture.
                 </p>
-                <div style={{ maxWidth: '800px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <div className="lux-taboo-list">
                     {taboos.map((taboo, i) => (
                         <motion.div
                             key={i}
+                            className="lux-taboo-row"
                             initial="hidden"
                             whileInView="visible"
                             viewport={{ once: true }}
                             variants={fadeInUp}
                             transition={{ delay: i * 0.08 }}
-                            style={{ display: 'flex', alignItems: 'center', gap: '20px', padding: '20px 25px', background: 'rgba(220, 38, 38, 0.03)', border: '1px solid rgba(220, 38, 38, 0.1)', borderRadius: '8px' }}
                         >
-                            <div style={{ width: '32px', height: '32px', background: 'rgba(220, 38, 38, 0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#DC2626', flexShrink: 0 }}>
-                                <span style={{ fontSize: '1rem', fontWeight: 700 }}>✕</span>
-                            </div>
+                            <div className="lux-taboo-x">✕</div>
                             <div>
-                                <span style={{ fontSize: '0.95rem', color: 'var(--lux-dark)', fontWeight: 500 }}>{taboo.label}</span>
-                                <span style={{ display: 'block', fontSize: '0.8rem', color: 'var(--lux-mid)', marginTop: '4px', fontStyle: 'italic' }}>Because: {taboo.reason}</span>
+                                <span className="lux-taboo-label">{taboo.label}</span>
+                                <span className="lux-taboo-reason">Because: {taboo.reason}</span>
                             </div>
                         </motion.div>
                     ))}

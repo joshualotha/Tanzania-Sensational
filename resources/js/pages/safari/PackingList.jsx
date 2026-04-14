@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { visualsData } from '../../data/visualsData';
 import { useVisuals } from '../../context/VisualsContext';
-import { Check, Square, Camera, Sun, Shield, Droplets, Heart, Package } from 'lucide-react';
+import { Check, Camera, Sun, Shield, Droplets, Heart, Package } from 'lucide-react';
 import '../../styles/ultra-premium.css';
 
 const PackingList = () => {
@@ -110,20 +110,20 @@ const PackingList = () => {
             </section>
 
             {/* ─── PROGRESS BAR ─── */}
-            <section style={{ padding: '30px 5vw', background: 'var(--lux-offwhite)', borderBottom: '1px solid var(--lux-border)' }}>
-                <div style={{ maxWidth: '800px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <span style={{ fontSize: '0.85rem', color: 'var(--lux-mid)' }}>
-                        <strong style={{ color: 'var(--lux-dark)' }}>{checkedCount}</strong> of {totalItems} items packed
+            <section className="lux-progress-strip">
+                <div className="lux-progress-inner">
+                    <span className="lux-progress-text">
+                        <strong>{checkedCount}</strong> of {totalItems} items packed
                     </span>
-                    <div style={{ flex: 1, margin: '0 20px', height: '6px', background: 'var(--lux-border)', borderRadius: '3px', overflow: 'hidden' }}>
+                    <div className="lux-progress-track">
                         <motion.div
-                            style={{ height: '100%', background: 'var(--lux-tan)', borderRadius: '3px' }}
+                            className="lux-progress-fill"
                             initial={{ width: 0 }}
                             animate={{ width: `${progress}%` }}
                             transition={{ duration: 0.5, ease: 'easeOut' }}
                         />
                     </div>
-                    <span style={{ fontSize: '0.85rem', fontWeight: 600, color: progress === 100 ? 'var(--lux-green)' : 'var(--lux-tan)' }}>
+                    <span className="lux-progress-pct" style={{ color: progress === 100 ? '#2d8b4e' : 'var(--lux-tan)' }}>
                         {progress === 100 ? '✓ Ready!' : `${progress}%`}
                     </span>
                 </div>
@@ -159,59 +159,33 @@ const PackingList = () => {
 
             {/* ─── CHECKLIST ─── */}
             {categories.map((cat, i) => (
-                <section key={i} className="lux-section" style={i % 2 === 0 ? { background: 'var(--lux-offwhite)' } : {}}>
+                <section key={i} className={`lux-section ${i % 2 === 0 ? 'lux-section-alt' : ''}`}>
                     <motion.div
+                        className="lux-checklist-block"
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true }}
                         variants={fadeInUp}
-                        style={{ maxWidth: '800px', margin: '0 auto' }}
                     >
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '30px' }}>
-                            <div style={{ width: '48px', height: '48px', background: 'var(--lux-tan)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
-                                {cat.icon}
-                            </div>
-                            <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.8rem', color: 'var(--lux-dark)', margin: 0 }}>{cat.name}</h3>
+                        <div className="lux-checklist-header">
+                            <div className="lux-checklist-icon">{cat.icon}</div>
+                            <h3 className="lux-checklist-cat-title">{cat.name}</h3>
                         </div>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                        <div className="lux-checklist-items">
                             {cat.items.map((item) => (
                                 <motion.div
                                     key={item.id}
+                                    className={`lux-checklist-item ${checked[item.id] ? 'checked' : ''}`}
                                     onClick={() => toggle(item.id)}
-                                    style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '15px',
-                                        padding: '15px 20px',
-                                        background: checked[item.id] ? 'rgba(45, 139, 78, 0.06)' : 'white',
-                                        border: checked[item.id] ? '1px solid rgba(45, 139, 78, 0.2)' : '1px solid var(--lux-border)',
-                                        borderRadius: '8px',
-                                        cursor: 'pointer',
-                                        transition: 'all 0.2s ease',
-                                    }}
                                     whileHover={{ scale: 1.01 }}
                                     whileTap={{ scale: 0.99 }}
                                 >
-                                    {checked[item.id] ? (
-                                        <div style={{ width: '24px', height: '24px', background: 'var(--lux-green)', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
-                                            <Check size={16} />
-                                        </div>
-                                    ) : (
-                                        <div style={{ width: '24px', height: '24px', border: '2px solid var(--lux-border)', borderRadius: '4px' }} />
-                                    )}
-                                    <span style={{
-                                        flex: 1,
-                                        fontSize: '0.95rem',
-                                        color: checked[item.id] ? 'var(--lux-mid)' : 'var(--lux-dark)',
-                                        textDecoration: checked[item.id] ? 'line-through' : 'none',
-                                        transition: 'all 0.2s ease',
-                                    }}>
-                                        {item.label}
-                                    </span>
+                                    <div className="lux-checkbox">
+                                        {checked[item.id] && <Check size={14} />}
+                                    </div>
+                                    <span className="lux-checklist-label">{item.label}</span>
                                     {item.critical && (
-                                        <span style={{ fontSize: '0.65rem', background: 'rgba(201, 168, 76, 0.1)', color: 'var(--lux-tan)', padding: '3px 8px', borderRadius: '4px', fontWeight: 600, letterSpacing: '0.05em' }}>
-                                            ESSENTIAL
-                                        </span>
+                                        <span className="lux-essential-badge">ESSENTIAL</span>
                                     )}
                                 </motion.div>
                             ))}

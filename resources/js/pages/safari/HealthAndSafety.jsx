@@ -107,48 +107,40 @@ const HealthAndSafety = () => {
             </section>
 
             {/* ─── VACCINATION TABLE ─── */}
-            <section className="lux-section" style={{ background: 'var(--lux-offwhite)' }}>
+            <section className="lux-section lux-section-alt">
                 <motion.h2 className="lux-heading" style={{ textAlign: 'center', marginBottom: '50px' }} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
                     Vaccination <em>Requirements.</em>
                 </motion.h2>
-                <div style={{ maxWidth: '900px', margin: '0 auto', overflowX: 'auto' }}>
+                <div style={{ overflowX: 'auto' }}>
                     <motion.table
+                        className="lux-vax-table"
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true }}
                         variants={fadeInUp}
-                        style={{ width: '100%', borderCollapse: 'collapse', background: 'white', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,0,0,0.06)' }}
                     >
                         <thead>
-                            <tr style={{ background: 'var(--lux-dark)' }}>
-                                <th style={{ padding: '16px 24px', textAlign: 'left', color: 'white', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Vaccination</th>
-                                <th style={{ padding: '16px 24px', textAlign: 'left', color: 'white', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Status</th>
-                                <th style={{ padding: '16px 24px', textAlign: 'left', color: 'white', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Details</th>
+                            <tr>
+                                <th>Vaccination</th>
+                                <th>Status</th>
+                                <th>Details</th>
                             </tr>
                         </thead>
                         <tbody>
                             {vaccinations.map((vax, i) => (
-                                <tr key={i} style={{ borderBottom: '1px solid var(--lux-border)' }}>
-                                    <td style={{ padding: '16px 24px', fontSize: '0.95rem', color: 'var(--lux-dark)', fontWeight: 600 }}>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                            {vax.critical ? <Shield size={16} style={{ color: 'var(--lux-tan)' }} /> : <CheckCircle size={16} style={{ color: 'var(--lux-green)' }} />}
+                                <tr key={i}>
+                                    <td>
+                                        <div className="lux-vax-name">
+                                            {vax.critical ? <Shield size={16} style={{ color: 'var(--lux-tan)' }} /> : <CheckCircle size={16} style={{ color: '#16a34a' }} />}
                                             {vax.name}
                                         </div>
                                     </td>
-                                    <td style={{ padding: '16px 24px' }}>
-                                        <span style={{
-                                            fontSize: '0.7rem',
-                                            padding: '4px 10px',
-                                            borderRadius: '999px',
-                                            fontWeight: 600,
-                                            letterSpacing: '0.05em',
-                                            background: vax.status === 'Required' ? 'rgba(220, 38, 38, 0.1)' : vax.status === 'Recommended' ? 'rgba(201, 168, 76, 0.1)' : 'rgba(34, 197, 94, 0.1)',
-                                            color: vax.status === 'Required' ? '#DC2626' : vax.status === 'Recommended' ? 'var(--lux-tan)' : 'var(--lux-green)',
-                                        }}>
+                                    <td>
+                                        <span className={`lux-vax-badge ${vax.status.toLowerCase()}`}>
                                             {vax.status.toUpperCase()}
                                         </span>
                                     </td>
-                                    <td style={{ padding: '16px 24px', fontSize: '0.85rem', color: 'var(--lux-mid)', lineHeight: '1.5' }}>{vax.desc}</td>
+                                    <td className="lux-vax-desc">{vax.desc}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -161,28 +153,23 @@ const HealthAndSafety = () => {
                 <motion.h2 className="lux-heading" style={{ textAlign: 'center', marginBottom: '60px' }} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
                     The Four <em>Pillars.</em>
                 </motion.h2>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '40px', maxWidth: '1200px', margin: '0 auto' }}>
+                <div className="lux-safety-grid">
                     {safety.map((item, i) => (
                         <motion.div
                             key={i}
+                            className="lux-safety-card"
                             initial="hidden"
                             whileInView="visible"
                             viewport={{ once: true }}
                             variants={fadeInUp}
                             transition={{ delay: i * 0.15 }}
-                            style={{ background: 'white', padding: '40px', borderRadius: '8px', boxShadow: '0 4px 20px rgba(0,0,0,0.06)', border: '1px solid var(--lux-border)' }}
                         >
-                            <div style={{ width: '56px', height: '56px', background: 'var(--lux-tan)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', marginBottom: '20px' }}>
-                                {item.icon}
-                            </div>
-                            <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.5rem', color: 'var(--lux-dark)', marginBottom: '15px' }}>{item.title}</h3>
-                            <p style={{ fontSize: '0.95rem', lineHeight: '1.7', color: 'var(--lux-mid)', marginBottom: '20px' }}>{item.desc}</p>
-                            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                                {item.items.map((item, j) => (
-                                    <li key={j} style={{ fontSize: '0.85rem', color: 'var(--lux-dark)', display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
-                                        <div style={{ width: '6px', height: '6px', background: 'var(--lux-tan)', borderRadius: '50%', marginTop: '6px', flexShrink: 0 }} />
-                                        {item}
-                                    </li>
+                            <div className="lux-safety-icon">{item.icon}</div>
+                            <h3 className="lux-safety-title">{item.title}</h3>
+                            <p className="lux-safety-desc">{item.desc}</p>
+                            <ul className="lux-safety-bullets">
+                                {item.items.map((bullet, j) => (
+                                    <li key={j}>{bullet}</li>
                                 ))}
                             </ul>
                         </motion.div>
@@ -199,28 +186,26 @@ const HealthAndSafety = () => {
             </section>
 
             {/* ─── EMERGENCY CONTACTS ─── */}
-            <section className="lux-section" style={{ background: 'var(--lux-offwhite)' }}>
+            <section className="lux-section lux-section-alt">
                 <motion.h2 className="lux-heading" style={{ textAlign: 'center', marginBottom: '50px' }} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
                     Emergency <em>Contacts.</em>
                 </motion.h2>
-                <div style={{ maxWidth: '800px', margin: '0 auto', display: 'grid', gap: '16px' }}>
+                <div className="lux-contact-list">
                     {emergencyContacts.map((contact, i) => (
                         <motion.div
                             key={i}
+                            className="lux-contact-row"
                             initial="hidden"
                             whileInView="visible"
                             viewport={{ once: true }}
                             variants={fadeInUp}
                             transition={{ delay: i * 0.08 }}
-                            style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px 25px', background: 'white', borderRadius: '8px', border: '1px solid var(--lux-border)' }}
                         >
                             <div>
-                                <h4 style={{ fontFamily: 'var(--font-body)', fontSize: '1rem', color: 'var(--lux-dark)', marginBottom: '4px' }}>{contact.name}</h4>
-                                <span style={{ fontSize: '0.8rem', color: 'var(--lux-mid)' }}>{contact.desc}</span>
+                                <h4 className="lux-contact-name">{contact.name}</h4>
+                                <span className="lux-contact-desc">{contact.desc}</span>
                             </div>
-                            <div style={{ fontSize: '1.1rem', fontFamily: 'var(--font-mono)', color: 'var(--lux-tan)', fontWeight: 600, letterSpacing: '0.05em' }}>
-                                {contact.number}
-                            </div>
+                            <div className="lux-contact-number">{contact.number}</div>
                         </motion.div>
                     ))}
                 </div>

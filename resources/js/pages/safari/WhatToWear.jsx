@@ -15,11 +15,6 @@ const WhatToWear = () => {
         visible: { opacity: 1, y: 0, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }
     };
 
-    const fadeIn = {
-        hidden: { opacity: 0 },
-        visible: { opacity: 1, transition: { duration: 0.8 } }
-    };
-
     const wardrobe = [
         {
             category: 'Color Philosophy',
@@ -120,32 +115,30 @@ const WhatToWear = () => {
             </section>
 
             {/* ─── WARDROBE PRINCIPLES ─── */}
-            <section className="lux-section" style={{ background: 'var(--lux-offwhite)' }}>
+            <section className="lux-section lux-section-alt">
                 <motion.h2 className="lux-heading" style={{ textAlign: 'center', marginBottom: '60px' }} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
                     The Three <em>Pillars.</em>
                 </motion.h2>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '40px', maxWidth: '1200px', margin: '0 auto' }}>
+                <div className="lux-pillar-grid">
                     {wardrobe.map((item, i) => (
                         <motion.div
                             key={i}
+                            className="lux-pillar-card"
                             initial="hidden"
                             whileInView="visible"
                             viewport={{ once: true }}
                             variants={fadeInUp}
                             transition={{ delay: i * 0.15 }}
-                            style={{ background: 'white', padding: '40px 30px', borderRadius: '8px', boxShadow: '0 4px 20px rgba(0,0,0,0.06)' }}
                         >
-                            <div style={{ width: '48px', height: '48px', background: 'var(--lux-tan)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', marginBottom: '20px' }}>
-                                {item.icon}
-                            </div>
-                            <span style={{ fontSize: '0.7rem', color: 'var(--lux-tan)', textTransform: 'uppercase', letterSpacing: '0.15em', fontWeight: 600 }}>{item.category}</span>
-                            <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.5rem', margin: '10px 0 15px', color: 'var(--lux-dark)' }}>{item.title}</h3>
-                            <p style={{ fontSize: '0.95rem', lineHeight: '1.7', color: 'var(--lux-mid)', marginBottom: '20px' }}>{item.desc}</p>
-                            <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                                {item.items.map((item, j) => (
-                                    <li key={j} style={{ fontSize: '0.85rem', padding: '6px 0', borderBottom: '1px solid var(--lux-border)', color: 'var(--lux-dark)', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                        <Check size={14} style={{ color: 'var(--lux-tan)' }} />
-                                        {item}
+                            <div className="lux-pillar-icon">{item.icon}</div>
+                            <span className="lux-pillar-tag">{item.category}</span>
+                            <h3 className="lux-pillar-title">{item.title}</h3>
+                            <p className="lux-pillar-desc">{item.desc}</p>
+                            <ul className="lux-pillar-list">
+                                {item.items.map((itm, j) => (
+                                    <li key={j}>
+                                        <Check size={14} />
+                                        {itm}
                                     </li>
                                 ))}
                             </ul>
@@ -167,24 +160,24 @@ const WhatToWear = () => {
                 <motion.h2 className="lux-heading" style={{ textAlign: 'center', marginBottom: '60px' }} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
                     The Daily <em>Rotation.</em>
                 </motion.h2>
-                <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+                <div className="lux-occasion-list">
                     {occasions.map((item, i) => (
                         <motion.div
                             key={i}
+                            className="lux-occasion-row"
                             initial="hidden"
                             whileInView="visible"
                             viewport={{ once: true }}
                             variants={fadeInUp}
                             transition={{ delay: i * 0.1 }}
-                            style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '40px', padding: '30px 0', borderBottom: '1px solid var(--lux-border)' }}
                         >
                             <div>
-                                <h4 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.2rem', color: 'var(--lux-dark)', marginBottom: '8px' }}>{item.time}</h4>
-                                <span style={{ fontSize: '0.75rem', color: 'var(--lux-tan)', fontWeight: 600, letterSpacing: '0.1em' }}>{item.temp}</span>
+                                <h4 className="lux-occasion-time">{item.time}</h4>
+                                <span className="lux-occasion-temp">{item.temp}</span>
                             </div>
                             <div>
-                                <p style={{ fontSize: '0.95rem', color: 'var(--lux-dark)', marginBottom: '10px', lineHeight: '1.6' }}><strong>Wear:</strong> {item.outfit}</p>
-                                <p style={{ fontSize: '0.85rem', color: 'var(--lux-mid)', fontStyle: 'italic' }}>{item.note}</p>
+                                <p className="lux-occasion-outfit"><strong>Wear:</strong> {item.outfit}</p>
+                                <p className="lux-occasion-note">{item.note}</p>
                             </div>
                         </motion.div>
                     ))}

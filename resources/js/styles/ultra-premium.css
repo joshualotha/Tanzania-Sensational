@@ -589,3 +589,639 @@ body {
         top: 0;
     }
 }
+
+/* ════════════════════════════════════════════
+   SAFARI GUIDE PAGES — PREMIUM VOCABULARY
+   Replaces all inline styles across:
+   WhatToWear, PackingList, HealthAndSafety, SafariEtiquette
+   ════════════════════════════════════════════ */
+
+/* ─── PILLAR GRID (3-column card layout) ─── */
+.lux-pillar-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    border: 1px solid var(--lux-border);
+}
+
+.lux-pillar-card {
+    padding: 50px 40px;
+    background: #fff;
+    border-right: 1px solid var(--lux-border);
+    position: relative;
+    transition: background 0.4s ease;
+}
+
+.lux-pillar-card:last-child { border-right: none; }
+
+.lux-pillar-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 0;
+    background: var(--lux-tan);
+    transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lux-pillar-card:hover::before { height: 100%; }
+.lux-pillar-card:hover { background: rgba(191, 163, 115, 0.03); }
+
+.lux-pillar-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--lux-dark);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--lux-tan);
+    margin-bottom: 24px;
+}
+
+.lux-pillar-tag {
+    font-size: 0.65rem;
+    color: var(--lux-tan);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.lux-pillar-title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--lux-dark);
+    margin: 0 0 16px;
+    line-height: 1.2;
+}
+
+.lux-pillar-desc {
+    font-size: 0.92rem;
+    line-height: 1.75;
+    color: var(--lux-mid);
+    margin-bottom: 24px;
+}
+
+.lux-pillar-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid var(--lux-border);
+}
+
+.lux-pillar-list li {
+    font-size: 0.85rem;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--lux-border);
+    color: var(--lux-dark);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.lux-pillar-list li svg { color: var(--lux-tan); flex-shrink: 0; }
+
+@media (max-width: 1024px) {
+    .lux-pillar-grid { grid-template-columns: 1fr; }
+    .lux-pillar-card { border-right: none; border-bottom: 1px solid var(--lux-border); }
+    .lux-pillar-card:last-child { border-bottom: none; }
+}
+
+/* ─── OCCASION GRID (What to Wear daily rotation) ─── */
+.lux-occasion-list {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.lux-occasion-row {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 40px;
+    padding: 35px 0;
+    border-bottom: 1px solid var(--lux-border);
+}
+
+.lux-occasion-row:first-child { border-top: 1px solid var(--lux-border); }
+
+.lux-occasion-time {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    color: var(--lux-dark);
+    margin-bottom: 6px;
+}
+
+.lux-occasion-temp {
+    font-size: 0.72rem;
+    color: var(--lux-tan);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.lux-occasion-outfit {
+    font-size: 0.95rem;
+    color: var(--lux-dark);
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.lux-occasion-note {
+    font-size: 0.85rem;
+    color: var(--lux-mid);
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .lux-occasion-row { grid-template-columns: 1fr; gap: 12px; }
+}
+
+/* ─── VACCINATION TABLE ─── */
+.lux-vax-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border: 1px solid var(--lux-border);
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.lux-vax-table thead tr {
+    background: var(--lux-dark);
+}
+
+.lux-vax-table th {
+    padding: 18px 24px;
+    text-align: left;
+    color: rgba(255,255,255,0.9);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+}
+
+.lux-vax-table td {
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--lux-border);
+    font-size: 0.92rem;
+    color: var(--lux-dark);
+    vertical-align: top;
+}
+
+.lux-vax-table tr:last-child td { border-bottom: none; }
+
+.lux-vax-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+}
+
+.lux-vax-badge {
+    font-size: 0.65rem;
+    padding: 4px 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+.lux-vax-badge.required { background: rgba(220, 38, 38, 0.08); color: #b91c1c; }
+.lux-vax-badge.recommended { background: rgba(191, 163, 115, 0.12); color: var(--lux-tan); }
+.lux-vax-badge.optional { background: rgba(34, 197, 94, 0.08); color: #16a34a; }
+
+.lux-vax-desc { font-size: 0.85rem; color: var(--lux-mid); line-height: 1.55; }
+
+/* ─── SAFETY GRID (2-column safety cards) ─── */
+.lux-safety-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    border: 1px solid var(--lux-border);
+}
+
+.lux-safety-card {
+    padding: 50px 40px;
+    background: #fff;
+    border-right: 1px solid var(--lux-border);
+    border-bottom: 1px solid var(--lux-border);
+    position: relative;
+}
+
+.lux-safety-card:nth-child(even) { border-right: none; }
+.lux-safety-card:nth-last-child(-n+2) { border-bottom: none; }
+
+.lux-safety-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 60px;
+    background: var(--lux-tan);
+}
+
+.lux-safety-icon {
+    width: 52px;
+    height: 52px;
+    background: var(--lux-dark);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--lux-tan);
+    margin-bottom: 20px;
+}
+
+.lux-safety-title {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    color: var(--lux-dark);
+    margin-bottom: 14px;
+}
+
+.lux-safety-desc {
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--lux-mid);
+    margin-bottom: 20px;
+}
+
+.lux-safety-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.lux-safety-bullets li {
+    font-size: 0.85rem;
+    color: var(--lux-dark);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.lux-safety-bullets li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--lux-tan);
+    border-radius: 50%;
+    margin-top: 7px;
+    flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+    .lux-safety-grid { grid-template-columns: 1fr; }
+    .lux-safety-card { border-right: none; border-bottom: 1px solid var(--lux-border); }
+    .lux-safety-card:last-child { border-bottom: none; }
+}
+
+/* ─── CONTACT ROW ─── */
+.lux-contact-list {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--lux-border);
+}
+
+.lux-contact-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 30px;
+    background: #fff;
+    border-bottom: 1px solid var(--lux-border);
+    transition: background 0.3s ease;
+}
+
+.lux-contact-row:last-child { border-bottom: none; }
+.lux-contact-row:hover { background: rgba(191, 163, 115, 0.03); }
+
+.lux-contact-name {
+    font-size: 1rem;
+    color: var(--lux-dark);
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.lux-contact-desc {
+    font-size: 0.78rem;
+    color: var(--lux-mid);
+}
+
+.lux-contact-number {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--lux-tan);
+    letter-spacing: 0.04em;
+    font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 600px) {
+    .lux-contact-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+}
+
+/* ─── GUIDELINE ROW (Safari Etiquette) ─── */
+.lux-guideline-list {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--lux-border);
+}
+
+.lux-guideline-row {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 35px;
+    padding: 45px 40px;
+    background: #fff;
+    border-bottom: 1px solid var(--lux-border);
+    transition: background 0.4s ease;
+}
+
+.lux-guideline-row:last-child { border-bottom: none; }
+.lux-guideline-row:hover { background: rgba(191, 163, 115, 0.03); }
+
+.lux-guideline-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--lux-dark);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--lux-tan);
+}
+
+.lux-guideline-tag {
+    font-size: 0.65rem;
+    color: var(--lux-tan);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-weight: 700;
+}
+
+.lux-guideline-title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--lux-dark);
+    margin: 6px 0 14px;
+}
+
+.lux-guideline-desc {
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--lux-mid);
+    margin-bottom: 20px;
+}
+
+.lux-guideline-details {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.lux-guideline-details li {
+    font-size: 0.88rem;
+    color: var(--lux-dark);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding-left: 4px;
+}
+
+.lux-guideline-details li::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    background: var(--lux-tan);
+    border-radius: 50%;
+    margin-top: 6px;
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .lux-guideline-row { grid-template-columns: 1fr; gap: 20px; padding: 30px 24px; }
+    .lux-guideline-icon { width: 56px; height: 56px; border-radius: 10px; }
+    .lux-guideline-icon svg { width: 22px; height: 22px; }
+}
+
+/* ─── TABOO ROW ─── */
+.lux-taboo-list {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid rgba(180, 60, 60, 0.12);
+}
+
+.lux-taboo-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 28px;
+    background: rgba(220, 38, 38, 0.02);
+    border-bottom: 1px solid rgba(180, 60, 60, 0.08);
+}
+
+.lux-taboo-row:last-child { border-bottom: none; }
+
+.lux-taboo-x {
+    width: 30px;
+    height: 30px;
+    background: rgba(220, 38, 38, 0.08);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #b91c1c;
+    font-size: 0.9rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.lux-taboo-label {
+    font-size: 0.92rem;
+    color: var(--lux-dark);
+    font-weight: 500;
+}
+
+.lux-taboo-reason {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--lux-mid);
+    margin-top: 3px;
+    font-style: italic;
+}
+
+/* ─── CHECKLIST (Packing List) ─── */
+.lux-progress-strip {
+    padding: 28px 5vw;
+    background: #fff;
+    border-bottom: 1px solid var(--lux-border);
+}
+
+.lux-progress-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.lux-progress-text {
+    font-size: 0.85rem;
+    color: var(--lux-mid);
+    white-space: nowrap;
+}
+
+.lux-progress-text strong { color: var(--lux-dark); }
+
+.lux-progress-track {
+    flex: 1;
+    height: 4px;
+    background: var(--lux-border);
+    position: relative;
+    overflow: hidden;
+}
+
+.lux-progress-fill {
+    height: 100%;
+    background: var(--lux-tan);
+    transition: width 0.5s ease-out;
+}
+
+.lux-progress-pct {
+    font-size: 0.85rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.lux-checklist-block {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.lux-checklist-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.lux-checklist-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--lux-dark);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--lux-tan);
+}
+
+.lux-checklist-cat-title {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    color: var(--lux-dark);
+    margin: 0;
+}
+
+.lux-checklist-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.lux-checklist-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 14px 20px;
+    background: #fff;
+    border: 1px solid var(--lux-border);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    user-select: none;
+}
+
+.lux-checklist-item:hover { border-color: var(--lux-tan); }
+
+.lux-checklist-item.checked {
+    background: rgba(45, 139, 78, 0.04);
+    border-color: rgba(45, 139, 78, 0.18);
+}
+
+.lux-checkbox {
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--lux-border);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+}
+
+.lux-checklist-item.checked .lux-checkbox {
+    background: #2d8b4e;
+    border-color: #2d8b4e;
+    color: #fff;
+}
+
+.lux-checklist-label {
+    flex: 1;
+    font-size: 0.92rem;
+    color: var(--lux-dark);
+    transition: all 0.2s ease;
+}
+
+.lux-checklist-item.checked .lux-checklist-label {
+    color: var(--lux-mid);
+    text-decoration: line-through;
+}
+
+.lux-essential-badge {
+    font-size: 0.6rem;
+    background: rgba(191, 163, 115, 0.1);
+    color: var(--lux-tan);
+    padding: 3px 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* ─── OFFWHITE UTILITY ─── */
+.lux-section-alt { background: var(--lux-cream); }
+
+/* ─── HERO EYEBROW ─── */
+.lux-hero-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--lux-tan);
+    margin-bottom: 12px;
+    display: block;
+}
