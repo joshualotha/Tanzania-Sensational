@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { Wallet, PieChart, Info, FileText, CheckCircle } from 'lucide-react';
 import { visualsData } from '../../../data/visualsData';
 import { useVisuals } from '../../../context/VisualsContext';

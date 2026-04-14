@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Sun, CloudRain, Snowflake, ThermometerSun } from 'lucide-react';
 import { visualsData } from '../../../data/visualsData';
