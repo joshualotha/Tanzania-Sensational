@@ -17,6 +17,10 @@ import { BlogDetail } from './pages/blog/BlogDetail';
 import { ContentPage } from './pages/content/ContentPage';
 import { BookingPage } from './pages/BookingPage';
 import { VisualsProvider } from './context/VisualsContext';
+import { WhatToWear } from './pages/safaris/guide/WhatToWear';
+import { PackingList } from './pages/safaris/guide/PackingList';
+import { HealthSafety } from './pages/safaris/guide/HealthSafety';
+import { SafariEtiquette } from './pages/safaris/guide/SafariEtiquette';
 
 // New 'Plan Your Trip' Pages
 import { GroupDepartures } from './pages/plan/GroupDepartures';
@@ -190,6 +194,10 @@ function App() {
                                     <Route path="/booking" element={<BookingPage />} />
                                     <Route path="/booking/departure/:departureId" element={<BookingPage />} />
                                     <Route path="/booking/safari/:packageId" element={<BookingPage />} />
+                                    <Route path="/safari-guide/what-to-wear" element={<WhatToWear />} />
+                                    <Route path="/safari-guide/packing-list" element={<PackingList />} />
+                                    <Route path="/safari-guide/health-safety" element={<HealthSafety />} />
+                                    <Route path="/safari-guide/safari-etiquette" element={<SafariEtiquette />} />
                                     <Route path="/company/:page" element={<ContentPage fixedSection="company" />} />
                                     <Route path="/safari-guide/:page" element={<ContentPage fixedSection="safari-guide" />} />
 
