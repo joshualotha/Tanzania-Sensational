@@ -12,57 +12,60 @@ class UploadController extends Controller
     {
         \Log::info('Upload attempt', [
             'has_file' => $request->hasFile('file'),
-            'file_error' => $request->file('file')?->getError(),
+            'files_count' => count($_FILES ?? []),
+            'file_key_exists' => isset($_FILES['file']),
+            'file_error' => $_FILES['file']['error'] ?? 'not_set',
+            'file_size' => $_FILES['file']['size'] ?? 'not_set',
+            'file_name' => $_FILES['file']['name'] ?? 'not_set',
             'content_type' => $request->header('Content-Type'),
             'content_length' => $request->header('Content-Length'),
         ]);
 
-        // Add a check to return a precise error if max_upload_size in PHP.ini is intercepting
-        if (!$request->hasFile('file') && $request->header('Content-Length') > 0) {
-            return response()->json([
-                'message' => 'Upload failed. The file exceeds the server\'s maximum upload limit or is corrupted.',
-                'errors' => ['file' => ['File exceeds server PHP limits.']]
-            ], 422);
-        }
-
-        // Log validation errors for debugging
-        $validator = \Validator::make($request->all(), [
-            'file' => 'required|max:51200',
-            'folder' => 'nullable|string|max:80',
-        ]);
-
-        // Additional manual file check since 'file' rule can fail on some hosts
-        if (!$request->hasFile('file') || !$request->file('file')->isValid()) {
-            \Log::error('Upload: File validation failed', [
-                'has_file' => $request->hasFile('file'),
-                'is_valid' => $request->file('file')?->isValid(),
-                'error_code' => $request->file('file')?->getError(),
+        // Direct $_FILES check (more reliable than $request->hasFile on some hosts)
+        if (!isset($_FILES['file']) || $_FILES['file']['error'] !== UPLOAD_ERR_OK) {
+            $errorCode = $_FILES['file']['error'] ?? 'unknown';
+            $errorMessages = [
+                UPLOAD_ERR_INI_SIZE => 'File exceeds server PHP upload limit (upload_max_filesize).',
+                UPLOAD_ERR_FORM_SIZE => 'File exceeds MAX_FILE_SIZE directive in HTML form.',
+                UPLOAD_ERR_PARTIAL => 'File was only partially uploaded.',
+                UPLOAD_ERR_NO_FILE => 'No file was uploaded.',
+                UPLOAD_ERR_NO_TMP_DIR => 'Missing temporary folder. Contact your hosting provider.',
+                UPLOAD_ERR_CANT_WRITE => 'Failed to write file to disk.',
+                UPLOAD_ERR_EXTENSION => 'A PHP extension stopped the file upload.',
+            ];
+            
+            \Log::error('Upload failed', [
+                'error_code' => $errorCode,
+                'message' => $errorMessages[$errorCode] ?? 'Unknown error',
             ]);
+            
             return response()->json([
-                'message' => 'File validation failed',
-                'errors' => ['file' => ['The uploaded file is invalid or exceeds PHP limits.']]
+                'message' => 'Upload failed',
+                'errors' => ['file' => [$errorMessages[$errorCode] ?? 'The uploaded file is invalid or exceeds server limits.']]
             ], 422);
         }
 
-        $validated = $validator->validated();
-
-        $folder = $validated['folder'] ?? 'uploads';
-        $folder = preg_replace('/[^a-zA-Z0-9_\\-\\/]/', '', $folder);
+        // Validate folder parameter only
+        $folder = $request->input('folder', 'uploads');
+        $folder = preg_replace('/[^a-zA-Z0-9_\-\/]/', '', $folder);
         $folder = trim($folder, '/');
         if ($folder === '') $folder = 'uploads';
 
-        $path = $request->file('file')->storePublicly($folder, 'public');
+        // Get the uploaded file from $_FILES
+        $uploadedFile = new \Illuminate\Http\UploadedFile(
+            $_FILES['file']['tmp_name'],
+            $_FILES['file']['name'],
+            $_FILES['file']['type'] ?? 'application/octet-stream',
+            $_FILES['file']['error'],
+            true
+        );
 
-        // Always return a relative URL so it works on any host/port (e.g. localhost:8000).
+        $path = $uploadedFile->storePublicly($folder, 'public');
+
+        // Always return a relative URL so it works on any host/port
         $relativeUrl = '/storage/' . ltrim($path, '/');
 
-        // If the filesystem is configured to generate absolute URLs, normalize back to relative
-        // when it points to this same app.
-        $diskUrl = (string) Storage::disk('public')->url($path);
-        $diskPath = parse_url($diskUrl, PHP_URL_PATH);
-        if (is_string($diskPath) && str_starts_with($diskPath, '/storage/')) {
-            $relativeUrl = $diskPath;
-        }
+        \Log::info('Upload successful', ['path' => $path, 'url' => $relativeUrl]);
 
         return response()->json([
             'path' => $path,
