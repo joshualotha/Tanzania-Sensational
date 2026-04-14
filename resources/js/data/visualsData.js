@@ -108,7 +108,8 @@ export const visualsData = {
             gettingThereEditorial: "https://images.unsplash.com/photo-1569154941061-e231b47cb8f0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
             gearList: "https://images.unsplash.com/photo-1542282088-fe8426682b8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80",
             gearListEditorial: "https://images.unsplash.com/photo-1536882240095-0379873feb4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
-        }
+        },
+        groupDeparturesHero: "https://images.unsplash.com/photo-1522814300958-f584e27fdf00?w=2000&q=85&auto=format&fit=crop"
     },
     safaris: {
         listHero: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=2000&q=85&auto=format&fit=crop",
@@ -133,9 +134,6 @@ export const visualsData = {
         etiquetteHero: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=2000&q=85&auto=format&fit=crop",
         etiquetteEditorial: "https://images.unsplash.com/photo-1580979878201-1e9d1a3eb64f?w=1200&q=80&auto=format&fit=crop",
         etiquetteFullBleed: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=2000&q=85&auto=format&fit=crop"
-    },
-    trekking: {
-        groupDeparturesHero: "https://images.unsplash.com/photo-1522814300958-f584e27fdf00?w=2000&q=85&auto=format&fit=crop"
     },
     contact: {
         hero: "https://images.unsplash.com/photo-1547970810-dc1eac37d174?q=80&w=2000&auto=format&fit=crop",
