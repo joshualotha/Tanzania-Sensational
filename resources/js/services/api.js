@@ -200,7 +200,13 @@ export const adminService = {
         const form = new FormData();
         form.append('file', file);
         form.append('folder', folder);
-        return api.post('/admin/uploads', form, { headers: { 'Content-Type': 'multipart/form-data' } });
+
+        // Remove the default JSON content-type explicitly.
+        // The browser will automatically set 'Content-Type: multipart/form-data' along with the correct boundary string.
+        // Failing to do this can cause Laravel's `hasFile('file')` to fail with a 422 Unprocessable Content error.
+        return api.post('/admin/uploads', form, { 
+            headers: { 'Content-Type': undefined } 
+        });
     },
 
     // Notifications
