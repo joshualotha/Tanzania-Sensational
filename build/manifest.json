@@ -25,7 +25,7 @@
     "name": "vendor"
   },
   "node_modules/canvg/lib/index.es.js": {
-    "file": "assets/index.es-CwnNPix4.js",
+    "file": "assets/index.es-CcePc0p-.js",
     "name": "index.es",
     "src": "node_modules/canvg/lib/index.es.js",
     "isDynamicEntry": true,
@@ -44,7 +44,7 @@
     "isDynamicEntry": true
   },
   "resources/js/main.jsx": {
-    "file": "assets/main-DZTdcw4K.js",
+    "file": "assets/main-C1zvaSj2.js",
     "name": "main",
     "src": "resources/js/main.jsx",
     "isEntry": true,

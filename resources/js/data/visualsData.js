@@ -134,6 +134,9 @@ export const visualsData = {
         etiquetteEditorial: "https://images.unsplash.com/photo-1580979878201-1e9d1a3eb64f?w=1200&q=80&auto=format&fit=crop",
         etiquetteFullBleed: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=2000&q=85&auto=format&fit=crop"
     },
+    trekking: {
+        groupDeparturesHero: "https://images.unsplash.com/photo-1522814300958-f584e27fdf00?w=2000&q=85&auto=format&fit=crop"
+    },
     contact: {
         hero: "https://images.unsplash.com/photo-1547970810-dc1eac37d174?q=80&w=2000&auto=format&fit=crop",
         v2Bg: "https://images.unsplash.com/photo-1547970810-dc1eac37d174?q=80&w=2500&auto=format&fit=crop",

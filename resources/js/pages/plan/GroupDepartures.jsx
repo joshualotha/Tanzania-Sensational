@@ -83,9 +83,9 @@ export const GroupDepartures = () => {
             {/* ─── CINEMATIC HERO ─── */}
             <section className="gd-hero">
                 <div className="gd-hero-bg">
-                    <img 
-                        src={visuals.getSingle('trekking.prep.parkFeesEditorial', visualsData.trekking.prep.parkFeesEditorial)} 
-                        alt="Expedition Team" 
+                    <img
+                        src={visuals.getSingle('trekking.groupDeparturesHero', visualsData.trekking.groupDeparturesHero)}
+                        alt="Expedition Team"
                     />
                     <div className="gd-hero-gradient"></div>
                 </div>
