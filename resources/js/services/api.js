@@ -197,15 +197,11 @@ export const adminService = {
 
     // Uploads
     upload: (file, folder = 'uploads') => {
-        const form = new FormData();
-        form.append('file', file);
-        form.append('folder', folder);
-
-        // Remove the default JSON content-type explicitly.
-        // The browser will automatically set 'Content-Type: multipart/form-data' along with the correct boundary string.
-        // Failing to do this can cause Laravel's `hasFile('file')` to fail with a 422 Unprocessable Content error.
-        return api.post('/admin/uploads', form, { 
-            headers: { 'Content-Type': undefined } 
+        // Use Axios 1.x native postForm to guarantee flawless Content-Type and boundary generation,
+        // side-stepping any interceptors or browser extensions that strip boundaries.
+        return api.postForm('/admin/uploads', {
+            file: file,
+            folder: folder
         });
     },
 
