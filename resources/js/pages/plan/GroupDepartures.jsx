@@ -52,6 +52,19 @@ export const GroupDepartures = () => {
             const status = (dep.status || 'Available');
             const spotsLeft = (dep.remaining_seats ?? dep.available_seats ?? 0);
 
+            const getRouteUrl = (slug) => {
+                if (!slug) return '#';
+                if (slug.includes('lemosho')) return '/trekking/kilimanjaro/lemosho';
+                if (slug.includes('machame')) return '/trekking/kilimanjaro/machame';
+                if (slug.includes('marangu')) return '/trekking/kilimanjaro/marangu';
+                if (slug.includes('rongai')) return '/trekking/kilimanjaro/rongai';
+                if (slug.includes('northern')) return '/trekking/kilimanjaro/northern-circuit';
+                if (slug.includes('umbwe')) return '/trekking/kilimanjaro/umbwe';
+                return `/trekking/kilimanjaro/${slug}`;
+            };
+
+            const packageUrl = getRouteUrl(dep.trekking_route?.slug);
+
             return {
                 id: String(dep.id),
                 dateLabel,
@@ -59,6 +72,7 @@ export const GroupDepartures = () => {
                 price,
                 status,
                 spotsLeft,
+                packageUrl,
             };
         });
     }, [departures]);
@@ -170,7 +184,7 @@ export const GroupDepartures = () => {
                                         </td>
                                         <td data-label="Action">
                                             <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                                                <Link to={`/group-departures/${dep.id}`} className="dep-action-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                                                <Link to={dep.packageUrl} className="dep-action-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                                                     Details <Eye size={12} />
                                                 </Link>
                                                 {dep.status !== 'Full' ? (
@@ -252,7 +266,7 @@ export const GroupDepartures = () => {
                                             {dep.status}
                                         </span>
                                         <div className={`dep-card-actions ${dep.status === 'Full' ? 'single' : ''}`}>
-                                            <Link to={`/group-departures/${dep.id}`} className="dep-btn-outline">
+                                            <Link to={dep.packageUrl} className="dep-btn-outline">
                                                 Details
                                             </Link>
                                             {dep.status !== 'Full' && (

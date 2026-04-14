@@ -64,9 +64,22 @@ export const Departures = () => {
           {loading ? (
             [1, 2, 3].map(i => <div key={i} className="departure-skeleton-v3" />)
           ) : (
-            departures.slice(0, 4).map((dep, i) => (
+            departures.slice(0, 4).map((dep, i) => {
+              const getRouteUrl = (slug) => {
+                if (!slug) return '#';
+                if (slug.includes('lemosho')) return '/trekking/kilimanjaro/lemosho';
+                if (slug.includes('machame')) return '/trekking/kilimanjaro/machame';
+                if (slug.includes('marangu')) return '/trekking/kilimanjaro/marangu';
+                if (slug.includes('rongai')) return '/trekking/kilimanjaro/rongai';
+                if (slug.includes('northern')) return '/trekking/kilimanjaro/northern-circuit';
+                if (slug.includes('umbwe')) return '/trekking/kilimanjaro/umbwe';
+                return `/trekking/kilimanjaro/${slug}`;
+              };
+              const packageUrl = getRouteUrl(dep.trekking_route?.slug);
+              
+              return (
               <motion.div key={dep.id || i} variants={itemVariants}>
-                <Link to={`/group-departures/${dep.id}`} className="departure-card-v3">
+                <Link to={packageUrl} className="departure-card-v3">
                   <div className="dep-info-v3">
                     <span className="dep-route-v3">{dep.trekking_route?.name} Route</span>
                     <span className="dep-date-v3">
@@ -88,7 +101,7 @@ export const Departures = () => {
                   </div>
                 </Link>
               </motion.div>
-            ))
+            )})
           )}
         </div>
       </div>
