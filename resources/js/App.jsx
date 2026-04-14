@@ -17,10 +17,6 @@ import { BlogDetail } from './pages/blog/BlogDetail';
 import { ContentPage } from './pages/content/ContentPage';
 import { BookingPage } from './pages/BookingPage';
 import { VisualsProvider } from './context/VisualsContext';
-import { WhatToWear } from './pages/safaris/guide/WhatToWear';
-import { PackingList } from './pages/safaris/guide/PackingList';
-import { HealthSafety } from './pages/safaris/guide/HealthSafety';
-import { SafariEtiquette } from './pages/safaris/guide/SafariEtiquette';
 
 // New 'Plan Your Trip' Pages
 import { GroupDepartures } from './pages/plan/GroupDepartures';
@@ -29,6 +25,12 @@ import { GearChecklist } from './pages/plan/GearChecklist';
 import { TrainingGuide } from './pages/plan/TrainingGuide';
 import { FAQ } from './pages/plan/FAQ';
 import { SafariAddons } from './pages/plan/SafariAddons';
+
+// Safari Guide Pages
+import WhatToWear from './pages/safari/WhatToWear';
+import PackingList from './pages/safari/PackingList';
+import HealthAndSafety from './pages/safari/HealthAndSafety';
+import SafariEtiquette from './pages/safari/SafariEtiquette';
 
 import Vaccinations from './pages/trekking/health/Vaccinations';
 import AltitudeSickness from './pages/trekking/health/AltitudeSickness';
@@ -194,10 +196,6 @@ function App() {
                                     <Route path="/booking" element={<BookingPage />} />
                                     <Route path="/booking/departure/:departureId" element={<BookingPage />} />
                                     <Route path="/booking/safari/:packageId" element={<BookingPage />} />
-                                    <Route path="/safari-guide/what-to-wear" element={<WhatToWear />} />
-                                    <Route path="/safari-guide/packing-list" element={<PackingList />} />
-                                    <Route path="/safari-guide/health-safety" element={<HealthSafety />} />
-                                    <Route path="/safari-guide/safari-etiquette" element={<SafariEtiquette />} />
                                     <Route path="/company/:page" element={<ContentPage fixedSection="company" />} />
                                     <Route path="/safari-guide/:page" element={<ContentPage fixedSection="safari-guide" />} />
 
@@ -232,6 +230,14 @@ function App() {
                                     <Route path="/trekking/during/food-and-drinks" element={<FoodAndDrinks />} />
                                     <Route path="/trekking/during/pack-your-daypack" element={<PackYourDaypack />} />
                                     <Route path="/trekking/during/connectivity" element={<Connectivity />} />
+
+                                    {/* Safari Guide */}
+                                    <Route path="/safari-guide/what-to-wear" element={<WhatToWear />} />
+                                    <Route path="/safari-guide/packing-guide" element={<PackingList />} />
+                                    <Route path="/safari-guide/packing-list" element={<PackingList />} />
+                                    <Route path="/safari-guide/health-and-safety" element={<HealthAndSafety />} />
+                                    <Route path="/safari-guide/local-customs" element={<SafariEtiquette />} />
+                                    <Route path="/safari-guide/local-custom" element={<SafariEtiquette />} />
 
                                     {/* Kilimanjaro */}
                                     <Route path="/trekking/kilimanjaro/lemosho" element={<Lemosho />} />

@@ -300,9 +300,9 @@ export const Navbar = () => {
                     <h3 className="mega-heading">Safari Guide</h3>
                     <ul className="mega-sub-links">
                       <li><Link to="/safari-guide/what-to-wear">What to Wear</Link></li>
-                      <li><Link to="/safari-guide/packing-list">Packing List</Link></li>
-                      <li><Link to="/safari-guide/health-safety">Health & Safety</Link></li>
-                      <li><Link to="/safari-guide/safari-etiquette">Safari Etiquette</Link></li>
+                      <li><Link to="/safari-guide/packing-guide">Packing List</Link></li>
+                      <li><Link to="/safari-guide/health-and-safety">Health & Safety</Link></li>
+                      <li><Link to="/safari-guide/local-custom">Safari Etiquette</Link></li>
                     </ul>
                   </div>
                 </div>
@@ -331,8 +331,7 @@ export const Navbar = () => {
                   <ul className="submenu">
                     <li><Link to="/safari-guide/what-to-wear">What to Wear</Link></li>
                     <li><Link to="/safari-guide/packing-list">Packing List</Link></li>
-                    <li><Link to="/safari-guide/health-safety">Health & Safety</Link></li>
-                    <li><Link to="/safari-guide/safari-etiquette">Safari Etiquette</Link></li>
+                    <li><Link to="/safari-guide/best-time">Best Time</Link></li>
                   </ul>
                 </li>
               </ul>
