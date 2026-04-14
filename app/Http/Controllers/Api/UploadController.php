@@ -10,6 +10,11 @@ class UploadController extends Controller
 {
     public function store(Request $request)
     {
+        // Force set temp upload directory if missing (fixes error 6 on cPanel/shared hosting)
+        if (empty(ini_get('upload_tmp_dir')) && is_writable(sys_get_temp_dir())) {
+            @ini_set('upload_tmp_dir', sys_get_temp_dir());
+        }
+        
         \Log::info('Upload attempt', [
             'has_file' => $request->hasFile('file'),
             'files_count' => count($_FILES ?? []),
@@ -17,6 +22,7 @@ class UploadController extends Controller
             'file_error' => $_FILES['file']['error'] ?? 'not_set',
             'file_size' => $_FILES['file']['size'] ?? 'not_set',
             'file_name' => $_FILES['file']['name'] ?? 'not_set',
+            'upload_tmp_dir' => ini_get('upload_tmp_dir'),
             'content_type' => $request->header('Content-Type'),
             'content_length' => $request->header('Content-Length'),
         ]);
