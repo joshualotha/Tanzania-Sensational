@@ -93,6 +93,8 @@ export const AdminTrekking = () => {
             return;
         }
 
+        console.log('Uploading file:', { name: file.name, size: file.size, type: file.type });
+
         try {
             setUploadingImage(true);
             const response = await adminService.upload(file, 'trekking-routes');
@@ -101,8 +103,12 @@ export const AdminTrekking = () => {
             setSelectedPkg({ ...selectedPkg, hero_image: imageUrl });
             setImagePreview(imageUrl);
         } catch (error) {
-            console.error('Image upload failed:', error);
-            alert('Failed to upload image. Please try again.');
+            console.error('Upload error:', error);
+            console.error('Error response:', error.response?.data);
+            
+            // Show the actual Laravel validation error
+            const errors = error.response?.data?.errors || error.response?.data?.message || 'Unknown error';
+            alert('Upload failed: ' + JSON.stringify(errors));
         } finally {
             setUploadingImage(false);
         }
