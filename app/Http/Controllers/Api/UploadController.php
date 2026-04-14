@@ -10,6 +10,13 @@ class UploadController extends Controller
 {
     public function store(Request $request)
     {
+        \Log::info('Upload attempt', [
+            'has_file' => $request->hasFile('file'),
+            'file_error' => $request->file('file')?->getError(),
+            'content_type' => $request->header('Content-Type'),
+            'content_length' => $request->header('Content-Length'),
+        ]);
+
         // Add a check to return a precise error if max_upload_size in PHP.ini is intercepting
         if (!$request->hasFile('file') && $request->header('Content-Length') > 0) {
             return response()->json([
@@ -18,12 +25,26 @@ class UploadController extends Controller
             ], 422);
         }
 
-        $validated = $request->validate([
-            // Removed 'mimes' because cPanel environments occasionally lack 'fileinfo'
-            // and fail strict mime guessing, causing 422s. The frontend already enforces image types.
-            'file' => 'required|file|max:51200',
+        // Log validation errors for debugging
+        $validator = \Validator::make($request->all(), [
+            'file' => 'required|max:51200',
             'folder' => 'nullable|string|max:80',
         ]);
+
+        // Additional manual file check since 'file' rule can fail on some hosts
+        if (!$request->hasFile('file') || !$request->file('file')->isValid()) {
+            \Log::error('Upload: File validation failed', [
+                'has_file' => $request->hasFile('file'),
+                'is_valid' => $request->file('file')?->isValid(),
+                'error_code' => $request->file('file')?->getError(),
+            ]);
+            return response()->json([
+                'message' => 'File validation failed',
+                'errors' => ['file' => ['The uploaded file is invalid or exceeds PHP limits.']]
+            ], 422);
+        }
+
+        $validated = $validator->validated();
 
         $folder = $validated['folder'] ?? 'uploads';
         $folder = preg_replace('/[^a-zA-Z0-9_\\-\\/]/', '', $folder);
