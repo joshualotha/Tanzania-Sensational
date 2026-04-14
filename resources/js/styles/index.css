@@ -331,6 +331,19 @@ body::before {
   align-items: center;
   gap: 6px;
   cursor: pointer;
+  position: relative;
+}
+
+/* Invisible bridge to prevent hover loss when moving mouse to the dropdown menu */
+.dropdown-toggle::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: -20px;
+  right: -20px;
+  height: 40px;
+  background: transparent;
+  z-index: 1;
 }
 
 .dropdown-toggle svg {
