@@ -19,7 +19,9 @@ class UploadController extends Controller
         }
 
         $validated = $request->validate([
-            'file' => 'required|file|mimes:jpg,jpeg,png,webp,gif,svg,heic|max:20480',
+            // Removed 'mimes' because cPanel environments occasionally lack 'fileinfo'
+            // and fail strict mime guessing, causing 422s. The frontend already enforces image types.
+            'file' => 'required|file|max:51200',
             'folder' => 'nullable|string|max:80',
         ]);
 
