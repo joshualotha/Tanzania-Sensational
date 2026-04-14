@@ -83,62 +83,62 @@ const BestTime = () => {
 
             {/* ─── MONTH BY MONTH GRID ─── */}
             <section className="prep-month-grid">
-                <motion.div className="prep-month-item" initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} style={{ borderColor: 'var(--savanna-gold)' }}>
+                <motion.div className="prep-month-item month-excellent" initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}>
                     <h4 className="prep-month-name">January</h4>
                     <span className="prep-month-stat"><ThermometerSun size={14} /> Excellent</span>
                     <span className="prep-month-stat"><CloudRain size={14} /> Low Rain</span>
                 </motion.div>
-                <motion.div className="prep-month-item" initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} style={{ borderColor: 'var(--savanna-gold)' }}>
+                <motion.div className="prep-month-item month-excellent" initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}>
                     <h4 className="prep-month-name">February</h4>
                     <span className="prep-month-stat"><ThermometerSun size={14} /> Excellent</span>
                     <span className="prep-month-stat"><CloudRain size={14} /> Low Rain</span>
                 </motion.div>
-                <motion.div className="prep-month-item" initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}>
+                <motion.div className="prep-month-item month-good" initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}>
                     <h4 className="prep-month-name">March</h4>
                     <span className="prep-month-stat"><ThermometerSun size={14} /> Good</span>
                     <span className="prep-month-stat"><CloudRain size={14} /> Rains Begin</span>
                 </motion.div>
-                <motion.div className="prep-month-item" initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} style={{ borderColor: 'rgba(255,0,0,0.3)', opacity: 0.7 }}>
+                <motion.div className="prep-month-item month-poor" initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}>
                     <h4 className="prep-month-name">April</h4>
                     <span className="prep-month-stat"><ThermometerSun size={14} /> Poor</span>
                     <span className="prep-month-stat"><CloudRain size={14} /> Heavy Rain</span>
                 </motion.div>
-                <motion.div className="prep-month-item" initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} style={{ borderColor: 'rgba(255,0,0,0.3)', opacity: 0.7 }}>
+                <motion.div className="prep-month-item month-poor" initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}>
                     <h4 className="prep-month-name">May</h4>
                     <span className="prep-month-stat"><ThermometerSun size={14} /> Poor</span>
                     <span className="prep-month-stat"><CloudRain size={14} /> Heavy Rain</span>
                 </motion.div>
-                <motion.div className="prep-month-item" initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} style={{ borderColor: 'var(--savanna-gold)' }}>
+                <motion.div className="prep-month-item month-good" initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}>
                     <h4 className="prep-month-name">June</h4>
                     <span className="prep-month-stat"><Snowflake size={14} /> Good (Cold)</span>
                     <span className="prep-month-stat"><CloudRain size={14} /> Very Dry</span>
                 </motion.div>
-                <motion.div className="prep-month-item" initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} style={{ borderColor: 'var(--savanna-gold)' }}>
+                <motion.div className="prep-month-item month-excellent" initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}>
                     <h4 className="prep-month-name">July</h4>
                     <span className="prep-month-stat"><Snowflake size={14} /> Excellent</span>
                     <span className="prep-month-stat"><CloudRain size={14} /> Very Dry</span>
                 </motion.div>
-                <motion.div className="prep-month-item" initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} style={{ borderColor: 'var(--savanna-gold)' }}>
+                <motion.div className="prep-month-item month-excellent" initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}>
                     <h4 className="prep-month-name">August</h4>
                     <span className="prep-month-stat"><Snowflake size={14} /> Excellent</span>
                     <span className="prep-month-stat"><CloudRain size={14} /> Very Dry</span>
                 </motion.div>
-                <motion.div className="prep-month-item" initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} style={{ borderColor: 'var(--savanna-gold)' }}>
+                <motion.div className="prep-month-item month-excellent" initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}>
                     <h4 className="prep-month-name">September</h4>
                     <span className="prep-month-stat"><ThermometerSun size={14} /> Excellent</span>
                     <span className="prep-month-stat"><CloudRain size={14} /> Very Dry</span>
                 </motion.div>
-                <motion.div className="prep-month-item" initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} style={{ borderColor: 'var(--savanna-gold)' }}>
+                <motion.div className="prep-month-item month-excellent" initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}>
                     <h4 className="prep-month-name">October</h4>
                     <span className="prep-month-stat"><ThermometerSun size={14} /> Excellent</span>
                     <span className="prep-month-stat"><CloudRain size={14} /> Very Dry</span>
                 </motion.div>
-                <motion.div className="prep-month-item" initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} style={{ borderColor: 'rgba(255,0,0,0.3)', opacity: 0.7 }}>
+                <motion.div className="prep-month-item month-fair" initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}>
                     <h4 className="prep-month-name">November</h4>
                     <span className="prep-month-stat"><ThermometerSun size={14} /> Fair</span>
                     <span className="prep-month-stat"><CloudRain size={14} /> Short Rains</span>
                 </motion.div>
-                <motion.div className="prep-month-item" initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}>
+                <motion.div className="prep-month-item month-good" initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}>
                     <h4 className="prep-month-name">December</h4>
                     <span className="prep-month-stat"><ThermometerSun size={14} /> Good</span>
                     <span className="prep-month-stat"><CloudRain size={14} /> Occasional Rain</span>

@@ -316,12 +316,122 @@
     color: var(--savanna-dark);
 }
 
+/* ─── 5.5 MISSING CALENDAR GRIDS (Best Time Page) ─── */
+.prep-feature-grid {
+    max-width: 1400px;
+    margin: 80px auto;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.prep-feature-item {
+    background: #FFFFFF;
+    padding: 60px;
+    border: 1px solid var(--savanna-border);
+    transition: transform 0.4s ease, border-color 0.4s ease;
+}
+
+.prep-feature-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--savanna-gold);
+}
+
+.prep-feature-icon {
+    color: var(--savanna-gold);
+    margin-bottom: 25px;
+}
+
+.prep-feature-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--savanna-dark);
+    margin-bottom: 15px;
+    letter-spacing: 0;
+}
+
+.prep-feature-desc {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #444;
+}
+
+.prep-month-grid {
+    max-width: 1400px;
+    margin: 120px auto;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.prep-month-item {
+    background: #FFFFFF;
+    padding: 40px 30px;
+    border: 1px solid var(--savanna-border);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: all 0.3s ease;
+}
+
+.prep-month-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--savanna-dark);
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--savanna-border);
+    padding-bottom: 12px;
+}
+
+.prep-month-stat {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #555;
+}
+
+/* Intelligent Highlights */
+.month-excellent {
+    background: rgba(201, 168, 76, 0.05); /* Slight savanna gold wash */
+    border-color: rgba(201, 168, 76, 0.4);
+}
+.month-excellent .prep-month-stat { color: var(--savanna-dark); }
+.month-excellent .prep-month-stat svg { color: var(--savanna-gold); }
+
+.month-good {
+    background: #FFFFFF;
+}
+.month-good .prep-month-stat svg { color: var(--savanna-earth); }
+
+.month-fair {
+    background: rgba(0,0,0,0.02);
+    border-color: rgba(0,0,0,0.05);
+}
+
+.month-poor {
+    opacity: 0.45; /* Dim without using bad red borders */
+    background: rgba(0,0,0,0.03);
+    border-style: dashed;
+}
+.month-poor:hover { opacity: 1; } /* Allow reading on hover */
+
 /* ─── 6. RESPONSIVE REFINEMENT ─── */
 @media (max-width: 1200px) {
 
     .prep-editorial-grid,
-    .prep-info-grid {
+    .prep-info-grid,
+    .prep-feature-grid {
         grid-template-columns: 1fr;
+    }
+
+    .prep-month-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .prep-info-card {
@@ -336,6 +446,10 @@
 
     .prep-section-title {
         font-size: 3.2rem;
+    }
+
+    .prep-month-grid {
+        grid-template-columns: 1fr;
     }
 
     .prep-info-card {
