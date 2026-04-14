@@ -145,7 +145,7 @@ export const ContactPage = () => {
                                     <div className="premium-icon-wrap"><Mail size={20} strokeWidth={1.5} /></div>
                                     <div className="premium-contact-info">
                                         <span className="premium-contact-label">Official Inquiries</span>
-                                        <a href="mailto:info@tssafaris.com" className="premium-contact-val">info@tssafaris.com</a>
+                                        <a href="mailto:info@tanzaniasensational.co.tz" className="premium-contact-val">info@tanzaniasensational.co.tz</a>
                                     </div>
                                 </div>
                             </div>

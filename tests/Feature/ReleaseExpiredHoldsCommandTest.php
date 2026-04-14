@@ -37,7 +37,7 @@ class ReleaseExpiredHoldsCommandTest extends TestCase
             'booking_type' => 'departure',
             'departure_id' => $dep->id,
             'customer_name' => 'Expired Hold',
-            'email' => 'x@example.com',
+            'email' => 'info@tanzaniasensational.co.tz',
             'group_size' => 2,
             'held_seats' => 2,
             'hold_expires_at' => now()->subHour(),

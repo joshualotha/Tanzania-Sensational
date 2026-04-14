@@ -15,18 +15,18 @@ class AdminLoginTest extends TestCase
     {
         User::create([
             'name' => 'Admin',
-            'email' => 'admin@example.com',
+            'email' => 'info@tanzaniasensational.co.tz',
             'password' => Hash::make('password'),
             'role' => 'admin',
         ]);
 
         $res = $this->postJson('/api/login', [
-            'email' => 'admin@example.com',
+            'email' => 'info@tanzaniasensational.co.tz',
             'password' => 'password',
         ]);
 
         $res->assertOk();
-        $res->assertJsonPath('user.email', 'admin@example.com');
+        $res->assertJsonPath('user.email', 'info@tanzaniasensational.co.tz');
     }
 }
 

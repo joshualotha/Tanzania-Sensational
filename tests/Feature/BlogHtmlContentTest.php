@@ -15,7 +15,7 @@ class BlogHtmlContentTest extends TestCase
     {
         $user = User::create([
             'name' => 'Admin',
-            'email' => 'admin@example.com',
+            'email' => 'info@tanzaniasensational.co.tz',
             'password' => Hash::make('password'),
             'role' => 'admin',
         ]);
@@ -41,7 +41,7 @@ class BlogHtmlContentTest extends TestCase
     {
         $user = User::create([
             'name' => 'Admin',
-            'email' => 'admin@example.com',
+            'email' => 'info@tanzaniasensational.co.tz',
             'password' => Hash::make('password'),
             'role' => 'admin',
         ]);

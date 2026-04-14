@@ -40,19 +40,19 @@ export const ZanzibarPage = () => {
             name: 'Stone Town',
             tag: 'UNESCO Heritage',
             desc: 'A labyrinth of coral-rag alleys, carved wooden doors, and a history layered with sultans, spice traders, and Swahili poets.',
-            img: visualsData.zanzibar.regionStoneTown
+            img: visuals.getSingle('zanzibar.regionStoneTown', visualsData.zanzibar.regionStoneTown)
         },
         {
             name: 'Nungwi & Kendwa',
             tag: 'Northern Coast',
             desc: 'Powder-white sand meeting the Indian Ocean in shades of impossible turquoise. Legendary sunsets and dhow-building villages.',
-            img: visualsData.zanzibar.regionNungwi
+            img: visuals.getSingle('zanzibar.regionNungwi', visualsData.zanzibar.regionNungwi)
         },
         {
             name: 'Paje & Jambiani',
             tag: 'Eastern Shore',
             desc: 'Kite-surfing paradise by day, bioluminescent shores by night. Seaweed farms paint the low-tide flats in geometric beauty.',
-            img: visualsData.zanzibar.regionPaje
+            img: visuals.getSingle('zanzibar.regionPaje', visualsData.zanzibar.regionPaje)
         }
     ];
 
@@ -61,19 +61,19 @@ export const ZanzibarPage = () => {
             name: 'Safari Blue Voyage',
             tag: 'Signature Dispatch',
             desc: 'A bespoke mahogany dhow to the Menai Bay area. Snorkel pristine reefs, dine on a sandbank seafood BBQ, and relax in absolute seclusion.',
-            img: visualsData.zanzibar.expSafariBlue
+            img: visuals.getSingle('zanzibar.expSafariBlue', visualsData.zanzibar.expSafariBlue)
         },
         {
             name: 'Spice Plantation Tour',
             tag: 'Cultural Immersion',
             desc: 'Walk through the aromatic groves that gave Zanzibar its name. Clove, cinnamon, vanilla, and cardamom, harvested and tasted fresh from the source.',
-            img: visualsData.zanzibar.expSpice
+            img: visuals.getSingle('zanzibar.expSpice', visualsData.zanzibar.expSpice)
         },
         {
             name: 'Prison Island',
             tag: 'Historical Excursion',
             desc: 'A short boat ride reveals giant Aldabra tortoises, coral gardens, and the haunting remains of a 19th-century detention chamber turned sanctuary.',
-            img: visualsData.zanzibar.expPrisonIsland
+            img: visuals.getSingle('zanzibar.expPrisonIsland', visualsData.zanzibar.expPrisonIsland)
         }
     ];
 
@@ -161,7 +161,7 @@ export const ZanzibarPage = () => {
                         viewport={{ once: true }}
                         transition={{ duration: 1.5, ease: "easeOut" }}
                     >
-                        <img src={visualsData.zanzibar.regionStoneTown} alt="Stone Town Alleyway" />
+                        <img src={visuals.getSingle('zanzibar.regionStoneTown', visualsData.zanzibar.regionStoneTown)} alt="Stone Town Alleyway" />
                     </motion.div>
                 </div>
             </section>
@@ -203,7 +203,7 @@ export const ZanzibarPage = () => {
 
             {/* ─── 4. FULL-BLEED PARALLAX BREAK ─── */}
             <section className="zan-parallax">
-                <img src={visualsData.zanzibar.regionNungwi} alt="Nungwi Beach" />
+                <img src={visuals.getSingle('zanzibar.regionNungwi', visualsData.zanzibar.regionNungwi)} alt="Nungwi Beach" />
                 <div className="zan-parallax-overlay"></div>
                 <motion.div
                     className="zan-parallax-label"
@@ -273,7 +273,7 @@ export const ZanzibarPage = () => {
             {/* ─── 7. CTA FOOTER BAND ─── */}
             <section className="zan-cta-band">
                 <div className="zan-cta-bg">
-                    <img src={visualsData.zanzibar.regionPaje} alt="Paje Beach" />
+                    <img src={visuals.getSingle('zanzibar.regionPaje', visualsData.zanzibar.regionPaje)} alt="Paje Beach" />
                     <div className="zan-cta-overlay"></div>
                 </div>
 

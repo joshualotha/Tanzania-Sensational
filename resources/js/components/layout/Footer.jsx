@@ -96,11 +96,11 @@ export const Footer = () => {
             </p>
 
             <div className="footer-contact-stack">
-              <a href="mailto:info@tssafaris.com" className="footer-contact-link">
+              <a href="mailto:info@tanzaniasensational.co.tz" className="footer-contact-link">
                 <span className="footer-contact-icon">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4.5l6 4.5 6-4.5M2 3.5h12a1.5 1.5 0 011.5 1.5v7a1.5 1.5 0 01-1.5 1.5H2A1.5 1.5 0 01.5 12V5A1.5 1.5 0 012 3.5z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" /></svg>
                 </span>
-                info@tssafaris.com
+                info@tanzaniasensational.co.tz
               </a>
               <a href="tel:+255621220912" className="footer-contact-link">
                 <span className="footer-contact-icon">

@@ -41,7 +41,7 @@ class BookingRequestWorkflowTest extends TestCase
         $res = $this->postJson('/api/bookings', [
             'departure_id' => $dep->id,
             'customer_name' => 'Jane Doe',
-            'email' => 'jane@example.com',
+            'email' => 'info@tanzaniasensational.co.tz',
             'phone' => '+255000000',
             'country' => 'TZ',
             'group_size' => 3,

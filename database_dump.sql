@@ -810,7 +810,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Admin User','admin@tanzaniasensational.com',NULL,'$2y$12$ZJcYuL.fXBnUeZVCNOBQV.zL6tyGPqCx0BqK5OsZW4sf6uDIImZZ.','admin',NULL,'2026-03-18 12:39:44','2026-03-18 12:39:44');
+INSERT INTO `users` VALUES (1,'Admin User','info@tanzaniasensational.co.tz',NULL,'$2y$12$ZJcYuL.fXBnUeZVCNOBQV.zL6tyGPqCx0BqK5OsZW4sf6uDIImZZ.','admin',NULL,'2026-03-18 12:39:44','2026-03-18 12:39:44');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 

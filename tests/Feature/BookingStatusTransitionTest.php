@@ -18,7 +18,7 @@ class BookingStatusTransitionTest extends TestCase
     {
         $user = User::create([
             'name' => 'Admin',
-            'email' => 'admin@example.com',
+            'email' => 'info@tanzaniasensational.co.tz',
             'password' => Hash::make('password'),
             'role' => 'admin',
         ]);
@@ -46,7 +46,7 @@ class BookingStatusTransitionTest extends TestCase
             'booking_type' => 'departure',
             'departure_id' => $dep->id,
             'customer_name' => 'John Doe',
-            'email' => 'john@example.com',
+            'email' => 'info@tanzaniasensational.co.tz',
             'group_size' => 4,
             'held_seats' => 4,
             'status' => 'new',
