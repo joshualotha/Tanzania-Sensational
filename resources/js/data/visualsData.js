@@ -120,6 +120,20 @@ export const visualsData = {
         pkgPioneer: "https://images.unsplash.com/photo-1523805081730-6144a778afd0?w=2000&q=85&auto=format&fit=crop",
         pkgCanvas: "https://images.unsplash.com/photo-1493020256266-db09d97bd02d?w=2000&q=85&auto=format&fit=crop"
     },
+    safari: {
+        whatToWearHero: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=2000&q=85&auto=format&fit=crop",
+        whatToWearEditorial: "https://images.unsplash.com/photo-1523805081730-6144a778afd0?w=1200&q=80&auto=format&fit=crop",
+        whatToWearFullBleed: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=2000&q=85&auto=format&fit=crop",
+        packingHero: "https://images.unsplash.com/photo-1522814300958-f584e27fdf00?w=2000&q=85&auto=format&fit=crop",
+        packingEditorial: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=1200&q=80&auto=format&fit=crop",
+        packingFullBleed: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=2000&q=85&auto=format&fit=crop",
+        healthHero: "https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?w=2000&q=85&auto=format&fit=crop",
+        healthEditorial: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=1200&q=80&auto=format&fit=crop",
+        healthFullBleed: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=2000&q=85&auto=format&fit=crop",
+        etiquetteHero: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=2000&q=85&auto=format&fit=crop",
+        etiquetteEditorial: "https://images.unsplash.com/photo-1580979878201-1e9d1a3eb64f?w=1200&q=80&auto=format&fit=crop",
+        etiquetteFullBleed: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=2000&q=85&auto=format&fit=crop"
+    },
     contact: {
         hero: "https://images.unsplash.com/photo-1547970810-dc1eac37d174?q=80&w=2000&auto=format&fit=crop",
         v2Bg: "https://images.unsplash.com/photo-1547970810-dc1eac37d174?q=80&w=2500&auto=format&fit=crop",

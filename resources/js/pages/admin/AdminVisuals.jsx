@@ -13,6 +13,7 @@ import '../../styles/admin-premium.css';
 const CATEGORY_MAP = [
     { id: 'home', label: 'Home Page', icon: Globe },
     { id: 'safaris', label: 'Safaris', icon: Compass },
+    { id: 'safari', label: 'Safari Guide', icon: Compass },
     { id: 'trekking', label: 'Trekking', icon: Mountain },
     { id: 'zanzibar', label: 'Zanzibar', icon: Sun },
     { id: 'destinations', label: 'Destinations', icon: MapPin },
