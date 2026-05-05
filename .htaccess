@@ -5,6 +5,10 @@
 </IfModule>
 
 <IfModule mod_rewrite.c>
+    # Redirect HTTP to HTTPS
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
     # Block access to hidden files (.env, .git, etc.)
     RewriteRule ^\. - [F,L]
     

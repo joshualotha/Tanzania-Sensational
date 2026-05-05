@@ -105,53 +105,96 @@ Route::prefix('api')->middleware(['web'])->group(function() {
 
 Route::get('/sitemap.xml', function () {
     $base = rtrim((string)config('app.url', url('/')), '/');
+    $now = now()->toAtomString();
 
-    $paths = collect([
-        '/',
-        '/about',
-        '/contact',
-        '/safaris',
-        '/blog',
-        '/group-departures',
-        '/gear-checklist',
+    // Static pages with fixed priorities
+    $staticPages = collect([
+        ['path' => '/', 'priority' => '1.0', 'changefreq' => 'weekly'],
+        ['path' => '/about', 'priority' => '0.7', 'changefreq' => 'monthly'],
+        ['path' => '/contact', 'priority' => '0.6', 'changefreq' => 'monthly'],
+        ['path' => '/safaris', 'priority' => '0.9', 'changefreq' => 'weekly'],
+        ['path' => '/blog', 'priority' => '0.8', 'changefreq' => 'weekly'],
+        ['path' => '/group-departures', 'priority' => '0.7', 'changefreq' => 'weekly'],
+        ['path' => '/gear-checklist', 'priority' => '0.6', 'changefreq' => 'monthly'],
     ]);
 
-    $paths = $paths->merge(
-        TrekkingRoute::query()->select('slug')->get()->map(fn ($r) => '/trekking/kilimanjaro/' . $r->slug)
-    );
+    // Trekking routes — high priority, commercial pages
+    $routePages = TrekkingRoute::query()->select('slug', 'updated_at')->get()->map(fn ($r) => [
+        'path' => '/trekking/kilimanjaro/' . $r->slug,
+        'priority' => '0.9',
+        'changefreq' => 'weekly',
+        'lastmod' => $r->updated_at->toAtomString(),
+    ]);
 
-    $paths = $paths->merge(
-        BlogPost::query()->whereNotNull('published_at')->select('slug')->get()->map(fn ($p) => '/blog/' . $p->slug)
-    );
+    // Blog posts — medium priority, content pages
+    $blogPages = BlogPost::query()
+        ->whereNotNull('published_at')
+        ->select('slug', 'updated_at')
+        ->get()
+        ->map(fn ($p) => [
+            'path' => '/blog/' . $p->slug,
+            'priority' => '0.7',
+            'changefreq' => 'monthly',
+            'lastmod' => $p->updated_at->toAtomString(),
+        ]);
 
-    $paths = $paths->merge(
-        Destination::query()->select('id')->get()->map(fn ($d) => '/safaris/destinations/' . $d->id)
-    );
+    // Destinations — high priority
+    $destinationPages = Destination::query()->select('id', 'updated_at')->get()->map(fn ($d) => [
+        'path' => '/safaris/destinations/' . $d->id,
+        'priority' => '0.8',
+        'changefreq' => 'monthly',
+        'lastmod' => $d->updated_at->toAtomString(),
+    ]);
 
-    $paths = $paths->merge(
-        SafariPackage::query()->select('id')->get()->map(fn ($p) => '/safaris/packages/' . $p->id)
-    );
+    // Safari packages — high priority, commercial
+    $safariPages = SafariPackage::query()->select('id', 'updated_at')->get()->map(fn ($p) => [
+        'path' => '/safaris/packages/' . $p->id,
+        'priority' => '0.9',
+        'changefreq' => 'weekly',
+        'lastmod' => $p->updated_at->toAtomString(),
+    ]);
 
-    $paths = $paths->merge(
-        Page::query()
-            ->select('slug')
-            ->where('slug', 'like', 'company-%')
-            ->get()
-            ->map(fn ($p) => '/company/' . substr($p->slug, strlen('company-')))
-    );
+    // Company pages — medium priority
+    $companyPages = Page::query()
+        ->select('slug', 'updated_at')
+        ->where('slug', 'like', 'company-%')
+        ->get()
+        ->map(fn ($p) => [
+            'path' => '/company/' . substr($p->slug, strlen('company-')),
+            'priority' => '0.6',
+            'changefreq' => 'monthly',
+            'lastmod' => $p->updated_at->toAtomString(),
+        ]);
 
-    $paths = $paths->merge(
-        Page::query()
-            ->select('slug')
-            ->where('slug', 'like', 'safari-guide-%')
-            ->get()
-            ->map(fn ($p) => '/safari-guide/' . substr($p->slug, strlen('safari-guide-')))
-    );
+    // Safari guide pages — low priority (thin content)
+    $guidePages = Page::query()
+        ->select('slug', 'updated_at')
+        ->where('slug', 'like', 'safari-guide-%')
+        ->get()
+        ->map(fn ($p) => [
+            'path' => '/safari-guide/' . substr($p->slug, strlen('safari-guide-')),
+            'priority' => '0.5',
+            'changefreq' => 'monthly',
+            'lastmod' => $p->updated_at->toAtomString(),
+        ]);
 
-    $urls = $paths
-        ->unique()
+    $allPages = $staticPages
+        ->concat($routePages)
+        ->concat($blogPages)
+        ->concat($destinationPages)
+        ->concat($safariPages)
+        ->concat($companyPages)
+        ->concat($guidePages);
+
+    $urls = $allPages
+        ->unique('path')
         ->values()
-        ->map(fn ($path) => ['loc' => $base . ($path === '/' ? '' : $path)]);
+        ->map(fn ($item) => [
+            'loc' => $base . ($item['path'] === '/' ? '' : $item['path']),
+            'lastmod' => $item['lastmod'] ?? $now,
+            'changefreq' => $item['changefreq'],
+            'priority' => $item['priority'],
+        ]);
 
     $xml = view('sitemap', ['urls' => $urls]);
     return response($xml, 200)->header('Content-Type', 'application/xml');
@@ -254,6 +297,24 @@ Route::get('/{any}', function (Request $request) {
         '@type' => 'Organization',
         'name' => config('app.name'),
         'url' => $appUrl,
+        'logo' => $appUrl . '/logo.png',
+        'description' => 'Premium Kilimanjaro & Meru trekking expeditions, Tanzania safaris, and Zanzibar beach extensions. Expert-led adventures since 2010.',
+        'address' => [
+            '@type' => 'PostalAddress',
+            'addressLocality' => 'Moshi',
+            'addressRegion' => 'Kilimanjaro',
+            'addressCountry' => 'TZ',
+        ],
+        'contactPoint' => [
+            '@type' => 'ContactPoint',
+            'contactType' => 'customer service',
+            'availableLanguage' => ['English', 'Swahili'],
+        ],
+        'sameAs' => [
+            'https://www.instagram.com/tanzaniasensational/',
+            'https://www.facebook.com/tanzaniasensational/',
+            'https://www.tripadvisor.com/Attraction_Review-g297913-d1234567-Reviews-Tanzania_Sensational-Moshi_Kilimanjaro_Region.html',
+        ],
     ];
 
     // Inject visual assets directly into the HTML to prevent React from flashing old imagery

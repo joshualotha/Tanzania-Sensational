@@ -230,7 +230,7 @@ class PagesSeeder extends Seeder
         $title = e($h1);
 
         return <<<HTML
-<h2>{$title}</h2>
+<h1>{$title}</h1>
 <ul>{$li}</ul>
 HTML;
     }

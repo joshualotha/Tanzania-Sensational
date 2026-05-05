@@ -1,2 +1,6 @@
 User-agent: *
-Disallow:
+Disallow: /ops-7f3d/
+Disallow: /api/
+Disallow: /storage/
+
+Sitemap: https://tanzaniasensational.com/sitemap.xml

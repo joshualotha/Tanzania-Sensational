@@ -3,7 +3,9 @@
 @foreach($urls as $u)
     <url>
         <loc>{{ $u['loc'] }}</loc>
+        <lastmod>{{ $u['lastmod'] }}</lastmod>
+        <changefreq>{{ $u['changefreq'] }}</changefreq>
+        <priority>{{ $u['priority'] }}</priority>
     </url>
 @endforeach
 </urlset>
-
