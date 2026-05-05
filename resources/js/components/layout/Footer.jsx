@@ -3,9 +3,14 @@ import { Link } from 'react-router-dom';
 import { Linkedin, Instagram, Facebook, Youtube, Send, MapPin, ArrowRight } from 'lucide-react';
 import { visualsData } from '../../data/visualsData';
 import { useVisuals } from '../../context/VisualsContext';
+import { useSettings } from '../../context/SettingsContext';
 
 export const Footer = () => {
   const visuals = useVisuals();
+  const { settings } = useSettings();
+  const contact = settings?.contact || {};
+  const social = settings?.social || {};
+  const general = settings?.general || {};
   const currentYear = new Date().getFullYear();
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
@@ -92,28 +97,28 @@ export const Footer = () => {
               />
             </div>
             <p className="footer-tagline">
-              East Africa's most trusted mountain trekking authority. Guiding adventurers to the roof of Africa since 2009.
+              {general.tagline || "East Africa's most trusted mountain trekking authority. Guiding adventurers to the roof of Africa since 2009."}
             </p>
 
             <div className="footer-contact-stack">
-              <a href="mailto:info@tanzaniasensational.co.tz" className="footer-contact-link">
+              <a href={`mailto:${contact.support_email || 'info@tanzaniasensational.co.tz'}`} className="footer-contact-link">
                 <span className="footer-contact-icon">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4.5l6 4.5 6-4.5M2 3.5h12a1.5 1.5 0 011.5 1.5v7a1.5 1.5 0 01-1.5 1.5H2A1.5 1.5 0 01.5 12V5A1.5 1.5 0 012 3.5z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" /></svg>
                 </span>
-                info@tanzaniasensational.co.tz
+                {contact.support_email || 'info@tanzaniasensational.co.tz'}
               </a>
-              <a href="tel:+255621220912" className="footer-contact-link">
+              <a href={`tel:${contact.phone || '+255621220912'}`} className="footer-contact-link">
                 <span className="footer-contact-icon">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2.5 2.5c0-.3.2-.5.5-.5h2.6c.2 0 .4.2.5.4l1 2.5c.1.2 0 .4-.1.6L6 7c.8 1.5 2.4 3.1 4 4l1-1c.2-.1.4-.2.6-.1l2.5 1c.2.1.4.3.4.5v2.6c0 .3-.2.5-.5.5C5.5 14 1 9.5 1 4c0-.3 0-.5.5-.5z" stroke="currentColor" strokeWidth="1.2" /></svg>
                 </span>
-                +255-621220912
+                {contact.phone || '+255-621220912'}
               </a>
             </div>
 
             {/* Location badge */}
             <div className="footer-location-badge">
               <MapPin size={14} />
-              <span>Moshi, Kilimanjaro Region</span>
+              <span>{contact.address || 'Moshi, Kilimanjaro Region'}</span>
             </div>
           </div>
 
@@ -164,18 +169,26 @@ export const Footer = () => {
               <div className="footer-social-group">
                 <span className="footer-social-label">Follow Along</span>
                 <div className="footer-socials">
-                  <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" className="social-link" aria-label="LinkedIn">
-                    <Linkedin size={15} />
-                  </a>
-                  <a href="https://www.instagram.com" target="_blank" rel="noreferrer" className="social-link" aria-label="Instagram">
-                    <Instagram size={15} />
-                  </a>
-                  <a href="https://www.facebook.com" target="_blank" rel="noreferrer" className="social-link" aria-label="Facebook">
-                    <Facebook size={15} />
-                  </a>
-                  <a href="https://www.youtube.com" target="_blank" rel="noreferrer" className="social-link" aria-label="YouTube">
-                    <Youtube size={15} />
-                  </a>
+                  {social.linkedin && (
+                    <a href={social.linkedin} target="_blank" rel="noreferrer" className="social-link" aria-label="LinkedIn">
+                      <Linkedin size={15} />
+                    </a>
+                  )}
+                  {social.instagram && (
+                    <a href={social.instagram} target="_blank" rel="noreferrer" className="social-link" aria-label="Instagram">
+                      <Instagram size={15} />
+                    </a>
+                  )}
+                  {social.facebook && (
+                    <a href={social.facebook} target="_blank" rel="noreferrer" className="social-link" aria-label="Facebook">
+                      <Facebook size={15} />
+                    </a>
+                  )}
+                  {social.twitter && (
+                    <a href={social.twitter} target="_blank" rel="noreferrer" className="social-link" aria-label="Twitter / X">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                  )}
                 </div>
               </div>
             </div>

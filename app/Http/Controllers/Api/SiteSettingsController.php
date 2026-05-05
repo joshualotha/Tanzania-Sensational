@@ -8,6 +8,30 @@ use Illuminate\Http\Request;
 
 class SiteSettingsController extends Controller
 {
+    /**
+     * Public endpoint – returns settings as a flat key-value map
+     * so the frontend can easily consume them.
+     */
+    public function publicIndex()
+    {
+        $settings = SiteSetting::query()
+            ->orderBy('group')
+            ->orderBy('key')
+            ->get()
+            ->groupBy('group')
+            ->map(function ($items) {
+                return $items->mapWithKeys(function ($s) {
+                    // value is stored as ['value' => '...'] – unwrap it
+                    $raw = $s->value;
+                    return [$s->key => is_array($raw) && array_key_exists('value', $raw) ? $raw['value'] : $raw];
+                });
+            });
+
+        return response()->json([
+            'settings' => $settings,
+        ]);
+    }
+
     public function index()
     {
         $settings = SiteSetting::query()

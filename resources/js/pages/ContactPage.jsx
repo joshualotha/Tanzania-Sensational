@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Phone, Mail, MessageCircle, Send, ShieldCheck, Instagram, Facebook, Youtube, MapPin, Navigation } from 'lucide-react';
 import { visualsData } from '../data/visualsData';
 import { useVisuals } from '../context/VisualsContext';
+import { useSettings } from '../context/SettingsContext';
 import { contactService, pageService } from '../services/api';
 import { CmsSection } from '../components/cms/CmsSection';
 import '../styles/contact-premium.css';
@@ -10,6 +11,9 @@ import '../styles/contact-premium.css';
 export const ContactPage = () => {
     const [cms, setCms] = useState(null);
     const visuals = useVisuals();
+    const { settings } = useSettings();
+    const contact = settings?.contact || {};
+    const social = settings?.social || {};
     const [formData, setFormData] = useState({
         first_name: '',
         last_name: '',
@@ -129,7 +133,7 @@ export const ContactPage = () => {
                                     <div className="premium-icon-wrap"><Phone size={20} strokeWidth={1.5} /></div>
                                     <div className="premium-contact-info">
                                         <span className="premium-contact-label">Direct Line (Arusha HQ)</span>
-                                        <a href="tel:+255621220912" className="premium-contact-val">+255-621220912</a>
+                                        <a href={`tel:${contact.phone || '+255621220912'}`} className="premium-contact-val">{contact.phone || '+255-621220912'}</a>
                                     </div>
                                 </div>
 
@@ -137,7 +141,7 @@ export const ContactPage = () => {
                                     <div className="premium-icon-wrap"><MessageCircle size={20} strokeWidth={1.5} /></div>
                                     <div className="premium-contact-info">
                                         <span className="premium-contact-label">Priority WhatsApp</span>
-                                        <a href="https://wa.me/255621220912" className="premium-contact-val" style={{ color: '#25D366' }}>Message an Expert</a>
+                                        <a href={`https://wa.me/${(contact.whatsapp || '+255621220912').replace(/[^0-9]/g, '')}`} className="premium-contact-val" style={{ color: '#25D366' }}>Message an Expert</a>
                                     </div>
                                 </div>
 
@@ -145,15 +149,17 @@ export const ContactPage = () => {
                                     <div className="premium-icon-wrap"><Mail size={20} strokeWidth={1.5} /></div>
                                     <div className="premium-contact-info">
                                         <span className="premium-contact-label">Official Inquiries</span>
-                                        <a href="mailto:info@tanzaniasensational.co.tz" className="premium-contact-val">info@tanzaniasensational.co.tz</a>
+                                        <a href={`mailto:${contact.support_email || 'info@tanzaniasensational.co.tz'}`} className="premium-contact-val">{contact.support_email || 'info@tanzaniasensational.co.tz'}</a>
                                     </div>
                                 </div>
                             </div>
 
                             <div className="premium-socials">
-                                <a href="https://www.instagram.com" target="_blank" rel="noreferrer" className="premium-social-link"><Instagram size={18} /></a>
-                                <a href="https://www.facebook.com" target="_blank" rel="noreferrer" className="premium-social-link"><Facebook size={18} /></a>
-                                <a href="https://www.youtube.com" target="_blank" rel="noreferrer" className="premium-social-link"><Youtube size={18} /></a>
+                                {social.instagram && <a href={social.instagram} target="_blank" rel="noreferrer" className="premium-social-link"><Instagram size={18} /></a>}
+                                {social.facebook && <a href={social.facebook} target="_blank" rel="noreferrer" className="premium-social-link"><Facebook size={18} /></a>}
+                                {social.twitter && <a href={social.twitter} target="_blank" rel="noreferrer" className="premium-social-link">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                                </a>}
                             </div>
                         </div>
                     </div>
@@ -300,8 +306,8 @@ export const ContactPage = () => {
                         <div className="premium-addr-item">
                             <MapPin className="premium-addr-icon" size={24} />
                             <div className="premium-addr-info">
-                                <span className="premium-addr-label">Arusha Basecamp</span>
-                                <span className="premium-addr-value">Moshi-Arusha Road</span>
+                                <span className="premium-addr-label">Our Location</span>
+                                <span className="premium-addr-value">{contact.address || 'Moshi-Arusha Road'}</span>
                             </div>
                         </div>
                         <div className="premium-addr-item">

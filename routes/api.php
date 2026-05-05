@@ -48,3 +48,5 @@ Route::post('/gear-rental-requests', [GearRentalRequestController::class, 'store
 
 Route::get('/pages/{slug}', [PagesController::class, 'show']);
 
+// Public settings endpoint (no auth required)
+Route::get('/settings', [\App\Http\Controllers\Api\SiteSettingsController::class, 'publicIndex']);

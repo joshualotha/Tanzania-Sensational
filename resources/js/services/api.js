@@ -121,6 +121,11 @@ export const pageService = {
     getBySlug: (slug) => api.get(`/pages/${slug}`),
 };
 
+// Public settings (no auth required)
+export const settingsService = {
+    getPublic: () => api.get('/settings'),
+};
+
 export const adminService = {
     getStats: () => api.get('/stats'),
     
