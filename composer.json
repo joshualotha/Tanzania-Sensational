@@ -9,9 +9,7 @@
         "php": "^8.2",
         "laravel/framework": "^12.0",
         "laravel/sanctum": "^4.0",
-        "laravel/tinker": "^2.10.1",
-        "romanzipp/laravel-seo": "^2.9",
-        "spatie/laravel-sitemap": "^8.1"
+        "laravel/tinker": "^2.10.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -80,7 +78,7 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "platform": {
-            "php": "8.4.0"
+            "php": "8.2.0"
         },
         "allow-plugins": {
             "pestphp/pest-plugin": true,
