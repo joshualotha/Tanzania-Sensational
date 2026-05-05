@@ -7,7 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'voku\\' => array($vendorDir . '/voku/portable-ascii/src/voku'),
-    'romanzipp\\Seo\\' => array($vendorDir . '/romanzipp/laravel-seo/src'),
     'Whoops\\' => array($vendorDir . '/filp/whoops/src/Whoops'),
     'TijsVerkoyen\\CssToInlineStyles\\' => array($vendorDir . '/tijsverkoyen/css-to-inline-styles/src'),
     'Tests\\' => array($baseDir . '/tests'),
@@ -39,15 +38,9 @@ return array(
     'Symfony\\Component\\Finder\\' => array($vendorDir . '/symfony/finder'),
     'Symfony\\Component\\EventDispatcher\\' => array($vendorDir . '/symfony/event-dispatcher'),
     'Symfony\\Component\\ErrorHandler\\' => array($vendorDir . '/symfony/error-handler'),
-    'Symfony\\Component\\DomCrawler\\' => array($vendorDir . '/symfony/dom-crawler'),
     'Symfony\\Component\\CssSelector\\' => array($vendorDir . '/symfony/css-selector'),
     'Symfony\\Component\\Console\\' => array($vendorDir . '/symfony/console'),
     'Symfony\\Component\\Clock\\' => array($vendorDir . '/symfony/clock'),
-    'Spatie\\Sitemap\\' => array($vendorDir . '/spatie/laravel-sitemap/src'),
-    'Spatie\\SchemaOrg\\' => array($vendorDir . '/spatie/schema-org/src'),
-    'Spatie\\Robots\\' => array($vendorDir . '/spatie/robots-txt/src'),
-    'Spatie\\LaravelPackageTools\\' => array($vendorDir . '/spatie/laravel-package-tools/src'),
-    'Spatie\\Crawler\\' => array($vendorDir . '/spatie/crawler/src'),
     'Ramsey\\Uuid\\' => array($vendorDir . '/ramsey/uuid/src'),
     'Ramsey\\Collection\\' => array($vendorDir . '/ramsey/collection/src'),
     'Psy\\' => array($vendorDir . '/psy/psysh/src'),
