@@ -7,6 +7,7 @@ export const AdminSettings = () => {
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
     const [form, setForm] = useState({
         general: {
             company_name: 'Tanzania Sensational',
@@ -90,8 +91,11 @@ export const AdminSettings = () => {
     const onSave = async () => {
         setSaving(true);
         setError('');
+        setSuccess('');
         try {
             await adminService.updateSettings(payload);
+            setSuccess('Settings saved successfully.');
+            setTimeout(() => setSuccess(''), 4000);
         } catch (e) {
             setError(e.response?.data?.message || 'Unable to save settings.');
         } finally {
@@ -115,6 +119,11 @@ export const AdminSettings = () => {
                     </div>
                 ) : (
                     <>
+                        {success && (
+                            <div style={{ marginBottom: 20, padding: 12, border: '1px solid rgba(74,222,128,0.3)', background: 'rgba(74,222,128,0.08)', color: '#4ADE80', borderRadius: 4 }}>
+                                {success}
+                            </div>
+                        )}
                         {error && (
                             <div className="admin-error-box" style={{ marginBottom: 20, padding: 12, border: '1px solid rgba(248,113,113,0.3)', background: 'rgba(248,113,113,0.08)', color: '#F87171' }}>
                                 {error}
