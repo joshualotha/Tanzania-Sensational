@@ -5,8 +5,11 @@
 </IfModule>
 
 <IfModule mod_rewrite.c>
-    # Redirect HTTP to HTTPS
+    RewriteEngine On
+
+    # Redirect HTTP to HTTPS (after RewriteEngine On)
     RewriteCond %{HTTPS} off
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https
     RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 
     # Block access to hidden files (.env, .git, etc.)
@@ -20,8 +23,6 @@
 
     # Force Apache to immediately boot Laravel
     DirectoryIndex index.php
-
-    RewriteEngine On
 
     # Safely alias public storage requests to the hidden app/public directory
     RewriteCond %{REQUEST_URI} ^/storage/
