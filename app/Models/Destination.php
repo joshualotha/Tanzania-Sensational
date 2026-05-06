@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Destination extends Model
 {
     protected $fillable = [
-        'slug', 'name', 'meta_subtitle', 'meta_tag', 'overview', 'meta_quote', 
+        'slug', 'name', 'meta_subtitle', 'meta_tag', 'meta_title', 'meta_description',
+        'overview', 'meta_quote',
         'hero_image', 'meta_coordinates', 'meta_elevation', 'best_time',
         'meta_encounter_rate', 'meta_tier', 'meta_tracking',
         'highlights', 'gallery', 'atmosphere_vitals', 'atmosphere_footer',

@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class TrekkingRoute extends Model
 {
     protected $fillable = [
-        'name', 'slug', 'meta_badge', 'description', 'difficulty', 'duration',
+        'name', 'slug', 'meta_badge', 'meta_title', 'meta_description',
+        'description', 'difficulty', 'duration',
         'distance', 'elevation_gain', 'base_price', 'max_group_size',
         'hero_image', 'editorial_image', 'editorial_image_2', 'editorial_content',
         'success_rate', 'highlights', 'inclusions', 'exclusions'
