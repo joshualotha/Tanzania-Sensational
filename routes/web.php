@@ -139,16 +139,16 @@ Route::get('/sitemap.xml', function () {
         ]);
 
     // Destinations — high priority
-    $destinationPages = Destination::query()->select('id', 'updated_at')->get()->map(fn ($d) => [
-        'path' => '/safaris/destinations/' . $d->id,
+    $destinationPages = Destination::query()->select('slug', 'updated_at')->get()->map(fn ($d) => [
+        'path' => '/safaris/destinations/' . $d->slug,
         'priority' => '0.8',
         'changefreq' => 'monthly',
         'lastmod' => $d->updated_at->toAtomString(),
     ]);
 
     // Safari packages — high priority, commercial
-    $safariPages = SafariPackage::query()->select('id', 'updated_at')->get()->map(fn ($p) => [
-        'path' => '/safaris/packages/' . $p->id,
+    $safariPages = SafariPackage::query()->select('slug', 'updated_at')->get()->map(fn ($p) => [
+        'path' => '/safaris/packages/' . $p->slug,
         'priority' => '0.9',
         'changefreq' => 'weekly',
         'lastmod' => $p->updated_at->toAtomString(),
@@ -286,6 +286,46 @@ Route::get('/{any}', function (Request $request) {
                 '@context' => 'https://schema.org',
                 '@type' => 'TouristTrip',
                 'name' => $route->name . ' Route',
+                'description' => $meta['description'],
+                'url' => $meta['canonical'],
+            ];
+        }
+    }
+
+    // Safari packages
+    if (str_starts_with($path, '/safaris/packages/')) {
+        $slug = trim(substr($path, strlen('/safaris/packages/')), '/');
+        $package = SafariPackage::where('slug', $slug)->first();
+        if ($package) {
+            $meta['title'] = $package->meta_title ?: ($package->name . ' | Tanzania Safari');
+            $meta['description'] = $package->meta_description ?: Str::of((string)$package->description)->stripTags()->limit(160)->toString();
+            $meta['og_title'] = $meta['title'];
+            $meta['og_description'] = $meta['description'];
+            $meta['og_image'] = $package->hero_image ?: null;
+            $meta['schema'] = [
+                '@context' => 'https://schema.org',
+                '@type' => 'TouristTrip',
+                'name' => $package->name,
+                'description' => $meta['description'],
+                'url' => $meta['canonical'],
+            ];
+        }
+    }
+
+    // Safari destinations
+    if (str_starts_with($path, '/safaris/destinations/')) {
+        $slug = trim(substr($path, strlen('/safaris/destinations/')), '/');
+        $destination = Destination::where('slug', $slug)->first();
+        if ($destination) {
+            $meta['title'] = $destination->meta_title ?: ($destination->name . ' | Tanzania Safari Destinations');
+            $meta['description'] = $destination->meta_description ?: $meta['description'];
+            $meta['og_title'] = $meta['title'];
+            $meta['og_description'] = $meta['description'];
+            $meta['og_image'] = $destination->hero_image ?: null;
+            $meta['schema'] = [
+                '@context' => 'https://schema.org',
+                '@type' => 'TouristAttraction',
+                'name' => $destination->name,
                 'description' => $meta['description'],
                 'url' => $meta['canonical'],
             ];
