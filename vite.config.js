@@ -9,6 +9,7 @@ export default defineConfig({
             publicDirectory: '.',
             buildDirectory: 'build',
             refresh: true,
+            ssr: 'resources/js/ssr.jsx',
         }),
         react({
             jsxRuntime: 'automatic'

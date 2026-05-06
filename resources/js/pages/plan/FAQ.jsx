@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { usePage } from '@inertiajs/react';
 import { visualsData } from '../../data/visualsData';
-import { useVisuals } from '../../context/VisualsContext';
 import { Search, ChevronDown, Mail, Phone, MessageSquare } from 'lucide-react';
 import '../../styles/utility-pages-premium.css';
 
@@ -52,11 +52,17 @@ const faqs = [
     }
 ];
 
-export const FAQ = () => {
-    const visuals = useVisuals();
+const FAQ = () => {
+    const { props } = usePage();
+    const visuals = props.visuals;
     const [openIndex, setOpenIndex] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
     const [activeCategory, setActiveCategory] = useState('all');
+
+    const getVisual = (section, fallback) => {
+        if (visuals?.[section]?.[0]) return visuals[section][0];
+        return fallback;
+    };
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -106,7 +112,7 @@ export const FAQ = () => {
             {/* Hero Section */}
             <section className="utility-hero">
                 <div className="utility-hero-bg">
-                    <img src={visuals.getSingle('planning.faqHero', visualsData.planning.faqHero)} alt="Kilimanjaro summit with clear sky" />
+                    <img src={getVisual('planning.faqHero', visualsData.planning.faqHero)} alt="Kilimanjaro summit with clear sky" />
                 </div>
                 <div className="utility-hero-overlay"></div>
                 <motion.div className="utility-hero-content" initial="hidden" animate="visible" variants={containerVariants}>
@@ -205,10 +211,10 @@ export const FAQ = () => {
                             const currentSpan = spans[sIdx % spans.length];
                             
                             const sectionImages = {
-                                "The Climb": visuals.getSingle('trekking.routes.lemoshoEditorial', visualsData.trekking.routes.lemoshoEditorial),
-                                "Health & Safety": visuals.getSingle('trekking.health.altitudeEditorial', visualsData.trekking.health.altitudeEditorial),
-                                "Booking & Logistics": visuals.getSingle('home.experienceMain', visualsData.home.experienceMain),
-                                "Gear & Preparation": visuals.getSingle('planning.gearHero', visualsData.planning.gearHero)
+                                "The Climb": getVisual('trekking.routes.lemoshoEditorial', visualsData.trekking.routes.lemoshoEditorial),
+                                "Health & Safety": getVisual('trekking.health.altitudeEditorial', visualsData.trekking.health.altitudeEditorial),
+                                "Booking & Logistics": getVisual('home.experienceMain', visualsData.home.experienceMain),
+                                "Gear & Preparation": getVisual('planning.gearHero', visualsData.planning.gearHero)
                             };
 
                             return (
@@ -326,3 +332,5 @@ export const FAQ = () => {
         </div>
     );
 };
+
+export default FAQ;

@@ -1,7 +1,5 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { visualAssetService } from '../services/api';
 import { visualsData } from '../data/visualsData';
-import { withCache } from '../utils/apiCache';
 
 const VisualsContext = createContext(null);
 
@@ -10,78 +8,25 @@ function normalizeUrl(url) {
     return String(url).trim();
 }
 
-function urlsFromResponse(res) {
-    const rows = Array.isArray(res?.data?.data) ? res.data.data : (Array.isArray(res?.data) ? res.data : []);
-    return rows.map((r) => normalizeUrl(r?.url)).filter(Boolean);
-}
-
-function collectSectionsFromVisuals(obj, prefix = '') {
-    const out = [];
-    if (!obj || typeof obj !== 'object') return out;
-
-    for (const [k, v] of Object.entries(obj)) {
-        const path = prefix ? `${prefix}.${k}` : k;
-        if (typeof v === 'string') {
-            out.push({ section: path, kind: 'single' });
-        } else if (Array.isArray(v)) {
-            if (v.every((x) => typeof x === 'string')) {
-                out.push({ section: path, kind: 'list' });
-            }
-        } else if (v && typeof v === 'object') {
-            out.push(...collectSectionsFromVisuals(v, path));
-        }
-    }
-    return out;
-}
-
 export function VisualsProvider({ children }) {
-    const [sections, setSections] = useState(window.__INITIAL_VISUALS__ || {});
-    // If we have SSR visuals, we are loaded on frame 1, preventing the 2-second flash of old images!
-    const [loaded, setLoaded] = useState(!!window.__INITIAL_VISUALS__);
+    const [sections, setSections] = useState({});
+    const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
-        // If the server injected the visuals (standard page load), don't fetch them again!
-        if (window.__INITIAL_VISUALS__) return;
-
-        let alive = true;
-        (async () => {
-            try {
-                // Use cache key for all visual assets – cached for 10 minutes
-                const allItems = await withCache('visual-assets', async () => {
-                    let items = [];
-                    let page = 1;
-                    let lastPage = 1;
-
-                    // Sequentially fetch all assets, respecting the backend's 96 per_page limit
-                    do {
-                        const res = await visualAssetService.getAll({ params: { per_page: 96, page } });
-                        const rows = Array.isArray(res?.data?.data) ? res.data.data : (Array.isArray(res?.data) ? res.data : []);
-                        items = [...items, ...rows];
-                        
-                        lastPage = res?.data?.last_page || 1;
-                        page++;
-                    } while (page <= lastPage);
-
-                    return items;
-                }, 10 * 60 * 1000);
-
-                // Group the fetched items by their section
-                const nextSections = {};
-                for (const item of allItems) {
-                    if (!item || !item.section || !item.url) continue;
-                    const s = item.section;
-                    if (!nextSections[s]) nextSections[s] = [];
-                    nextSections[s].push(normalizeUrl(item.url));
-                }
-
-                if (alive) setSections(nextSections);
-            } catch (e) {
-                // Silent fallback to static visualsData.
-            } finally {
-                if (alive) setLoaded(true);
+        // Visuals are provided by HandleInertiaRequests middleware for all Inertia pages.
+        try {
+            const inertiaVisuals = window.__inertia_data?.props?.visuals;
+            if (inertiaVisuals && typeof inertiaVisuals === 'object') {
+                setSections(inertiaVisuals);
+                setLoaded(true);
+                return;
             }
-        })();
-        return () => { alive = false; };
+        } catch (e) {
+            // Not in Inertia context
+        }
+
+        // Fallback for admin CSR pages — visuals are not critical for admin functionality
+        setLoaded(true);
     }, []);
 
     const value = useMemo(() => {
@@ -135,4 +80,3 @@ export function useVisuals() {
     }
     return ctx;
 }
-

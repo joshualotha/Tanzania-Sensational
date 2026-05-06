@@ -6,8 +6,7 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 | Web Routes — Tanzania Sensational
 |--------------------------------------------------------------------------
-| All non-API routes serve the React SPA via the Blade template.
-| API routes are defined in routes/api.php.
+| Inertia.js routes for converted pages, legacy CSR catch-all for others.
 */
 
 use App\Http\Controllers\Api\AuthController;
@@ -25,6 +24,14 @@ use App\Http\Controllers\Api\UploadController;
 use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\PricingRuleController;
 use App\Http\Controllers\Api\AdminNotificationsController;
+use App\Http\Controllers\PageControllers\BlogPageController;
+use App\Http\Controllers\PageControllers\SafariPageController;
+use App\Http\Controllers\PageControllers\ContentPageController;
+use App\Http\Controllers\PageControllers\MainPageController;
+use App\Http\Controllers\PageControllers\SafarisPageController;
+use App\Http\Controllers\PageControllers\TrekkingPageController;
+use App\Http\Controllers\PageControllers\BookingPageController;
+use App\Http\Controllers\PageControllers\PlanPageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Page;
@@ -76,7 +83,6 @@ Route::prefix('api')->middleware(['web'])->group(function() {
         Route::get('/admin/users', [AdminUsersController::class, 'index'])->middleware(['can:manage-users']);
         Route::post('/admin/users', [AdminUsersController::class, 'store'])->middleware(['can:manage-users']);
         Route::put('/admin/users/{id}', [AdminUsersController::class, 'update'])->middleware(['can:manage-users']);
-        Route::delete('/admin/users/{id}', [AdminUsersController::class, 'destroy'])->middleware(['can:manage-users']);
 
         // Gear rental requests (admin)
         Route::get('/admin/gear-rental-requests', [GearRentalRequestController::class, 'index']);
@@ -200,137 +206,123 @@ Route::get('/sitemap.xml', function () {
     return response($xml, 200)->header('Content-Type', 'application/xml');
 });
 
-Route::get('/{any}', function (Request $request) {
+/*
+|--------------------------------------------------------------------------
+| Inertia.js Routes (Converted Pages)
+|--------------------------------------------------------------------------
+| These pages use Inertia.js — data is fetched server-side and passed
+| directly to React components as props. No API calls needed.
+*/
+
+// Blog routes
+Route::get('/blog', [BlogPageController::class, 'index'])->name('blog.index');
+Route::get('/blog/{slug}', [BlogPageController::class, 'show'])->name('blog.show');
+
+// Safari package detail
+Route::get('/safaris/packages/{packageId}', [SafariPageController::class, 'showPackage'])->name('safaris.packages.show');
+
+// Destination detail
+Route::get('/safaris/destinations/{id}', [SafariPageController::class, 'showDestination'])->name('safaris.destinations.show');
+
+// Content pages (company, safari-guide)
+Route::get('/company/{page}', [ContentPageController::class, 'show'])->name('content.company')->defaults('fixedSection', 'company');
+Route::get('/safari-guide/{page}', [ContentPageController::class, 'show'])->name('content.safari-guide')->defaults('fixedSection', 'safari-guide');
+
+// Main pages (home, about, contact)
+Route::get('/', [MainPageController::class, 'home'])->name('home');
+Route::get('/about', [MainPageController::class, 'about'])->name('about');
+Route::get('/contact', [MainPageController::class, 'contact'])->name('contact');
+
+// Safaris listing
+Route::get('/safaris', [SafarisPageController::class, 'index'])->name('safaris.index');
+Route::get('/safaris/tanzania', [SafarisPageController::class, 'index']);
+Route::get('/safaris/kenya', [SafarisPageController::class, 'index']);
+Route::get('/safaris/uganda', [SafarisPageController::class, 'index']);
+Route::get('/safaris/rwanda', [SafarisPageController::class, 'index']);
+
+// Safari packages listing (filter variants)
+Route::get('/safaris/packages', [SafarisPageController::class, 'packagesList'])->name('safaris.packages.list');
+Route::get('/safaris/family', [SafarisPageController::class, 'packagesList']);
+Route::get('/safaris/honeymoon', [SafarisPageController::class, 'packagesList']);
+Route::get('/safaris/luxury', [SafarisPageController::class, 'packagesList']);
+Route::get('/safaris/photographic', [SafarisPageController::class, 'packagesList']);
+Route::get('/safaris/group-joining', [SafarisPageController::class, 'packagesList']);
+
+// Zanzibar page
+Route::get('/zanzibar', function () {
+    return Inertia\Inertia::render('ZanzibarPage');
+})->name('zanzibar');
+
+// Trekking routes
+Route::get('/trekking/kilimanjaro/lemosho', [TrekkingPageController::class, 'showRoute'])->defaults('slug', 'lemosho');
+Route::get('/trekking/kilimanjaro/machame', [TrekkingPageController::class, 'showRoute'])->defaults('slug', 'machame');
+Route::get('/trekking/kilimanjaro/rongai', [TrekkingPageController::class, 'showRoute'])->defaults('slug', 'rongai');
+Route::get('/trekking/kilimanjaro/marangu', [TrekkingPageController::class, 'showRoute'])->defaults('slug', 'marangu');
+Route::get('/trekking/kilimanjaro/northern-circuit', [TrekkingPageController::class, 'showRoute'])->defaults('slug', 'northern-circuit');
+Route::get('/trekking/kilimanjaro/umbwe', [TrekkingPageController::class, 'showRoute'])->defaults('slug', 'umbwe');
+
+// Trekking package detail
+Route::get('/trekking/kilimanjaro/{routeId}/{packageId}', [TrekkingPageController::class, 'showPackage'])->name('trekking.packages.show');
+Route::get('/trekking/meru/{packageId}', [TrekkingPageController::class, 'showMeruPackage'])->name('trekking.meru.show');
+
+// Booking pages
+Route::get('/booking', [BookingPageController::class, 'show'])->name('booking');
+Route::get('/booking/departure/{departureId}', [BookingPageController::class, 'show'])->name('booking.departure');
+Route::get('/booking/safari/{packageId}', [BookingPageController::class, 'show'])->name('booking.safari');
+
+// Plan Your Trip pages
+Route::get('/group-departures', [PlanPageController::class, 'groupDepartures'])->name('group-departures');
+Route::get('/group-departures/{departureId}', [PlanPageController::class, 'departureDetail'])->name('group-departures.show');
+
+// Static Plan Your Trip / Safari Guide pages (no API data needed, just render component)
+Route::get('/gear-checklist', fn() => Inertia\Inertia::render('plan/GearChecklist'))->name('gear-checklist');
+Route::get('/training-guide', fn() => Inertia\Inertia::render('plan/TrainingGuide'))->name('training-guide');
+Route::get('/faq', fn() => Inertia\Inertia::render('plan/FAQ'))->name('faq');
+Route::get('/safari-addons', fn() => Inertia\Inertia::render('plan/SafariAddons'))->name('safari-addons');
+Route::get('/trekking/health/vaccinations', fn() => Inertia\Inertia::render('trekking/health/Vaccinations'))->name('vaccinations');
+Route::get('/trekking/health/altitude-sickness', fn() => Inertia\Inertia::render('trekking/health/AltitudeSickness'))->name('altitude-sickness');
+Route::get('/trekking/health/diamox', fn() => Inertia\Inertia::render('trekking/health/Diamox'))->name('diamox');
+Route::get('/trekking/health/oxygen', fn() => Inertia\Inertia::render('trekking/health/Oxygen'))->name('oxygen');
+Route::get('/trekking/prep/best-routes', fn() => Inertia\Inertia::render('trekking/prep/BestRoutes'))->name('best-routes');
+Route::get('/trekking/prep/best-time', fn() => Inertia\Inertia::render('trekking/prep/BestTime'))->name('best-time');
+Route::get('/trekking/prep/why-us', fn() => Inertia\Inertia::render('trekking/prep/WhyUs'))->name('why-us');
+Route::get('/trekking/prep/tipping-guide', fn() => Inertia\Inertia::render('trekking/prep/TippingGuide'))->name('tipping-guide');
+Route::get('/trekking/prep/toilets', fn() => Inertia\Inertia::render('trekking/prep/Toilets'))->name('toilets');
+Route::get('/trekking/prep/park-fees', fn() => Inertia\Inertia::render('trekking/prep/ParkFees'))->name('park-fees');
+Route::get('/trekking/after/training', fn() => Inertia\Inertia::render('trekking/after/Training'))->name('training');
+Route::get('/trekking/after/gear-list', fn() => Inertia\Inertia::render('trekking/after/GearList'))->name('gear-list');
+Route::get('/trekking/after/getting-there', fn() => Inertia\Inertia::render('trekking/after/GettingThere'))->name('getting-there');
+Route::get('/trekking/after/visa', fn() => Inertia\Inertia::render('trekking/after/Visa'))->name('visa');
+Route::get('/trekking/during/daily-routine', fn() => Inertia\Inertia::render('trekking/during/DailyRoutine'))->name('daily-routine');
+Route::get('/trekking/during/food-and-drinks', fn() => Inertia\Inertia::render('trekking/during/FoodAndDrinks'))->name('food-and-drinks');
+Route::get('/trekking/during/pack-your-daypack', fn() => Inertia\Inertia::render('trekking/during/PackYourDaypack'))->name('pack-your-daypack');
+Route::get('/trekking/during/connectivity', fn() => Inertia\Inertia::render('trekking/during/Connectivity'))->name('connectivity');
+Route::get('/safari-guide/what-to-wear', fn() => Inertia\Inertia::render('safari/WhatToWear'))->name('what-to-wear');
+Route::get('/safari-guide/packing-guide', fn() => Inertia\Inertia::render('safari/PackingList'))->name('packing-guide');
+Route::get('/safari-guide/packing-list', fn() => Inertia\Inertia::render('safari/PackingList'));
+Route::get('/safari-guide/health-and-safety', fn() => Inertia\Inertia::render('safari/HealthAndSafety'))->name('health-and-safety');
+Route::get('/safari-guide/local-customs', fn() => Inertia\Inertia::render('safari/SafariEtiquette'))->name('local-customs');
+Route::get('/safari-guide/local-custom', fn() => Inertia\Inertia::render('safari/SafariEtiquette'));
+
+/*
+|--------------------------------------------------------------------------
+| Fallback Route (404)
+|--------------------------------------------------------------------------
+| All public pages are now rendered via Inertia. Unknown paths return a
+| 404 Inertia response, which the React app can handle gracefully.
+*/
+Route::fallback(function () {
     $appUrl = rtrim((string)config('app.url', url('/')), '/');
-    $path = '/' . ltrim($request->path(), '/');
-    if ($path === '/.') $path = '/';
-    if ($path === '//') $path = '/';
 
     $meta = [
-        'title' => 'Tanzania Sensational — Kilimanjaro & Meru Trekking',
-        'description' => 'Premium Kilimanjaro & Meru trekking expeditions, Tanzania safaris, and Zanzibar beach extensions. Expert-led adventures since 2010.',
-        'og_title' => 'Tanzania Sensational — Kilimanjaro & Meru Trekking',
-        'og_description' => 'Premium Kilimanjaro & Meru trekking expeditions, Tanzania safaris, and Zanzibar beach extensions.',
+        'title' => 'Page Not Found — Tanzania Sensational',
+        'description' => 'The page you are looking for does not exist. Explore our Kilimanjaro trekking, Tanzania safaris, and Zanzibar beach extensions.',
+        'og_title' => 'Page Not Found — Tanzania Sensational',
+        'og_description' => 'The page you are looking for does not exist.',
         'og_image' => null,
-        'canonical' => $appUrl . ($path === '/' ? '' : $path),
+        'canonical' => $appUrl,
         'schema' => null,
     ];
-
-    // CMS pages
-    $pageSlug = match ($path) {
-        '/' => 'home',
-        '/about' => 'about',
-        '/contact' => 'contact',
-        default => null,
-    };
-
-    if (!$pageSlug && str_starts_with($path, '/company/')) {
-        $tail = trim(substr($path, strlen('/company/')), '/');
-        if ($tail !== '') $pageSlug = 'company-' . $tail;
-    }
-
-    if (!$pageSlug && str_starts_with($path, '/safari-guide/')) {
-        $tail = trim(substr($path, strlen('/safari-guide/')), '/');
-        if ($tail !== '') $pageSlug = 'safari-guide-' . $tail;
-    }
-
-    if ($pageSlug) {
-        $page = Page::where('slug', $pageSlug)->first();
-        if ($page) {
-            $meta['title'] = $page->meta_title ?: ($page->title ?: $meta['title']);
-            $meta['description'] = $page->meta_description ?: $meta['description'];
-            $meta['og_title'] = $meta['title'];
-            $meta['og_description'] = $meta['description'];
-            $meta['og_image'] = $page->og_image ?: null;
-            $meta['schema'] = [
-                '@context' => 'https://schema.org',
-                '@type' => 'WebPage',
-                'name' => $meta['title'],
-                'description' => $meta['description'],
-                'url' => $meta['canonical'],
-            ];
-        }
-    }
-
-    // Blog posts
-    if (str_starts_with($path, '/blog/')) {
-        $slug = trim(substr($path, strlen('/blog/')), '/');
-        $post = BlogPost::where('slug', $slug)->whereNotNull('published_at')->first();
-        if ($post) {
-            $meta['title'] = $post->meta_title ?: ($post->title ?: $meta['title']);
-            $meta['description'] = $post->meta_description ?: $meta['description'];
-            $meta['og_title'] = $meta['title'];
-            $meta['og_description'] = $meta['description'];
-            $meta['og_image'] = $post->hero_image ?: null;
-            $meta['schema'] = [
-                '@context' => 'https://schema.org',
-                '@type' => 'BlogPosting',
-                'headline' => $post->title,
-                'datePublished' => optional($post->published_at)->toAtomString(),
-                'mainEntityOfPage' => $meta['canonical'],
-            ];
-        }
-    }
-
-    // Trekking routes
-    if (str_starts_with($path, '/trekking/kilimanjaro/')) {
-        $slug = trim(substr($path, strlen('/trekking/kilimanjaro/')), '/');
-        $route = TrekkingRoute::where('slug', $slug)->first();
-        if ($route) {
-            $meta['title'] = $route->meta_title ?: ($route->name . ' Route — Kilimanjaro');
-            $meta['description'] = $route->meta_description ?: Str::of((string)$route->description)->stripTags()->limit(160)->toString();
-            $meta['og_title'] = $meta['title'];
-            $meta['og_description'] = $meta['description'];
-            $meta['og_image'] = $route->hero_image ?: null;
-            $meta['schema'] = [
-                '@context' => 'https://schema.org',
-                '@type' => 'TouristTrip',
-                'name' => $route->name . ' Route',
-                'description' => $meta['description'],
-                'url' => $meta['canonical'],
-            ];
-        }
-    }
-
-    // Safari packages
-    if (str_starts_with($path, '/safaris/packages/')) {
-        $slug = trim(substr($path, strlen('/safaris/packages/')), '/');
-        $package = SafariPackage::where('slug', $slug)->first();
-        if ($package) {
-            $meta['title'] = $package->meta_title ?: ($package->name . ' | Tanzania Safari');
-            $meta['description'] = $package->meta_description ?: Str::of((string)$package->description)->stripTags()->limit(160)->toString();
-            $meta['og_title'] = $meta['title'];
-            $meta['og_description'] = $meta['description'];
-            $meta['og_image'] = $package->hero_image ?: null;
-            $meta['schema'] = [
-                '@context' => 'https://schema.org',
-                '@type' => 'TouristTrip',
-                'name' => $package->name,
-                'description' => $meta['description'],
-                'url' => $meta['canonical'],
-            ];
-        }
-    }
-
-    // Safari destinations
-    if (str_starts_with($path, '/safaris/destinations/')) {
-        $slug = trim(substr($path, strlen('/safaris/destinations/')), '/');
-        $destination = Destination::where('slug', $slug)->first();
-        if ($destination) {
-            $meta['title'] = $destination->meta_title ?: ($destination->name . ' | Tanzania Safari Destinations');
-            $meta['description'] = $destination->meta_description ?: $meta['description'];
-            $meta['og_title'] = $meta['title'];
-            $meta['og_description'] = $meta['description'];
-            $meta['og_image'] = $destination->hero_image ?: null;
-            $meta['schema'] = [
-                '@context' => 'https://schema.org',
-                '@type' => 'TouristAttraction',
-                'name' => $destination->name,
-                'description' => $meta['description'],
-                'url' => $meta['canonical'],
-            ];
-        }
-    }
 
     $orgSchema = [
         '@context' => 'https://schema.org',
@@ -357,16 +349,8 @@ Route::get('/{any}', function (Request $request) {
         ],
     ];
 
-    // Inject visual assets directly into the HTML to prevent React from flashing old imagery
-    $initialVisuals = \App\Models\VisualAsset::all(['section', 'url'])
-        ->groupBy('section')
-        ->map(function ($items) {
-            return $items->pluck('url');
-        })->toArray();
-
-    return view('app', [
+    return Inertia\Inertia::render('NotFound', [
         'meta' => $meta,
         'orgSchema' => $orgSchema,
-        'initialVisuals' => $initialVisuals,
-    ]);
-})->where('any', '.*');
+    ])->toResponse($request)->setStatusCode(404);
+});

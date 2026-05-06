@@ -1,14 +1,20 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 import { visualsData } from '../../data/visualsData';
-import { useVisuals } from '../../context/VisualsContext';
 import { Check } from 'lucide-react';
 import '../../styles/safari-field-guide.css';
 
 const WhatToWear = () => {
     useEffect(() => { window.scrollTo(0, 0); }, []);
-    const visuals = useVisuals();
+    const { props } = usePage();
+    const visuals = props.visuals;
+
+    const getVisual = (section, fallback) => {
+        if (visuals?.[section]?.[0]) return visuals[section][0];
+        return fallback;
+    };
 
     const fade = {
         hidden: { opacity: 0, y: 40 },
@@ -48,7 +54,7 @@ const WhatToWear = () => {
             {/* ═══ HERO ═══ */}
             <section className="field-hero">
                 <div className="field-hero-img">
-                    <img src={visuals.getSingle('safari.whatToWearHero', visualsData.safaris.listHero)} alt="Safari attire in the bush" />
+                    <img src={getVisual('safari.whatToWearHero', visualsData.safaris.listHero)} alt="Safari attire in the bush" />
                 </div>
                 <div className="field-hero-gradient" />
                 <motion.div className="field-hero-content" initial="hidden" animate="visible" variants={fade}>
@@ -76,7 +82,7 @@ const WhatToWear = () => {
                     </motion.div>
                 </div>
                 <motion.div className="field-split-img" initial={{ opacity: 0, scale: 1.05 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1.5 }}>
-                    <img src={visuals.getSingle('safari.whatToWearEditorial', visualsData.planning.meruHero)} alt="Earth-toned safari clothing" />
+                    <img src={getVisual('safari.whatToWearEditorial', visualsData.planning.meruHero)} alt="Earth-toned safari clothing" />
                 </motion.div>
             </div>
 
@@ -91,7 +97,7 @@ const WhatToWear = () => {
             {/* ═══ CHAPTER 2 — FABRIC SCIENCE ═══ */}
             <div className="field-split reversed field-split-dark">
                 <motion.div className="field-split-img" initial={{ opacity: 0, scale: 1.05 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1.5 }}>
-                    <img src={visuals.getSingle('safari.whatToWearFullBleed', visualsData.safaris.migrationHero)} alt="Breathable safari fabrics" />
+                    <img src={getVisual('safari.whatToWearFullBleed', visualsData.safaris.migrationHero)} alt="Breathable safari fabrics" />
                 </motion.div>
                 <div className="field-split-text">
                     <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }} variants={fade}>
@@ -110,7 +116,7 @@ const WhatToWear = () => {
 
             {/* ═══ FULL BLEED BREAK ═══ */}
             <section className="field-bleed">
-                <img src={visuals.getSingle('safari.whatToWearFullBleed', visualsData.safaris.migrationHero)} alt="Savanna landscape" />
+                <img src={getVisual('safari.whatToWearFullBleed', visualsData.safaris.migrationHero)} alt="Savanna landscape" />
                 <span className="field-bleed-caption">Serengeti, Tanzania</span>
             </section>
 
@@ -148,7 +154,7 @@ const WhatToWear = () => {
                     <p className="field-cta-body">
                         Now that you know what to wear, explore our complete packing list to ensure nothing is left behind.
                     </p>
-                    <Link to="/safari-guide/packing-guide" className="field-btn">
+                    <Link href="/safari-guide/packing-guide" className="field-btn">
                         View Packing List
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
                     </Link>

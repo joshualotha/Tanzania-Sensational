@@ -1,45 +1,13 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { blogService } from '../../services/api';
-import { withCache } from '../../utils/apiCache';
-import { useVisuals } from '../../context/VisualsContext';
-import { BlogListSkeleton } from '../../components/ui/SkeletonLoader';
+import { Link } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 import '../../styles/blog-premium.css';
 
-export const BlogList = () => {
+const BlogList = ({ posts }) => {
     const { scrollYProgress } = useScroll();
     const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
-    const visuals = useVisuals();
-
-    const [posts, setPosts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
-
-    useEffect(() => {
-        let mounted = true;
-        const run = async () => {
-            setLoading(true);
-            setError(null);
-            try {
-                const res = await withCache('blog-posts-all', () => blogService.getAll(), 5 * 60 * 1000);
-                if (!mounted) return;
-                setPosts(Array.isArray(res.data) ? res.data : []);
-            } catch (e) {
-                if (!mounted) return;
-                setError(e);
-            } finally {
-                if (!mounted) return;
-                setLoading(false);
-            }
-        };
-        run();
-        return () => { mounted = false; };
-    }, []);
+    const { visuals } = usePage().props;
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 50 },
@@ -52,7 +20,8 @@ export const BlogList = () => {
     };
 
     const sortedPosts = useMemo(() => {
-        return [...posts].sort((a, b) => {
+        const arr = Array.isArray(posts) ? posts : [];
+        return [...arr].sort((a, b) => {
             const ad = a.published_at ? new Date(a.published_at).getTime() : 0;
             const bd = b.published_at ? new Date(b.published_at).getTime() : 0;
             return bd - ad;
@@ -62,9 +31,12 @@ export const BlogList = () => {
     const featuredPost = sortedPosts[0] || null;
     const remainingPosts = featuredPost ? sortedPosts.slice(1) : [];
 
-    if (loading) {
-        return <BlogListSkeleton />;
-    }
+    const getVisual = (section, fallback) => {
+        if (visuals && visuals[section] && visuals[section].length > 0) {
+            return visuals[section][visuals[section].length - 1];
+        }
+        return fallback;
+    };
 
     return (
         <div className="blog-root">
@@ -72,7 +44,7 @@ export const BlogList = () => {
             <section className="blog-featured-hero">
                 <motion.div style={{ y: bgY }} className="blog-featured-bg">
                     <img
-                        src={featuredPost?.hero_image || visuals.getSingle('blog.hero', "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&q=80")}
+                        src={featuredPost?.hero_image || getVisual('blog.hero', "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&q=80")}
                         alt={featuredPost?.title || "Journal"}
                     />
                 </motion.div>
@@ -84,7 +56,7 @@ export const BlogList = () => {
                 >
                     <motion.span className="blog-featured-eyebrow" variants={fadeInUp}>Featured Journal</motion.span>
                     <motion.h1 className="blog-featured-title" variants={fadeInUp}>
-                        {loading ? "Loading…" : (featuredPost?.title || (error ? "Journal Unavailable" : "No Posts Yet"))}
+                        {featuredPost?.title || "No Posts Yet"}
                     </motion.h1>
                     <motion.div className="blog-featured-meta" variants={fadeInUp}>
                         <span>{featuredPost?.category || "Travel"}</span>
@@ -100,7 +72,7 @@ export const BlogList = () => {
 
                     <motion.div variants={fadeInUp} style={{ marginTop: '40px' }}>
                         {featuredPost?.slug ? (
-                            <Link to={`/blog/${featuredPost.slug}`} className="blog-ed-read" style={{ fontSize: '1rem' }}>
+                            <Link href={`/blog/${featuredPost.slug}`} className="blog-ed-read" style={{ fontSize: '1rem' }}>
                                 Read Featured Story
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                                     <line x1="0" y1="12" x2="19" y2="12"></line>
@@ -114,9 +86,9 @@ export const BlogList = () => {
 
             {/* ─── STAGGERED EDITORIAL GRID ─── */}
             <section className="blog-editorial-grid">
-                {!loading && error ? (
+                {remainingPosts.length === 0 ? (
                     <div style={{ color: 'rgba(255,255,255,0.6)', padding: '60px 20px', textAlign: 'center' }}>
-                        Couldn’t load posts right now. Please refresh and try again.
+                        No posts available yet. Check back soon for new stories.
                     </div>
                 ) : remainingPosts.map((blog, i) => (
                     <motion.div
@@ -124,7 +96,7 @@ export const BlogList = () => {
                         initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-150px" }}
                         variants={fadeInUp}
                     >
-                        <Link to={`/blog/${blog.slug}`} className="blog-ed-card">
+                        <Link href={`/blog/${blog.slug}`} className="blog-ed-card">
                             <div className="blog-ed-img-wrap">
                                 <img src={blog.hero_image} alt={blog.title} />
                             </div>
@@ -153,3 +125,5 @@ export const BlogList = () => {
         </div>
     );
 };
+
+export default BlogList;

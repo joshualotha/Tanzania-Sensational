@@ -1,84 +1,80 @@
-# Tanzania Sensational - CPanel Deployment Guide
+# Tanzania Sensational — Deployment Guide
 
-## Issue Diagnosed
-You're experiencing a "503 Service Unavailable" error after deploying to CPanel. This is typically caused by:
+## Architecture Overview
 
-1. **PHP version mismatch** (requires PHP 8.2+)
-2. **Missing dependencies** (vendor directory not properly deployed)
-3. **Incorrect file permissions** (storage directories not writable)
-4. **.htaccess configuration issues**
-5. **Environment configuration problems**
+The site uses **Inertia.js** to render all public pages server-side via Laravel. React handles interactivity on the client after the initial HTML is delivered. This means:
 
-## Files Created/Modified for Fix
+- **All public pages are fully indexable** by search engines — content is in the initial HTML
+- **No API calls on page load** — data arrives with the HTML response via Inertia props
+- **Frontend assets are pre-built** and committed to the `build/` directory — no server-side build step needed
 
-### 1. Updated `.htaccess` 
-- Enhanced CPanel compatibility
-- Added security headers
-- Improved rewrite rules
-- Added PHP configuration for CPanel
+## Deployment Methods
 
-### 2. Updated `.cpanel.yml`
-- More robust deployment tasks
-- Better error handling
-- Proper permission setting
-- Frontend build integration
+### Option A: CPanel Git Deployment (Recommended)
 
-### 3. Diagnostic Files
-- `phpinfo.php` - Check PHP configuration on server
-- `health-check.php` - Comprehensive Laravel health check
-- **IMPORTANT**: Remove these files after debugging for security
+The project includes a [`.cpanel.yml`](.cpanel.yml) file that automates deployment via CPanel's Git Version Control.
 
-## Steps to Fix Your Deployment
+1. **Push your changes to your Git repository** (GitHub, GitLab, etc.)
+2. **Log into CPanel** → Go to **"Git™ Version Control"**
+3. **Select your repository** → Click **"Manage"** → **"Update from Remote"**
+4. The `.cpanel.yml` will automatically run:
+   - `composer install --no-dev --optimize-autoloader`
+   - `php artisan optimize:clear`
+   - `php artisan config:cache`
+   - `php artisan event:cache`
+   - `php artisan view:cache`
+   - `php artisan migrate --force`
+   - `php artisan storage:link`
+   - `php artisan optimize`
 
-### Step 1: Check PHP Version on CPanel
-1. Log into your CPanel
-2. Go to "Select PHP Version" or "MultiPHP Manager"
-3. Ensure PHP 8.2 or higher is selected
-4. Enable required extensions: `pdo`, `mbstring`, `tokenizer`, `xml`, `ctype`, `json`, `openssl`, `fileinfo`
+**Important:** `php artisan route:cache` is intentionally skipped because Inertia uses closure-based routes (for static page components) which cannot be serialized. Route caching is not needed — Laravel's route matching is fast enough without it.
 
-### Step 2: Upload Fixed Files
-Upload the following updated files to your CPanel:
-- `.htaccess` (updated version)
-- `.cpanel.yml` (updated version)
+### Option B: Manual Deployment via SSH / File Manager
 
-### Step 3: Run Deployment Tasks
-If using CPanel Deployment:
-1. Go to "Git™ Version Control" in CPanel
-2. Select your repository
-3. Click "Manage" then "Update from Remote"
-4. The updated `.cpanel.yml` will automatically run deployment tasks
-
-If manual deployment:
 ```bash
-# SSH into your CPanel or use File Manager terminal
+# 1. Upload all files to your CPanel document root
+
+# 2. Install PHP dependencies
 composer install --no-dev --optimize-autoloader
+
+# 3. Generate app key if not set
 php artisan key:generate --force
-chmod -R 755 storage bootstrap/cache
-php artisan optimize:clear
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
-```
 
-### Step 4: Set Correct Permissions
-```bash
-# These commands fix common permission issues
-find . -type f -exec chmod 644 {} \;
-find . -type d -exec chmod 755 {} \;
-chmod -R 755 storage bootstrap/cache
+# 4. Set correct permissions
+chmod -R 755 storage bootstrap/cache database
 chmod 755 artisan
+
+# 5. Clear all caches
+php artisan optimize:clear
+
+# 6. Cache config, events, and views (NOT routes — see note above)
+php artisan config:cache
+php artisan event:cache
+php artisan view:cache
+
+# 7. Run migrations
+php artisan migrate --force
+
+# 8. Create storage symlink
+php artisan storage:link --force
+
+# 9. Final optimization
+php artisan optimize
 ```
 
-### Step 5: Update Environment Configuration
-Create/update `.env` file on CPanel with production settings:
+**Note:** Frontend assets are pre-built and committed to the `build/` directory. You do NOT need to run `npm install` or `npm run build` on the server. If you need to rebuild assets, run `npm run build` locally and commit the result.
+
+## Environment Configuration
+
+Create/update `.env` on the production server:
 
 ```env
 APP_NAME="Tanzania Sensational"
 APP_ENV=production
 APP_DEBUG=false
-APP_URL=https://yourdomain.com
+APP_URL=https://tanzaniasensational.com
 
-# Database configuration (get from CPanel MySQL databases)
+# Database — production uses MySQL
 DB_CONNECTION=mysql
 DB_HOST=localhost
 DB_PORT=3306
@@ -86,66 +82,48 @@ DB_DATABASE=your_database_name
 DB_USERNAME=your_database_user
 DB_PASSWORD=your_database_password
 
-# Session configuration
+# Session
 SESSION_DRIVER=database
 SESSION_LIFETIME=120
 ```
 
-### Step 6: Test Deployment
-1. Upload `phpinfo.php` and `health-check.php` temporarily
-2. Visit `https://yourdomain.com/phpinfo.php` - check PHP version and extensions
-3. Visit `https://yourdomain.com/health-check.php` - diagnose Laravel issues
-4. Remove diagnostic files after testing
+## Pre-Deployment Checklist
 
-## Common 503 Error Causes and Solutions
+Before deploying, ensure:
 
-### 1. PHP Version Too Low
-**Solution**: Upgrade to PHP 8.2+ in CPanel MultiPHP Manager
+- [ ] Run `npm run build` locally and commit the `build/` directory
+- [ ] All new database migrations are committed
+- [ ] Seeders have been run on production (if needed)
+- [ ] Test locally with `php artisan serve` to verify Inertia pages render correctly
 
-### 2. Missing Composer Dependencies
-**Solution**: Run `composer install --no-dev --optimize-autoloader` on server
+## Post-Deployment Verification
 
-### 3. Storage Directory Permissions
-**Solution**: 
-```bash
-chmod -R 755 storage
-chmod -R 755 bootstrap/cache
-```
+1. **Visit the homepage** — should load instantly with full HTML content
+2. **Check a trekking route page** — e.g., `/trekking/kilimanjaro/machame` — should show route data without loading spinner
+3. **Check a blog post** — e.g., `/blog/why-kilimanjaro` — should render full article HTML
+4. **Check a 404 page** — visit `/nonexistent-page` — should show styled 404 page
+5. **Check admin panel** — `/ops-7f3d/login` — should still work as CSR SPA
+6. **View page source** — right-click → "View Page Source" — should contain visible content text (not just JavaScript)
 
-### 4. .htaccess Issues
-**Solution**: Use the updated `.htaccess` file provided
+## Troubleshooting
 
-### 5. Database Connection Issues
-**Solution**: Verify database credentials in `.env` match CPanel MySQL settings
+### 503 Service Unavailable
+- Check PHP version (requires 8.2+)
+- Check `storage/logs/laravel.log` for errors
+- Run `php artisan optimize:clear` to reset all caches
 
-### 6. Memory Limit Exceeded
-**Solution**: Add to `.htaccess` or `php.ini`:
-```
-php_value memory_limit 256M
-php_value max_execution_time 300
-```
+### Inertia Pages Not Rendering
+- Ensure `@inertiajs/react` is installed in `package.json`
+- Check that `resources/js/main.jsx` uses `createInertiaApp`
+- Verify `resources/views/app.blade.php` has `@inertia` directive
 
-## Verification Steps
+### Route Caching Error
+If you see `RuntimeException: Unable to prepare route ... for serialization. Uses Closure.`:
+- This is expected — Inertia uses closure-based routes for static pages
+- Simply remove `php artisan route:cache` from your deployment script
+- The site works fine without route caching
 
-After applying fixes:
-
-1. **Clear browser cache** and visit your site
-2. **Check error logs** in CPanel → Error Log or `storage/logs/laravel.log`
-3. **Test API endpoints** if applicable
-4. **Verify database connectivity**
-
-## Rollback Plan
-
-If issues persist:
-1. Restore from backup
-2. Contact hosting support with error logs
-3. Check CPanel error logs at `/home/username/logs/error_log`
-
-## Support
-
-If you continue to experience 503 errors:
-1. Check CPanel error logs
-2. Enable detailed error reporting temporarily by setting `APP_DEBUG=true` in `.env`
-3. Contact hosting provider with specific error messages
-
-**Remember to remove diagnostic files (`phpinfo.php`, `health-check.php`) after debugging!**
+### Diagnostic Files
+- `phpinfo.php` — Check PHP configuration on server
+- `health-check.php` — Comprehensive Laravel health check
+- **Remove these files after debugging for security**

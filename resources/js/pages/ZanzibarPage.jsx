@@ -1,13 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link } from '@inertiajs/react';
 import { ArrowRight } from 'lucide-react';
+import { usePage } from '@inertiajs/react';
 import { visualsData } from '../data/visualsData';
-import { useVisuals } from '../context/VisualsContext';
 import '../styles/zanzibar-premium.css';
 
-export const ZanzibarPage = () => {
-    const visuals = useVisuals();
+const ZanzibarPage = () => {
+    const { props } = usePage();
+    const visuals = props.visuals;
     const containerRef = useRef(null);
 
     useEffect(() => { window.scrollTo(0, 0); }, []);
@@ -17,6 +18,11 @@ export const ZanzibarPage = () => {
         offset: ["start start", "end start"]
     });
     const heroY = useTransform(scrollYProgress, [0, 1], [0, 200]);
+
+    const getVisual = (section, fallback) => {
+        if (visuals?.[section]?.[0]) return visuals[section][0];
+        return fallback;
+    };
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 40 },
@@ -40,19 +46,19 @@ export const ZanzibarPage = () => {
             name: 'Stone Town',
             tag: 'UNESCO Heritage',
             desc: 'A labyrinth of coral-rag alleys, carved wooden doors, and a history layered with sultans, spice traders, and Swahili poets.',
-            img: visuals.getSingle('zanzibar.regionStoneTown', visualsData.zanzibar.regionStoneTown)
+            img: getVisual('zanzibar.regionStoneTown', visualsData.zanzibar.regionStoneTown)
         },
         {
             name: 'Nungwi & Kendwa',
             tag: 'Northern Coast',
             desc: 'Powder-white sand meeting the Indian Ocean in shades of impossible turquoise. Legendary sunsets and dhow-building villages.',
-            img: visuals.getSingle('zanzibar.regionNungwi', visualsData.zanzibar.regionNungwi)
+            img: getVisual('zanzibar.regionNungwi', visualsData.zanzibar.regionNungwi)
         },
         {
             name: 'Paje & Jambiani',
             tag: 'Eastern Shore',
             desc: 'Kite-surfing paradise by day, bioluminescent shores by night. Seaweed farms paint the low-tide flats in geometric beauty.',
-            img: visuals.getSingle('zanzibar.regionPaje', visualsData.zanzibar.regionPaje)
+            img: getVisual('zanzibar.regionPaje', visualsData.zanzibar.regionPaje)
         }
     ];
 
@@ -61,19 +67,19 @@ export const ZanzibarPage = () => {
             name: 'Safari Blue Voyage',
             tag: 'Signature Dispatch',
             desc: 'A bespoke mahogany dhow to the Menai Bay area. Snorkel pristine reefs, dine on a sandbank seafood BBQ, and relax in absolute seclusion.',
-            img: visuals.getSingle('zanzibar.expSafariBlue', visualsData.zanzibar.expSafariBlue)
+            img: getVisual('zanzibar.expSafariBlue', visualsData.zanzibar.expSafariBlue)
         },
         {
             name: 'Spice Plantation Tour',
             tag: 'Cultural Immersion',
             desc: 'Walk through the aromatic groves that gave Zanzibar its name. Clove, cinnamon, vanilla, and cardamom, harvested and tasted fresh from the source.',
-            img: visuals.getSingle('zanzibar.expSpice', visualsData.zanzibar.expSpice)
+            img: getVisual('zanzibar.expSpice', visualsData.zanzibar.expSpice)
         },
         {
             name: 'Prison Island',
             tag: 'Historical Excursion',
             desc: 'A short boat ride reveals giant Aldabra tortoises, coral gardens, and the haunting remains of a 19th-century detention chamber turned sanctuary.',
-            img: visuals.getSingle('zanzibar.expPrisonIsland', visualsData.zanzibar.expPrisonIsland)
+            img: getVisual('zanzibar.expPrisonIsland', visualsData.zanzibar.expPrisonIsland)
         }
     ];
 
@@ -84,7 +90,7 @@ export const ZanzibarPage = () => {
             <section className="zan-hero">
                 <motion.div className="zan-hero-bg" style={{ y: heroY }}>
                     <img
-                        src={visuals.getSingle('zanzibar.hero', visualsData.zanzibar.hero)}
+                        src={getVisual('zanzibar.hero', visualsData.zanzibar.hero)}
                         alt="Zanzibar Coastline"
                     />
                     <div className="zan-hero-overlay"></div>
@@ -161,7 +167,7 @@ export const ZanzibarPage = () => {
                         viewport={{ once: true }}
                         transition={{ duration: 1.5, ease: "easeOut" }}
                     >
-                        <img src={visuals.getSingle('zanzibar.regionStoneTown', visualsData.zanzibar.regionStoneTown)} alt="Stone Town Alleyway" />
+                        <img src={getVisual('zanzibar.regionStoneTown', visualsData.zanzibar.regionStoneTown)} alt="Stone Town Alleyway" />
                     </motion.div>
                 </div>
             </section>
@@ -191,7 +197,7 @@ export const ZanzibarPage = () => {
                             <span className="zan-region-tag">{region.tag}</span>
                             <h3 className="zan-region-name">{region.name}</h3>
                             <p className="zan-region-desc">{region.desc}</p>
-                            <Link to="/contact" className="zan-region-link">
+                            <Link href="/contact" className="zan-region-link">
                                 <span>Detailed Dossier</span>
                                 <ArrowRight size={14} />
                             </Link>
@@ -203,7 +209,7 @@ export const ZanzibarPage = () => {
 
             {/* ─── 4. FULL-BLEED PARALLAX BREAK ─── */}
             <section className="zan-parallax">
-                <img src={visuals.getSingle('zanzibar.regionNungwi', visualsData.zanzibar.regionNungwi)} alt="Nungwi Beach" />
+                <img src={getVisual('zanzibar.regionNungwi', visualsData.zanzibar.regionNungwi)} alt="Nungwi Beach" />
                 <div className="zan-parallax-overlay"></div>
                 <motion.div
                     className="zan-parallax-label"
@@ -242,7 +248,7 @@ export const ZanzibarPage = () => {
                                 <span className="zan-eyebrow">{exp.tag}</span>
                                 <h3 className="zan-exp-title">{exp.name}</h3>
                                 <p className="zan-exp-desc">{exp.desc}</p>
-                                <Link to="/contact" className="zan-exp-cta">
+                                <Link href="/contact" className="zan-exp-cta">
                                     <span>Inquire</span>
                                     <ArrowRight size={14} />
                                 </Link>
@@ -273,7 +279,7 @@ export const ZanzibarPage = () => {
             {/* ─── 7. CTA FOOTER BAND ─── */}
             <section className="zan-cta-band">
                 <div className="zan-cta-bg">
-                    <img src={visuals.getSingle('zanzibar.regionPaje', visualsData.zanzibar.regionPaje)} alt="Paje Beach" />
+                    <img src={getVisual('zanzibar.regionPaje', visualsData.zanzibar.regionPaje)} alt="Paje Beach" />
                     <div className="zan-cta-overlay"></div>
                 </div>
 
@@ -292,11 +298,11 @@ export const ZanzibarPage = () => {
                         Whether as the perfect finale to a Kilimanjaro summit or a standalone retreat, our Zanzibar extensions are crafted around your rhythm.
                     </motion.p>
                     <motion.div className="zan-btn-group" variants={fadeInUp}>
-                        <Link to="/contact" className="zan-btn-primary">
+                        <Link href="/contact" className="zan-btn-primary">
                             <span>Commission Your Stay</span>
                             <ArrowRight size={16} />
                         </Link>
-                        <Link to="/safaris" className="zan-btn-outline">
+                        <Link href="/safaris" className="zan-btn-outline">
                             <span>Explore Safari Pairings</span>
                             <ArrowRight size={16} />
                         </Link>
@@ -307,3 +313,5 @@ export const ZanzibarPage = () => {
         </div>
     );
 };
+
+export default ZanzibarPage;

@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 import { visualsData } from '../../data/visualsData';
-import { useVisuals } from '../../context/VisualsContext';
 import { Check, Shield, Sun, Heart, Camera, Package } from 'lucide-react';
 import '../../styles/safari-field-guide.css';
 
 const PackingList = () => {
     useEffect(() => { window.scrollTo(0, 0); }, []);
-    const visuals = useVisuals();
+    const { props } = usePage();
+    const visuals = props.visuals;
     const [checked, setChecked] = useState({});
+
+    const getVisual = (section, fallback) => {
+        if (visuals?.[section]?.[0]) return visuals[section][0];
+        return fallback;
+    };
 
     const fade = {
         hidden: { opacity: 0, y: 40 },
@@ -98,7 +104,7 @@ const PackingList = () => {
             {/* ═══ HERO ═══ */}
             <section className="field-hero">
                 <div className="field-hero-img">
-                    <img src={visuals.getSingle('safari.packingHero', visualsData.planning.gearHero)} alt="Safari gear laid out" />
+                    <img src={getVisual('safari.packingHero', visualsData.planning.gearHero)} alt="Safari gear laid out" />
                 </div>
                 <div className="field-hero-gradient" />
                 <motion.div className="field-hero-content" initial="hidden" animate="visible" variants={fade}>
@@ -143,7 +149,7 @@ const PackingList = () => {
                     </motion.div>
                 </div>
                 <motion.div className="field-split-img" initial={{ opacity: 0, scale: 1.05 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1.5 }}>
-                    <img src={visuals.getSingle('safari.packingEditorial', visualsData.trekking.routes.lemosho)} alt="Safari duffel bag" />
+                    <img src={getVisual('safari.packingEditorial', visualsData.trekking.routes.lemosho)} alt="Safari duffel bag" />
                 </motion.div>
             </div>
 
@@ -175,7 +181,7 @@ const PackingList = () => {
 
             {/* ═══ FULL BLEED ═══ */}
             <section className="field-bleed">
-                <img src={visuals.getSingle('safari.packingFullBleed', visualsData.planning.meruHero)} alt="Safari expedition ready" />
+                <img src={getVisual('safari.packingFullBleed', visualsData.planning.meruHero)} alt="Safari expedition ready" />
                 <span className="field-bleed-caption">Ready for the bush</span>
             </section>
 
@@ -186,7 +192,7 @@ const PackingList = () => {
                     <p className="field-cta-body">
                         Now that you're packed, learn about health precautions and safety protocols for your Tanzanian adventure.
                     </p>
-                    <Link to="/safari-guide/health-and-safety" className="field-btn">
+                    <Link href="/safari-guide/health-and-safety" className="field-btn">
                         Health & Safety Guide
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
                     </Link>

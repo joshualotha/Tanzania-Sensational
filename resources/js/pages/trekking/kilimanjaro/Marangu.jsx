@@ -1,41 +1,25 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 import { Clock, Activity, Camera, TrendingUp } from 'lucide-react';
 import { visualsData } from '../../../data/visualsData';
-import { useVisuals } from '../../../context/VisualsContext';
-import { trekkingService } from '../../../services/api';
 import { PrivateTrekPricing } from '../../../components/pricing/PrivateTrekPricing';
 import '../../../styles/ultra-premium.css';
 
-const Marangu = () => {
-    useEffect(() => { window.scrollTo(0, 0); }, []);
-    const visuals = useVisuals();
+const Marangu = ({ route }) => {
+    const { props } = usePage();
+    const visuals = props.visuals;
+
+    const getVisual = (section, fallback) => {
+        if (visuals?.[section]?.[0]) return visuals[section][0];
+        return fallback;
+    };
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 30 },
         visible: { opacity: 1, y: 0, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }
     };
-
-    const [route, setRoute] = useState(null);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        let mounted = true;
-        const run = async () => {
-            setLoading(true);
-            try {
-                const res = await trekkingService.getBySlug('marangu');
-                if (!mounted) return;
-                setRoute(res.data || null);
-            } finally {
-                if (!mounted) return;
-                setLoading(false);
-            }
-        };
-        run();
-        return () => { mounted = false; };
-    }, []);
 
     const departures = useMemo(() => {
         return Array.isArray(route?.departures) ? route.departures : [];
@@ -46,7 +30,7 @@ const Marangu = () => {
             {/* ─── HERO ─── */}
             <section className="lux-hero">
                 <img
-                    src={route?.hero_image || visuals.getSingle('trekking.routes.marangu', visualsData.trekking.routes.marangu)}
+                    src={route?.hero_image || getVisual('trekking.routes.marangu', visualsData.trekking.routes.marangu)}
                     alt="Marangu Route Landscape"
                 />
                 <div className="lux-hero-overlay"></div>
@@ -100,7 +84,7 @@ const Marangu = () => {
                         className="lux-image-wrapper"
                     >
                         <img
-                            src={route?.editorial_image || visuals.getSingle('trekking.routes.maranguEditorial', visualsData.trekking.routes.maranguEditorial)}
+                            src={route?.editorial_image || getVisual('trekking.routes.maranguEditorial', visualsData.trekking.routes.maranguEditorial)}
                             alt="Marangu Huts"
                         />
                         <div className="lux-image-caption">The iconic A-frame dormitories unique to the Marangu Route.</div>
@@ -124,14 +108,10 @@ const Marangu = () => {
             <section className="lux-packages-section">
                 <h2 className="lux-heading" style={{ textAlign: 'center', fontSize: '2.5rem', marginBottom: '10px' }}>Available <em>Packages.</em></h2>
                 <div className="lux-packages-grid">
-                    {loading ? (
-                        [1, 2, 3].map((i) => (
-                            <div key={i} className="lux-package-card skeleton" style={{ height: 420, background: 'rgba(255,255,255,0.08)' }} />
-                        ))
-                    ) : (route?.variations || []).length === 0 ? (
+                    {(route?.variations || []).length === 0 ? (
                         <div style={{ textAlign: 'center', width: '100%', opacity: 0.8 }}>
                             <p className="lux-body">No packages are currently available for this route.</p>
-                            <Link to="/contact" className="lux-btn" style={{ marginTop: 20, display: 'inline-flex' }}>Contact Us</Link>
+                            <Link href="/contact" className="lux-btn" style={{ marginTop: 20, display: 'inline-flex' }}>Contact Us</Link>
                         </div>
                     ) : (
                         (route?.variations || []).map((pkg, index) => (
@@ -159,7 +139,7 @@ const Marangu = () => {
                                             <span style={{ color: 'var(--gold)', fontFamily: 'var(--font-heading)', fontSize: '1.15rem' }}>
                                                 From ${Math.round(pkg.base_price).toLocaleString()} <span style={{ opacity: 0.6, fontSize: '0.8rem' }}>/pp</span>
                                             </span>
-                                            <Link to={`/trekking/kilimanjaro/marangu/${pkg.id}`} className="lux-link-arrow">
+                                            <Link href={`/trekking/kilimanjaro/marangu/${pkg.id}`} className="lux-link-arrow">
                                                 View details
                                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
                                             </Link>
@@ -177,7 +157,7 @@ const Marangu = () => {
             {/* ─── CTA ─── */}
             <section className="lux-cta">
                 <h2 className="lux-heading" style={{ marginBottom: '40px' }}>Begin Your <em>Ascent.</em></h2>
-                <Link to="/contact" className="lux-btn">
+                <Link href="/contact" className="lux-btn">
                     Inquire About Marangu
                 </Link>
             </section>

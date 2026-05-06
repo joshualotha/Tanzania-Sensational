@@ -1,44 +1,18 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { useParams, Navigate, Link } from 'react-router-dom';
+import React, { useEffect, useMemo } from 'react';
+import { Link } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import { Calendar, Users, Mountain, MapPin, Clock, DollarSign, Check, X as XIcon, ArrowRight, ChevronLeft, AlertTriangle } from 'lucide-react';
-import { departureService } from '../../services/api';
 import '../../styles/group-departures-premium.css';
 
-export const DepartureDetail = () => {
-    const { departureId } = useParams();
-    const [dep, setDep] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
+const DepartureDetail = ({ departure }) => {
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, [departureId]);
-
-    useEffect(() => {
-        let mounted = true;
-        const run = async () => {
-            setLoading(true);
-            setError(null);
-            try {
-                const res = await departureService.getById(departureId);
-                if (!mounted) return;
-                setDep(res.data || null);
-            } catch (e) {
-                if (!mounted) return;
-                setError(e);
-            } finally {
-                if (!mounted) return;
-                setLoading(false);
-            }
-        };
-        run();
-        return () => { mounted = false; };
-    }, [departureId]);
+    }, []);
 
     const viewModel = useMemo(() => {
-        if (!dep) return null;
+        if (!departure) return null;
 
+        const dep = departure;
         const start = dep.departure_date ? new Date(dep.departure_date) : null;
         const end = dep.return_date ? new Date(dep.return_date) : null;
         const dateLabel = start
@@ -77,24 +51,21 @@ export const DepartureDetail = () => {
             itinerarySummary,
             inclusions: Array.isArray(dep.inclusions) ? dep.inclusions : [],
             exclusions: Array.isArray(dep.exclusions) ? dep.exclusions : [],
+            id: dep.id,
         };
-    }, [dep]);
+    }, [departure]);
 
-    if (!loading && (error || !viewModel)) {
-        return <Navigate to="/group-departures" replace />;
-    }
-
-    if (loading || !viewModel) {
+    if (!viewModel) {
         return (
             <div className="utility-root">
                 <section className="utility-hero" style={{ minHeight: '65vh' }}>
                     <div className="utility-hero-bg" />
                     <div className="utility-hero-overlay" />
                     <div className="utility-hero-content">
-                        <Link to="/group-departures" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: 'var(--gold)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.15em', fontWeight: 600, marginBottom: '20px', textDecoration: 'none' }}>
+                        <Link href="/group-departures" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: 'var(--gold)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.15em', fontWeight: 600, marginBottom: '20px', textDecoration: 'none' }}>
                             <ChevronLeft size={14} /> All Departures
                         </Link>
-                        <h1 className="utility-hero-title" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)' }}>Loading…</h1>
+                        <h1 className="utility-hero-title" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)' }}>Departure Not Found</h1>
                     </div>
                 </section>
             </div>
@@ -120,7 +91,7 @@ export const DepartureDetail = () => {
                 </div>
                 <div className="utility-hero-overlay"></div>
                 <motion.div className="utility-hero-content" initial="hidden" animate="visible" variants={fadeInUp}>
-                    <Link to="/group-departures" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: 'var(--gold)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.15em', fontWeight: 600, marginBottom: '20px', textDecoration: 'none' }}>
+                    <Link href="/group-departures" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: 'var(--gold)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.15em', fontWeight: 600, marginBottom: '20px', textDecoration: 'none' }}>
                         <ChevronLeft size={14} /> All Departures
                     </Link>
                     <div className="heritage-type-badge">
@@ -226,7 +197,7 @@ export const DepartureDetail = () => {
 
                                 {viewModel.status !== 'Full' ? (
                                     <Link
-                                        to={`/booking/departure/${dep.id}`}
+                                        href={`/booking/departure/${viewModel.id}`}
                                         style={{
                                             display: 'flex',
                                             alignItems: 'center',
@@ -281,3 +252,5 @@ const DetailRow = ({ label, value }) => (
         <span style={{ fontWeight: 500, textAlign: 'right', maxWidth: '60%' }}>{value}</span>
     </div>
 );
+
+export default DepartureDetail;

@@ -1,22 +1,14 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { useParams, Link, useNavigate, Navigate } from 'react-router-dom';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import React, { useMemo } from 'react';
+import { Link } from '@inertiajs/react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { LiveWeatherWidget, SafariCalendar, ElevationGraph } from './MountainIntegrations';
-import { trekkingService } from '../../../services/api';
 import '../../../styles/ultra-premium.css';
 
-const PackageDetail = () => {
-    const { routeId, packageId } = useParams();
-    const navigate = useNavigate();
-    const [trek, setTrek] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [errorLog, setErrorLog] = useState(null);
-
+const PackageDetail = ({ route, pkg }) => {
     const { scrollY } = useScroll();
     const heroOpacity = useTransform(scrollY, [0, 500], [1, 0]);
 
-    // Format data specifically for Recharts AreaChart
-    const itineraryDays = trek?.itinerary_days || [];
+    const itineraryDays = route?.itinerary_days || [];
 
     const chartData = useMemo(() => {
         if (!Array.isArray(itineraryDays) || itineraryDays.length === 0) return [];
@@ -28,73 +20,14 @@ const PackageDetail = () => {
         }));
     }, [itineraryDays]);
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-        let mounted = true;
-        const run = async () => {
-            setLoading(true);
-            try {
-                const res = await trekkingService.getById(packageId);
-                if (!mounted) return;
-                setTrek(res.data || null);
-            } catch (e) {
-                if (!mounted) return;
-                setTrek(null);
-                setErrorLog(e.message || String(e));
-            } finally {
-                if (!mounted) return;
-                setLoading(false);
-            }
-        };
-        run();
-        return () => { mounted = false; };
-    }, [packageId]);
-
-    useEffect(() => {
-        if (!loading && trek?.slug && routeId) {
-            const baseSlug = trek.slug.split('-')[0];
-            if (baseSlug !== routeId && trek.slug !== routeId) {
-                // E.g. routeId is "lemosho", trek.slug is "lemosho-7-days"
-                if (!trek.slug.startsWith(routeId)) {
-                   navigate(`/trekking/kilimanjaro/${baseSlug}/${packageId}`, { replace: true });
-                }
-            }
-        }
-    }, [loading, navigate, packageId, routeId, trek?.slug]);
-
-    if (loading) return (
-        <div className="lux-root" style={{ minHeight: '100vh', display: 'grid', placeItems: 'center' }}>
-            <div className="lux-heading">Loading…</div>
-        </div>
-    );
-
-    if (!trek) {
-        if (errorLog) {
-            return (
-                <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#070707', color: 'white', fontFamily: 'Outfit' }}>
-                    <h2 style={{ color: 'var(--gold)', letterSpacing: '0.12em' }}>Expedition Details Unavailable</h2>
-                    <p style={{ opacity: 0.7, marginTop: '10px', maxWidth: 560, textAlign: 'center', lineHeight: 1.6 }}>
-                        We couldn't load the details for this package at the moment. Please try again later.
-                    </p>
-                    <div style={{ marginTop: 24 }}>
-                        <a href="/#routes" style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.18)', color: 'white', padding: '10px 20px', textDecoration: 'none' }}>
-                            Back to Routes
-                        </a>
-                    </div>
-                </div>
-            );
-        }
-        return <Navigate to="/#routes" replace />;
-    }
-
-    const pkg = {
-        heroImg: trek.hero_image,
-        title: trek.name || `${trek.duration || ''} Days Route`.trim(),
-        overview: trek.description,
-        duration: trek.duration ? `${trek.duration} Days` : 'Multi-day',
-        difficulty: trek.difficulty,
-        successRate: trek.success_rate,
-        highlights: Array.isArray(trek.highlights) ? trek.highlights : [],
+    const viewModel = {
+        heroImg: pkg.hero_image,
+        title: pkg.name || `${pkg.duration || ''} Days Route`.trim(),
+        overview: pkg.description,
+        duration: pkg.duration ? `${pkg.duration} Days` : 'Multi-day',
+        difficulty: pkg.difficulty,
+        successRate: pkg.success_rate,
+        highlights: Array.isArray(pkg.highlights) ? pkg.highlights : [],
         itinerary: Array.isArray(itineraryDays) ? itineraryDays.map((d) => ({
             day: d.day_number ?? d.day,
             title: d.title ?? d.name ?? `Day ${d.day_number ?? d.day}`,
@@ -106,9 +39,9 @@ const PackageDetail = () => {
             accommodation: d.camp_name ?? d.accommodation ?? '',
             meals: d.meals ?? '',
         })) : [],
-        inclusions: Array.isArray(trek.inclusions) ? trek.inclusions : [],
-        exclusions: Array.isArray(trek.exclusions) ? trek.exclusions : [],
-        base_price: trek.base_price || 0,
+        inclusions: Array.isArray(pkg.inclusions) ? pkg.inclusions : [],
+        exclusions: Array.isArray(pkg.exclusions) ? pkg.exclusions : [],
+        base_price: pkg.base_price || 0,
     };
 
     const fadeInUp = {
@@ -120,14 +53,14 @@ const PackageDetail = () => {
         <div className="lux-root">
             {/* ─── HERO ─── */}
             <motion.section className="lux-hero" style={{ height: '70vh', opacity: heroOpacity }}>
-                <img src={pkg.heroImg} alt={pkg.title} />
+                <img src={viewModel.heroImg} alt={viewModel.title} />
                 <div className="lux-hero-overlay"></div>
                 <div className="lux-hero-content">
                     <motion.h1 className="lux-hero-title" initial="hidden" animate="visible" variants={fadeInUp}>
-                        {pkg.title}
+                        {viewModel.title}
                     </motion.h1>
                     <motion.div initial="hidden" animate="visible" variants={fadeInUp} transition={{ delay: 0.2 }} style={{ marginTop: '30px', display: 'flex', gap: '20px', justifyContent: 'center' }}>
-                        <Link to={`/contact?package=${trek.id}`} className="lux-btn lux-btn-hero">
+                        <Link href={`/contact?package=${pkg.id}`} className="lux-btn lux-btn-hero">
                             Inquire About This Package
                         </Link>
                     </motion.div>
@@ -142,7 +75,7 @@ const PackageDetail = () => {
                         <span style={{ textTransform: 'uppercase', fontSize: '0.65rem', letterSpacing: '2px', color: 'var(--lux-tan)', display: 'block', marginBottom: '15px' }}>The Highlights</span>
                         <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.4rem', marginBottom: '20px' }}>Curated <em>Experience.</em></h3>
                         <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '0.9rem' }}>
-                            {pkg.highlights?.slice(0, 4).map((h, i) => (
+                            {viewModel.highlights?.slice(0, 4).map((h, i) => (
                                 <li key={i} style={{ marginBottom: '12px', display: 'flex', gap: '10px' }}>
                                     <span style={{ color: 'var(--lux-tan)' }}>•</span> {h.split(':')[0]}
                                 </li>
@@ -164,15 +97,15 @@ const PackageDetail = () => {
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                             <div>
                                 <span style={{ display: 'block', fontSize: '0.6rem', textTransform: 'uppercase', color: 'var(--lux-mid)', marginBottom: '4px' }}>Duration</span>
-                                <span style={{ fontWeight: '500', fontSize: '1rem' }}>{pkg.duration}</span>
+                                <span style={{ fontWeight: '500', fontSize: '1rem' }}>{viewModel.duration}</span>
                             </div>
                             <div>
                                 <span style={{ display: 'block', fontSize: '0.6rem', textTransform: 'uppercase', color: 'var(--lux-mid)', marginBottom: '4px' }}>Difficulty</span>
-                                <span style={{ fontWeight: '500', fontSize: '1rem' }}>{pkg.difficulty}</span>
+                                <span style={{ fontWeight: '500', fontSize: '1rem' }}>{viewModel.difficulty}</span>
                             </div>
                             <div>
                                 <span style={{ display: 'block', fontSize: '0.6rem', textTransform: 'uppercase', color: 'var(--lux-mid)', marginBottom: '4px' }}>Success</span>
-                                <span style={{ fontWeight: '500', fontSize: '1rem' }}>{pkg.successRate}</span>
+                                <span style={{ fontWeight: '500', fontSize: '1rem' }}>{viewModel.successRate}</span>
                             </div>
                             <div>
                                 <span style={{ display: 'block', fontSize: '0.6rem', textTransform: 'uppercase', color: 'var(--lux-mid)', marginBottom: '4px' }}>Alt Gain</span>
@@ -188,7 +121,7 @@ const PackageDetail = () => {
                 <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
                     <h2 className="lux-heading" style={{ fontSize: '2.8rem' }}>The <em>Journey.</em></h2>
                     <p className="lux-body" style={{ fontSize: '1.2rem', color: 'var(--lux-dark)' }}>
-                        {pkg.overview}
+                        {viewModel.overview}
                     </p>
                 </div>
             </section>
@@ -207,7 +140,7 @@ const PackageDetail = () => {
                                 <ElevationGraph data={chartData} compact={true} />
                             </div>
                             <div className="lux-split-sidebar">
-                                <SafariCalendar itinerary={pkg.itinerary} compact={true} />
+                                <SafariCalendar itinerary={viewModel.itinerary} compact={true} />
                             </div>
                         </div>
                     </div>
@@ -222,7 +155,7 @@ const PackageDetail = () => {
                     <div className="lux-itinerary-section" style={{ padding: 0, margin: 0, maxWidth: '800px' }}>
                         <h2 className="lux-heading" style={{ fontSize: '3rem', marginBottom: '60px' }}>The <em>Journey.</em></h2>
                         <div className="lux-itinerary-list">
-                            {pkg.itinerary.map((day, index) => (
+                            {viewModel.itinerary.map((day, index) => (
                                 <motion.div
                             key={index}
                             className="lux-itinerary-item"
@@ -278,7 +211,7 @@ const PackageDetail = () => {
                         <div className="lux-sticky-card">
                             <span style={{ textTransform: 'uppercase', letterSpacing: '2px', fontSize: '0.65rem', color: 'var(--lux-tan)', display: 'block', marginBottom: '10px' }}>Reserve Your Summit</span>
                             <div style={{ fontSize: '2rem', fontWeight: 'bold', fontFamily: 'var(--font-heading)', color: 'var(--lux-dark)', marginBottom: '5px' }}>
-                                ${pkg.base_price?.toLocaleString() || 'TBA'}
+                                ${viewModel.base_price?.toLocaleString() || 'TBA'}
                             </div>
                             <div style={{ fontSize: '0.8rem', color: 'var(--lux-mid)', marginBottom: '25px', opacity: 0.8 }}>
                                 Per Person • Standard Rate
@@ -286,7 +219,7 @@ const PackageDetail = () => {
 
                             <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 30px', borderTop: '1px solid var(--lux-border)', paddingTop: '20px' }}>
                                 <li style={{ display: 'flex', gap: '10px', marginBottom: '12px', fontSize: '0.9rem', color: 'var(--lux-dark)' }}>
-                                    <span style={{ color: 'var(--lux-tan)' }}>✓</span> {pkg.duration} Mountain Duration
+                                    <span style={{ color: 'var(--lux-tan)' }}>✓</span> {viewModel.duration} Mountain Duration
                                 </li>
                                 <li style={{ display: 'flex', gap: '10px', marginBottom: '12px', fontSize: '0.9rem', color: 'var(--lux-dark)' }}>
                                     <span style={{ color: 'var(--lux-tan)' }}>✓</span> Elite Guiding Team
@@ -296,7 +229,7 @@ const PackageDetail = () => {
                                 </li>
                             </ul>
 
-                            <Link to={`/contact?interest=${trek?.slug}`} className="lux-btn lux-btn-hero" style={{ display: 'block', textAlign: 'center', width: '100%', textDecoration: 'none' }}>
+                            <Link href={`/contact?interest=${pkg?.slug || route?.slug}`} className="lux-btn lux-btn-hero" style={{ display: 'block', textAlign: 'center', width: '100%', textDecoration: 'none' }}>
                                 Check Availability
                             </Link>
                             <div style={{ fontSize: '0.7rem', color: '#999', marginTop: '15px', textAlign: 'center' }}>
@@ -363,7 +296,7 @@ const PackageDetail = () => {
                         >
                             <h3 className="lux-day-title" style={{ fontSize: '1.8rem', marginBottom: '40px', color: 'var(--lux-dark)' }}>Premium <em>Inclusions.</em></h3>
                             <div style={{ display: 'grid', gap: '20px' }}>
-                                {pkg.inclusions.map((item, idx) => (
+                                {viewModel.inclusions.map((item, idx) => (
                                     <div key={idx} style={{ display: 'flex', gap: '15px', alignItems: 'flex-start' }}>
                                         <div style={{ minWidth: '24px', height: '24px', borderRadius: '50%', backgroundColor: 'var(--lux-cream)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--lux-tan)' }}>
                                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -384,7 +317,7 @@ const PackageDetail = () => {
                         >
                             <h3 className="lux-day-title" style={{ fontSize: '1.8rem', marginBottom: '40px', color: 'var(--lux-cream)' }}>Plan <em>Accordingly.</em></h3>
                             <div style={{ display: 'grid', gap: '20px' }}>
-                                {pkg.exclusions.map((item, idx) => (
+                                {viewModel.exclusions.map((item, idx) => (
                                     <div key={idx} style={{ display: 'flex', gap: '15px', alignItems: 'flex-start', opacity: 0.8 }}>
                                         <div style={{ minWidth: '24px', height: '24px', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.4)' }}>
                                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
@@ -402,13 +335,13 @@ const PackageDetail = () => {
             <section className="lux-cta">
                 <h2 className="lux-heading" style={{ marginBottom: '20px' }}>Secure Your <em>Ascent.</em></h2>
                 <p className="lux-body" style={{ marginBottom: '40px', maxWidth: '600px', margin: '0 auto 40px', color: 'rgba(255,255,255,0.8)' }}>
-                    Contact our expedition specialists to discuss availability, pricing, and personalized preparations for the {pkg.title}.
+                    Contact our expedition specialists to discuss availability, pricing, and personalized preparations for the {viewModel.title}.
                 </p>
                 <div style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
-                    <Link to={`/contact?interest=${trek.slug}`} className="lux-btn">
+                    <Link href={`/contact?interest=${pkg?.slug || route?.slug}`} className="lux-btn">
                         Book This Package
                     </Link>
-                    <Link to="/contact" className="lux-btn" style={{ background: 'transparent', border: '1px solid white' }}>
+                    <Link href="/contact" className="lux-btn" style={{ background: 'transparent', border: '1px solid white' }}>
                         General Inquiry
                     </Link>
                 </div>

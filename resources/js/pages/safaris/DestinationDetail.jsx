@@ -1,39 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, Navigate, Link } from 'react-router-dom';
+import React from 'react';
+import { Link } from '@inertiajs/react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Mountain, Wind, Shield, Navigation, Sun, PawPrint, Loader2 } from 'lucide-react';
-import { destinationService } from '../../services/api';
+import { ArrowRight, Mountain, Wind, Shield, Navigation, Sun, PawPrint } from 'lucide-react';
 import '../../styles/destination-premium.css';
 
-export const DestinationDetail = () => {
-    const { id } = useParams();
-    const [destination, setDestination] = useState(null);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        window.scrollTo(0, 0);
-        const fetchDestination = async () => {
-            try {
-                const response = await destinationService.getById(id);
-                setDestination(response.data);
-            } catch (error) {
-                console.error("Failed to fetch destination", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchDestination();
-    }, [id]);
-
-    if (loading) return (
-        <div style={{ padding: '150px 20px', textAlign: 'center', background: 'var(--bg-parchment)', color: 'var(--dark)', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-            <Loader2 className="animate-spin" size={48} color="var(--gold)" />
-            <p style={{ marginTop: '20px', fontFamily: 'var(--font-heading)', color: 'var(--gold)', letterSpacing: '3px' }}>OPENING ARCHIVES...</p>
-        </div>
-    );
-
+const DestinationDetail = ({ destination }) => {
     if (!destination) {
-        return <Navigate to="/safaris" replace />;
+        return (
+            <div style={{ padding: '150px 20px', textAlign: 'center', background: 'var(--bg-parchment)', color: 'var(--dark)', minHeight: '100vh' }}>
+                <h1 style={{ fontFamily: 'Playfair Display', fontSize: '3rem' }}>Destination Not Found</h1>
+                <Link href="/safaris" style={{ color: 'var(--gold)', letterSpacing: '0.1em', textTransform: 'uppercase', fontSize: '0.8rem', fontWeight: 700 }}>Return to Archive</Link>
+            </div>
+        );
     }
 
     const fadeInUp = {
@@ -79,7 +57,7 @@ export const DestinationDetail = () => {
                         {destination.overview ? destination.overview.substring(0, 160) + '…' : 'An untouched sanctuary where nature reveals its most extraordinary chapter.'}
                     </motion.p>
                     <motion.div className="dest-hero-actions" variants={fadeInUp}>
-                        <Link to="/contact" className="dest-btn-primary">
+                        <Link href="/contact" className="dest-btn-primary">
                             Begin Your Journey <ArrowRight size={16} />
                         </Link>
                         <a href="#overview" className="dest-btn-ghost">Explore Details</a>
@@ -247,7 +225,7 @@ export const DestinationDetail = () => {
                     <h2 className="bespoke-section-title" style={{ color: 'white', marginBottom: '50px' }}>
                         Architect Your <em>Personal Journey.</em>
                     </h2>
-                    <Link to="/contact" className="btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '15px' }}>
+                    <Link href="/contact" className="btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '15px' }}>
                         <span>Request Custom Itinerary</span>
                         <ArrowRight size={18} />
                     </Link>
@@ -258,3 +236,5 @@ export const DestinationDetail = () => {
         </div>
     );
 };
+
+export default DestinationDetail;

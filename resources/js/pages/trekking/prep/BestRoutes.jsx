@@ -1,14 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link } from '@inertiajs/react';
 import { Map, Zap, Coffee, Tent, Info } from 'lucide-react';
-import { visualsData } from '../../../data/visualsData';
-import { useVisuals } from '../../../context/VisualsContext';
+import { usePage } from '@inertiajs/react';
 import '../../../styles/trekking-prep.css';
 
 const BestRoutes = () => {
-    useEffect(() => { window.scrollTo(0, 0); }, []);
-    const visuals = useVisuals();
+    const { props } = usePage();
+    const visuals = props.visuals;
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 30 },

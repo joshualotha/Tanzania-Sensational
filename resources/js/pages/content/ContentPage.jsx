@@ -1,112 +1,26 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
-import { Loader2 } from 'lucide-react';
-import { pageService } from '../../services/api';
+import React from 'react';
+import { usePage } from '@inertiajs/react';
 import { CmsSection } from '../../components/cms/CmsSection';
-import { useVisuals } from '../../context/VisualsContext';
 import '../../styles/utility-pages-premium.css';
 
-function toSlugPart(input) {
-    return String(input || '')
-        .trim()
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/(^-|-$)/g, '');
-}
+const ContentPage = ({ data, fixedSection }) => {
+    const { visuals } = usePage().props;
 
-export const ContentPage = ({ fixedSection = null }) => {
-    const visuals = useVisuals();
-    const { section, page } = useParams();
-    const location = useLocation();
+    const getVisual = (section, fallback) => {
+        if (visuals && visuals[section] && visuals[section].length > 0) {
+            return visuals[section][visuals[section].length - 1];
+        }
+        return fallback;
+    };
 
-    const derivedSlug = useMemo(() => {
-        const s = toSlugPart(section || fixedSection);
-        const p = toSlugPart(page);
-        if (!s || !p) return null;
-        return `${s}-${p}`;
-    }, [fixedSection, section, page]);
-
-    const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
-    const [notFound, setNotFound] = useState(false);
-
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [location.pathname]);
-
-    useEffect(() => {
-        let mounted = true;
-        const run = async () => {
-            setLoading(true);
-            setError('');
-            setNotFound(false);
-            setData(null);
-
-            if (!derivedSlug) {
-                setLoading(false);
-                setNotFound(true);
-                return;
-            }
-
-            try {
-                const res = await pageService.getBySlug(derivedSlug);
-                if (!mounted) return;
-                setData(res.data);
-            } catch (e) {
-                if (!mounted) return;
-                if (e?.response?.status === 404) {
-                    setNotFound(true);
-                } else {
-                    setError('Unable to load this page right now.');
-                }
-            } finally {
-                if (!mounted) return;
-                setLoading(false);
-            }
-        };
-
-        run();
-        return () => { mounted = false; };
-    }, [derivedSlug]);
-
-    if (loading) {
-        return (
-            <div style={{ minHeight: '60vh', display: 'grid', placeItems: 'center' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 12, color: 'rgba(255,255,255,0.7)' }}>
-                    <Loader2 className="animate-spin" size={22} color="var(--gold)" />
-                    <span>Loading…</span>
-                </div>
-            </div>
-        );
-    }
-
-    if (notFound) {
+    if (!data) {
         return (
             <div style={{ minHeight: '60vh', display: 'grid', placeItems: 'center', padding: 20 }}>
                 <div className="admin-panel shadow-premium" style={{ padding: 26, maxWidth: 760 }}>
                     <h1 style={{ color: 'white', fontWeight: 300, margin: 0, fontSize: '2rem' }}>Page not found</h1>
                     <p style={{ color: 'rgba(255,255,255,0.6)', marginTop: 10 }}>
-                        This page hasn’t been published in the dashboard yet.
+                        This page hasn't been published in the dashboard yet.
                     </p>
-                </div>
-            </div>
-        );
-    }
-
-    if (error) {
-        return (
-            <div style={{ minHeight: '60vh', display: 'grid', placeItems: 'center', padding: 20 }}>
-                <div className="admin-panel shadow-premium" style={{ padding: 26, maxWidth: 760 }}>
-                    <h1 style={{ color: 'white', fontWeight: 300, margin: 0, fontSize: '2rem' }}>Something went wrong</h1>
-                    <p style={{ color: 'rgba(255,255,255,0.6)', marginTop: 10 }}>{error}</p>
-                    <button
-                        className="admin-btn-primary"
-                        style={{ marginTop: 16 }}
-                        onClick={() => window.location.reload()}
-                    >
-                        Retry
-                    </button>
                 </div>
             </div>
         );
@@ -117,13 +31,13 @@ export const ContentPage = ({ fixedSection = null }) => {
             <section className="utility-hero">
                 <div className="utility-hero-bg">
                     <img
-                        src={data?.og_image || visuals.getSingle('common.placeholderHero', 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=2000&q=80')}
+                        src={data?.og_image || getVisual('common.placeholderHero', 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=2000&q=80')}
                         alt={data?.title || 'Page'}
                     />
                 </div>
                 <div className="utility-hero-overlay" />
                 <div className="utility-hero-content">
-                    <span className="utility-hero-eyebrow">{fixedSection || section || 'Guide'}</span>
+                    <span className="utility-hero-eyebrow">{fixedSection || 'Guide'}</span>
                     <h1 className="utility-hero-title">{data?.title || 'Information'}</h1>
                     {data?.meta_description ? (
                         <p className="utility-hero-subtitle">{data.meta_description}</p>
@@ -140,3 +54,4 @@ export const ContentPage = ({ fixedSection = null }) => {
     );
 };
 
+export default ContentPage;

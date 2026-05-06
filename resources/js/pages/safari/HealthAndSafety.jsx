@@ -1,14 +1,20 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 import { visualsData } from '../../data/visualsData';
-import { useVisuals } from '../../context/VisualsContext';
 import { Shield, CheckCircle } from 'lucide-react';
 import '../../styles/safari-field-guide.css';
 
 const HealthAndSafety = () => {
     useEffect(() => { window.scrollTo(0, 0); }, []);
-    const visuals = useVisuals();
+    const { props } = usePage();
+    const visuals = props.visuals;
+
+    const getVisual = (section, fallback) => {
+        if (visuals?.[section]?.[0]) return visuals[section][0];
+        return fallback;
+    };
 
     const fade = {
         hidden: { opacity: 0, y: 40 },
@@ -64,7 +70,7 @@ const HealthAndSafety = () => {
             {/* ═══ HERO ═══ */}
             <section className="field-hero">
                 <div className="field-hero-img">
-                    <img src={visuals.getSingle('safari.healthHero', visualsData.trekking.health.vaccinations)} alt="Health and safety in Tanzania" />
+                    <img src={getVisual('safari.healthHero', visualsData.trekking.health.vaccinations)} alt="Health and safety in Tanzania" />
                 </div>
                 <div className="field-hero-gradient" />
                 <motion.div className="field-hero-content" initial="hidden" animate="visible" variants={fade}>
@@ -92,7 +98,7 @@ const HealthAndSafety = () => {
                     </motion.div>
                 </div>
                 <motion.div className="field-split-img" initial={{ opacity: 0, scale: 1.05 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1.5 }}>
-                    <img src={visuals.getSingle('safari.healthEditorial', visualsData.trekking.during.routine)} alt="Medical preparation" />
+                    <img src={getVisual('safari.healthEditorial', visualsData.trekking.during.routine)} alt="Medical preparation" />
                 </motion.div>
             </div>
 
@@ -174,7 +180,7 @@ const HealthAndSafety = () => {
 
             {/* ═══ FULL BLEED ═══ */}
             <section className="field-bleed">
-                <img src={visuals.getSingle('safari.healthFullBleed', visualsData.safaris.migrationHero)} alt="Wilderness safety" />
+                <img src={getVisual('safari.healthFullBleed', visualsData.safaris.migrationHero)} alt="Wilderness safety" />
                 <span className="field-bleed-caption">Ngorongoro Crater, Tanzania</span>
             </section>
 
@@ -208,7 +214,7 @@ const HealthAndSafety = () => {
                     <p className="field-cta-body">
                         Understanding local customs and etiquette will enrich your experience and show respect for the communities you visit.
                     </p>
-                    <Link to="/safari-guide/local-customs" className="field-btn">
+                    <Link href="/safari-guide/local-customs" className="field-btn">
                         Safari Etiquette Guide
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
                     </Link>

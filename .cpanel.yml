@@ -15,26 +15,27 @@ deployment:
     - chmod -R 755 bootstrap/cache
     - chmod -R 755 database
     
-    # Clear all caches first (important: this must happen BEFORE config:cache)
+    # Clear all caches first
     - php artisan optimize:clear
     
     # Ensure SQLite database file exists with proper permissions
     - /bin/bash -c 'touch database/database.sqlite && chmod 664 database/database.sqlite'
     
-    # Rebuild caches (config is now read from .env which should have DB_CONNECTION=sqlite)
+    # Cache config, events, and views (NOT routes — Inertia uses closure-based routes
+    # which cannot be serialized by Laravel's route cache)
     - php artisan config:cache
     - php artisan event:cache
-    - php artisan route:cache
     - php artisan view:cache
     
     # Run migrations (safe for SQLite — creates tables if they don't exist)
     - /bin/bash -c 'php artisan migrate --force --no-interaction 2>/dev/null || echo "Migrations skipped"'
     
-    # Build frontend assets if needed
-    - /bin/bash -c '[ -f package.json ] && npm ci --production && npm run build 2>/dev/null || echo "No frontend build required"'
+    # Frontend assets are pre-built locally and committed to build/ directory.
+    # Do NOT rebuild on the server — the build output is already in the repo.
+    # If you need to rebuild, run `npm run build` locally and commit the result.
     
     # Create storage symlinks if needed
     - php artisan storage:link --force 2>/dev/null || true
     
-    # Final optimization
+    # Final optimization (skips route:cache since we have closure-based routes)
     - php artisan optimize

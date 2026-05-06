@@ -1,6 +1,4 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { settingsService } from '../services/api';
-import { withCache } from '../utils/apiCache';
 
 const SettingsContext = createContext(null);
 
@@ -11,21 +9,22 @@ export const SettingsProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        let mounted = true;
-        withCache('settings', () => settingsService.getPublic(), 5 * 60 * 1000)
-            .then((res) => {
-                if (!mounted) return;
-                setSettings(res.data?.settings || {});
-            })
-            .catch(() => {
-                // Silently fail – the app works with fallback hardcoded values
-                if (!mounted) return;
-                setSettings({});
-            })
-            .finally(() => {
-                if (mounted) setLoading(false);
-            });
-        return () => { mounted = false; };
+        // Settings are provided by HandleInertiaRequests middleware for all Inertia pages.
+        // The admin panel still uses CSR, so we check for Inertia shared data here.
+        try {
+            const inertiaData = window.__inertia_data?.props?.settings;
+            if (inertiaData) {
+                setSettings({ settings: inertiaData });
+                setLoading(false);
+                return;
+            }
+        } catch (e) {
+            // Not in Inertia context
+        }
+
+        // Fallback for admin CSR pages — settings are not critical for admin functionality
+        setSettings({});
+        setLoading(false);
     }, []);
 
     return (

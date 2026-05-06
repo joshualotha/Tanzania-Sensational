@@ -1,14 +1,13 @@
 import { Coins, Heart, Handshake, Info, Users } from 'lucide-react';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { visualsData } from '../../../data/visualsData';
-import { useVisuals } from '../../../context/VisualsContext';
+import { Link } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 import '../../../styles/utility-pages-premium.css';
 
 const TippingGuide = () => {
-    useEffect(() => { window.scrollTo(0, 0); }, []);
-    const visuals = useVisuals();
+    const { props } = usePage();
+    const visuals = props.visuals;
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 30 },

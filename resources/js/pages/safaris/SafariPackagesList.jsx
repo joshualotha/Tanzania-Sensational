@@ -1,32 +1,19 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { ChevronRight, Diamond, Search, X, Loader2 } from 'lucide-react';
-import { safariService } from '../../services/api';
+import { Link } from '@inertiajs/react';
+import { ChevronRight, Diamond, Search, X } from 'lucide-react';
 import { visualsData } from '../../data/visualsData';
-import { useVisuals } from '../../context/VisualsContext';
+import { usePage } from '@inertiajs/react';
 import '../../styles/safari-packages.css';
 
-export const SafariPackagesList = () => {
-    const visuals = useVisuals();
+const SafariPackagesList = ({ packages }) => {
+    const { props } = usePage();
+    const visuals = props.visuals;
     const [searchQuery, setSearchQuery] = useState('');
     const [activeFilter, setActiveFilter] = useState('ALL');
-    const [packages, setPackages] = useState([]);
-    const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
+    React.useEffect(() => {
         window.scrollTo(0, 0);
-        const fetchPackages = async () => {
-            try {
-                const response = await safariService.getAll();
-                setPackages(response.data);
-            } catch (error) {
-                console.error("Failed to fetch safari packages", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchPackages();
     }, []);
 
     const filteredPackages = useMemo(() => {
@@ -55,12 +42,17 @@ export const SafariPackagesList = () => {
         visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.1 } }
     };
 
+    const getVisual = (section, fallback) => {
+        if (visuals?.[section]?.[0]) return visuals[section][0];
+        return fallback;
+    };
+
     return (
         <div className="safari-pkgs-root">
             {/* HERITAGE COLLECTION HERO */}
             <section className="safari-pkgs-hero">
                 <div className="safari-pkgs-bg">
-                    <img src={visuals.getSingle('safaris.listHero', visualsData.safaris.listHero)} alt="Safari Heritage Hero" />
+                    <img src={getVisual('safaris.listHero', visualsData.safaris.listHero)} alt="Safari Heritage Hero" />
                 </div>
                 <div className="safari-pkgs-overlay"></div>
                 
@@ -112,61 +104,56 @@ export const SafariPackagesList = () => {
 
             {/* HERITAGE GRID */}
             <section className="safari-pkgs-grid-sec">
-                {loading ? (
-                    <div style={{ padding: '100px', textAlign: 'center' }}>
-                        <Loader2 className="animate-spin" size={48} color="var(--gold)" />
-                        <p style={{ marginTop: '20px', color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-heading)', letterSpacing: '2px' }}>UNPACKING ARCHIVES...</p>
-                    </div>
-                ) : (
-                    <motion.div
-                        className="heritage-grid"
-                        initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }}
-                        variants={staggerContainer}
-                    >
-                        {filteredPackages.length > 0 ? (
-                            filteredPackages.map((pkg) => (
-                                <motion.div key={pkg.id} variants={fadeInUp}>
-                                    <Link to={`/safaris/packages/${pkg.id}`} className="heritage-card-solid">
-                                        <div className="heritage-card-media">
-                                            <img src={pkg.hero_image || visualsData.safaris.listHero} alt={pkg.name} />
-                                            <div className="card-heritage-label">{pkg.category || 'SIGNATURE'}</div>
-                                        </div>
-                                        
-                                        <div className="heritage-card-info">
-                                            <div className="card-meta-line">{pkg.duration} Days • {pkg.meta_tag}</div>
-                                            <h2 className="card-pkg-title">{pkg.name}</h2>
-                                            <p className="card-pkg-desc">
-                                                {pkg.description ? pkg.description.substring(0, 110) + '...' : 'An exclusive expedition through Tanzania\'s most magnificent wilderness.'}
-                                            </p>
+                <motion.div
+                    className="heritage-grid"
+                    initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }}
+                    variants={staggerContainer}
+                >
+                    {filteredPackages.length > 0 ? (
+                        filteredPackages.map((pkg) => (
+                            <motion.div key={pkg.id} variants={fadeInUp}>
+                                <Link href={`/safaris/packages/${pkg.id}`} className="heritage-card-solid">
+                                    <div className="heritage-card-media">
+                                        <img src={pkg.hero_image || getVisual('safaris.listHero', visualsData.safaris.listHero)} alt={pkg.name} />
+                                        <div className="card-heritage-label">{pkg.category || 'SIGNATURE'}</div>
+                                    </div>
+                                    
+                                    <div className="heritage-card-info">
+                                        <div className="card-meta-line">{pkg.duration} Days • {pkg.meta_tag}</div>
+                                        <h2 className="card-pkg-title">{pkg.name}</h2>
+                                        <p className="card-pkg-desc">
+                                            {pkg.description ? pkg.description.substring(0, 110) + '...' : 'An exclusive expedition through Tanzania\'s most magnificent wilderness.'}
+                                        </p>
 
-                                            <div className="card-pkg-footer">
-                                                <div className="card-pkg-price">
-                                                    <span>From</span>${Math.round(pkg.base_price)}
-                                                </div>
-                                                <div className="card-pkg-arrow">
-                                                    <ChevronRight size={20} />
-                                                </div>
+                                        <div className="card-pkg-footer">
+                                            <div className="card-pkg-price">
+                                                <span>From</span>${Math.round(pkg.base_price)}
+                                            </div>
+                                            <div className="card-pkg-arrow">
+                                                <ChevronRight size={20} />
                                             </div>
                                         </div>
-                                    </Link>
-                                </motion.div>
-                            ))
-                        ) : (
-                            <div className="no-results">
-                                <h2 className="no-results-title">No Expeditions Found</h2>
-                                <p className="no-results-text">We couldn't find any journeys matching your criteria in the archive.</p>
-                                <button 
-                                    className="category-btn" 
-                                    style={{ marginTop: '30px', display: 'inline-block' }}
-                                    onClick={() => { setSearchQuery(''); setActiveFilter('ALL'); }}
-                                >
-                                    Clear All Filters
-                                </button>
-                            </div>
-                        )}
-                    </motion.div>
-                )}
+                                    </div>
+                                </Link>
+                            </motion.div>
+                        ))
+                    ) : (
+                        <div className="no-results">
+                            <h2 className="no-results-title">No Expeditions Found</h2>
+                            <p className="no-results-text">We couldn't find any journeys matching your criteria in the archive.</p>
+                            <button 
+                                className="category-btn" 
+                                style={{ marginTop: '30px', display: 'inline-block' }}
+                                onClick={() => { setSearchQuery(''); setActiveFilter('ALL'); }}
+                            >
+                                Clear All Filters
+                            </button>
+                        </div>
+                    )}
+                </motion.div>
             </section>
         </div>
     );
 };
+
+export default SafariPackagesList;

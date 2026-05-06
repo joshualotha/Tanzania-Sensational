@@ -1,19 +1,18 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useRef } from 'react';
+import { Link } from '@inertiajs/react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { Mountain, Compass, Star, Shield, Heart, Globe, TreePine, ArrowRight } from 'lucide-react';
 import { visualsData } from '../data/visualsData';
-import { pageService } from '../services/api';
 import { CmsSection } from '../components/cms/CmsSection';
-import { useVisuals } from '../context/VisualsContext';
+import { usePage } from '@inertiajs/react';
 import '../styles/about-premium.css';
 
 const PremiumCountUp = ({ to, prefix = "", suffix = "", duration = 2 }) => {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, margin: "-50px" });
-    const [count, setCount] = useState(0);
+    const [count, setCount] = React.useState(0);
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (isInView) {
             let start = 0;
             const end = parseInt(to.replace(/,/g, ''));
@@ -46,20 +45,12 @@ const PremiumCountUp = ({ to, prefix = "", suffix = "", duration = 2 }) => {
     );
 };
 
-export const AboutPage = () => {
-    const [cms, setCms] = useState(null);
-    const visuals = useVisuals();
+const AboutPage = ({ cms }) => {
+    const { props } = usePage();
+    const visuals = props.visuals;
 
-    useEffect(() => {
+    React.useEffect(() => {
         window.scrollTo(0, 0);
-    }, []);
-
-    useEffect(() => {
-        let mounted = true;
-        pageService.getBySlug('about')
-            .then((res) => { if (mounted) setCms(res.data); })
-            .catch(() => {});
-        return () => { mounted = false; };
     }, []);
 
     const { scrollYProgress } = useScroll();
@@ -82,6 +73,10 @@ export const AboutPage = () => {
         }
     };
 
+    const getVisual = (section, fallback) => {
+        if (visuals?.[section]?.[0]) return visuals[section][0];
+        return fallback;
+    };
 
     return (
         <div className="about-premium-root">
@@ -90,7 +85,7 @@ export const AboutPage = () => {
             <section className="premium-about-hero">
                 <motion.div className="premium-about-bg" style={{ y: heroY }}>
                     <img
-                        src={visuals.getSingle('about.hero', visualsData.about.hero)}
+                        src={getVisual('about.hero', visualsData.about.hero)}
                         alt="Kilimanjaro Summit at Dawn"
                     />
                     <div className="premium-about-overlay"></div>
@@ -111,7 +106,6 @@ export const AboutPage = () => {
                     </motion.div>
                 </div>
 
-                {/* Integrated Stats Strip over the hero */}
                 <motion.div
                     className="premium-stats-strip"
                     initial={{ opacity: 0, y: 20 }}
@@ -139,6 +133,8 @@ export const AboutPage = () => {
                 </motion.div>
             </section>
 
+            {cms?.content ? <CmsSection html={cms.content} /> : null}
+
             {/* ─── 2. THE LEGACY CARD ─── */}
             <section className="premium-story-section">
                 <motion.div
@@ -150,7 +146,7 @@ export const AboutPage = () => {
                 >
                     <div className="premium-story-image">
                         <img
-                            src={visuals.getSingle('about.legacy', visualsData.about.legacy)}
+                            src={getVisual('about.legacy', visualsData.about.legacy)}
                             alt="Kilimanjaro Trail"
                         />
                         <div className="premium-story-badge">
@@ -256,7 +252,7 @@ export const AboutPage = () => {
             <section className="premium-exp-section">
                 <div className="premium-exp-bg">
                     <img
-                        src={visuals.getSingle('about.experienceBand', visualsData.about.experienceBand)}
+                        src={getVisual('about.experienceBand', visualsData.about.experienceBand)}
                         alt="Kilimanjaro Trekking Group"
                     />
                     <div className="premium-exp-overlay"></div>
@@ -272,7 +268,7 @@ export const AboutPage = () => {
                         <motion.span className="premium-eyebrow" style={{ color: 'white' }} variants={fadeInUp}>The Difference</motion.span>
                         <motion.h2 className="premium-exp-title" variants={fadeInUp}>Experience That <em>Speaks.</em></motion.h2>
                         <motion.div variants={fadeInUp}>
-                            <Link to="/contact" className="premium-exp-cta">
+                            <Link href="/contact" className="premium-exp-cta">
                                 <span>Initialize Your Expedition</span>
                                 <ArrowRight size={18} />
                             </Link>
@@ -314,3 +310,5 @@ export const AboutPage = () => {
         </div>
     );
 };
+
+export default AboutPage;

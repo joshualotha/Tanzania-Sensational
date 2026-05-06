@@ -1,59 +1,21 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { useMemo } from 'react';
+import { Link } from '@inertiajs/react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { blogService } from '../../services/api';
-import { withCache } from '../../utils/apiCache';
 import DOMPurify from 'dompurify';
-import { BlogDetailSkeleton } from '../../components/ui/SkeletonLoader';
 import '../../styles/blog-premium.css';
 
-export const BlogDetail = () => {
-    const { slug } = useParams();
+const BlogDetail = ({ post, allPosts }) => {
     const { scrollYProgress } = useScroll();
     const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
-
-    const [post, setPost] = useState(null);
-    const [allPosts, setAllPosts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
 
     const safeHtml = useMemo(() => {
         if (!post?.content_html) return '';
         return DOMPurify.sanitize(post.content_html, { USE_PROFILES: { html: true } });
     }, [post?.content_html]);
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [slug]);
-
-    useEffect(() => {
-        let mounted = true;
-        const run = async () => {
-            setLoading(true);
-            setError(null);
-            try {
-                const [postRes, listRes] = await Promise.all([
-                    withCache(`blog-post-${slug}`, () => blogService.getBySlug(slug), 5 * 60 * 1000),
-                    withCache('blog-posts-all', () => blogService.getAll(), 5 * 60 * 1000),
-                ]);
-                if (!mounted) return;
-                setPost(postRes.data || null);
-                setAllPosts(Array.isArray(listRes.data) ? listRes.data : []);
-            } catch (e) {
-                if (!mounted) return;
-                setError(e);
-            } finally {
-                if (!mounted) return;
-                setLoading(false);
-            }
-        };
-        run();
-        return () => { mounted = false; };
-    }, [slug]);
-
     const relatedPosts = useMemo(() => {
         if (!post) return [];
-        return allPosts.filter((b) => b.slug && b.slug !== post.slug).slice(0, 2);
+        return (allPosts || []).filter((b) => b.slug && b.slug !== post.slug).slice(0, 2);
     }, [allPosts, post]);
 
     const share = useMemo(() => {
@@ -68,16 +30,12 @@ export const BlogDetail = () => {
         };
     }, [post?.title]);
 
-    if (!loading && (!post || error)) return (
+    if (!post) return (
         <div style={{ padding: '150px 20px', textAlign: 'center', background: 'var(--dark)', color: 'white', minHeight: '100vh' }}>
             <h1 style={{ fontFamily: 'Playfair Display', fontSize: '3rem' }}>Article Not Found</h1>
-            <Link to="/blog" style={{ color: 'var(--gold)', marginTop: '20px', display: 'inline-block' }}>Return to Journal</Link>
+            <Link href="/blog" style={{ color: 'var(--gold)', marginTop: '20px', display: 'inline-block' }}>Return to Journal</Link>
         </div>
     );
-
-    if (loading || !post) {
-        return <BlogDetailSkeleton />;
-    }
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 50 },
@@ -127,7 +85,7 @@ export const BlogDetail = () => {
                 <div className="blog-article-overlay"></div>
 
                 <div className="blog-back-wrapper">
-                    <Link to="/blog" className="blog-back-mag">
+                    <Link href="/blog" className="blog-back-mag">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
                             <line x1="19" y1="12" x2="5" y2="12"></line>
                             <polyline points="12 19 5 12 12 5"></polyline>
@@ -211,7 +169,7 @@ export const BlogDetail = () => {
                         <span className="blog-side-heading">Related Stories</span>
 
                         {relatedPosts.map((relatedPost) => (
-                            <Link to={`/blog/${relatedPost.slug}`} className="blog-related-card" key={relatedPost.slug}>
+                            <Link href={`/blog/${relatedPost.slug}`} className="blog-related-card" key={relatedPost.slug}>
                                 <div className="blog-related-img">
                                     <img
                                         src={relatedPost.hero_image || post.hero_image}
@@ -236,3 +194,5 @@ export const BlogDetail = () => {
         </div>
     );
 };
+
+export default BlogDetail;

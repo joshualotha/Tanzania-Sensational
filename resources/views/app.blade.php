@@ -4,17 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    @php($m = $meta ?? [])
-    <title>{{ $m['title'] ?? 'Tanzania Sensational — Kilimanjaro & Meru Trekking' }}</title>
-    <meta name="description" content="{{ $m['description'] ?? 'Premium Kilimanjaro & Meru trekking expeditions, Tanzania safaris, and Zanzibar beach extensions. Expert-led adventures since 2010.' }}">
-    <meta property="og:title" content="{{ $m['og_title'] ?? ($m['title'] ?? 'Tanzania Sensational — Kilimanjaro & Meru Trekking') }}">
-    <meta property="og:description" content="{{ $m['og_description'] ?? ($m['description'] ?? 'Premium Kilimanjaro & Meru trekking expeditions, Tanzania safaris, and Zanzibar beach extensions.') }}">
+    <title inertia>{{ $meta['title'] ?? 'Tanzania Sensational — Kilimanjaro & Meru Trekking' }}</title>
+    <meta name="description" content="{{ $meta['description'] ?? 'Premium Kilimanjaro & Meru trekking expeditions, Tanzania safaris, and Zanzibar beach extensions. Expert-led adventures since 2010.' }}">
+    <meta property="og:title" content="{{ $meta['og_title'] ?? ($meta['title'] ?? 'Tanzania Sensational — Kilimanjaro & Meru Trekking') }}">
+    <meta property="og:description" content="{{ $meta['og_description'] ?? ($meta['description'] ?? 'Premium Kilimanjaro & Meru trekking expeditions, Tanzania safaris, and Zanzibar beach extensions.') }}">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ $m['canonical'] ?? config('app.url') }}">
-    @if(!empty($m['og_image']))
-        <meta property="og:image" content="{{ $m['og_image'] }}">
+    <meta property="og:url" content="{{ $meta['canonical'] ?? config('app.url') }}">
+    @if(!empty($meta['og_image']))
+        <meta property="og:image" content="{{ $meta['og_image'] }}">
     @endif
-    <link rel="canonical" href="{{ $m['canonical'] ?? config('app.url') }}">
+    <link rel="canonical" href="{{ $meta['canonical'] ?? config('app.url') }}">
     <link rel="icon" href="/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,14 +24,12 @@
     @if(!empty($orgSchema))
         <script type="application/ld+json">{!! json_encode($orgSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
     @endif
-    @if(!empty($m['schema']))
-        <script type="application/ld+json">{!! json_encode($m['schema'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+    @if(!empty($meta['schema']))
+        <script type="application/ld+json">{!! json_encode($meta['schema'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
     @endif
-    @if(isset($initialVisuals))
-        <script>window.__INITIAL_VISUALS__ = {!! json_encode($initialVisuals, JSON_UNESCAPED_SLASHES) !!};</script>
-    @endif
+    @inertiaHead
 </head>
 <body>
-    <div id="root"></div>
+    @inertia
 </body>
 </html>

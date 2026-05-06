@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Phone, Mail, MessageCircle, Send, ShieldCheck, Instagram, Facebook, Youtube, MapPin, Navigation } from 'lucide-react';
+import { Phone, Mail, MessageCircle, Send, ShieldCheck, Instagram, Facebook, MapPin, Navigation } from 'lucide-react';
 import { visualsData } from '../data/visualsData';
-import { useVisuals } from '../context/VisualsContext';
-import { useSettings } from '../context/SettingsContext';
-import { contactService, pageService } from '../services/api';
+import { usePage } from '@inertiajs/react';
+import { contactService } from '../services/api';
 import { CmsSection } from '../components/cms/CmsSection';
 import '../styles/contact-premium.css';
 
-export const ContactPage = () => {
-    const [cms, setCms] = useState(null);
-    const visuals = useVisuals();
-    const { settings } = useSettings();
+const ContactPage = ({ cms }) => {
+    const { props } = usePage();
+    const visuals = props.visuals;
+    const settings = props.settings || {};
     const contact = settings?.contact || {};
     const social = settings?.social || {};
     const [formData, setFormData] = useState({
@@ -29,13 +28,10 @@ export const ContactPage = () => {
         window.scrollTo(0, 0);
     }, []);
 
-    useEffect(() => {
-        let mounted = true;
-        pageService.getBySlug('contact')
-            .then((res) => { if (mounted) setCms(res.data); })
-            .catch(() => {});
-        return () => { mounted = false; };
-    }, []);
+    const getVisual = (section, fallback) => {
+        if (visuals?.[section]?.[0]) return visuals[section][0];
+        return fallback;
+    };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -87,7 +83,7 @@ export const ContactPage = () => {
             <section className="premium-hero">
                 <div className="premium-hero-bg">
                     <img
-                        src={visuals.getSingle('contact.hero', visualsData.contact.hero)}
+                        src={getVisual('contact.hero', visualsData.contact.hero)}
                         alt="African Landscape"
                     />
                     <div className="premium-hero-overlay"></div>
@@ -104,6 +100,8 @@ export const ContactPage = () => {
                     </motion.div>
                 </div>
             </section>
+
+            {cms?.content ? <CmsSection html={cms.content} /> : null}
 
             {/* ─── 2. EXPEDITION DESK (Overlapping) ─── */}
             <section className="premium-desk-section">
@@ -281,7 +279,7 @@ export const ContactPage = () => {
                                     </button>
                                     <div className="premium-trust-mark">
                                         <ShieldCheck size={20} />
-                                        <span>We’ll reply by email within 24 hours. Your details stay private.</span>
+                                        <span>We'll reply by email within 24 hours. Your details stay private.</span>
                                     </div>
                                 </div>
                             </form>
@@ -332,3 +330,5 @@ export const ContactPage = () => {
         </div>
     );
 };
+
+export default ContactPage;

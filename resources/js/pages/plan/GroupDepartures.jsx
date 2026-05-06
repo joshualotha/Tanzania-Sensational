@@ -1,46 +1,23 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Sun, CloudRain, Snowflake, ThermometerSun } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 import { Calendar, Users, Map, DollarSign, ChevronRight, Mountain, Eye } from 'lucide-react';
-import { departureService } from '../../services/api';
 import { visualsData } from '../../data/visualsData';
-import { useVisuals } from '../../context/VisualsContext';
 import '../../styles/group-departures-premium.css';
 
-export const GroupDepartures = () => {
-    const [departures, setDepartures] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const visuals = useVisuals();
+const GroupDepartures = ({ departures }) => {
+    const { props } = usePage();
+    const visuals = props.visuals;
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
-
-    useEffect(() => {
-        let mounted = true;
-        const run = async () => {
-            setLoading(true);
-            setError(null);
-            try {
-                const res = await departureService.getAll();
-                if (!mounted) return;
-                setDepartures(Array.isArray(res.data) ? res.data : []);
-            } catch (e) {
-                if (!mounted) return;
-                setError(e);
-            } finally {
-                if (!mounted) return;
-                setLoading(false);
-            }
-        };
-        run();
-        return () => { mounted = false; };
-    }, []);
+    const getVisual = (section, fallback) => {
+        if (visuals?.[section]?.[0]) return visuals[section][0];
+        return fallback;
+    };
 
     const rows = useMemo(() => {
-        return departures.map((dep) => {
+        return (departures || []).map((dep) => {
             const start = dep.departure_date ? new Date(dep.departure_date) : null;
             const end = dep.return_date ? new Date(dep.return_date) : null;
             const dateLabel = start
@@ -98,7 +75,7 @@ export const GroupDepartures = () => {
             <section className="gd-hero">
                 <div className="gd-hero-bg">
                     <img
-                        src={visuals.getSingle('trekking.groupDeparturesHero', visualsData.trekking.groupDeparturesHero)}
+                        src={getVisual('trekking.groupDeparturesHero', visualsData.trekking.groupDeparturesHero)}
                         alt="Expedition Team"
                     />
                     <div className="gd-hero-gradient"></div>
@@ -139,24 +116,7 @@ export const GroupDepartures = () => {
                             </tr>
                         </thead>
                         <motion.tbody variants={staggerContainer} initial="hidden" animate="visible">
-                            {loading ? (
-                                [1, 2, 3, 4].map((i) => (
-                                    <motion.tr key={i} className="dep-row" variants={fadeInUp}>
-                                        <td className="dep-date" style={{ opacity: 0.5 }} data-label="Dates">Loading…</td>
-                                        <td className="dep-route" style={{ opacity: 0.5 }} data-label="Route Expedition">Loading…</td>
-                                        <td className="dep-price" style={{ opacity: 0.5 }} data-label="Investment">—</td>
-                                        <td data-label="Status"><span className="dep-status available" style={{ opacity: 0.5 }}>Loading</span></td>
-                                        <td data-label="Spots left">—</td>
-                                        <td data-label="Action">—</td>
-                                    </motion.tr>
-                                ))
-                            ) : error ? (
-                                <motion.tr className="dep-row" variants={fadeInUp}>
-                                    <td colSpan={6} style={{ padding: '30px', textAlign: 'center', color: '#7a6f65' }}>
-                                        Couldn’t load departures right now. Please refresh or try again in a moment.
-                                    </td>
-                                </motion.tr>
-                            ) : rows.length === 0 ? (
+                            {rows.length === 0 ? (
                                 <motion.tr className="dep-row" variants={fadeInUp}>
                                     <td colSpan={6} style={{ padding: '30px', textAlign: 'center', color: '#7a6f65' }}>
                                         No group departures are currently scheduled.
@@ -184,11 +144,11 @@ export const GroupDepartures = () => {
                                         </td>
                                         <td data-label="Action">
                                             <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                                                <Link to={dep.packageUrl} className="dep-action-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                                                <Link href={dep.packageUrl} className="dep-action-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                                                     Details <Eye size={12} />
                                                 </Link>
                                                 {dep.status !== 'Full' ? (
-                                                    <Link to={`/group-departures/${dep.id}`} className="dep-action-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                                                    <Link href={`/group-departures/${dep.id}`} className="dep-action-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                                                         Reserve <ChevronRight size={12} />
                                                     </Link>
                                                 ) : (
@@ -206,31 +166,7 @@ export const GroupDepartures = () => {
 
                     {/* ─── PREMIUM MOBILE CARDS (NATIVE-FEEL) ─── */}
                     <div className="dep-cards mobile-only">
-                        {loading ? (
-                            [1, 2, 3].map((i) => (
-                                <motion.div key={i} className="dep-card" variants={fadeInUp} style={{ opacity: 0.5 }}>
-                                    <div className="dep-card-header">
-                                        <div className="dep-card-date">Loading…</div>
-                                        <div className="dep-card-route">Loading…</div>
-                                    </div>
-                                    <div className="dep-card-body">
-                                        <div className="dep-card-metric">
-                                            <span className="metric-label">Investment</span>
-                                            <span className="metric-value">—</span>
-                                        </div>
-                                    </div>
-                                    <div className="dep-card-footer">
-                                        <span className="dep-status available">Processing</span>
-                                    </div>
-                                </motion.div>
-                            ))
-                        ) : error ? (
-                            <motion.div className="dep-card" variants={fadeInUp}>
-                                <div className="dep-card-body" style={{ textAlign: 'center', color: '#7a6f65', justifyContent: 'center' }}>
-                                    Couldn’t load departures right now. Please refresh.
-                                </div>
-                            </motion.div>
-                        ) : rows.length === 0 ? (
+                        {rows.length === 0 ? (
                             <motion.div className="dep-card" variants={fadeInUp}>
                                 <div className="dep-card-body" style={{ textAlign: 'center', color: '#7a6f65', justifyContent: 'center' }}>
                                     No group departures are currently scheduled.
@@ -266,11 +202,11 @@ export const GroupDepartures = () => {
                                             {dep.status}
                                         </span>
                                         <div className={`dep-card-actions ${dep.status === 'Full' ? 'single' : ''}`}>
-                                            <Link to={dep.packageUrl} className="dep-btn-outline">
+                                            <Link href={dep.packageUrl} className="dep-btn-outline">
                                                 Details
                                             </Link>
                                             {dep.status !== 'Full' && (
-                                                <Link to={`/group-departures/${dep.id}`} className="dep-btn-fill">
+                                                <Link href={`/group-departures/${dep.id}`} className="dep-btn-fill">
                                                     Reserve
                                                 </Link>
                                             )}
@@ -292,7 +228,7 @@ export const GroupDepartures = () => {
                     <p className="private-cta-text">
                         If you have a group of 2 or more, we can arrange a private climb starting on any date of your choosing, via any route. Professional guides, dedicated crew, and absolute privacy.
                     </p>
-                    <Link to="/contact" className="btn-heritage-gold">
+                    <Link href="/contact" className="btn-heritage-gold">
                         Request Private Expedition
                     </Link>
                 </motion.div>
@@ -300,3 +236,5 @@ export const GroupDepartures = () => {
         </div>
     );
 };
+
+export default GroupDepartures;

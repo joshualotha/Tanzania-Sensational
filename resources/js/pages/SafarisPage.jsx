@@ -1,24 +1,23 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useRef } from 'react';
+import { Link } from '@inertiajs/react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, Mountain, Trees, Waves, Map, Star, Shield, Sun, Loader2 } from 'lucide-react';
 import { visualsData } from '../data/visualsData';
-import { destinationService } from '../services/api';
-import { useVisuals } from '../context/VisualsContext';
+import { usePage } from '@inertiajs/react';
 import '../styles/safari-premium.css';
 
 const PremiumCountUp = ({ to, prefix = "", suffix = "", duration = 2 }) => {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, margin: "-50px" });
-    const [count, setCount] = useState(0);
+    const [count, setCount] = React.useState(0);
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (isInView) {
             let start = 0;
             const targetVal = to ? parseInt(to.replace(/,/g, '')) : 0;
             if (isNaN(targetVal)) return;
 
-            const increment = targetVal / (duration * 60); // 60fps
+            const increment = targetVal / (duration * 60);
             const timer = setInterval(() => {
                 start += increment;
                 if (start >= targetVal) {
@@ -44,28 +43,15 @@ const PremiumCountUp = ({ to, prefix = "", suffix = "", duration = 2 }) => {
     );
 };
 
-export const SafarisPage = () => {
-    const [destinations, setDestinations] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const visuals = useVisuals();
+const SafarisPage = ({ destinations }) => {
+    const { props } = usePage();
+    const visuals = props.visuals;
     const containerRef = useRef(null);
 
-    useEffect(() => {
+    React.useEffect(() => {
         window.scrollTo(0, 0);
-        const fetchDestinations = async () => {
-            try {
-                const response = await destinationService.getAll();
-                setDestinations(response.data || []);
-            } catch (error) {
-                console.error("Failed to fetch destinations", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchDestinations();
     }, []);
 
-    // Safer useScroll usage
     const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ["start start", "end start"]
@@ -90,13 +76,18 @@ export const SafarisPage = () => {
         }
     };
 
+    const getVisual = (section, fallback) => {
+        if (visuals?.[section]?.[0]) return visuals[section][0];
+        return fallback;
+    };
+
     return (
         <div ref={containerRef} className="safari-premium-root">
             {/* ─── 1. CINEMATIC HERO ─── */}
             <section className="premium-safari-hero">
                 <motion.div className="premium-safari-bg" style={{ y: heroY }}>
                     <img
-                        src={visuals.getSingle('safaris.listHero', visualsData.safaris.listHero || "https://images.unsplash.com/photo-1516422213484-2af298bf06ad?auto=format&fit=crop&q=80")}
+                        src={getVisual('safaris.listHero', visualsData.safaris.listHero || "https://images.unsplash.com/photo-1516422213484-2af298bf06ad?auto=format&fit=crop&q=80")}
                         alt="African Wilderness"
                     />
                     <div className="premium-safari-overlay"></div>
@@ -147,41 +138,35 @@ export const SafarisPage = () => {
             {/* ─── 2. DESTINATIONS MODULAR GRID ─── */}
             <section id="expeditions" className="premium-destinations-section">
                 <div className="container">
-                    {loading ? (
-                        <div style={{ display: 'flex', justifyContent: 'center', padding: '100px' }}>
-                            <Loader2 className="animate-spin" size={48} color="var(--gold)" />
-                        </div>
-                    ) : (
-                        <motion.div 
-                            className="premium-dest-grid"
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true, margin: "-100px" }}
-                            variants={staggerContainer}
-                        >
-                            {destinations.length > 0 ? destinations.map((dest) => (
-                                <motion.div key={dest.id} variants={fadeInUp}>
-                                    <Link to={`/safaris/destinations/${dest.id}`} className="premium-dest-card">
-                                        <div className="premium-dest-img-wrap">
-                                            <img src={dest.hero_image || visualsData.safaris.listHero} alt={dest.name} />
-                                            <div className="premium-dest-img-overlay"></div>
+                    <motion.div 
+                        className="premium-dest-grid"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "-100px" }}
+                        variants={staggerContainer}
+                    >
+                        {destinations.length > 0 ? destinations.map((dest) => (
+                            <motion.div key={dest.id} variants={fadeInUp}>
+                                <Link href={`/safaris/destinations/${dest.id}`} className="premium-dest-card">
+                                    <div className="premium-dest-img-wrap">
+                                        <img src={dest.hero_image || getVisual('safaris.listHero', visualsData.safaris.listHero)} alt={dest.name} />
+                                        <div className="premium-dest-img-overlay"></div>
+                                    </div>
+                                    <div className="premium-dest-content">
+                                        <span className="premium-dest-tag">{dest.meta_tag || 'Wilderness'}</span>
+                                        <h3 className="premium-dest-name">{dest.name}</h3>
+                                        <p className="premium-dest-desc">{dest.overview ? dest.overview.substring(0, 100) + '...' : ''}</p>
+                                        <div className="premium-dest-link">
+                                            <span>Detailed Dossier</span>
+                                            <ArrowRight size={16} color="currentColor" />
                                         </div>
-                                        <div className="premium-dest-content">
-                                            <span className="premium-dest-tag">{dest.meta_tag || 'Wilderness'}</span>
-                                            <h3 className="premium-dest-name">{dest.name}</h3>
-                                            <p className="premium-dest-desc">{dest.overview ? dest.overview.substring(0, 100) + '...' : ''}</p>
-                                            <div className="premium-dest-link">
-                                                <span>Detailed Dossier</span>
-                                                <ArrowRight size={16} color="currentColor" />
-                                            </div>
-                                        </div>
-                                    </Link>
-                                </motion.div>
-                            )) : (
-                                <p style={{ color: 'white', opacity: 0.5, textAlign: 'center', width: '100%' }}>No destinations found in local archives.</p>
-                            )}
-                        </motion.div>
-                    )}
+                                    </div>
+                                </Link>
+                            </motion.div>
+                        )) : (
+                            <p style={{ color: 'white', opacity: 0.5, textAlign: 'center', width: '100%' }}>No destinations found in local archives.</p>
+                        )}
+                    </motion.div>
                 </div>
             </section>
 
@@ -222,7 +207,7 @@ export const SafarisPage = () => {
                         <span className="premium-eyebrow" style={{ color: 'white' }}>The Difference</span>
                         <h2 className="premium-exp-title">Experience That <em>Speaks.</em></h2>
                         <motion.div variants={fadeInUp}>
-                            <Link to="/contact" className="premium-exp-cta">
+                            <Link href="/contact" className="premium-exp-cta">
                                 <span>Initialize Your Journey</span>
                                 <ArrowRight size={18} />
                             </Link>
@@ -256,3 +241,5 @@ export const SafarisPage = () => {
         </div>
     );
 };
+
+export default SafarisPage;

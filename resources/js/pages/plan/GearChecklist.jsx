@@ -1,13 +1,14 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
+import { usePage } from '@inertiajs/react';
 import { visualsData } from '../../data/visualsData';
 import { gearService } from '../../services/api';
 import { Loader2 } from 'lucide-react';
-import { useVisuals } from '../../context/VisualsContext';
 import '../../styles/utility-pages-premium.css';
 
-export const GearChecklist = () => {
-    const visuals = useVisuals();
+const GearChecklist = () => {
+    const { props } = usePage();
+    const visuals = props.visuals;
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -18,6 +19,11 @@ export const GearChecklist = () => {
     const [requestForm, setRequestForm] = useState({ booking_ref: '', customer_name: '', email: '' });
     const [requestSending, setRequestSending] = useState(false);
     const [requestResult, setRequestResult] = useState(null);
+
+    const getVisual = (section, fallback) => {
+        if (visuals?.[section]?.[0]) return visuals[section][0];
+        return fallback;
+    };
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -94,7 +100,7 @@ export const GearChecklist = () => {
         <div className="utility-root">
             <section className="utility-hero">
                 <div className="utility-hero-bg">
-                    <img src={visuals.getSingle('planning.gearHero', visualsData.planning.gearHero)} alt="Mountain Gear" />
+                    <img src={getVisual('planning.gearHero', visualsData.planning.gearHero)} alt="Mountain Gear" />
                 </div>
                 <div className="utility-hero-overlay"></div>
                 <motion.div className="utility-hero-content" initial="hidden" animate="visible" variants={fadeInUp}>
@@ -147,7 +153,7 @@ export const GearChecklist = () => {
                         <motion.div className="util-card" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} style={{ marginTop: 30 }}>
                             <h3 className="util-card-title">Request gear rental</h3>
                             <p style={{ color: 'rgba(255,255,255,0.65)', lineHeight: 1.7 }}>
-                                Select quantities above (0 means you do not need to rent that item), then submit your request. We’ll confirm availability and pricing by email. No online payment.
+                                Select quantities above (0 means you do not need to rent that item), then submit your request. We'll confirm availability and pricing by email. No online payment.
                             </p>
 
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginTop: 16 }}>
@@ -187,3 +193,5 @@ export const GearChecklist = () => {
         </div>
     );
 };
+
+export default GearChecklist;

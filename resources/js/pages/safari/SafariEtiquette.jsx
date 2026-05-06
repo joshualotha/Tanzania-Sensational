@@ -1,13 +1,19 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 import { visualsData } from '../../data/visualsData';
-import { useVisuals } from '../../context/VisualsContext';
 import '../../styles/safari-field-guide.css';
 
 const SafariEtiquette = () => {
     useEffect(() => { window.scrollTo(0, 0); }, []);
-    const visuals = useVisuals();
+    const { props } = usePage();
+    const visuals = props.visuals;
+
+    const getVisual = (section, fallback) => {
+        if (visuals?.[section]?.[0]) return visuals[section][0];
+        return fallback;
+    };
 
     const fade = {
         hidden: { opacity: 0, y: 40 },
@@ -68,7 +74,7 @@ const SafariEtiquette = () => {
             {/* ═══ HERO ═══ */}
             <section className="field-hero">
                 <div className="field-hero-img">
-                    <img src={visuals.getSingle('safari.etiquetteHero', visualsData.about.hero)} alt="Tanzanian cultural interaction" />
+                    <img src={getVisual('safari.etiquetteHero', visualsData.about.hero)} alt="Tanzanian cultural interaction" />
                 </div>
                 <div className="field-hero-gradient" />
                 <motion.div className="field-hero-content" initial="hidden" animate="visible" variants={fade}>
@@ -96,7 +102,7 @@ const SafariEtiquette = () => {
                     </motion.div>
                 </div>
                 <motion.div className="field-split-img" initial={{ opacity: 0, scale: 1.05 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1.5 }}>
-                    <img src={visuals.getSingle('safari.etiquetteEditorial', visualsData.zanzibar.regionStoneTown)} alt="Zanzibar Stone Town culture" />
+                    <img src={getVisual('safari.etiquetteEditorial', visualsData.zanzibar.regionStoneTown)} alt="Zanzibar Stone Town culture" />
                 </motion.div>
             </div>
 
@@ -137,7 +143,7 @@ const SafariEtiquette = () => {
 
             {/* ═══ FULL BLEED ═══ */}
             <section className="field-bleed">
-                <img src={visuals.getSingle('safari.etiquetteFullBleed', visualsData.safaris.migrationHero)} alt="Tanzanian landscape" />
+                <img src={getVisual('safari.etiquetteFullBleed', visualsData.safaris.migrationHero)} alt="Tanzanian landscape" />
                 <span className="field-bleed-caption">The Serengeti, Tanzania</span>
             </section>
 
@@ -171,7 +177,7 @@ const SafariEtiquette = () => {
                     <p className="field-cta-body">
                         With cultural awareness and proper preparation, your Tanzanian safari will be the most transformative travel experience of your life.
                     </p>
-                    <Link to="/contact" className="field-btn">
+                    <Link href="/contact" className="field-btn">
                         Plan Your Safari
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
                     </Link>

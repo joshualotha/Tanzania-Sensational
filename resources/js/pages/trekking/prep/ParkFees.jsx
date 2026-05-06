@@ -1,14 +1,13 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Link } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import { Wallet, PieChart, Info, FileText, CheckCircle } from 'lucide-react';
-import { visualsData } from '../../../data/visualsData';
-import { useVisuals } from '../../../context/VisualsContext';
+import { usePage } from '@inertiajs/react';
 import '../../../styles/utility-pages-premium.css';
 
 const ParkFees = () => {
-    useEffect(() => { window.scrollTo(0, 0); }, []);
-    const visuals = useVisuals();
+    const { props } = usePage();
+    const visuals = props.visuals;
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 30 },

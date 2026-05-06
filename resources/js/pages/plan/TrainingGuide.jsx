@@ -1,12 +1,19 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 import { visualsData } from '../../data/visualsData';
-import { useVisuals } from '../../context/VisualsContext';
 import '../../styles/utility-pages-premium.css';
 
-export const TrainingGuide = () => {
-    const visuals = useVisuals();
+const TrainingGuide = () => {
+    const { props } = usePage();
+    const visuals = props.visuals;
+
+    const getVisual = (section, fallback) => {
+        if (visuals?.[section]?.[0]) return visuals[section][0];
+        return fallback;
+    };
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -20,7 +27,7 @@ export const TrainingGuide = () => {
         <div className="utility-root">
             <section className="utility-hero">
                 <div className="utility-hero-bg">
-                    <img src={visuals.getSingle('planning.trainingHero', visualsData.planning.trainingHero)} alt="Training" />
+                    <img src={getVisual('planning.trainingHero', visualsData.planning.trainingHero)} alt="Training" />
                 </div>
                 <div className="utility-hero-overlay"></div>
                 <motion.div className="utility-hero-content" initial="hidden" animate="visible" variants={fadeInUp}>
@@ -76,3 +83,5 @@ export const TrainingGuide = () => {
         </div>
     );
 };
+
+export default TrainingGuide;

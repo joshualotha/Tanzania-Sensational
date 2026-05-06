@@ -1,12 +1,19 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 import { visualsData } from '../../data/visualsData';
-import { useVisuals } from '../../context/VisualsContext';
 import '../../styles/utility-pages-premium.css';
 
-export const SafariAddons = () => {
-    const visuals = useVisuals();
+const SafariAddons = () => {
+    const { props } = usePage();
+    const visuals = props.visuals;
+
+    const getVisual = (section, fallback) => {
+        if (visuals?.[section]?.[0]) return visuals[section][0];
+        return fallback;
+    };
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -25,7 +32,7 @@ export const SafariAddons = () => {
         <div className="utility-root">
             <section className="utility-hero">
                 <div className="utility-hero-bg">
-                    <img src={visuals.getSingle('planning.addonsHero', visualsData.planning.addonsHero)} alt="Safari" />
+                    <img src={getVisual('planning.addonsHero', visualsData.planning.addonsHero)} alt="Safari" />
                 </div>
                 <div className="utility-hero-overlay"></div>
                 <motion.div className="utility-hero-content" initial="hidden" animate="visible" variants={staggerContainer}>
@@ -41,24 +48,24 @@ export const SafariAddons = () => {
                 <motion.div className="utility-grid" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={staggerContainer} style={{ gridTemplateColumns: '1fr 1fr' }}>
 
                     <motion.div className="util-card" variants={fadeInUp} style={{ padding: 0, overflow: 'hidden' }}>
-                        <img src={visuals.getSingle('planning.addonsCrater', visualsData.planning.addonsCrater)} alt="Ngorongoro Crater" style={{ width: '100%', height: '300px', objectFit: 'cover' }} />
+                        <img src={getVisual('planning.addonsCrater', visualsData.planning.addonsCrater)} alt="Ngorongoro Crater" style={{ width: '100%', height: '300px', objectFit: 'cover' }} />
                         <div style={{ padding: '40px' }}>
                             <h3 className="util-card-title">2-Day Tarangire & Ngorongoro</h3>
                             <p className="util-card-p" style={{ marginBottom: '20px' }}>
                                 The perfect taste of the wild for those short on time. Witness the massive elephant herds of Tarangire before descending into the legendary Ngorongoro Crater in search of the Big Five.
                             </p>
-                            <Link to="/safaris/packages/great-migration-edition" className="dep-btn" style={{ border: 'none', padding: 0, textDecoration: 'underline', textUnderlineOffset: '6px' }}>View Safari Packages</Link>
+                            <Link href="/safaris/packages/great-migration-edition" className="dep-btn" style={{ border: 'none', padding: 0, textDecoration: 'underline', textUnderlineOffset: '6px' }}>View Safari Packages</Link>
                         </div>
                     </motion.div>
 
                     <motion.div className="util-card" variants={fadeInUp} style={{ padding: 0, overflow: 'hidden' }}>
-                        <img src={visuals.getSingle('planning.addonsZanzibar', visualsData.planning.addonsZanzibar)} alt="Zanzibar Beaches" style={{ width: '100%', height: '300px', objectFit: 'cover' }} />
+                        <img src={getVisual('planning.addonsZanzibar', visualsData.planning.addonsZanzibar)} alt="Zanzibar Beaches" style={{ width: '100%', height: '300px', objectFit: 'cover' }} />
                         <div style={{ padding: '40px' }}>
                             <h3 className="util-card-title">Zanzibar Beach Recovery</h3>
                             <p className="util-card-p" style={{ marginBottom: '20px' }}>
                                 Trade your hiking boots for bare feet. A direct flight from Arusha lands you on the pristine white sands of the Spice Island. The ultimate relaxation after the rigors of the mountain.
                             </p>
-                            <Link to="/zanzibar" className="dep-btn" style={{ border: 'none', padding: 0, textDecoration: 'underline', textUnderlineOffset: '6px' }}>Explore Zanzibar</Link>
+                            <Link href="/zanzibar" className="dep-btn" style={{ border: 'none', padding: 0, textDecoration: 'underline', textUnderlineOffset: '6px' }}>Explore Zanzibar</Link>
                         </div>
                     </motion.div>
 
@@ -68,3 +75,5 @@ export const SafariAddons = () => {
         </div>
     );
 };
+
+export default SafariAddons;

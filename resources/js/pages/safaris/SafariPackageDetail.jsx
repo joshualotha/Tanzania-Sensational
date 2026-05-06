@@ -1,44 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React from 'react';
+import { Link } from '@inertiajs/react';
 import { motion } from 'framer-motion';
-import { Clock, MapPin, DollarSign, Home, Coffee, Shield, Check, X, ArrowRight, Loader2 } from 'lucide-react';
-import { safariService } from '../../services/api';
+import { Home, Coffee, ArrowRight } from 'lucide-react';
+import { usePage } from '@inertiajs/react';
 import { visualsData } from '../../data/visualsData';
-import { useVisuals } from '../../context/VisualsContext';
 import '../../styles/safari-packages.css';
 
-export const SafariPackageDetail = () => {
-    const { packageId } = useParams();
-    const [pkg, setPkg] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const visuals = useVisuals();
+const SafariPackageDetail = ({ pkg }) => {
+    const { visuals } = usePage().props;
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-        const fetchPackage = async () => {
-            try {
-                const response = await safariService.getById(packageId);
-                setPkg(response.data);
-            } catch (error) {
-                console.error("Failed to fetch safari package", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchPackage();
-    }, [packageId]);
-
-    if (loading) return (
-        <div style={{ padding: '150px 20px', textAlign: 'center', background: 'var(--bg-parchment)', color: 'var(--dark)', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-            <Loader2 className="animate-spin" size={48} color="var(--gold)" />
-            <p style={{ marginTop: '20px', fontFamily: 'var(--font-heading)', color: 'var(--gold)', letterSpacing: '3px' }}>RETRIEVING DOSSIER...</p>
-        </div>
-    );
+    const getVisual = (section, fallback) => {
+        if (visuals && visuals[section] && visuals[section].length > 0) {
+            return visuals[section][visuals[section].length - 1];
+        }
+        return fallback;
+    };
 
     if (!pkg) return (
         <div style={{ padding: '150px 20px', textAlign: 'center', background: 'var(--bg-parchment)', color: 'var(--dark)', minHeight: '100vh' }}>
             <h1 style={{ fontFamily: 'Playfair Display', fontSize: '3rem' }}>Expedition Not Found</h1>
-            <Link to="/safaris" style={{ color: 'var(--gold)', letterSpacing: '0.1em', textTransform: 'uppercase', fontSize: '0.8rem', fontWeight: 700 }}>Return to Archive</Link>
+            <Link href="/safaris" style={{ color: 'var(--gold)', letterSpacing: '0.1em', textTransform: 'uppercase', fontSize: '0.8rem', fontWeight: 700 }}>Return to Archive</Link>
         </div>
     );
 
@@ -57,7 +38,7 @@ export const SafariPackageDetail = () => {
             {/* EXPEDITION HERO */}
             <section className="safari-det-hero">
                 <div className="safari-det-bg">
-                    <img src={pkg.hero_image || visuals.getSingle('safaris.listHero', visualsData.safaris.listHero)} alt={pkg.name} />
+                    <img src={pkg.hero_image || getVisual('safaris.listHero', visualsData.safaris.listHero)} alt={pkg.name} />
                 </div>
                 <div className="safari-det-overlay"></div>
                 <motion.div
@@ -141,14 +122,14 @@ export const SafariPackageDetail = () => {
                                 <div style={{ fontSize: '0.8rem', opacity: 0.5 }}>Net Per Participant</div>
                             </div>
                             <Link
-                                to={`/booking/safari/${pkg.id}`}
+                                href={`/booking/safari/${pkg.id}`}
                                 className="safari-btn-gold"
                                 style={{ cursor: 'pointer', border: 'none', width: '100%', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}
                             >
                                 <span>Book This Expedition</span>
                                 <ArrowRight size={16} />
                             </Link>
-                            <Link to="/safaris/packages" className="safari-btn-outline">Return to Collection</Link>
+                            <Link href="/safaris/packages" className="safari-btn-outline">Return to Collection</Link>
                         </div>
 
                         {/* Inclusions */}
@@ -172,3 +153,5 @@ export const SafariPackageDetail = () => {
         </div>
     );
 };
+
+export default SafariPackageDetail;
