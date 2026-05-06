@@ -18,9 +18,6 @@ return new class extends Migration
             $table->text('special_requests')->nullable()->after('notes');
             $table->string('booking_ref')->unique()->nullable()->after('id');
             $table->decimal('total_price', 12, 2)->nullable()->after('total_price_cents');
-            
-            // Make departure_id nullable for safari bookings
-            $table->foreignId('departure_id')->nullable()->change();
         });
     }
 

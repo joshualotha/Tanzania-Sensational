@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('departure_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('departure_id')->nullable()->constrained()->cascadeOnDelete();
             $table->string('customer_name');
             $table->string('email');
             $table->string('phone')->nullable();

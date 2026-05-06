@@ -20,19 +20,21 @@ return new class extends Migration
             });
         }
 
-        // Normalize existing rows:
+        // Normalize existing rows (MySQL only — SQLite doesn't need this for fresh databases):
         // - Treat legacy `available_seats` as capacity (as per seeders/admin UI)
         // - Ensure `available_seats` becomes "remaining seats" for backward-compatible consumers.
-        DB::statement("
-            UPDATE departures
-            SET
-                total_seats = available_seats,
-                available_seats = CASE
-                    WHEN (available_seats - booked_seats) < 0 THEN 0
-                    ELSE (available_seats - booked_seats)
-                END,
-                held_seats = 0
-        ");
+        if (DB::getDriverName() === 'mysql') {
+            DB::statement("
+                UPDATE departures
+                SET
+                    total_seats = available_seats,
+                    available_seats = CASE
+                        WHEN (available_seats - booked_seats) < 0 THEN 0
+                        ELSE (available_seats - booked_seats)
+                    END,
+                    held_seats = 0
+            ");
+        }
     }
 
     public function down(): void
