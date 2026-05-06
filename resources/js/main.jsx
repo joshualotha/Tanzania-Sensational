@@ -19,25 +19,20 @@ createInertiaApp({
         if (!page) {
             throw new Error(`Page not found: ${name}`);
         }
+        // Set PublicLayout for non-admin pages so Navbar/Footer render
+        // within Inertia's context provider (usePage() must be inside Inertia <App>)
+        if (!name.startsWith('admin/')) {
+            page.default.layout = PublicLayout;
+        }
         return page;
     },
     setup({ el, App, props }) {
         const root = createRoot(el);
         
-        // Wrap non-admin pages with PublicLayout (Navbar + Footer)
-        // Admin pages (admin/*) have their own layout in AdminApp.jsx
-        const isAdmin = props.initialPage?.component?.startsWith('admin/');
-        
         root.render(
             <SettingsProvider>
             <VisualsProvider>
-                {isAdmin ? (
-                    <App {...props} />
-                ) : (
-                    <PublicLayout>
-                        <App {...props} />
-                    </PublicLayout>
-                )}
+                <App {...props} />
             </VisualsProvider>
             </SettingsProvider>
         );
