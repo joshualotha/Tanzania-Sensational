@@ -3,6 +3,7 @@ import { createInertiaApp } from '@inertiajs/react';
 import { createRoot } from 'react-dom/client';
 import { SettingsProvider } from './context/SettingsContext';
 import { VisualsProvider } from './context/VisualsContext';
+import PublicLayout from './components/layout/PublicLayout';
 import './styles/index.css';
 
 // Global Shim for production compatibility with specific libraries
@@ -23,10 +24,20 @@ createInertiaApp({
     setup({ el, App, props }) {
         const root = createRoot(el);
         
+        // Wrap non-admin pages with PublicLayout (Navbar + Footer)
+        // Admin pages (admin/*) have their own layout in AdminApp.jsx
+        const isAdmin = props.initialPage?.component?.startsWith('admin/');
+        
         root.render(
             <SettingsProvider>
             <VisualsProvider>
-                <App {...props} />
+                {isAdmin ? (
+                    <App {...props} />
+                ) : (
+                    <PublicLayout>
+                        <App {...props} />
+                    </PublicLayout>
+                )}
             </VisualsProvider>
             </SettingsProvider>
         );
