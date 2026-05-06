@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Loader2 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from '@inertiajs/react';
 import api from '../../services/api';
 
 export function PrivateTrekPricing({ routeSlug, fallbackPricePerPerson = null }) {
@@ -132,10 +132,10 @@ export function PrivateTrekPricing({ routeSlug, fallbackPricePerPerson = null })
                                     </div>
                                 )}
                                 <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 12 }}>
-                                    <Link to="/booking" style={{ padding: '10px 14px', background: 'var(--gold)', color: 'var(--dark)', textDecoration: 'none', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', fontSize: 12 }}>
+                                    <Link href="/booking" style={{ padding: '10px 14px', background: 'var(--gold)', color: 'var(--dark)', textDecoration: 'none', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', fontSize: 12 }}>
                                         Request a quote
                                     </Link>
-                                    <Link to="/contact" style={{ padding: '10px 14px', border: '1px solid rgba(0,0,0,0.18)', color: 'var(--dark)', textDecoration: 'none', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', fontSize: 12 }}>
+                                    <Link href="/contact" style={{ padding: '10px 14px', border: '1px solid rgba(0,0,0,0.18)', color: 'var(--dark)', textDecoration: 'none', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', fontSize: 12 }}>
                                         General inquiry
                                     </Link>
                                 </div>

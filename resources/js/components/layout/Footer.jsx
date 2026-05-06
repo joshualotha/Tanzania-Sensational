@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '@inertiajs/react';
 import { Linkedin, Instagram, Facebook, Youtube, Send, MapPin, ArrowRight } from 'lucide-react';
 import { visualsData } from '../../data/visualsData';
 import { useVisuals } from '../../context/VisualsContext';
@@ -130,12 +130,12 @@ export const Footer = () => {
                 Kilimanjaro
               </div>
               <ul className="footer-links">
-                <li><Link to="/trekking/kilimanjaro/lemosho">Lemosho Route</Link></li>
-                <li><Link to="/trekking/kilimanjaro/machame">Machame Route</Link></li>
-                <li><Link to="/trekking/kilimanjaro/northern-circuit">Northern Circuit</Link></li>
-                <li><Link to="/trekking/kilimanjaro/marangu">Marangu Route</Link></li>
-                <li><Link to="/trekking/kilimanjaro/rongai">Rongai Route</Link></li>
-                <li><Link to="/trekking/kilimanjaro/umbwe">Umbwe Route</Link></li>
+                <li><Link href="/trekking/kilimanjaro/lemosho">Lemosho Route</Link></li>
+                <li><Link href="/trekking/kilimanjaro/machame">Machame Route</Link></li>
+                <li><Link href="/trekking/kilimanjaro/northern-circuit">Northern Circuit</Link></li>
+                <li><Link href="/trekking/kilimanjaro/marangu">Marangu Route</Link></li>
+                <li><Link href="/trekking/kilimanjaro/rongai">Rongai Route</Link></li>
+                <li><Link href="/trekking/kilimanjaro/umbwe">Umbwe Route</Link></li>
               </ul>
             </div>
 
@@ -145,12 +145,12 @@ export const Footer = () => {
                 Plan Your Trip
               </div>
               <ul className="footer-links">
-                <li><Link to="/safaris">Safaris</Link></li>
-                <li><Link to="/zanzibar">Zanzibar</Link></li>
-                <li><Link to="/trekking/after/training">Training Guide</Link></li>
-                <li><Link to="/trekking/after/gear-list">Packing List</Link></li>
-                <li><Link to="/group-departures">Group Departures</Link></li>
-                <li><Link to="/faq">FAQ</Link></li>
+                <li><Link href="/safaris">Safaris</Link></li>
+                <li><Link href="/zanzibar">Zanzibar</Link></li>
+                <li><Link href="/trekking/after/training">Training Guide</Link></li>
+                <li><Link href="/trekking/after/gear-list">Packing List</Link></li>
+                <li><Link href="/group-departures">Group Departures</Link></li>
+                <li><Link href="/faq">FAQ</Link></li>
               </ul>
             </div>
 
@@ -160,9 +160,9 @@ export const Footer = () => {
                 Company
               </div>
               <ul className="footer-links">
-                <li><Link to="/about">About Us</Link></li>
-                <li><Link to="/blog">Trekker's Blog</Link></li>
-                <li><Link to="/contact">Contact</Link></li>
+                <li><Link href="/about">About Us</Link></li>
+                <li><Link href="/blog">Trekker's Blog</Link></li>
+                <li><Link href="/contact">Contact</Link></li>
               </ul>
 
               {/* Social links below Company nav */}

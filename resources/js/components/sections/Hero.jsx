@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState, useRef, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '@inertiajs/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { visualsData } from '../../data/visualsData';
 import { useVisuals } from '../../context/VisualsContext';
@@ -105,13 +105,13 @@ export const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.0, duration: 0.7 }}
         >
-          <Link to="/trekking/prep/best-routes" className="hero-v2-btn-primary">
+          <Link href="/trekking/prep/best-routes" className="hero-v2-btn-primary">
             <span>Explore Routes</span>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
               <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </Link>
-          <Link to="/safaris" className="hero-v2-btn-ghost">
+          <Link href="/safaris" className="hero-v2-btn-ghost">
             Join a Departure
           </Link>
         </motion.div>

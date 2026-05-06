@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '@inertiajs/react';
 import { visualsData } from '../../data/visualsData';
 import { trekkingService } from '../../services/api';
 import { useVisuals } from '../../context/VisualsContext';
@@ -61,7 +61,7 @@ export const RoutesSection = () => {
           <h2 className="carousel-title" dangerouslySetInnerHTML={{ __html: visuals.getSingle('trekking.routes.header.title', 'Choose Your Path <em>to the Top.</em>') }} />
         </div>
         <div className="carousel-header-right">
-          <Link to="/trekking/prep/best-routes" className="carousel-view-all">
+          <Link href="/trekking/prep/best-routes" className="carousel-view-all">
             Compare All Routes <ArrowRight size={16} />
           </Link>
         </div>

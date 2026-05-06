@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '@inertiajs/react';
 import { useSettings } from '../../context/SettingsContext';
 
 export const TopBar = () => {
@@ -44,7 +44,7 @@ export const TopBar = () => {
                 </a>
             </div>
             <div className="topbar-right">
-                <Link to="/booking" className="topbar-cta">Book Now</Link>
+                <Link href="/booking" className="topbar-cta">Book Now</Link>
             </div>
         </div>
     );

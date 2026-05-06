@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { departureService } from '../../services/api';
-import { Link } from 'react-router-dom';
+import { Link } from '@inertiajs/react';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -54,7 +54,7 @@ export const Departures = () => {
           </motion.p>
           
           <motion.div variants={itemVariants}>
-            <Link to="/group-departures" className="btn-secondary-light">
+            <Link href="/group-departures" className="btn-secondary-light">
               View All 2026 Dates
             </Link>
           </motion.div>
@@ -79,7 +79,7 @@ export const Departures = () => {
               
               return (
               <motion.div key={dep.id || i} variants={itemVariants}>
-                <Link to={packageUrl} className="departure-card-v3">
+                <Link href={packageUrl} className="departure-card-v3">
                   <div className="dep-info-v3">
                     <span className="dep-route-v3">{dep.trekking_route?.name} Route</span>
                     <span className="dep-date-v3">

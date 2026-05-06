@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { visualsData } from '../../data/visualsData';
-import { Link } from 'react-router-dom';
+import { Link } from '@inertiajs/react';
 import { useVisuals } from '../../context/VisualsContext';
 
 export const CTA = () => {
@@ -36,7 +36,7 @@ export const CTA = () => {
           viewport={{ once: true }}
           transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
         >
-          <Link to="/contact" className="nav-cta" style={{ position: 'relative' }}>
+          <Link href="/contact" className="nav-cta" style={{ position: 'relative' }}>
             Plan My Journey
           </Link>
           <a 

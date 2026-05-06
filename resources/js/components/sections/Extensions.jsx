@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '@inertiajs/react';
 import { visualsData } from '../../data/visualsData';
 import { useVisuals } from '../../context/VisualsContext';
 import '../../styles/extensions.css';
@@ -50,7 +50,7 @@ export const Extensions = () => {
           <div className="extension-content">
             <h3 className="extension-name">Zanzibar Escapes</h3>
             <p className="extension-desc">Trade the mountain air for the Indian Ocean breeze. Pristine white sands, turquoise waters, and ancient Stone Town history.</p>
-            <Link to="/zanzibar" className="extension-link">Island Extensions</Link>
+            <Link href="/zanzibar" className="extension-link">Island Extensions</Link>
           </div>
         </div>
       </div>

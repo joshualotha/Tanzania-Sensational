@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, usePage } from '@inertiajs/react';
 import { visualsData } from '../../data/visualsData';
 import { useVisuals } from '../../context/VisualsContext';
 import { trekkingService, destinationService } from '../../services/api';
@@ -9,7 +9,7 @@ export const Navbar = () => {
   const [activeDropdowns, setActiveDropdowns] = useState([]);
   const [meruPackages, setMeruPackages] = useState([]);
   const [safariDestinations, setSafariDestinations] = useState([]);
-  const location = useLocation();
+  const { url, component } = usePage();
   const visuals = useVisuals();
 
   const scrollToSection = (id) => {
@@ -44,28 +44,32 @@ export const Navbar = () => {
     return () => { mounted = false; };
   }, []);
 
+  // Parse hash from Inertia URL
+  const hash = url ? (url.includes('#') ? '#' + url.split('#')[1] : '') : '';
+  const pathname = url ? url.split('#')[0] : '';
+
   // Scroll to top when path changes
   useEffect(() => {
-    if (!location.hash) {
+    if (!hash) {
       window.scrollTo(0, 0);
     }
-  }, [location.pathname]);
+  }, [pathname]);
 
   // Scroll to section when navigating with a hash (e.g. /#routes)
   useEffect(() => {
-    if (!location.hash) return;
-    const id = location.hash.replace('#', '').trim();
+    if (!hash) return;
+    const id = hash.replace('#', '').trim();
     if (!id) return;
     // Allow render/layout to settle before measuring offsets
     const t = window.setTimeout(() => scrollToSection(id), 50);
     return () => window.clearTimeout(t);
-  }, [location.hash]);
+  }, [hash]);
 
   // Close mobile menu on route change
   useEffect(() => {
     setIsMobileOpen(false);
     setActiveDropdowns([]);
-  }, [location]);
+  }, [url]);
 
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
@@ -90,7 +94,7 @@ export const Navbar = () => {
       <nav id="navbar" className={isMobileOpen ? 'mobile-open' : ''}>
         <div className="nav-island-inner">
           {/* Logo integrated into the island */}
-          <Link to="/" className="nav-logo">
+          <Link href="/" className="nav-logo">
             <img 
               src={visuals.getSingle('branding.logo', visualsData.branding.logo)} 
               alt="Tanzania Sensational" 
@@ -100,7 +104,7 @@ export const Navbar = () => {
           <ul className="nav-links">
             {/* Trekking Dropdown */}
             <li className={`dropdown mega-dropdown ${isDropdownActive('trekking') ? 'mobile-active' : ''}`}>
-              <Link to="/#routes" className="dropdown-toggle" onClick={(e) => handleToggle(e, 'trekking')}>
+              <Link href="/#routes" className="dropdown-toggle" onClick={(e) => handleToggle(e, 'trekking')}>
                 Trekking
                 <svg viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
               </Link>
@@ -114,12 +118,12 @@ export const Navbar = () => {
                     <div className="mega-links-group">
                       <h4 className="mega-subheading">Kilimanjaro</h4>
                       <ul className="mega-sub-links">
-                        <li><Link to="/trekking/kilimanjaro/lemosho">Lemosho Route</Link></li>
-                        <li><Link to="/trekking/kilimanjaro/machame">Machame Route</Link></li>
-                        <li><Link to="/trekking/kilimanjaro/marangu">Marangu Route</Link></li>
-                        <li><Link to="/trekking/kilimanjaro/rongai">Rongai Route</Link></li>
-                        <li><Link to="/trekking/kilimanjaro/northern-circuit">Northern Circuit</Link></li>
-                        <li><Link to="/trekking/kilimanjaro/umbwe">Umbwe Route</Link></li>
+                        <li><Link href="/trekking/kilimanjaro/lemosho">Lemosho Route</Link></li>
+                        <li><Link href="/trekking/kilimanjaro/machame">Machame Route</Link></li>
+                        <li><Link href="/trekking/kilimanjaro/marangu">Marangu Route</Link></li>
+                        <li><Link href="/trekking/kilimanjaro/rongai">Rongai Route</Link></li>
+                        <li><Link href="/trekking/kilimanjaro/northern-circuit">Northern Circuit</Link></li>
+                        <li><Link href="/trekking/kilimanjaro/umbwe">Umbwe Route</Link></li>
                       </ul>
                     </div>
                     <div className="mega-links-group" style={{ marginTop: '25px' }}>
@@ -128,11 +132,11 @@ export const Navbar = () => {
                         {meruPackages.length > 0 ? (
                           meruPackages.map(pkg => (
                             <li key={pkg.id}>
-                              <Link to={`/trekking/meru/${pkg.slug}`}>{pkg.name}</Link>
+                              <Link href={`/trekking/meru/${pkg.slug}`}>{pkg.name}</Link>
                             </li>
                           ))
                         ) : (
-                          <li><Link to="/trekking/meru/4-day-mount-meru-trekking">Mount Meru Trek</Link></li>
+                          <li><Link href="/trekking/meru/4-day-mount-meru-trekking">Mount Meru Trek</Link></li>
                         )}
                       </ul>
                     </div>
@@ -142,12 +146,12 @@ export const Navbar = () => {
                   <div className="mega-col">
                     <h3 className="mega-heading">Preparation</h3>
                     <ul className="mega-sub-links">
-                      <li><Link to="/trekking/prep/best-time">Best Time to Climb</Link></li>
-                      <li><Link to="/trekking/prep/best-routes">Best Routes</Link></li>
-                      <li><Link to="/trekking/prep/why-us">Why Choose us</Link></li>
-                      <li><Link to="/trekking/prep/tipping-guide">Tipping Guide</Link></li>
-                      <li><Link to="/trekking/prep/park-fees">Park Fees</Link></li>
-                      <li><Link to="/trekking/prep/toilets">Toilets on Kili</Link></li>
+                      <li><Link href="/trekking/prep/best-time">Best Time to Climb</Link></li>
+                      <li><Link href="/trekking/prep/best-routes">Best Routes</Link></li>
+                      <li><Link href="/trekking/prep/why-us">Why Choose us</Link></li>
+                      <li><Link href="/trekking/prep/tipping-guide">Tipping Guide</Link></li>
+                      <li><Link href="/trekking/prep/park-fees">Park Fees</Link></li>
+                      <li><Link href="/trekking/prep/toilets">Toilets on Kili</Link></li>
                     </ul>
                   </div>
 
@@ -155,10 +159,10 @@ export const Navbar = () => {
                   <div className="mega-col">
                     <h3 className="mega-heading">Health & Safety</h3>
                     <ul className="mega-sub-links">
-                      <li><Link to="/trekking/health/vaccinations">Vaccinations</Link></li>
-                      <li><Link to="/trekking/health/altitude-sickness">Altitude Sickness</Link></li>
-                      <li><Link to="/trekking/health/diamox">Diamox</Link></li>
-                      <li><Link to="/trekking/health/oxygen">Oxygen & Safety</Link></li>
+                      <li><Link href="/trekking/health/vaccinations">Vaccinations</Link></li>
+                      <li><Link href="/trekking/health/altitude-sickness">Altitude Sickness</Link></li>
+                      <li><Link href="/trekking/health/diamox">Diamox</Link></li>
+                      <li><Link href="/trekking/health/oxygen">Oxygen & Safety</Link></li>
                     </ul>
                   </div>
 
@@ -166,10 +170,10 @@ export const Navbar = () => {
                   <div className="mega-col">
                     <h3 className="mega-heading">During the Trek</h3>
                     <ul className="mega-sub-links">
-                      <li><Link to="/trekking/during/daily-routine">Daily Routine</Link></li>
-                      <li><Link to="/trekking/during/food-and-drinks">Food & Drinks</Link></li>
-                      <li><Link to="/trekking/during/pack-your-daypack">Daypack Essentials</Link></li>
-                      <li><Link to="/trekking/during/connectivity">Connectivity</Link></li>
+                      <li><Link href="/trekking/during/daily-routine">Daily Routine</Link></li>
+                      <li><Link href="/trekking/during/food-and-drinks">Food & Drinks</Link></li>
+                      <li><Link href="/trekking/during/pack-your-daypack">Daypack Essentials</Link></li>
+                      <li><Link href="/trekking/during/connectivity">Connectivity</Link></li>
                     </ul>
                   </div>
 
@@ -177,10 +181,10 @@ export const Navbar = () => {
                   <div className="mega-col">
                     <h3 className="mega-heading">Before You Go</h3>
                     <ul className="mega-sub-links">
-                      <li><Link to="/trekking/after/training">Training Guide</Link></li>
-                      <li><Link to="/trekking/after/gear-list">Gear List</Link></li>
-                      <li><Link to="/trekking/after/getting-there">Getting There</Link></li>
-                      <li><Link to="/trekking/after/visa">Visa Info</Link></li>
+                      <li><Link href="/trekking/after/training">Training Guide</Link></li>
+                      <li><Link href="/trekking/after/gear-list">Gear List</Link></li>
+                      <li><Link href="/trekking/after/getting-there">Getting There</Link></li>
+                      <li><Link href="/trekking/after/visa">Visa Info</Link></li>
                     </ul>
                   </div>
                 </div>
@@ -191,19 +195,19 @@ export const Navbar = () => {
                 <li className={`has-submenu ${isDropdownActive('kili') ? 'mobile-active' : ''}`}>
                   <div className="dropdown-toggle" onClick={(e) => handleToggle(e, 'kili')}>Kilimanjaro</div>
                   <ul className="submenu">
-                    <li><Link to="/trekking/kilimanjaro/lemosho">Lemosho Route</Link></li>
-                    <li><Link to="/trekking/kilimanjaro/machame">Machame Route</Link></li>
-                    <li><Link to="/trekking/kilimanjaro/rongai">Rongai Route</Link></li>
-                    <li><Link to="/trekking/kilimanjaro/marangu">Marangu Route</Link></li>
-                    <li><Link to="/trekking/kilimanjaro/northern-circuit">Northern Circuit</Link></li>
-                    <li><Link to="/trekking/kilimanjaro/umbwe">Umbwe Route</Link></li>
+                    <li><Link href="/trekking/kilimanjaro/lemosho">Lemosho Route</Link></li>
+                    <li><Link href="/trekking/kilimanjaro/machame">Machame Route</Link></li>
+                    <li><Link href="/trekking/kilimanjaro/rongai">Rongai Route</Link></li>
+                    <li><Link href="/trekking/kilimanjaro/marangu">Marangu Route</Link></li>
+                    <li><Link href="/trekking/kilimanjaro/northern-circuit">Northern Circuit</Link></li>
+                    <li><Link href="/trekking/kilimanjaro/umbwe">Umbwe Route</Link></li>
                   </ul>
                 </li>
                 <li className={`has-submenu ${isDropdownActive('meru') ? 'mobile-active' : ''}`}>
                   <div className="dropdown-toggle" onClick={(e) => handleToggle(e, 'meru')}>Mt. Meru</div>
                   <ul className="submenu">
                     {meruPackages.map(pkg => (
-                      <li key={pkg.id}><Link to={`/trekking/meru/${pkg.slug}`}>{pkg.name}</Link></li>
+                      <li key={pkg.id}><Link href={`/trekking/meru/${pkg.slug}`}>{pkg.name}</Link></li>
                     ))}
                   </ul>
                 </li>
@@ -213,39 +217,39 @@ export const Navbar = () => {
                     <li className={`has-submenu ${isDropdownActive('prep') ? 'mobile-active' : ''}`}>
                       <div className="dropdown-toggle" onClick={(e) => handleToggle(e, 'prep')}>Preparation</div>
                       <ul className="submenu">
-                        <li><Link to="/trekking/prep/best-routes">Best Routes</Link></li>
-                        <li><Link to="/trekking/prep/best-time">Best Time to Climb</Link></li>
-                        <li><Link to="/trekking/prep/why-us">Why Climb With Us</Link></li>
-                        <li><Link to="/trekking/prep/tipping-guide">Tipping Guide</Link></li>
-                        <li><Link to="/trekking/prep/park-fees">Park Fees</Link></li>
-                        <li><Link to="/trekking/prep/toilets">Toilets on Kilimanjaro</Link></li>
+                        <li><Link href="/trekking/prep/best-routes">Best Routes</Link></li>
+                        <li><Link href="/trekking/prep/best-time">Best Time to Climb</Link></li>
+                        <li><Link href="/trekking/prep/why-us">Why Climb With Us</Link></li>
+                        <li><Link href="/trekking/prep/tipping-guide">Tipping Guide</Link></li>
+                        <li><Link href="/trekking/prep/park-fees">Park Fees</Link></li>
+                        <li><Link href="/trekking/prep/toilets">Toilets on Kilimanjaro</Link></li>
                       </ul>
                     </li>
                     <li className={`has-submenu ${isDropdownActive('health') ? 'mobile-active' : ''}`}>
                       <div className="dropdown-toggle" onClick={(e) => handleToggle(e, 'health')}>Health & Safety</div>
                       <ul className="submenu">
-                        <li><Link to="/trekking/health/vaccinations">Vaccinations</Link></li>
-                        <li><Link to="/trekking/health/altitude-sickness">Altitude Sickness</Link></li>
-                        <li><Link to="/trekking/health/diamox">Diamox</Link></li>
-                        <li><Link to="/trekking/health/oxygen">Oxygen on Kilimanjaro</Link></li>
+                        <li><Link href="/trekking/health/vaccinations">Vaccinations</Link></li>
+                        <li><Link href="/trekking/health/altitude-sickness">Altitude Sickness</Link></li>
+                        <li><Link href="/trekking/health/diamox">Diamox</Link></li>
+                        <li><Link href="/trekking/health/oxygen">Oxygen on Kilimanjaro</Link></li>
                       </ul>
                     </li>
                     <li className={`has-submenu ${isDropdownActive('during') ? 'mobile-active' : ''}`}>
                       <div className="dropdown-toggle" onClick={(e) => handleToggle(e, 'during')}>During the Trek</div>
                       <ul className="submenu">
-                        <li><Link to="/trekking/during/daily-routine">Daily Routine</Link></li>
-                        <li><Link to="/trekking/during/food-and-drinks">Food & Drinks</Link></li>
-                        <li><Link to="/trekking/during/pack-your-daypack">Pack Your Daypack</Link></li>
-                        <li><Link to="/trekking/during/connectivity">Connectivity</Link></li>
+                        <li><Link href="/trekking/during/daily-routine">Daily Routine</Link></li>
+                        <li><Link href="/trekking/during/food-and-drinks">Food & Drinks</Link></li>
+                        <li><Link href="/trekking/during/pack-your-daypack">Pack Your Daypack</Link></li>
+                        <li><Link href="/trekking/during/connectivity">Connectivity</Link></li>
                       </ul>
                     </li>
                     <li className={`has-submenu ${isDropdownActive('before') ? 'mobile-active' : ''}`}>
                       <div className="dropdown-toggle" onClick={(e) => handleToggle(e, 'before')}>Before You Go</div>
                       <ul className="submenu">
-                        <li><Link to="/trekking/after/training">Training Guide</Link></li>
-                        <li><Link to="/trekking/after/gear-list">Gear List</Link></li>
-                        <li><Link to="/trekking/after/getting-there">Getting There</Link></li>
-                        <li><Link to="/trekking/after/visa">Visa Information</Link></li>
+                        <li><Link href="/trekking/after/training">Training Guide</Link></li>
+                        <li><Link href="/trekking/after/gear-list">Gear List</Link></li>
+                        <li><Link href="/trekking/after/getting-there">Getting There</Link></li>
+                        <li><Link href="/trekking/after/visa">Visa Information</Link></li>
                       </ul>
                     </li>
                   </ul>
@@ -255,7 +259,7 @@ export const Navbar = () => {
 
             {/* Safaris Dropdown */}
             <li className={`dropdown mega-dropdown ${isDropdownActive('safaris') ? 'mobile-active' : ''}`}>
-              <Link to="/safaris" className="dropdown-toggle" onClick={(e) => handleToggle(e, 'safaris')}>
+              <Link href="/safaris" className="dropdown-toggle" onClick={(e) => handleToggle(e, 'safaris')}>
                 Safaris
                 <svg viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
               </Link>
@@ -270,15 +274,15 @@ export const Navbar = () => {
                         {safariDestinations.length > 0 ? (
                           safariDestinations.map(dest => (
                             <li key={dest.id}>
-                              <Link to={`/safaris/destinations/${dest.id}`}>{dest.name}</Link>
+                              <Link href={`/safaris/destinations/${dest.id}`}>{dest.name}</Link>
                             </li>
                           ))
                         ) : (
                           <>
-                            <li><Link to="/safaris/tanzania">Tanzania Safaris</Link></li>
-                            <li><Link to="/safaris/kenya">Kenya Safaris</Link></li>
-                            <li><Link to="/safaris/uganda">Uganda Safaris</Link></li>
-                            <li><Link to="/safaris/rwanda">Rwanda Safaris</Link></li>
+                            <li><Link href="/safaris/tanzania">Tanzania Safaris</Link></li>
+                            <li><Link href="/safaris/kenya">Kenya Safaris</Link></li>
+                            <li><Link href="/safaris/uganda">Uganda Safaris</Link></li>
+                            <li><Link href="/safaris/rwanda">Rwanda Safaris</Link></li>
                           </>
                         )}
                       </ul>
@@ -289,9 +293,9 @@ export const Navbar = () => {
                   <div className="mega-col">
                     <h3 className="mega-heading">Packages</h3>
                     <ul className="mega-sub-links">
-                      <li><Link to="/safaris">Safari Overview</Link></li>
-                      <li><Link to="/safaris/packages">Featured Packages</Link></li>
-                      <li><Link to="/safaris/group-joining">Group Joining</Link></li>
+                      <li><Link href="/safaris">Safari Overview</Link></li>
+                      <li><Link href="/safaris/packages">Featured Packages</Link></li>
+                      <li><Link href="/safaris/group-joining">Group Joining</Link></li>
                     </ul>
                   </div>
 
@@ -299,10 +303,10 @@ export const Navbar = () => {
                   <div className="mega-col">
                     <h3 className="mega-heading">Safari Guide</h3>
                     <ul className="mega-sub-links">
-                      <li><Link to="/safari-guide/what-to-wear">What to Wear</Link></li>
-                      <li><Link to="/safari-guide/packing-guide">Packing List</Link></li>
-                      <li><Link to="/safari-guide/health-and-safety">Health & Safety</Link></li>
-                      <li><Link to="/safari-guide/local-custom">Safari Etiquette</Link></li>
+                      <li><Link href="/safari-guide/what-to-wear">What to Wear</Link></li>
+                      <li><Link href="/safari-guide/packing-guide">Packing List</Link></li>
+                      <li><Link href="/safari-guide/health-and-safety">Health & Safety</Link></li>
+                      <li><Link href="/safari-guide/local-custom">Safari Etiquette</Link></li>
                     </ul>
                   </div>
                 </div>
@@ -315,35 +319,35 @@ export const Navbar = () => {
                   <ul className="submenu">
                     {safariDestinations.length > 0 ? (
                       safariDestinations.map(dest => (
-                        <li key={dest.id}><Link to={`/safaris/destinations/${dest.id}`}>{dest.name}</Link></li>
+                        <li key={dest.id}><Link href={`/safaris/destinations/${dest.id}`}>{dest.name}</Link></li>
                       ))
                     ) : (
                       <>
-                        <li><Link to="/safaris/tanzania">Tanzania</Link></li>
-                        <li><Link to="/safaris/kenya">Kenya</Link></li>
+                        <li><Link href="/safaris/tanzania">Tanzania</Link></li>
+                        <li><Link href="/safaris/kenya">Kenya</Link></li>
                       </>
                     )}
                   </ul>
                 </li>
-                <li><Link to="/safaris/packages">Packages</Link></li>
+                <li><Link href="/safaris/packages">Packages</Link></li>
                 <li className={`has-submenu ${isDropdownActive('safari-guide') ? 'mobile-active' : ''}`}>
                   <div className="dropdown-toggle" onClick={(e) => handleToggle(e, 'safari-guide')}>Safari Guide</div>
                   <ul className="submenu">
-                    <li><Link to="/safari-guide/what-to-wear">What to Wear</Link></li>
-                    <li><Link to="/safari-guide/packing-list">Packing List</Link></li>
-                    <li><Link to="/safari-guide/best-time">Best Time</Link></li>
+                    <li><Link href="/safari-guide/what-to-wear">What to Wear</Link></li>
+                    <li><Link href="/safari-guide/packing-list">Packing List</Link></li>
+                    <li><Link href="/safari-guide/best-time">Best Time</Link></li>
                   </ul>
                 </li>
               </ul>
             </li>
 
-            <li><Link to="/zanzibar">Zanzibar</Link></li>
-            <li><Link to="/group-departures">Departures</Link></li>
-            <li><Link to="/about">About Us</Link></li>
-            <li><Link to="/contact">Contact</Link></li>
+            <li><Link href="/zanzibar">Zanzibar</Link></li>
+            <li><Link href="/group-departures">Departures</Link></li>
+            <li><Link href="/about">About Us</Link></li>
+            <li><Link href="/contact">Contact</Link></li>
           </ul>
 
-          <Link to="/contact" className="nav-cta">
+          <Link href="/contact" className="nav-cta">
             Plan Your Journey
           </Link>
 
@@ -387,27 +391,27 @@ export const Navbar = () => {
                   <div className="mobile-drawer-sub">
                     <div className="mobile-drawer-sub-group">
                       <span className="mobile-drawer-label">Kilimanjaro</span>
-                      <Link to="/trekking/kilimanjaro/lemosho">Lemosho Route</Link>
-                      <Link to="/trekking/kilimanjaro/machame">Machame Route</Link>
-                      <Link to="/trekking/kilimanjaro/marangu">Marangu Route</Link>
-                      <Link to="/trekking/kilimanjaro/rongai">Rongai Route</Link>
-                      <Link to="/trekking/kilimanjaro/northern-circuit">Northern Circuit</Link>
-                      <Link to="/trekking/kilimanjaro/umbwe">Umbwe Route</Link>
+                      <Link href="/trekking/kilimanjaro/lemosho">Lemosho Route</Link>
+                      <Link href="/trekking/kilimanjaro/machame">Machame Route</Link>
+                      <Link href="/trekking/kilimanjaro/marangu">Marangu Route</Link>
+                      <Link href="/trekking/kilimanjaro/rongai">Rongai Route</Link>
+                      <Link href="/trekking/kilimanjaro/northern-circuit">Northern Circuit</Link>
+                      <Link href="/trekking/kilimanjaro/umbwe">Umbwe Route</Link>
                     </div>
                     <div className="mobile-drawer-sub-group">
                       <span className="mobile-drawer-label">Mount Meru</span>
                       {meruPackages.length > 0 ? meruPackages.map(pkg => (
                         <Link key={pkg.id} to={`/trekking/meru/${pkg.slug}`}>{pkg.name}</Link>
                       )) : (
-                        <Link to="/trekking/meru/4-day-mount-meru-trekking">Mount Meru Trek</Link>
+                        <Link href="/trekking/meru/4-day-mount-meru-trekking">Mount Meru Trek</Link>
                       )}
                     </div>
                     <div className="mobile-drawer-sub-group">
                       <span className="mobile-drawer-label">Preparation</span>
-                      <Link to="/trekking/prep/best-routes">Best Routes</Link>
-                      <Link to="/trekking/prep/best-time">Best Time to Climb</Link>
-                      <Link to="/trekking/prep/why-us">Why Climb With Us</Link>
-                      <Link to="/trekking/after/gear-list">Gear List</Link>
+                      <Link href="/trekking/prep/best-routes">Best Routes</Link>
+                      <Link href="/trekking/prep/best-time">Best Time to Climb</Link>
+                      <Link href="/trekking/prep/why-us">Why Climb With Us</Link>
+                      <Link href="/trekking/after/gear-list">Gear List</Link>
                     </div>
                   </div>
                 )}
@@ -431,29 +435,29 @@ export const Navbar = () => {
                         <Link key={dest.id} to={`/safaris/destinations/${dest.id}`}>{dest.name}</Link>
                       )) : (
                         <>
-                          <Link to="/safaris/tanzania">Tanzania</Link>
-                          <Link to="/safaris/kenya">Kenya</Link>
+                          <Link href="/safaris/tanzania">Tanzania</Link>
+                          <Link href="/safaris/kenya">Kenya</Link>
                         </>
                       )}
                     </div>
                     <div className="mobile-drawer-sub-group">
                       <span className="mobile-drawer-label">Packages</span>
-                      <Link to="/safaris">Safari Overview</Link>
-                      <Link to="/safaris/packages">Featured Packages</Link>
+                      <Link href="/safaris">Safari Overview</Link>
+                      <Link href="/safaris/packages">Featured Packages</Link>
                     </div>
                   </div>
                 )}
               </div>
 
-              <Link to="/zanzibar" className="mobile-drawer-link">Zanzibar</Link>
-              <Link to="/group-departures" className="mobile-drawer-link">Departures</Link>
-              <Link to="/about" className="mobile-drawer-link">About Us</Link>
-              <Link to="/contact" className="mobile-drawer-link">Contact</Link>
+              <Link href="/zanzibar" className="mobile-drawer-link">Zanzibar</Link>
+              <Link href="/group-departures" className="mobile-drawer-link">Departures</Link>
+              <Link href="/about" className="mobile-drawer-link">About Us</Link>
+              <Link href="/contact" className="mobile-drawer-link">Contact</Link>
             </div>
 
             {/* CTA */}
             <div className="mobile-drawer-footer">
-              <Link to="/contact" className="mobile-drawer-cta" onClick={() => setIsMobileOpen(false)}>
+              <Link href="/contact" className="mobile-drawer-cta" onClick={() => setIsMobileOpen(false)}>
                 Plan Your Journey
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                   <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
