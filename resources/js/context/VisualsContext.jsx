@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { visualAssetService } from '../services/api';
 import { visualsData } from '../data/visualsData';
+import { withCache } from '../utils/apiCache';
 
 const VisualsContext = createContext(null);
 
@@ -45,19 +46,24 @@ export function VisualsProvider({ children }) {
         let alive = true;
         (async () => {
             try {
-                let allItems = [];
-                let page = 1;
-                let lastPage = 1;
+                // Use cache key for all visual assets – cached for 10 minutes
+                const allItems = await withCache('visual-assets', async () => {
+                    let items = [];
+                    let page = 1;
+                    let lastPage = 1;
 
-                // Sequentially fetch all assets, respecting the backend's 96 per_page limit
-                do {
-                    const res = await visualAssetService.getAll({ params: { per_page: 96, page } });
-                    const rows = Array.isArray(res?.data?.data) ? res.data.data : (Array.isArray(res?.data) ? res.data : []);
-                    allItems = [...allItems, ...rows];
-                    
-                    lastPage = res?.data?.last_page || 1;
-                    page++;
-                } while (page <= lastPage && alive);
+                    // Sequentially fetch all assets, respecting the backend's 96 per_page limit
+                    do {
+                        const res = await visualAssetService.getAll({ params: { per_page: 96, page } });
+                        const rows = Array.isArray(res?.data?.data) ? res.data.data : (Array.isArray(res?.data) ? res.data : []);
+                        items = [...items, ...rows];
+                        
+                        lastPage = res?.data?.last_page || 1;
+                        page++;
+                    } while (page <= lastPage);
+
+                    return items;
+                }, 10 * 60 * 1000);
 
                 // Group the fetched items by their section
                 const nextSections = {};

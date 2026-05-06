@@ -2,7 +2,9 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { blogService } from '../../services/api';
+import { withCache } from '../../utils/apiCache';
 import DOMPurify from 'dompurify';
+import { BlogDetailSkeleton } from '../../components/ui/SkeletonLoader';
 import '../../styles/blog-premium.css';
 
 export const BlogDetail = () => {
@@ -31,8 +33,8 @@ export const BlogDetail = () => {
             setError(null);
             try {
                 const [postRes, listRes] = await Promise.all([
-                    blogService.getBySlug(slug),
-                    blogService.getAll(),
+                    withCache(`blog-post-${slug}`, () => blogService.getBySlug(slug), 5 * 60 * 1000),
+                    withCache('blog-posts-all', () => blogService.getAll(), 5 * 60 * 1000),
                 ]);
                 if (!mounted) return;
                 setPost(postRes.data || null);
@@ -74,12 +76,7 @@ export const BlogDetail = () => {
     );
 
     if (loading || !post) {
-        return (
-            <div style={{ padding: '150px 20px', textAlign: 'center', background: 'var(--dark)', color: 'white', minHeight: '100vh' }}>
-                <h1 style={{ fontFamily: 'Playfair Display', fontSize: '3rem' }}>Loading…</h1>
-                <Link to="/blog" style={{ color: 'var(--gold)', marginTop: '20px', display: 'inline-block' }}>Return to Journal</Link>
-            </div>
-        );
+        return <BlogDetailSkeleton />;
     }
 
     const fadeInUp = {

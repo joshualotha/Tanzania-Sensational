@@ -2,7 +2,9 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { blogService } from '../../services/api';
+import { withCache } from '../../utils/apiCache';
 import { useVisuals } from '../../context/VisualsContext';
+import { BlogListSkeleton } from '../../components/ui/SkeletonLoader';
 import '../../styles/blog-premium.css';
 
 export const BlogList = () => {
@@ -24,7 +26,7 @@ export const BlogList = () => {
             setLoading(true);
             setError(null);
             try {
-                const res = await blogService.getAll();
+                const res = await withCache('blog-posts-all', () => blogService.getAll(), 5 * 60 * 1000);
                 if (!mounted) return;
                 setPosts(Array.isArray(res.data) ? res.data : []);
             } catch (e) {
@@ -59,6 +61,10 @@ export const BlogList = () => {
 
     const featuredPost = sortedPosts[0] || null;
     const remainingPosts = featuredPost ? sortedPosts.slice(1) : [];
+
+    if (loading) {
+        return <BlogListSkeleton />;
+    }
 
     return (
         <div className="blog-root">

@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { settingsService } from '../services/api';
+import { withCache } from '../utils/apiCache';
 
 const SettingsContext = createContext(null);
 
@@ -11,7 +12,7 @@ export const SettingsProvider = ({ children }) => {
 
     useEffect(() => {
         let mounted = true;
-        settingsService.getPublic()
+        withCache('settings', () => settingsService.getPublic(), 5 * 60 * 1000)
             .then((res) => {
                 if (!mounted) return;
                 setSettings(res.data?.settings || {});

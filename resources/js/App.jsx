@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { SettingsProvider, useSettings } from './context/SettingsContext';
@@ -186,85 +186,87 @@ function App() {
                         {/* ─── PUBLIC ROUTES ─── */}
                         <Route path="/*" element={
                             <PublicLayout>
-                                <Routes>
-                                    <Route path="/" element={<HomePage />} />
-                                    <Route path="/about" element={<AboutPage />} />
-                                    <Route path="/contact" element={<ContactPage />} />
-                                    <Route path="/safaris" element={<SafarisPage />} />
-                                    <Route path="/safaris/tanzania" element={<SafarisPage />} />
-                                    <Route path="/safaris/kenya" element={<SafarisPage />} />
-                                    <Route path="/safaris/uganda" element={<SafarisPage />} />
-                                    <Route path="/safaris/rwanda" element={<SafarisPage />} />
-                                    <Route path="/safaris/destinations/:id" element={<DestinationDetail />} />
-                                    <Route path="/safaris/packages" element={<SafariPackagesList />} />
-                                    <Route path="/safaris/family" element={<SafariPackagesList />} />
-                                    <Route path="/safaris/honeymoon" element={<SafariPackagesList />} />
-                                    <Route path="/safaris/luxury" element={<SafariPackagesList />} />
-                                    <Route path="/safaris/photographic" element={<SafariPackagesList />} />
-                                    <Route path="/safaris/group-joining" element={<SafariPackagesList />} />
-                                    <Route path="/safaris/packages/:packageId" element={<SafariPackageDetail />} />
-                                    <Route path="/zanzibar" element={<ZanzibarPage />} />
-                                    <Route path="/blog" element={<BlogList />} />
-                                    <Route path="/blog/:slug" element={<BlogDetail />} />
-                                    <Route path="/booking" element={<BookingPage />} />
-                                    <Route path="/booking/departure/:departureId" element={<BookingPage />} />
-                                    <Route path="/booking/safari/:packageId" element={<BookingPage />} />
-                                    <Route path="/company/:page" element={<ContentPage fixedSection="company" />} />
-                                    <Route path="/safari-guide/:page" element={<ContentPage fixedSection="safari-guide" />} />
+                                <Suspense fallback={null}>
+                                    <Routes>
+                                        <Route path="/" element={<HomePage />} />
+                                        <Route path="/about" element={<AboutPage />} />
+                                        <Route path="/contact" element={<ContactPage />} />
+                                        <Route path="/safaris" element={<SafarisPage />} />
+                                        <Route path="/safaris/tanzania" element={<SafarisPage />} />
+                                        <Route path="/safaris/kenya" element={<SafarisPage />} />
+                                        <Route path="/safaris/uganda" element={<SafarisPage />} />
+                                        <Route path="/safaris/rwanda" element={<SafarisPage />} />
+                                        <Route path="/safaris/destinations/:id" element={<DestinationDetail />} />
+                                        <Route path="/safaris/packages" element={<SafariPackagesList />} />
+                                        <Route path="/safaris/family" element={<SafariPackagesList />} />
+                                        <Route path="/safaris/honeymoon" element={<SafariPackagesList />} />
+                                        <Route path="/safaris/luxury" element={<SafariPackagesList />} />
+                                        <Route path="/safaris/photographic" element={<SafariPackagesList />} />
+                                        <Route path="/safaris/group-joining" element={<SafariPackagesList />} />
+                                        <Route path="/safaris/packages/:packageId" element={<SafariPackageDetail />} />
+                                        <Route path="/zanzibar" element={<ZanzibarPage />} />
+                                        <Route path="/blog" element={<BlogList />} />
+                                        <Route path="/blog/:slug" element={<BlogDetail />} />
+                                        <Route path="/booking" element={<BookingPage />} />
+                                        <Route path="/booking/departure/:departureId" element={<BookingPage />} />
+                                        <Route path="/booking/safari/:packageId" element={<BookingPage />} />
+                                        <Route path="/company/:page" element={<ContentPage fixedSection="company" />} />
+                                        <Route path="/safari-guide/:page" element={<ContentPage fixedSection="safari-guide" />} />
 
-                                    {/* Plan Your Trip */}
-                                    <Route path="/group-departures" element={<GroupDepartures />} />
-                                    <Route path="/group-departures/:departureId" element={<DepartureDetail />} />
-                                    <Route path="/gear-checklist" element={<GearChecklist />} />
-                                    <Route path="/training-guide" element={<TrainingGuide />} />
-                                    <Route path="/faq" element={<FAQ />} />
-                                    <Route path="/safari-addons" element={<SafariAddons />} />
+                                        {/* Plan Your Trip */}
+                                        <Route path="/group-departures" element={<GroupDepartures />} />
+                                        <Route path="/group-departures/:departureId" element={<DepartureDetail />} />
+                                        <Route path="/gear-checklist" element={<GearChecklist />} />
+                                        <Route path="/training-guide" element={<TrainingGuide />} />
+                                        <Route path="/faq" element={<FAQ />} />
+                                        <Route path="/safari-addons" element={<SafariAddons />} />
 
-                                    {/* Trekking Health & Safety */}
-                                    <Route path="/trekking/health/vaccinations" element={<Vaccinations />} />
-                                    <Route path="/trekking/health/altitude-sickness" element={<AltitudeSickness />} />
-                                    <Route path="/trekking/health/diamox" element={<Diamox />} />
-                                    <Route path="/trekking/health/oxygen" element={<Oxygen />} />
+                                        {/* Trekking Health & Safety */}
+                                        <Route path="/trekking/health/vaccinations" element={<Vaccinations />} />
+                                        <Route path="/trekking/health/altitude-sickness" element={<AltitudeSickness />} />
+                                        <Route path="/trekking/health/diamox" element={<Diamox />} />
+                                        <Route path="/trekking/health/oxygen" element={<Oxygen />} />
 
-                                    {/* Trekking Prep */}
-                                    <Route path="/trekking/prep/best-routes" element={<BestRoutes />} />
-                                    <Route path="/trekking/prep/best-time" element={<BestTime />} />
-                                    <Route path="/trekking/prep/why-us" element={<WhyUs />} />
-                                    <Route path="/trekking/prep/tipping-guide" element={<TippingGuide />} />
-                                    <Route path="/trekking/prep/toilets" element={<Toilets />} />
-                                    <Route path="/trekking/prep/park-fees" element={<ParkFees />} />
+                                        {/* Trekking Prep */}
+                                        <Route path="/trekking/prep/best-routes" element={<BestRoutes />} />
+                                        <Route path="/trekking/prep/best-time" element={<BestTime />} />
+                                        <Route path="/trekking/prep/why-us" element={<WhyUs />} />
+                                        <Route path="/trekking/prep/tipping-guide" element={<TippingGuide />} />
+                                        <Route path="/trekking/prep/toilets" element={<Toilets />} />
+                                        <Route path="/trekking/prep/park-fees" element={<ParkFees />} />
 
-                                    <Route path="/trekking/after/training" element={<Training />} />
-                                    <Route path="/trekking/after/gear-list" element={<GearList />} />
-                                    <Route path="/trekking/after/getting-there" element={<GettingThere />} />
-                                    <Route path="/trekking/after/visa" element={<Visa />} />
+                                        <Route path="/trekking/after/training" element={<Training />} />
+                                        <Route path="/trekking/after/gear-list" element={<GearList />} />
+                                        <Route path="/trekking/after/getting-there" element={<GettingThere />} />
+                                        <Route path="/trekking/after/visa" element={<Visa />} />
 
-                                    <Route path="/trekking/during/daily-routine" element={<DailyRoutine />} />
-                                    <Route path="/trekking/during/food-and-drinks" element={<FoodAndDrinks />} />
-                                    <Route path="/trekking/during/pack-your-daypack" element={<PackYourDaypack />} />
-                                    <Route path="/trekking/during/connectivity" element={<Connectivity />} />
+                                        <Route path="/trekking/during/daily-routine" element={<DailyRoutine />} />
+                                        <Route path="/trekking/during/food-and-drinks" element={<FoodAndDrinks />} />
+                                        <Route path="/trekking/during/pack-your-daypack" element={<PackYourDaypack />} />
+                                        <Route path="/trekking/during/connectivity" element={<Connectivity />} />
 
-                                    {/* Safari Guide */}
-                                    <Route path="/safari-guide/what-to-wear" element={<WhatToWear />} />
-                                    <Route path="/safari-guide/packing-guide" element={<PackingList />} />
-                                    <Route path="/safari-guide/packing-list" element={<PackingList />} />
-                                    <Route path="/safari-guide/health-and-safety" element={<HealthAndSafety />} />
-                                    <Route path="/safari-guide/local-customs" element={<SafariEtiquette />} />
-                                    <Route path="/safari-guide/local-custom" element={<SafariEtiquette />} />
+                                        {/* Safari Guide */}
+                                        <Route path="/safari-guide/what-to-wear" element={<WhatToWear />} />
+                                        <Route path="/safari-guide/packing-guide" element={<PackingList />} />
+                                        <Route path="/safari-guide/packing-list" element={<PackingList />} />
+                                        <Route path="/safari-guide/health-and-safety" element={<HealthAndSafety />} />
+                                        <Route path="/safari-guide/local-customs" element={<SafariEtiquette />} />
+                                        <Route path="/safari-guide/local-custom" element={<SafariEtiquette />} />
 
-                                    {/* Kilimanjaro */}
-                                    <Route path="/trekking/kilimanjaro/lemosho" element={<Lemosho />} />
-                                    <Route path="/trekking/kilimanjaro/machame" element={<Machame />} />
-                                    <Route path="/trekking/kilimanjaro/rongai" element={<Rongai />} />
-                                    <Route path="/trekking/kilimanjaro/marangu" element={<Marangu />} />
-                                    <Route path="/trekking/kilimanjaro/northern-circuit" element={<NorthernCircuit />} />
-                                    <Route path="/trekking/kilimanjaro/umbwe" element={<Umbwe />} />
-                                    <Route path="/trekking/meru/:packageId" element={<PackageDetail />} />
-                                    <Route path="/trekking/kilimanjaro/:routeId/:packageId" element={<PackageDetail />} />
-                                    
-                                    {/* Catch-all to Home */}
-                                    <Route path="*" element={<HomePage />} />
-                                </Routes>
+                                        {/* Kilimanjaro */}
+                                        <Route path="/trekking/kilimanjaro/lemosho" element={<Lemosho />} />
+                                        <Route path="/trekking/kilimanjaro/machame" element={<Machame />} />
+                                        <Route path="/trekking/kilimanjaro/rongai" element={<Rongai />} />
+                                        <Route path="/trekking/kilimanjaro/marangu" element={<Marangu />} />
+                                        <Route path="/trekking/kilimanjaro/northern-circuit" element={<NorthernCircuit />} />
+                                        <Route path="/trekking/kilimanjaro/umbwe" element={<Umbwe />} />
+                                        <Route path="/trekking/meru/:packageId" element={<PackageDetail />} />
+                                        <Route path="/trekking/kilimanjaro/:routeId/:packageId" element={<PackageDetail />} />
+                                        
+                                        {/* Catch-all to Home */}
+                                        <Route path="*" element={<HomePage />} />
+                                    </Routes>
+                                </Suspense>
                             </PublicLayout>
                         } />
                     </Routes>
