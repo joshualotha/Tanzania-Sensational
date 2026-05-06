@@ -208,6 +208,21 @@ Route::get('/sitemap.xml', function () {
 
 /*
 |--------------------------------------------------------------------------
+| Admin Panel (CSR SPA via Inertia)
+|--------------------------------------------------------------------------
+| The admin panel is a client-side rendered SPA using React Router.
+| It's served as a single Inertia page that bootstraps the full admin app.
+*/
+Route::get('/ops-7f3d/{any?}', function () {
+    return Inertia\Inertia::render('admin/AdminApp');
+})->where('any', '.*');
+
+Route::get('/ops-7f3d', function () {
+    return Inertia\Inertia::render('admin/AdminApp');
+});
+
+/*
+|--------------------------------------------------------------------------
 | Inertia.js Routes (Converted Pages)
 |--------------------------------------------------------------------------
 | These pages use Inertia.js — data is fetched server-side and passed

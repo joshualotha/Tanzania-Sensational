@@ -1,6 +1,8 @@
 import React from 'react';
 import { createInertiaApp } from '@inertiajs/react';
 import { createRoot } from 'react-dom/client';
+import { SettingsProvider } from './context/SettingsContext';
+import { VisualsProvider } from './context/VisualsContext';
 import './styles/index.css';
 
 // Global Shim for production compatibility with specific libraries
@@ -20,7 +22,14 @@ createInertiaApp({
     },
     setup({ el, App, props }) {
         const root = createRoot(el);
-        root.render(<App {...props} />);
+        
+        root.render(
+            <SettingsProvider>
+            <VisualsProvider>
+                <App {...props} />
+            </VisualsProvider>
+            </SettingsProvider>
+        );
     },
     progress: {
         color: '#C9A84C',
