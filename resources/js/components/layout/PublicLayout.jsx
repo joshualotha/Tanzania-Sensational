@@ -18,12 +18,12 @@ const WhatsAppFloat = () => (
     </a>
 );
 
-const PublicLayout = ({ children }) => {
+const PublicLayout = (page) => {
     return (
         <div className="app-container">
             <TopBar />
             <Navbar />
-            {children}
+            {page}
             <Footer />
             <WhatsAppFloat />
         </div>
