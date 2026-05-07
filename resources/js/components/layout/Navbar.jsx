@@ -401,7 +401,7 @@ export const Navbar = () => {
                     <div className="mobile-drawer-sub-group">
                       <span className="mobile-drawer-label">Mount Meru</span>
                       {meruPackages.length > 0 ? meruPackages.map(pkg => (
-                        <Link key={pkg.id} to={`/trekking/meru/${pkg.slug}`}>{pkg.name}</Link>
+                        <Link key={pkg.id} href={`/trekking/meru/${pkg.slug}`}>{pkg.name}</Link>
                       )) : (
                         <Link href="/trekking/meru/4-day-mount-meru-trekking">Mount Meru Trek</Link>
                       )}

@@ -48,16 +48,17 @@ class TrekkingPageController extends Controller
     }
 
     /**
-     * Display a Meru package detail page.
+     * Display a Meru trekking route detail page by slug.
+     * The Navbar generates links like /trekking/meru/{slug} where slug
+     * is the trekking route slug (e.g. mt-meru-4-days, mt-meru-3-days).
      */
-    public function showMeruPackage($packageId)
+    public function showMeruPackage($slug)
     {
-        $route = TrekkingRoute::where('slug', 'meru')->firstOrFail();
-        $package = $route->pricingRules()->where('id', $packageId)->firstOrFail();
+        $route = TrekkingRoute::where('slug', $slug)->firstOrFail();
 
         return Inertia::render('trekking/kilimanjaro/PackageDetail', [
             'route' => $route,
-            'package' => $package,
+            'pkg' => $route,
         ]);
     }
 }

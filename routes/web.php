@@ -273,7 +273,7 @@ Route::get('/trekking/kilimanjaro/{slug}', [TrekkingPageController::class, 'show
 
 // Trekking package detail (must be after the single slug route to avoid conflict)
 Route::get('/trekking/kilimanjaro/{routeId}/{packageId}', [TrekkingPageController::class, 'showPackage'])->name('trekking.packages.show');
-Route::get('/trekking/meru/{packageId}', [TrekkingPageController::class, 'showMeruPackage'])->name('trekking.meru.show');
+Route::get('/trekking/meru/{slug}', [TrekkingPageController::class, 'showMeruPackage'])->name('trekking.meru.show');
 
 // Booking pages
 Route::get('/booking', [BookingPageController::class, 'show'])->name('booking');
