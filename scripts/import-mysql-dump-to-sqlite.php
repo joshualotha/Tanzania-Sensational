@@ -1,12 +1,20 @@
 <?php
 /**
  * Import MySQL dump data into SQLite database.
- * 
- * Usage: php scripts/import-mysql-dump-to-sqlite.php
- * 
- * This script reads final.sql (a MySQL dump), extracts the INSERT statements,
+ *
+ * Usage: php scripts/import-mysql-dump-to-sqlite.php [dump-file]
+ *
+ * If no dump file is specified, defaults to final.sql in the project root.
+ * The dump file path can be absolute or relative to the project root.
+ *
+ * Examples:
+ *   php scripts/import-mysql-dump-to-sqlite.php
+ *   php scripts/import-mysql-dump-to-sqlite.php tanzan14_tanzania_sensetional.sql
+ *   php scripts/import-mysql-dump-to-sqlite.php /home/user/dump.sql
+ *
+ * This script reads a MySQL dump, extracts the INSERT statements,
  * and executes them against the SQLite database at database/database.sqlite.
- * 
+ *
  * It handles:
  * - MySQL hex literals (0x...)
  * - MySQL-style escaped strings
@@ -16,7 +24,17 @@
  */
 
 $sqlitePath = __DIR__ . '/../database/database.sqlite';
-$dumpPath = __DIR__ . '/../final.sql';
+
+// Determine dump file path
+$projectRoot = realpath(__DIR__ . '/..');
+$dumpArg = $argv[1] ?? 'final.sql';
+if (str_starts_with($dumpArg, '/')) {
+    // Absolute path
+    $dumpPath = $dumpArg;
+} else {
+    // Relative to project root
+    $dumpPath = $projectRoot . '/' . $dumpArg;
+}
 
 if (!file_exists($dumpPath)) {
     echo "ERROR: Dump file not found at {$dumpPath}\n";
@@ -42,6 +60,33 @@ $dump = file_get_contents($dumpPath);
 // Extract all INSERT statements
 // MySQL dump format: INSERT INTO `table_name` VALUES (...),(...),...;
 preg_match_all('/INSERT INTO `(\w+)` VALUES\s*(.*?);\s*$/sm', $dump, $matches, PREG_SET_ORDER);
+
+// Collect unique table names from the dump, in order of appearance
+$tablesInDump = [];
+foreach ($matches as $match) {
+    $table = $match[1];
+    if (!in_array($table, $tablesInDump)) {
+        $tablesInDump[] = $table;
+    }
+}
+
+// Truncate all tables that will be imported (in reverse order to respect FK constraints)
+echo "\nTruncating existing data...\n";
+$truncated = 0;
+foreach (array_reverse($tablesInDump) as $table) {
+    try {
+        // Check if table exists in SQLite
+        $stmt = $db->query("SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name=" . $db->quote($table));
+        if ($stmt->fetchColumn() > 0) {
+            $db->exec("DELETE FROM `{$table}`");
+            $truncated++;
+            echo "  Cleared table: {$table}\n";
+        }
+    } catch (PDOException $e) {
+        echo "  WARNING: Could not clear table {$table}: " . $e->getMessage() . "\n";
+    }
+}
+echo "Cleared {$truncated} tables\n\n";
 
 $totalInserted = 0;
 $totalSkipped = 0;
