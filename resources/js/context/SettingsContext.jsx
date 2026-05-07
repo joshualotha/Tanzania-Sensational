@@ -1,20 +1,31 @@
 import React, { createContext, useContext, useMemo } from 'react';
-import { usePage } from '@inertiajs/react';
 
 const SettingsContext = createContext(null);
 
 export const useSettings = () => useContext(SettingsContext);
 
-export const SettingsProvider = ({ children }) => {
-    // Use Inertia's usePage() hook to access shared props (works in Inertia context).
-    // Falls back gracefully for admin CSR pages where Inertia context may not exist.
-    let inertiaSettings = null;
+/**
+ * Read Inertia page data from the DOM's data-page attribute.
+ * This works because the server-rendered HTML sets data-page on <div id="app">
+ * before any JavaScript runs. Unlike usePage(), this can be called from
+ * providers that wrap the Inertia <App> component.
+ */
+function readInertiaPageData() {
     try {
-        const { props } = usePage();
-        inertiaSettings = props?.settings;
-    } catch (e) {
-        // Not in Inertia context (admin CSR pages)
+        const el = document.getElementById('app');
+        if (!el) return null;
+        const raw = el.getAttribute('data-page');
+        if (!raw) return null;
+        return JSON.parse(raw);
+    } catch {
+        return null;
     }
+}
+
+export const SettingsProvider = ({ children }) => {
+    // Read settings from the DOM's data-page attribute (works outside Inertia context).
+    const pageData = readInertiaPageData();
+    const inertiaSettings = pageData?.props?.settings ?? null;
 
     const settings = useMemo(() => {
         if (inertiaSettings) {

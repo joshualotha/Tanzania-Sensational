@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useMemo } from 'react';
-import { usePage } from '@inertiajs/react';
 import { visualsData } from '../data/visualsData';
 
 const VisualsContext = createContext(null);
@@ -9,16 +8,28 @@ function normalizeUrl(url) {
     return String(url).trim();
 }
 
-export function VisualsProvider({ children }) {
-    // Use Inertia's usePage() hook to access shared props (works in Inertia context).
-    // Falls back gracefully for admin CSR pages where Inertia context may not exist.
-    let inertiaVisuals = null;
+/**
+ * Read Inertia page data from the DOM's data-page attribute.
+ * This works because the server-rendered HTML sets data-page on <div id="app">
+ * before any JavaScript runs. Unlike usePage(), this can be called from
+ * providers that wrap the Inertia <App> component.
+ */
+function readInertiaPageData() {
     try {
-        const { props } = usePage();
-        inertiaVisuals = props?.visuals;
-    } catch (e) {
-        // Not in Inertia context (admin CSR pages)
+        const el = document.getElementById('app');
+        if (!el) return null;
+        const raw = el.getAttribute('data-page');
+        if (!raw) return null;
+        return JSON.parse(raw);
+    } catch {
+        return null;
     }
+}
+
+export function VisualsProvider({ children }) {
+    // Read visuals from the DOM's data-page attribute (works outside Inertia context).
+    const pageData = readInertiaPageData();
+    const inertiaVisuals = pageData?.props?.visuals ?? null;
 
     const sections = useMemo(() => {
         if (inertiaVisuals && typeof inertiaVisuals === 'object') {
