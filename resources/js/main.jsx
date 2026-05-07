@@ -1,8 +1,6 @@
 import React from 'react';
 import { createInertiaApp } from '@inertiajs/react';
 import { createRoot } from 'react-dom/client';
-import { SettingsProvider } from './context/SettingsContext';
-import { VisualsProvider } from './context/VisualsContext';
 import PublicLayout from './components/layout/PublicLayout';
 import './styles/index.css';
 
@@ -29,13 +27,7 @@ createInertiaApp({
     setup({ el, App, props }) {
         const root = createRoot(el);
         
-        root.render(
-            <SettingsProvider>
-            <VisualsProvider>
-                <App {...props} />
-            </VisualsProvider>
-            </SettingsProvider>
-        );
+        root.render(<App {...props} />);
     },
     progress: {
         color: '#C9A84C',

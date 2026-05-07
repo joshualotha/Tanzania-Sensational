@@ -13,24 +13,6 @@ const ContactPage = ({ cms }) => {
     const settings = props.settings || {};
     const contact = settings?.contact || {};
     const social = settings?.social || {};
-
-    // DIAGNOSTIC: Log what usePage() returns for settings
-    console.log('[ContactPage] usePage().props.settings:', JSON.stringify(props.settings));
-    console.log('[ContactPage] contact.phone:', contact.phone);
-    console.log('[ContactPage] contact.support_email:', contact.support_email);
-    // Also check what data-page has
-    try {
-        const el = document.getElementById('app');
-        if (el) {
-            const raw = el.getAttribute('data-page');
-            if (raw) {
-                const parsed = JSON.parse(raw);
-                console.log('[ContactPage] data-page settings:', JSON.stringify(parsed?.props?.settings));
-            }
-        }
-    } catch (e) {
-        console.error('[ContactPage] Error reading data-page:', e);
-    }
     const [formData, setFormData] = useState({
         first_name: '',
         last_name: '',

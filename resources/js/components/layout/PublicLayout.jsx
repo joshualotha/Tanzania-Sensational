@@ -1,4 +1,6 @@
 import React from 'react';
+import { SettingsProvider } from '../../context/SettingsContext';
+import { VisualsProvider } from '../../context/VisualsContext';
 import { TopBar } from './TopBar';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
@@ -20,13 +22,17 @@ const WhatsAppFloat = () => (
 
 const PublicLayout = (page) => {
     return (
-        <div className="app-container">
-            <TopBar />
-            <Navbar />
-            {page}
-            <Footer />
-            <WhatsAppFloat />
-        </div>
+        <SettingsProvider>
+        <VisualsProvider>
+            <div className="app-container">
+                <TopBar />
+                <Navbar />
+                {page}
+                <Footer />
+                <WhatsAppFloat />
+            </div>
+        </VisualsProvider>
+        </SettingsProvider>
     );
 };
 
