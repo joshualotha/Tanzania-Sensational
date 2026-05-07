@@ -136,7 +136,7 @@ export const Navbar = () => {
                             </li>
                           ))
                         ) : (
-                          <li><Link href="/trekking/meru/4-day-mount-meru-trekking">Mount Meru Trek</Link></li>
+                          <li><Link href="/trekking/meru/mt-meru-4-days">Mount Meru Trek (4 Days)</Link></li>
                         )}
                       </ul>
                     </div>
@@ -403,7 +403,7 @@ export const Navbar = () => {
                       {meruPackages.length > 0 ? meruPackages.map(pkg => (
                         <Link key={pkg.id} href={`/trekking/meru/${pkg.slug}`}>{pkg.name}</Link>
                       )) : (
-                        <Link href="/trekking/meru/4-day-mount-meru-trekking">Mount Meru Trek</Link>
+                        <Link href="/trekking/meru/mt-meru-4-days">Mount Meru Trek (4 Days)</Link>
                       )}
                     </div>
                     <div className="mobile-drawer-sub-group">

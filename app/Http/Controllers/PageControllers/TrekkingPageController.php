@@ -75,7 +75,16 @@ class TrekkingPageController extends Controller
      */
     public function showMeruPackage($slug)
     {
-        $route = TrekkingRoute::where('slug', $slug)->firstOrFail();
+        // Try exact slug match first, then LIKE search for duration-suffixed variants
+        $route = TrekkingRoute::where('slug', $slug)->first();
+
+        if (!$route) {
+            $route = TrekkingRoute::where('slug', 'LIKE', $slug . '-%')->orderBy('id')->first();
+        }
+
+        if (!$route) {
+            abort(404);
+        }
 
         return Inertia::render('trekking/kilimanjaro/PackageDetail', [
             'route' => $route,

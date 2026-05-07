@@ -26,7 +26,7 @@
     ]
   },
   "node_modules/canvg/lib/index.es.js": {
-    "file": "assets/index.es-CRA-6H91.js",
+    "file": "assets/index.es-CihqmKsk.js",
     "name": "index.es",
     "src": "node_modules/canvg/lib/index.es.js",
     "isDynamicEntry": true,
@@ -45,7 +45,7 @@
     "isDynamicEntry": true
   },
   "resources/js/main.jsx": {
-    "file": "assets/main-pnMy1bEF.js",
+    "file": "assets/main-CrJTh_cS.js",
     "name": "main",
     "src": "resources/js/main.jsx",
     "isEntry": true,
