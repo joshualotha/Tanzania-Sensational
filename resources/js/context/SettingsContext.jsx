@@ -9,8 +9,13 @@ export const SettingsProvider = ({ children }) => {
     // Read settings from Inertia's shared props.
     // This provider must be rendered INSIDE the Inertia <App> component
     // so that usePage() is available.
-    const { props } = usePage();
+    const page = usePage();
+    const { props } = page;
     const inertiaSettings = props?.settings ?? null;
+
+    console.log('[SettingsProvider] usePage() called, component:', page.component);
+    console.log('[SettingsProvider] settings keys:', Object.keys(inertiaSettings || {}));
+    console.log('[SettingsProvider] contact.phone:', inertiaSettings?.contact?.phone);
 
     const settings = useMemo(() => {
         if (inertiaSettings) {
