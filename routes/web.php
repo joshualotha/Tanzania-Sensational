@@ -268,15 +268,10 @@ Route::get('/zanzibar', function () {
     return Inertia\Inertia::render('ZanzibarPage');
 })->name('zanzibar');
 
-// Trekking routes
-Route::get('/trekking/kilimanjaro/lemosho', [TrekkingPageController::class, 'showRoute'])->defaults('slug', 'lemosho');
-Route::get('/trekking/kilimanjaro/machame', [TrekkingPageController::class, 'showRoute'])->defaults('slug', 'machame');
-Route::get('/trekking/kilimanjaro/rongai', [TrekkingPageController::class, 'showRoute'])->defaults('slug', 'rongai');
-Route::get('/trekking/kilimanjaro/marangu', [TrekkingPageController::class, 'showRoute'])->defaults('slug', 'marangu');
-Route::get('/trekking/kilimanjaro/northern-circuit', [TrekkingPageController::class, 'showRoute'])->defaults('slug', 'northern-circuit');
-Route::get('/trekking/kilimanjaro/umbwe', [TrekkingPageController::class, 'showRoute'])->defaults('slug', 'umbwe');
+// Trekking routes — single parameterized route (slug extracted from URL)
+Route::get('/trekking/kilimanjaro/{slug}', [TrekkingPageController::class, 'showRoute'])->name('trekking.routes.show');
 
-// Trekking package detail
+// Trekking package detail (must be after the single slug route to avoid conflict)
 Route::get('/trekking/kilimanjaro/{routeId}/{packageId}', [TrekkingPageController::class, 'showPackage'])->name('trekking.packages.show');
 Route::get('/trekking/meru/{packageId}', [TrekkingPageController::class, 'showMeruPackage'])->name('trekking.meru.show');
 
@@ -367,5 +362,5 @@ Route::fallback(function () {
     return Inertia\Inertia::render('NotFound', [
         'meta' => $meta,
         'orgSchema' => $orgSchema,
-    ])->toResponse($request)->setStatusCode(404);
+    ])->toResponse(request())->setStatusCode(404);
 });
