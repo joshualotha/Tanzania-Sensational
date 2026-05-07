@@ -14,9 +14,20 @@ class TrekkingPageController extends Controller
      */
     public function showRoute($slug)
     {
-        $route = TrekkingRoute::where('slug', $slug)->firstOrFail();
+        // The database stores slugs with duration suffixes (e.g. "lemosho-7-days", "marangu-5-days")
+        // but the Navbar links use base slugs (e.g. "lemosho", "marangu").
+        // Try exact match first, then fall back to LIKE search for the first matching variant.
+        $route = TrekkingRoute::where('slug', $slug)->first();
 
-        // Map slug to page component name
+        if (!$route) {
+            $route = TrekkingRoute::where('slug', 'LIKE', $slug . '-%')->orderBy('id')->first();
+        }
+
+        if (!$route) {
+            abort(404);
+        }
+
+        // Map slug to page component name (using the base slug from the URL)
         $componentMap = [
             'lemosho' => 'trekking/kilimanjaro/Lemosho',
             'machame' => 'trekking/kilimanjaro/Machame',
@@ -38,7 +49,17 @@ class TrekkingPageController extends Controller
      */
     public function showPackage($routeId, $packageId)
     {
-        $route = TrekkingRoute::where('slug', $routeId)->firstOrFail();
+        // Try exact slug match first, then LIKE search for duration-suffixed variants
+        $route = TrekkingRoute::where('slug', $routeId)->first();
+
+        if (!$route) {
+            $route = TrekkingRoute::where('slug', 'LIKE', $routeId . '-%')->orderBy('id')->first();
+        }
+
+        if (!$route) {
+            abort(404);
+        }
+
         $package = $route->pricingRules()->where('id', $packageId)->firstOrFail();
 
         return Inertia::render('trekking/kilimanjaro/PackageDetail', [

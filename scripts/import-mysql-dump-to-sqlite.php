@@ -58,8 +58,18 @@ echo "Reading dump file: {$dumpPath}\n";
 $dump = file_get_contents($dumpPath);
 
 // Extract all INSERT statements
-// MySQL dump format: INSERT INTO `table_name` VALUES (...),(...),...;
-preg_match_all('/INSERT INTO `(\w+)` VALUES\s*(.*?);\s*$/sm', $dump, $matches, PREG_SET_ORDER);
+// Supports two formats:
+//   Format 1 (phpMyAdmin): INSERT INTO `table` (`col1`, `col2`) VALUES (val1, val2), (val3, val4);
+//   Format 2 (mysqldump):  INSERT INTO `table` VALUES (val1, val2), (val3, val4);
+// Both formats may span multiple lines.
+preg_match_all('/INSERT INTO `(\w+)`\s*(?:\([^)]+\))?\s*VALUES\s*(.*?);\s*(?:\n|$)/s', $dump, $matches, PREG_SET_ORDER);
+
+if (empty($matches)) {
+    echo "ERROR: No INSERT statements found in dump file.\n";
+    echo "The regex may not match the dump format. First 500 chars of dump:\n";
+    echo substr($dump, 0, 500) . "\n";
+    exit(1);
+}
 
 // Collect unique table names from the dump, in order of appearance
 $tablesInDump = [];
