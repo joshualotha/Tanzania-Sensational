@@ -43,4 +43,53 @@ class MainPageController extends Controller
             'cms' => $page,
         ]);
     }
+
+    /**
+     * Display the 404 fallback page.
+     * Must be a controller method (not a closure) so route:cache can serialize it.
+     */
+    public function notFound()
+    {
+        $appUrl = rtrim((string)config('app.url', url('/')), '/');
+
+        $meta = [
+            'title' => 'Page Not Found — Tanzania Sensational',
+            'description' => 'The page you are looking for does not exist. Explore our Kilimanjaro trekking, Tanzania safaris, and Zanzibar beach extensions.',
+            'og_title' => 'Page Not Found — Tanzania Sensational',
+            'og_description' => 'The page you are looking for does not exist.',
+            'og_image' => null,
+            'canonical' => $appUrl,
+            'schema' => null,
+        ];
+
+        $orgSchema = [
+            '@context' => 'https://schema.org',
+            '@type' => 'Organization',
+            'name' => config('app.name'),
+            'url' => $appUrl,
+            'logo' => $appUrl . '/logo.png',
+            'description' => 'Premium Kilimanjaro & Meru trekking expeditions, Tanzania safaris, and Zanzibar beach extensions. Expert-led adventures since 2010.',
+            'address' => [
+                '@type' => 'PostalAddress',
+                'addressLocality' => 'Moshi',
+                'addressRegion' => 'Kilimanjaro',
+                'addressCountry' => 'TZ',
+            ],
+            'contactPoint' => [
+                '@type' => 'ContactPoint',
+                'contactType' => 'customer service',
+                'availableLanguage' => ['English', 'Swahili'],
+            ],
+            'sameAs' => [
+                'https://www.instagram.com/tanzaniasensational/',
+                'https://www.facebook.com/tanzaniasensational/',
+                'https://www.tripadvisor.com/Attraction_Review-g297913-d1234567-Reviews-Tanzania_Sensational-Moshi_Kilimanjaro_Region.html',
+            ],
+        ];
+
+        return Inertia\Inertia::render('NotFound', [
+            'meta' => $meta,
+            'orgSchema' => $orgSchema,
+        ])->toResponse(request())->setStatusCode(404);
+    }
 }
