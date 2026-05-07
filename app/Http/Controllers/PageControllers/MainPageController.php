@@ -87,7 +87,7 @@ class MainPageController extends Controller
             ],
         ];
 
-        return Inertia\Inertia::render('NotFound', [
+        return Inertia::render('NotFound', [
             'meta' => $meta,
             'orgSchema' => $orgSchema,
         ])->toResponse(request())->setStatusCode(404);
