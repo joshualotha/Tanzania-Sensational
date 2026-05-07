@@ -263,7 +263,68 @@ foreach ($mysqlRows as $mysqlRow) {
 echo "Re-inserted {$inserted} departures rows ({$errors} errors)\n\n";
 
 // ============================================================
-// 3. VERIFICATION
+// 3. FIX BLOG_POSTS
+// ============================================================
+echo "--- Fixing blog_posts ---\n";
+
+$data = extractInsertData($dump, 'blog_posts');
+if (!$data) {
+    echo "ERROR: Could not find blog_posts INSERT in dump\n";
+    exit(1);
+}
+
+$mysqlCols = $data['columns'];
+$mysqlRows = $data['rows'];
+$sqliteCols = getSqliteColumns($db, 'blog_posts');
+
+echo "MySQL columns (" . count($mysqlCols) . "): " . implode(', ', $mysqlCols) . "\n";
+echo "SQLite columns (" . count($sqliteCols) . "): " . implode(', ', $sqliteCols) . "\n";
+
+// Build mapping
+$sqliteToMysql = [];
+foreach ($sqliteCols as $sqliteCol) {
+    $mysqlIdx = array_search($sqliteCol, $mysqlCols);
+    $sqliteToMysql[] = $mysqlIdx === false ? -1 : $mysqlIdx;
+}
+
+echo "\nColumn mapping:\n";
+foreach ($sqliteCols as $i => $col) {
+    $src = $sqliteToMysql[$i] >= 0 ? "MySQL[{$sqliteToMysql[$i]}]" : "NULL (not in dump)";
+    echo "  SQLite[{$i}] {$col} <- {$src}\n";
+}
+
+// Clear existing data
+echo "\nClearing existing blog_posts data...\n";
+$db->exec('DELETE FROM blog_posts');
+
+// Re-insert with correct mapping
+$colList = '`' . implode('`,`', $sqliteCols) . '`';
+$placeholders = '(' . implode(',', array_fill(0, count($sqliteCols), '?')) . ')';
+$insertStmt = $db->prepare("INSERT INTO `blog_posts` ({$colList}) VALUES {$placeholders}");
+
+$inserted = 0;
+$errors = 0;
+foreach ($mysqlRows as $mysqlRow) {
+    $sqliteRow = [];
+    foreach ($sqliteToMysql as $mysqlIdx) {
+        if ($mysqlIdx >= 0 && isset($mysqlRow[$mysqlIdx])) {
+            $sqliteRow[] = convertMysqlValue($mysqlRow[$mysqlIdx]);
+        } else {
+            $sqliteRow[] = null;
+        }
+    }
+    try {
+        $insertStmt->execute($sqliteRow);
+        $inserted++;
+    } catch (PDOException $e) {
+        echo "  ERROR id={$sqliteRow[0]}: " . $e->getMessage() . "\n";
+        $errors++;
+    }
+}
+echo "Re-inserted {$inserted} blog_posts rows ({$errors} errors)\n\n";
+
+// ============================================================
+// 4. VERIFICATION
 // ============================================================
 echo "========================================\n";
 echo "  VERIFICATION\n";
@@ -277,6 +338,12 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
 echo "\nDepartures sample:\n";
 $stmt = $db->query('SELECT id, trekking_route_id, departure_date, return_date, price_cents, total_seats, available_seats, booked_seats, held_seats, status, created_at, updated_at FROM departures LIMIT 5');
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    echo "  " . json_encode($row) . "\n";
+}
+
+echo "\nBlog posts sample:\n";
+$stmt = $db->query('SELECT id, slug, title, excerpt, hero_image, author, category, published_at, created_at, updated_at, meta_title, meta_description FROM blog_posts LIMIT 3');
 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     echo "  " . json_encode($row) . "\n";
 }
