@@ -124,7 +124,10 @@ class BlogPostsSeeder extends Seeder
         foreach ($posts as $p) {
             $slug = Str::slug($p['title']);
 
-            BlogPost::updateOrCreate(
+            // Use firstOrCreate to avoid overwriting blog posts that were
+            // edited in the admin panel. If a post with this slug already
+            // exists (e.g., created by a previous seed or via admin), skip it.
+            BlogPost::firstOrCreate(
                 ['slug' => $slug],
                 [
                     'title' => $p['title'],

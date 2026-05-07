@@ -313,9 +313,9 @@ function getCanonicalColumns(string $table, array $sqliteColumns, int $valueCoun
                 'created_at', 'updated_at',
             ],
             'blog_posts' => [
-                'id', 'slug', 'title', 'meta_title', 'meta_description',
-                'excerpt', 'featured_image', 'content_html',
-                'image_url', 'author', 'category',
+                'id', 'slug', 'title', 'meta_title', 'excerpt',
+                'meta_description', 'content', 'content_html',
+                'hero_image', 'author', 'category',
                 'published_at', 'created_at', 'updated_at',
             ],
             'pages' => [
