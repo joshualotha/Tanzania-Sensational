@@ -34,5 +34,6 @@ deployment:
     # Create storage symlinks if needed
     - php artisan storage:link --force 2>/dev/null || true
     
-    # Final optimization (skips route:cache since we have closure-based routes)
-    - php artisan optimize
+    # Final optimization — exclude route:cache (Inertia fallback uses a controller
+    # method now, but route caching can still cause issues with dynamic routes)
+    - php artisan optimize --except=routes
