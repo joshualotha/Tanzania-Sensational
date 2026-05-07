@@ -13,15 +13,12 @@ export const SettingsProvider = ({ children }) => {
     const { props } = page;
     const inertiaSettings = props?.settings ?? null;
 
-    console.log('[SettingsProvider] usePage() called, component:', page.component);
-    console.log('[SettingsProvider] settings keys:', Object.keys(inertiaSettings || {}));
-    console.log('[SettingsProvider] contact.phone:', inertiaSettings?.contact?.phone);
-
+    // inertiaSettings is already the grouped settings object from HandleInertiaRequests.php
+    // e.g. { contact: { phone: "...", ... }, social: {...}, general: {...}, branding: {...} }
+    // Provide it directly — do NOT double-wrap in { settings: inertiaSettings }
+    // because consumers do: const { settings } = useSettings(); settings?.contact?.phone
     const settings = useMemo(() => {
-        if (inertiaSettings) {
-            return { settings: inertiaSettings };
-        }
-        return {};
+        return inertiaSettings ?? {};
     }, [inertiaSettings]);
 
     return (

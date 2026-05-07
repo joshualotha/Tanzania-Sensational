@@ -7,12 +7,7 @@ import { useSettings } from '../../context/SettingsContext';
 
 export const Footer = () => {
   const visuals = useVisuals();
-  const ctx = useSettings();
-  console.log('[Footer] useSettings() returned:', ctx);
-  console.log('[Footer] settings:', ctx?.settings);
-  console.log('[Footer] contact:', ctx?.settings?.contact);
-  console.log('[Footer] contact.phone:', ctx?.settings?.contact?.phone);
-  const { settings } = ctx;
+  const { settings } = useSettings();
   const contact = settings?.contact || {};
   const social = settings?.social || {};
   const general = settings?.general || {};

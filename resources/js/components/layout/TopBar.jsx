@@ -3,12 +3,7 @@ import { Link } from '@inertiajs/react';
 import { useSettings } from '../../context/SettingsContext';
 
 export const TopBar = () => {
-    const ctx = useSettings();
-    console.log('[TopBar] useSettings() returned:', ctx);
-    console.log('[TopBar] settings:', ctx?.settings);
-    console.log('[TopBar] contact:', ctx?.settings?.contact);
-    console.log('[TopBar] contact.phone:', ctx?.settings?.contact?.phone);
-    const { settings } = ctx;
+    const { settings } = useSettings();
     const contact = settings?.contact || {};
 
     useEffect(() => {
