@@ -1,34 +1,30 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useMemo } from 'react';
+import { usePage } from '@inertiajs/react';
 
 const SettingsContext = createContext(null);
 
 export const useSettings = () => useContext(SettingsContext);
 
 export const SettingsProvider = ({ children }) => {
-    const [settings, setSettings] = useState(null);
-    const [loading, setLoading] = useState(true);
+    // Use Inertia's usePage() hook to access shared props (works in Inertia context).
+    // Falls back gracefully for admin CSR pages where Inertia context may not exist.
+    let inertiaSettings = null;
+    try {
+        const { props } = usePage();
+        inertiaSettings = props?.settings;
+    } catch (e) {
+        // Not in Inertia context (admin CSR pages)
+    }
 
-    useEffect(() => {
-        // Settings are provided by HandleInertiaRequests middleware for all Inertia pages.
-        // The admin panel still uses CSR, so we check for Inertia shared data here.
-        try {
-            const inertiaData = window.__inertia_data?.props?.settings;
-            if (inertiaData) {
-                setSettings({ settings: inertiaData });
-                setLoading(false);
-                return;
-            }
-        } catch (e) {
-            // Not in Inertia context
+    const settings = useMemo(() => {
+        if (inertiaSettings) {
+            return { settings: inertiaSettings };
         }
-
-        // Fallback for admin CSR pages — settings are not critical for admin functionality
-        setSettings({});
-        setLoading(false);
-    }, []);
+        return {};
+    }, [inertiaSettings]);
 
     return (
-        <SettingsContext.Provider value={{ settings, loading }}>
+        <SettingsContext.Provider value={{ settings, loading: false }}>
             {children}
         </SettingsContext.Provider>
     );

@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import React, { createContext, useContext, useMemo } from 'react';
+import { usePage } from '@inertiajs/react';
 import { visualsData } from '../data/visualsData';
 
 const VisualsContext = createContext(null);
@@ -9,25 +10,22 @@ function normalizeUrl(url) {
 }
 
 export function VisualsProvider({ children }) {
-    const [sections, setSections] = useState({});
-    const [loaded, setLoaded] = useState(false);
+    // Use Inertia's usePage() hook to access shared props (works in Inertia context).
+    // Falls back gracefully for admin CSR pages where Inertia context may not exist.
+    let inertiaVisuals = null;
+    try {
+        const { props } = usePage();
+        inertiaVisuals = props?.visuals;
+    } catch (e) {
+        // Not in Inertia context (admin CSR pages)
+    }
 
-    useEffect(() => {
-        // Visuals are provided by HandleInertiaRequests middleware for all Inertia pages.
-        try {
-            const inertiaVisuals = window.__inertia_data?.props?.visuals;
-            if (inertiaVisuals && typeof inertiaVisuals === 'object') {
-                setSections(inertiaVisuals);
-                setLoaded(true);
-                return;
-            }
-        } catch (e) {
-            // Not in Inertia context
+    const sections = useMemo(() => {
+        if (inertiaVisuals && typeof inertiaVisuals === 'object') {
+            return inertiaVisuals;
         }
-
-        // Fallback for admin CSR pages — visuals are not critical for admin functionality
-        setLoaded(true);
-    }, []);
+        return {};
+    }, [inertiaVisuals]);
 
     const value = useMemo(() => {
         const fallbackHomeHero = normalizeUrl(visualsData?.home?.hero);
@@ -48,7 +46,7 @@ export function VisualsProvider({ children }) {
         };
 
         return {
-            loaded,
+            loaded: true,
             getSingle,
             getList,
             // Backwards compat for the existing Home hero rotation usage.
@@ -57,7 +55,7 @@ export function VisualsProvider({ children }) {
                 hero: homeHero,
             },
         };
-    }, [loaded, sections]);
+    }, [sections]);
 
     return (
         <VisualsContext.Provider value={value}>
