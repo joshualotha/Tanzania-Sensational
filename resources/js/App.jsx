@@ -1,75 +1,80 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { SettingsProvider, useSettings } from './context/SettingsContext';
 import { TopBar } from './components/layout/TopBar';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
-import { HomePage } from './pages/HomePage';
-import { ContactPage } from './pages/ContactPage';
-import { AboutPage } from './pages/AboutPage';
-import { SafarisPage } from './pages/SafarisPage';
-import { ZanzibarPage } from './pages/ZanzibarPage';
-import { SafariPackagesList } from './pages/safaris/SafariPackagesList';
-import { SafariPackageDetail } from './pages/safaris/SafariPackageDetail';
-import { DestinationDetail } from './pages/safaris/DestinationDetail';
-import { BlogList } from './pages/blog/BlogList';
-import { BlogDetail } from './pages/blog/BlogDetail';
-import { ContentPage } from './pages/content/ContentPage';
-import { BookingPage } from './pages/BookingPage';
 import { VisualsProvider } from './context/VisualsContext';
 
-// New 'Plan Your Trip' Pages
-import { GroupDepartures } from './pages/plan/GroupDepartures';
-import { DepartureDetail } from './pages/plan/DepartureDetail';
-import { GearChecklist } from './pages/plan/GearChecklist';
-import { TrainingGuide } from './pages/plan/TrainingGuide';
-import { FAQ } from './pages/plan/FAQ';
-import { SafariAddons } from './pages/plan/SafariAddons';
+// Lazy-loaded page components for code-splitting
+const HomePage = lazy(() => import('./pages/HomePage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
+const AboutPage = lazy(() => import('./pages/AboutPage'));
+const SafarisPage = lazy(() => import('./pages/SafarisPage'));
+const ZanzibarPage = lazy(() => import('./pages/ZanzibarPage'));
+const SafariPackagesList = lazy(() => import('./pages/safaris/SafariPackagesList'));
+const SafariPackageDetail = lazy(() => import('./pages/safaris/SafariPackageDetail'));
+const DestinationDetail = lazy(() => import('./pages/safaris/DestinationDetail'));
+const BlogList = lazy(() => import('./pages/blog/BlogList'));
+const BlogDetail = lazy(() => import('./pages/blog/BlogDetail'));
+const ContentPage = lazy(() => import('./pages/content/ContentPage'));
+const BookingPage = lazy(() => import('./pages/BookingPage'));
+const NotFound = lazy(() => import('./pages/NotFound'));
+
+// Plan Your Trip Pages
+const GroupDepartures = lazy(() => import('./pages/plan/GroupDepartures'));
+const DepartureDetail = lazy(() => import('./pages/plan/DepartureDetail'));
+const GearChecklist = lazy(() => import('./pages/plan/GearChecklist'));
+const TrainingGuide = lazy(() => import('./pages/plan/TrainingGuide'));
+const FAQ = lazy(() => import('./pages/plan/FAQ'));
+const SafariAddons = lazy(() => import('./pages/plan/SafariAddons'));
 
 // Safari Guide Pages
-import WhatToWear from './pages/safari/WhatToWear';
-import PackingList from './pages/safari/PackingList';
-import HealthAndSafety from './pages/safari/HealthAndSafety';
-import SafariEtiquette from './pages/safari/SafariEtiquette';
+const WhatToWear = lazy(() => import('./pages/safari/WhatToWear'));
+const PackingList = lazy(() => import('./pages/safari/PackingList'));
+const HealthAndSafety = lazy(() => import('./pages/safari/HealthAndSafety'));
+const SafariEtiquette = lazy(() => import('./pages/safari/SafariEtiquette'));
 
-import Vaccinations from './pages/trekking/health/Vaccinations';
-import AltitudeSickness from './pages/trekking/health/AltitudeSickness';
-import Diamox from './pages/trekking/health/Diamox';
-import Oxygen from './pages/trekking/health/Oxygen';
+// Trekking Health Pages
+const Vaccinations = lazy(() => import('./pages/trekking/health/Vaccinations'));
+const AltitudeSickness = lazy(() => import('./pages/trekking/health/AltitudeSickness'));
+const Diamox = lazy(() => import('./pages/trekking/health/Diamox'));
+const Oxygen = lazy(() => import('./pages/trekking/health/Oxygen'));
 
 // Trekking Prep Pages
-import BestRoutes from './pages/trekking/prep/BestRoutes';
-import BestTime from './pages/trekking/prep/BestTime';
-import WhyUs from './pages/trekking/prep/WhyUs';
-import TippingGuide from './pages/trekking/prep/TippingGuide';
-import Toilets from './pages/trekking/prep/Toilets';
-import ParkFees from './pages/trekking/prep/ParkFees';
+const BestRoutes = lazy(() => import('./pages/trekking/prep/BestRoutes'));
+const BestTime = lazy(() => import('./pages/trekking/prep/BestTime'));
+const WhyUs = lazy(() => import('./pages/trekking/prep/WhyUs'));
+const TippingGuide = lazy(() => import('./pages/trekking/prep/TippingGuide'));
+const Toilets = lazy(() => import('./pages/trekking/prep/Toilets'));
+const ParkFees = lazy(() => import('./pages/trekking/prep/ParkFees'));
 
-import Training from './pages/trekking/after/Training';
-import GearList from './pages/trekking/after/GearList';
-import GettingThere from './pages/trekking/after/GettingThere';
-import Visa from './pages/trekking/after/Visa';
+// Trekking After Pages
+const Training = lazy(() => import('./pages/trekking/after/Training'));
+const GearList = lazy(() => import('./pages/trekking/after/GearList'));
+const GettingThere = lazy(() => import('./pages/trekking/after/GettingThere'));
+const Visa = lazy(() => import('./pages/trekking/after/Visa'));
 
 // During the Trek Pages
-import DailyRoutine from './pages/trekking/during/DailyRoutine';
-import FoodAndDrinks from './pages/trekking/during/FoodAndDrinks';
-import PackYourDaypack from './pages/trekking/during/PackYourDaypack';
-import Connectivity from './pages/trekking/during/Connectivity';
+const DailyRoutine = lazy(() => import('./pages/trekking/during/DailyRoutine'));
+const FoodAndDrinks = lazy(() => import('./pages/trekking/during/FoodAndDrinks'));
+const PackYourDaypack = lazy(() => import('./pages/trekking/during/PackYourDaypack'));
+const Connectivity = lazy(() => import('./pages/trekking/during/Connectivity'));
 
 // Kilimanjaro Route Pages
-import Lemosho from './pages/trekking/kilimanjaro/Lemosho';
-import Machame from './pages/trekking/kilimanjaro/Machame';
-import Rongai from './pages/trekking/kilimanjaro/Rongai';
-import Marangu from './pages/trekking/kilimanjaro/Marangu';
-import NorthernCircuit from './pages/trekking/kilimanjaro/NorthernCircuit';
-import Umbwe from './pages/trekking/kilimanjaro/Umbwe';
-import PackageDetail from './pages/trekking/kilimanjaro/PackageDetail';
+const Lemosho = lazy(() => import('./pages/trekking/kilimanjaro/Lemosho'));
+const Machame = lazy(() => import('./pages/trekking/kilimanjaro/Machame'));
+const Rongai = lazy(() => import('./pages/trekking/kilimanjaro/Rongai'));
+const Marangu = lazy(() => import('./pages/trekking/kilimanjaro/Marangu'));
+const NorthernCircuit = lazy(() => import('./pages/trekking/kilimanjaro/NorthernCircuit'));
+const Umbwe = lazy(() => import('./pages/trekking/kilimanjaro/Umbwe'));
+const PackageDetail = lazy(() => import('./pages/trekking/kilimanjaro/PackageDetail'));
 
 // Auth & Guard
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 
-// Admin Pages
+// Admin Pages — eagerly imported (always needed for admin panel)
 import { AdminLayout } from './pages/admin/AdminLayout';
 import { AdminLogin } from './pages/admin/AdminLogin';
 import { AdminDashboard } from './pages/admin/AdminDashboard';
@@ -128,9 +133,9 @@ class ErrorBoundary extends React.Component {
         if (this.state.hasError) {
             return (
                 <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#070707', color: 'white', fontFamily: 'Outfit' }}>
-                    <h2 style={{ color: 'var(--gold)', letterSpacing: '0.12em' }}>We couldn’t load this page</h2>
+                    <h2 style={{ color: 'var(--gold)', letterSpacing: '0.12em' }}>We couldn't load this page</h2>
                     <p style={{ opacity: 0.7, marginTop: '10px', maxWidth: 560, textAlign: 'center', lineHeight: 1.6 }}>
-                        Please refresh and try again. If it keeps happening, contact us and we’ll help right away.
+                        Please refresh and try again. If it keeps happening, contact us and we'll help right away.
                     </p>
                     {this.state.error && (
                         <div style={{ padding: '20px', background: 'rgba(255,0,0,0.1)', color: '#ffaaaa', marginTop: '20px', borderRadius: '4px', maxWidth: '800px', wordBreak: 'break-all' }}>
@@ -248,10 +253,8 @@ function App() {
                                         {/* Safari Guide */}
                                         <Route path="/safari-guide/what-to-wear" element={<WhatToWear />} />
                                         <Route path="/safari-guide/packing-guide" element={<PackingList />} />
-                                        <Route path="/safari-guide/packing-list" element={<PackingList />} />
                                         <Route path="/safari-guide/health-and-safety" element={<HealthAndSafety />} />
                                         <Route path="/safari-guide/local-customs" element={<SafariEtiquette />} />
-                                        <Route path="/safari-guide/local-custom" element={<SafariEtiquette />} />
 
                                         {/* Kilimanjaro */}
                                         <Route path="/trekking/kilimanjaro/lemosho" element={<Lemosho />} />
@@ -263,8 +266,8 @@ function App() {
                                         <Route path="/trekking/meru/:packageId" element={<PackageDetail />} />
                                         <Route path="/trekking/kilimanjaro/:routeId/:packageId" element={<PackageDetail />} />
                                         
-                                        {/* Catch-all to Home */}
-                                        <Route path="*" element={<HomePage />} />
+                                        {/* Catch-all — 404 */}
+                                        <Route path="*" element={<NotFound />} />
                                     </Routes>
                                 </Suspense>
                             </PublicLayout>

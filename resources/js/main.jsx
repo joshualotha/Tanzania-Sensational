@@ -11,18 +11,21 @@ if (typeof window !== 'undefined') {
 
 createInertiaApp({
     resolve: (name) => {
-        // Map Inertia page names to their components
-        const pages = import.meta.glob('./pages/**/*.jsx', { eager: true });
+        // Map Inertia page names to their components — lazy loading for code-splitting
+        const pages = import.meta.glob('./pages/**/*.jsx');
         const page = pages[`./pages/${name}.jsx`];
         if (!page) {
             throw new Error(`Page not found: ${name}`);
         }
         // Set PublicLayout for non-admin pages so Navbar/Footer render
         // within Inertia's context provider (usePage() must be inside Inertia <App>)
-        if (!name.startsWith('admin/')) {
-            page.default.layout = PublicLayout;
-        }
-        return page;
+        return page().then((module) => {
+            const component = module.default;
+            if (!name.startsWith('admin/')) {
+                component.layout = PublicLayout;
+            }
+            return component;
+        });
     },
     setup({ el, App, props }) {
         const root = createRoot(el);

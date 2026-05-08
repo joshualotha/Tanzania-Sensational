@@ -319,10 +319,10 @@ Route::get('/trekking/during/pack-your-daypack', fn() => Inertia\Inertia::render
 Route::get('/trekking/during/connectivity', fn() => Inertia\Inertia::render('trekking/during/Connectivity'))->name('connectivity');
 Route::get('/safari-guide/what-to-wear', fn() => Inertia\Inertia::render('safari/WhatToWear'))->name('what-to-wear');
 Route::get('/safari-guide/packing-guide', fn() => Inertia\Inertia::render('safari/PackingList'))->name('packing-guide');
-Route::get('/safari-guide/packing-list', fn() => Inertia\Inertia::render('safari/PackingList'));
+Route::redirect('/safari-guide/packing-list', '/safari-guide/packing-guide', 301);
 Route::get('/safari-guide/health-and-safety', fn() => Inertia\Inertia::render('safari/HealthAndSafety'))->name('health-and-safety');
 Route::get('/safari-guide/local-customs', fn() => Inertia\Inertia::render('safari/SafariEtiquette'))->name('local-customs');
-Route::get('/safari-guide/local-custom', fn() => Inertia\Inertia::render('safari/SafariEtiquette'));
+Route::redirect('/safari-guide/local-custom', '/safari-guide/local-customs', 301);
 Route::get('/safari-guide/accommodation-style', fn() => Inertia\Inertia::render('content/ContentPage', [
     'data' => fn() => \App\Models\Page::where('slug', 'safari-guide-accommodation-style')->first(),
     'fixedSection' => 'safari-guide',
