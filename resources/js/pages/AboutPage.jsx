@@ -86,7 +86,7 @@ const AboutPage = ({ cms }) => {
                 <motion.div className="premium-about-bg" style={{ y: heroY }}>
                     <img
                         src={getVisual('about.hero', visualsData.about.hero)}
-                        alt="Kilimanjaro Summit at Dawn"
+                        alt="Mount Kilimanjaro summit at dawn — Tanzania's highest peak viewed from the Shira Plateau"
                     />
                     <div className="premium-about-overlay"></div>
                 </motion.div>
@@ -147,7 +147,7 @@ const AboutPage = ({ cms }) => {
                     <div className="premium-story-image">
                         <img
                             src={getVisual('about.legacy', visualsData.about.legacy)}
-                            alt="Kilimanjaro Trail"
+                            alt="Trekking trail on Kilimanjaro through the heather-moorland ecological zone"
                         />
                         <div className="premium-story-badge">
                             <Mountain size={28} />
@@ -253,7 +253,7 @@ const AboutPage = ({ cms }) => {
                 <div className="premium-exp-bg">
                     <img
                         src={getVisual('about.experienceBand', visualsData.about.experienceBand)}
-                        alt="Kilimanjaro Trekking Group"
+                        alt="Tanzania Sensational trekking group on the Lemosho Route with guides and porters"
                     />
                     <div className="premium-exp-overlay"></div>
                 </div>

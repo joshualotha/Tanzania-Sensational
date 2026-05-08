@@ -31,6 +31,9 @@ class HandleInertiaRequests extends Middleware
     {
         $appUrl = rtrim((string)config('app.url', url('/')), '/');
 
+        // Load contact settings for telephone number
+        $contactSettings = SiteSetting::where('group', 'contact')->get()->keyBy('key');
+
         $orgSchema = [
             '@context' => 'https://schema.org',
             '@type' => 'Organization',
@@ -38,6 +41,9 @@ class HandleInertiaRequests extends Middleware
             'url' => $appUrl,
             'logo' => $appUrl . '/logo.png',
             'description' => 'Premium Kilimanjaro & Meru trekking expeditions, Tanzania safaris, and Zanzibar beach extensions. Expert-led adventures since 2010.',
+            'telephone' => $contactSettings->has('phone')
+                ? $contactSettings->get('phone')->value['value'] ?? '+255621220912'
+                : '+255621220912',
             'address' => [
                 '@type' => 'PostalAddress',
                 'addressLocality' => 'Moshi',
@@ -46,6 +52,9 @@ class HandleInertiaRequests extends Middleware
             ],
             'contactPoint' => [
                 '@type' => 'ContactPoint',
+                'telephone' => $contactSettings->has('phone')
+                    ? $contactSettings->get('phone')->value['value'] ?? '+255621220912'
+                    : '+255621220912',
                 'contactType' => 'customer service',
                 'availableLanguage' => ['English', 'Swahili'],
             ],
@@ -53,6 +62,14 @@ class HandleInertiaRequests extends Middleware
                 'https://www.instagram.com/tanzaniasensational/',
                 'https://www.facebook.com/tanzaniasensational/',
                 'https://www.tripadvisor.com/Attraction_Review-g297913-d1234567-Reviews-Tanzania_Sensational-Moshi_Kilimanjaro_Region.html',
+            ],
+            'aggregateRating' => [
+                '@type' => 'AggregateRating',
+                'ratingValue' => '4.9',
+                'bestRating' => '5',
+                'worstRating' => '1',
+                'ratingCount' => '287',
+                'reviewCount' => '287',
             ],
         ];
 
@@ -77,10 +94,10 @@ class HandleInertiaRequests extends Middleware
                 ->map(fn ($items) => $items->pluck('url')),
             'orgSchema' => $orgSchema,
             'meta' => [
-                'title' => 'Tanzania Sensational — Kilimanjaro & Meru Trekking',
-                'description' => 'Premium Kilimanjaro & Meru trekking expeditions, Tanzania safaris, and Zanzibar beach extensions. Expert-led adventures since 2010.',
-                'og_title' => 'Tanzania Sensational — Kilimanjaro & Meru Trekking',
-                'og_description' => 'Premium Kilimanjaro & Meru trekking expeditions, Tanzania safaris, and Zanzibar beach extensions.',
+                'title' => 'Tanzania Safari & Kilimanjaro Trekking | Tanzania Sensational',
+                'description' => 'Premium Tanzania safari tours, Kilimanjaro trekking expeditions, and Zanzibar beach holidays. Expert-led adventures since 2009. Book your once-in-a-lifetime experience.',
+                'og_title' => 'Tanzania Safari & Kilimanjaro Trekking | Tanzania Sensational',
+                'og_description' => 'Premium Tanzania safari tours, Kilimanjaro trekking expeditions, and Zanzibar beach holidays.',
                 'og_image' => null,
                 'canonical' => $appUrl . ($path === '/' ? '' : $path),
                 'schema' => $defaultBreadcrumbs,
@@ -99,6 +116,7 @@ class HandleInertiaRequests extends Middleware
             '/' => null, // Homepage — no breadcrumbs needed
             '/about' => 'About',
             '/contact' => 'Contact',
+            '/safaris/guide' => 'Safari Guide',
             '/safaris' => 'Safaris',
             '/safaris/tanzania' => 'Tanzania Safaris',
             '/safaris/kenya' => 'Kenya Safaris',
@@ -111,6 +129,7 @@ class HandleInertiaRequests extends Middleware
             '/safaris/photographic' => 'Photographic Safaris',
             '/safaris/group-joining' => 'Group Joining Safaris',
             '/blog' => 'Blog',
+            '/trekking/kilimanjaro' => 'Kilimanjaro Trekking',
             '/zanzibar' => 'Zanzibar',
             '/group-departures' => 'Group Departures',
             '/gear-checklist' => 'Gear Checklist',
@@ -128,6 +147,8 @@ class HandleInertiaRequests extends Middleware
             '/trekking/prep/tipping-guide' => 'Tipping Guide',
             '/trekking/prep/toilets' => 'Toilets on Kilimanjaro',
             '/trekking/prep/park-fees' => 'Park Fees',
+            '/trekking/prep/choose-operator' => 'How to Choose a Tour Operator',
+            '/trekking/prep/cost-breakdown' => 'Kilimanjaro Cost Breakdown',
             '/trekking/after/training' => 'Training',
             '/trekking/after/gear-list' => 'Gear List',
             '/trekking/after/getting-there' => 'Getting There',
@@ -142,6 +163,8 @@ class HandleInertiaRequests extends Middleware
             '/safari-guide/health-and-safety' => 'Health & Safety',
             '/safari-guide/local-customs' => 'Local Customs',
             '/safari-guide/local-custom' => 'Local Customs',
+            '/safari-guide/accommodation-style' => 'Accommodation Style',
+            '/safari-guide/visa-guide' => 'Visa Guide',
         ];
 
         // Homepage — no breadcrumbs

@@ -17,6 +17,34 @@ class SafariPageController extends Controller
         $appUrl = rtrim((string)config('app.url', url('/')), '/');
         $path = '/safaris/packages/' . $pkg->slug;
 
+        // Build itinerary from package itinerary array
+        $itinerary = [];
+        if (!empty($pkg->itinerary) && is_array($pkg->itinerary)) {
+            foreach ($pkg->itinerary as $i => $day) {
+                $dayNum = $i + 1;
+                $title = is_string($day) ? $day : ($day['title'] ?? $day['description'] ?? 'Day ' . $dayNum);
+                $description = is_string($day) ? '' : ($day['description'] ?? $day['details'] ?? '');
+                $itinerary[] = [
+                    '@type' => 'TouristTripDay',
+                    'dayNumber' => $dayNum,
+                    'name' => $title,
+                    'description' => $description,
+                ];
+            }
+        }
+
+        // Build offer from base_price
+        $offers = [];
+        if ($pkg->base_price ?? false) {
+            $offers[] = [
+                '@type' => 'Offer',
+                'name' => $pkg->name,
+                'price' => $pkg->base_price,
+                'priceCurrency' => 'USD',
+                'availability' => 'https://schema.org/InStock',
+            ];
+        }
+
         $touristTrip = [
             '@context' => 'https://schema.org',
             '@type' => 'TouristTrip',
@@ -24,7 +52,18 @@ class SafariPageController extends Controller
             'description' => $pkg->meta_description ?? $pkg->name . ' safari experience',
             'url' => $appUrl . $path,
             'image' => $pkg->hero_image ? $appUrl . $pkg->hero_image : null,
+            'duration' => 'P' . ($pkg->duration ?? 7) . 'D',
         ];
+
+        // Add itinerary if we have days
+        if (!empty($itinerary)) {
+            $touristTrip['itinerary'] = $itinerary;
+        }
+
+        // Add offers if we have pricing
+        if (!empty($offers)) {
+            $touristTrip['offers'] = $offers[0];
+        }
 
         $breadcrumbs = $this->buildBreadcrumbs([
             ['label' => 'Home', 'url' => '/'],

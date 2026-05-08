@@ -31,7 +31,7 @@ const Umbwe = ({ route }) => {
             <section className="lux-hero">
                 <img
                     src={route?.hero_image || getVisual('trekking.routes.umbwe', visualsData.trekking.routes.umbwe)}
-                    alt="Umbwe Route Ridge"
+                    alt="Umbwe Route on Kilimanjaro — the steepest and most challenging ridge ascent"
                 />
                 <div className="lux-hero-overlay"></div>
                 <div className="lux-hero-content">
@@ -85,7 +85,7 @@ const Umbwe = ({ route }) => {
                     >
                         <img
                             src={route?.editorial_image || getVisual('trekking.routes.umbweEditorial', visualsData.trekking.routes.umbweEditorial)}
-                            alt="Steep Ridge"
+                            alt="Umbwe Route steep ridge on Kilimanjaro — direct ascent through dense rainforest"
                         />
                         <div className="lux-image-caption">The steepest, most direct path to the roof of Africa.</div>
                     </motion.div>
@@ -124,7 +124,7 @@ const Umbwe = ({ route }) => {
                                 transition={{ duration: 0.8, delay: index * 0.1 }}
                             >
                                 <div className="lux-package-image">
-                                    <img src={pkg.hero_image || visualsData.trekking.routes.umbwe} alt={pkg.name} />
+                                    <img src={pkg.hero_image || visualsData.trekking.routes.umbwe} alt={`${pkg.name} — Kilimanjaro trekking package on the Umbwe Route`} />
                                 </div>
                                 <div className="lux-package-content">
                                     <div>

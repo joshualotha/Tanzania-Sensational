@@ -4,6 +4,7 @@ import { useSettings } from '../../context/SettingsContext';
 import { VisualsProvider } from '../../context/VisualsContext';
 import { TopBar } from './TopBar';
 import { Navbar } from './Navbar';
+import { Breadcrumbs } from './Breadcrumbs';
 import { Footer } from './Footer';
 
 const WhatsAppFloat = () => {
@@ -36,6 +37,7 @@ const PublicLayout = (page) => {
             <div className="app-container">
                 <TopBar />
                 <Navbar />
+                <Breadcrumbs />
                 {page}
                 <Footer />
                 <WhatsAppFloat />

@@ -160,7 +160,7 @@ const GearList = () => {
                 <div className="prep-hero-bg">
                     <img
                         src={visuals.getSingle('trekking.after.gearList', visualsData.trekking.after.gearList)}
-                        alt="Expedition Inventory"
+                        alt="Kilimanjaro gear list — essential trekking equipment and clothing for summit expedition"
                     />
                     <div className="prep-hero-overlay"></div>
                 </div>
@@ -182,7 +182,7 @@ const GearList = () => {
                         <img
                             src={visuals.getSingle('trekking.after.gearListEditorial', visualsData.trekking.after.gearListEditorial)}
                             className="prep-editorial-img"
-                            alt="Precision Preparation"
+                            alt="Kilimanjaro gear preparation — organized trekking equipment laid out for packing"
                         />
                         <span className="prep-img-caption">Precision in packing is the hallmark of a professional.</span>
                     </motion.div>

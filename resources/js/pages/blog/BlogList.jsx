@@ -45,7 +45,7 @@ const BlogList = ({ posts }) => {
                 <motion.div style={{ y: bgY }} className="blog-featured-bg">
                     <img
                         src={featuredPost?.hero_image || getVisual('blog.hero', "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&q=80")}
-                        alt={featuredPost?.title || "Journal"}
+                        alt={`${featuredPost?.title || 'Tanzania travel journal'} — featured story on Tanzania Sensational`}
                     />
                 </motion.div>
                 <div className="blog-featured-overlay"></div>
@@ -98,7 +98,7 @@ const BlogList = ({ posts }) => {
                     >
                         <Link href={`/blog/${blog.slug}`} className="blog-ed-card">
                             <div className="blog-ed-img-wrap">
-                                <img src={blog.hero_image} alt={blog.title} />
+                                <img src={blog.hero_image} alt={`${blog.title} — Tanzania travel blog post on Tanzania Sensational`} loading="lazy" />
                             </div>
                             <div className="blog-ed-info">
                                 <span className="blog-ed-cat">{blog.category}</span>

@@ -119,9 +119,11 @@ Route::get('/sitemap.xml', function () {
         ['path' => '/about', 'priority' => '0.7', 'changefreq' => 'monthly'],
         ['path' => '/contact', 'priority' => '0.6', 'changefreq' => 'monthly'],
         ['path' => '/safaris', 'priority' => '0.9', 'changefreq' => 'weekly'],
+        ['path' => '/safaris/guide', 'priority' => '0.9', 'changefreq' => 'weekly'],
         ['path' => '/blog', 'priority' => '0.8', 'changefreq' => 'weekly'],
         ['path' => '/group-departures', 'priority' => '0.7', 'changefreq' => 'weekly'],
         ['path' => '/gear-checklist', 'priority' => '0.6', 'changefreq' => 'monthly'],
+        ['path' => '/trekking/kilimanjaro', 'priority' => '0.9', 'changefreq' => 'weekly'],
     ]);
 
     // Trekking routes — high priority, commercial pages
@@ -172,14 +174,14 @@ Route::get('/sitemap.xml', function () {
             'lastmod' => $p->updated_at->toAtomString(),
         ]);
 
-    // Safari guide pages — low priority (thin content)
+    // Safari guide pages — medium priority (substantive content, ~500-1000 words each)
     $guidePages = Page::query()
         ->select('slug', 'updated_at')
         ->where('slug', 'like', 'safari-guide-%')
         ->get()
         ->map(fn ($p) => [
             'path' => '/safari-guide/' . substr($p->slug, strlen('safari-guide-')),
-            'priority' => '0.5',
+            'priority' => '0.6',
             'changefreq' => 'monthly',
             'lastmod' => $p->updated_at->toAtomString(),
         ]);
@@ -248,6 +250,9 @@ Route::get('/', [MainPageController::class, 'home'])->name('home');
 Route::get('/about', [MainPageController::class, 'about'])->name('about');
 Route::get('/contact', [MainPageController::class, 'contact'])->name('contact');
 
+// Safari Pillar Guide — the central hub for all safari content
+Route::get('/safaris/guide', [SafarisPageController::class, 'guide'])->name('safaris.guide');
+
 // Safaris listing
 Route::get('/safaris', [SafarisPageController::class, 'index'])->name('safaris.index');
 Route::get('/safaris/tanzania', [SafarisPageController::class, 'index']);
@@ -267,6 +272,9 @@ Route::get('/safaris/group-joining', [SafarisPageController::class, 'packagesLis
 Route::get('/zanzibar', function () {
     return Inertia\Inertia::render('ZanzibarPage');
 })->name('zanzibar');
+
+// Kilimanjaro Trekking pillar page — the central hub for all trekking content
+Route::get('/trekking/kilimanjaro', fn() => Inertia\Inertia::render('trekking/KilimanjaroPillar'))->name('trekking.kilimanjaro');
 
 // Trekking routes — single parameterized route (slug extracted from URL)
 Route::get('/trekking/kilimanjaro/{slug}', [TrekkingPageController::class, 'showRoute'])->name('trekking.routes.show');
@@ -299,6 +307,8 @@ Route::get('/trekking/prep/why-us', fn() => Inertia\Inertia::render('trekking/pr
 Route::get('/trekking/prep/tipping-guide', fn() => Inertia\Inertia::render('trekking/prep/TippingGuide'))->name('tipping-guide');
 Route::get('/trekking/prep/toilets', fn() => Inertia\Inertia::render('trekking/prep/Toilets'))->name('toilets');
 Route::get('/trekking/prep/park-fees', fn() => Inertia\Inertia::render('trekking/prep/ParkFees'))->name('park-fees');
+Route::get('/trekking/prep/choose-operator', fn() => Inertia\Inertia::render('trekking/prep/ChooseOperator'))->name('choose-operator');
+Route::get('/trekking/prep/cost-breakdown', fn() => Inertia\Inertia::render('trekking/prep/CostBreakdown'))->name('cost-breakdown');
 Route::get('/trekking/after/training', fn() => Inertia\Inertia::render('trekking/after/Training'))->name('training');
 Route::get('/trekking/after/gear-list', fn() => Inertia\Inertia::render('trekking/after/GearList'))->name('gear-list');
 Route::get('/trekking/after/getting-there', fn() => Inertia\Inertia::render('trekking/after/GettingThere'))->name('getting-there');
@@ -313,6 +323,14 @@ Route::get('/safari-guide/packing-list', fn() => Inertia\Inertia::render('safari
 Route::get('/safari-guide/health-and-safety', fn() => Inertia\Inertia::render('safari/HealthAndSafety'))->name('health-and-safety');
 Route::get('/safari-guide/local-customs', fn() => Inertia\Inertia::render('safari/SafariEtiquette'))->name('local-customs');
 Route::get('/safari-guide/local-custom', fn() => Inertia\Inertia::render('safari/SafariEtiquette'));
+Route::get('/safari-guide/accommodation-style', fn() => Inertia\Inertia::render('content/ContentPage', [
+    'data' => fn() => \App\Models\Page::where('slug', 'safari-guide-accommodation-style')->first(),
+    'fixedSection' => 'safari-guide',
+]))->name('accommodation-style');
+Route::get('/safari-guide/visa-guide', fn() => Inertia\Inertia::render('content/ContentPage', [
+    'data' => fn() => \App\Models\Page::where('slug', 'safari-guide-visa-guide')->first(),
+    'fixedSection' => 'safari-guide',
+]))->name('visa-guide');
 
 /*
 |--------------------------------------------------------------------------

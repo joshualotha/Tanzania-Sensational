@@ -21,7 +21,7 @@ const AltitudeSickness = () => {
                 <div className="trek-health-hero-bg">
                     <img
                         src={visuals.getSingle('trekking.health.altitudeSickness', visualsData.trekking.health.altitudeSickness)}
-                        alt="Kilimanjaro Trail"
+                        alt="Altitude sickness on Kilimanjaro — trekkers on the trail above 4,000 meters with mountain views"
                     />
                     <div className="trek-health-overlay"></div>
                 </div>
@@ -43,7 +43,7 @@ const AltitudeSickness = () => {
                     <div className="trek-health-image">
                         <img
                             src={visuals.getSingle('trekking.health.altitudeEditorial', visualsData.trekking.health.altitudeEditorial)}
-                            alt="Mountaineer at high altitude"
+                            alt="Mountaineer at high altitude on Kilimanjaro — acclimatization and AMS prevention strategies"
                         />
                     </div>
                     <div className="trek-health-content">

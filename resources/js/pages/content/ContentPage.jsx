@@ -32,7 +32,7 @@ const ContentPage = ({ data, fixedSection }) => {
                 <div className="utility-hero-bg">
                     <img
                         src={data?.og_image || getVisual('common.placeholderHero', 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=2000&q=80')}
-                        alt={data?.title || 'Page'}
+                        alt={`${data?.title || 'Tanzania travel guide'} — information page on Tanzania Sensational`}
                     />
                 </div>
                 <div className="utility-hero-overlay" />

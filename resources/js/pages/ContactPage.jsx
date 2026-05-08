@@ -84,7 +84,7 @@ const ContactPage = ({ cms }) => {
                 <div className="premium-hero-bg">
                     <img
                         src={getVisual('contact.hero', visualsData.contact.hero)}
-                        alt="African Landscape"
+                        alt="Tanzania safari landscape — acacia trees at sunset on the Serengeti plains"
                     />
                     <div className="premium-hero-overlay"></div>
                 </div>

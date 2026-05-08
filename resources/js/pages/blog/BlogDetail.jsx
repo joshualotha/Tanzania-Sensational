@@ -57,7 +57,7 @@ const BlogDetail = ({ post, allPosts }) => {
                         viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                     >
-                        <img src={block.src} alt={block.alt} />
+                        <img src={block.src} alt={block.alt || 'Tanzania travel photography on Tanzania Sensational'} loading="lazy" />
                     </motion.div>
                 );
             case 'quote':
@@ -80,7 +80,7 @@ const BlogDetail = ({ post, allPosts }) => {
             {/* ─── 100VH MASSIVE HERO ─── */}
             <section className="blog-article-hero">
                 <motion.div style={{ y: bgY }} className="blog-article-bg">
-                    <img src={post.hero_image} alt={post.title} />
+                    <img src={post.hero_image} alt={`${post.title} — Tanzania travel article on Tanzania Sensational`} />
                 </motion.div>
                 <div className="blog-article-overlay"></div>
 
@@ -173,7 +173,7 @@ const BlogDetail = ({ post, allPosts }) => {
                                 <div className="blog-related-img">
                                     <img
                                         src={relatedPost.hero_image || post.hero_image}
-                                        alt={relatedPost.title || 'Related story'}
+                                        alt={`${relatedPost.title || 'Related story'} — related Tanzania travel article`}
                                     />
                                 </div>
                                 <div className="blog-related-info">

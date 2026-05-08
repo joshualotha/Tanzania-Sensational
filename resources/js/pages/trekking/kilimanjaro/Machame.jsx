@@ -31,7 +31,7 @@ const Machame = ({ route }) => {
             <section className="lux-hero">
                 <img
                     src={route?.hero_image || getVisual('trekking.routes.machame', visualsData.trekking.routes.machame)}
-                    alt="Machame Route Landscape"
+                    alt="Machame Route on Kilimanjaro — the Whiskey Route through rainforest and moorland"
                 />
                 <div className="lux-hero-overlay"></div>
                 <div className="lux-hero-content">
@@ -85,7 +85,7 @@ const Machame = ({ route }) => {
                     >
                         <img
                             src={route?.editorial_image || getVisual('trekking.prep.bestRoutesEditorial', visualsData.trekking.prep.bestRoutesEditorial)}
-                            alt="Machame Trail"
+                            alt="Machame Trail on Kilimanjaro — steep ascent through the Barranco Valley"
                         />
                         <div className="lux-image-caption">The challenging ascent through the montane zones.</div>
                     </motion.div>
@@ -124,7 +124,7 @@ const Machame = ({ route }) => {
                                 transition={{ duration: 0.8, delay: index * 0.1 }}
                             >
                                 <div className="lux-package-image">
-                                    <img src={pkg.hero_image || visualsData.trekking.routes.machame} alt={pkg.name} />
+                                    <img src={pkg.hero_image || visualsData.trekking.routes.machame} alt={`${pkg.name} — Kilimanjaro trekking package on the Machame Route`} />
                                 </div>
                                 <div className="lux-package-content">
                                     <div>

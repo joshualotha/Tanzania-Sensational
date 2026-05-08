@@ -87,7 +87,7 @@ const DepartureDetail = ({ departure }) => {
             {/* HERO */}
             <section className="utility-hero" style={{ minHeight: '65vh' }}>
                 <div className="utility-hero-bg">
-                    <img src={viewModel.heroImg} alt={viewModel.routeTitle} />
+                    <img src={viewModel.heroImg} alt={`${viewModel.routeTitle} — Kilimanjaro group departure on Tanzania Sensational`} />
                 </div>
                 <div className="utility-hero-overlay"></div>
                 <motion.div className="utility-hero-content" initial="hidden" animate="visible" variants={fadeInUp}>

@@ -40,6 +40,45 @@ class ContactController extends Controller
             'id' => $submission->id
         ], 201);
     }
+
+    public function newsletter(Request $request)
+    {
+        $validated = $request->validate([
+            'email' => 'required|email|max:255',
+        ]);
+
+        // Check if this email already subscribed
+        $existing = ContactSubmission::where('email', $validated['email'])
+            ->where('source', 'newsletter')
+            ->first();
+
+        if ($existing) {
+            return response()->json([
+                'message' => 'You are already subscribed. Asante sana!',
+            ], 200);
+        }
+
+        $submission = ContactSubmission::create([
+            'email' => $validated['email'],
+            'objective' => 'Newsletter subscription',
+            'source' => 'newsletter',
+            'status' => 'active',
+        ]);
+
+        AdminNotification::create([
+            'type' => 'newsletter',
+            'title' => 'New newsletter subscriber',
+            'body' => $submission->email,
+            'url' => '/ops-7f3d/inquiries',
+            'severity' => 'info',
+        ]);
+
+        return response()->json([
+            'message' => 'Asante sana! You are now subscribed to our newsletter.',
+            'id' => $submission->id
+        ], 201);
+    }
+
     public function destroy($id)
     {
         $submission = ContactSubmission::findOrFail($id);

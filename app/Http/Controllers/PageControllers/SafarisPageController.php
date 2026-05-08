@@ -63,4 +63,34 @@ class SafarisPageController extends Controller
             ],
         ]);
     }
+
+    /**
+     * Display the Safari Pillar page — the central hub for all safari content.
+     */
+    public function guide()
+    {
+        $destinations = Destination::all();
+        $packages = SafariPackage::all();
+        $appUrl = rtrim((string)config('app.url', url('/')), '/');
+
+        $breadcrumbs = $this->buildBreadcrumbs([
+            ['label' => 'Home', 'url' => '/'],
+            ['label' => 'Safaris', 'url' => '/safaris'],
+            ['label' => 'Safari Guide', 'url' => '/safaris/guide'],
+        ]);
+
+        return Inertia::render('safari/SafariPillar', [
+            'destinations' => $destinations,
+            'packages' => $packages,
+            'meta' => [
+                'title' => 'Tanzania Safari Guide | Ultimate Safari Planning Resource | Tanzania Sensational',
+                'description' => 'Your complete guide to planning a Tanzania safari — destinations, packages, packing lists, health & safety, visa info, and expert tips from Tanzania Sensational.',
+                'og_title' => 'Tanzania Safari Guide | Ultimate Safari Planning Resource',
+                'og_description' => 'Your complete guide to planning a Tanzania safari — destinations, packages, packing, health & safety, and expert tips.',
+                'og_image' => null,
+                'canonical' => $appUrl . '/safaris/guide',
+                'schema' => [$breadcrumbs],
+            ],
+        ]);
+    }
 }

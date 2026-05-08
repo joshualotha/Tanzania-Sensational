@@ -60,7 +60,7 @@ export const Hero = () => {
           <motion.img
             key={activeUrl}
             src={activeUrl}
-            alt="Tanzania Safari"
+            alt="Tanzania safari experience — wildlife and landscapes of East Africa"
             className="hero-v2-bg-img"
             initial={{ opacity: 0, scale: 1.12 }}
             animate={{ opacity: 1, scale: 1.05 }}

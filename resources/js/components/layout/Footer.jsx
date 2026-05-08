@@ -14,13 +14,36 @@ export const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+  const [subscribing, setSubscribing] = useState(false);
+  const [subscribeError, setSubscribeError] = useState(false);
 
-  const handleSubscribe = (e) => {
+  const handleSubscribe = async (e) => {
     e.preventDefault();
-    if (email.trim()) {
-      setSubscribed(true);
-      setEmail('');
-      setTimeout(() => setSubscribed(false), 4000);
+    if (!email.trim() || subscribing) return;
+
+    setSubscribing(true);
+    setSubscribeError(false);
+
+    try {
+      const response = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+
+      if (response.ok) {
+        setSubscribed(true);
+        setEmail('');
+        setTimeout(() => setSubscribed(false), 4000);
+      } else {
+        setSubscribeError(true);
+        setTimeout(() => setSubscribeError(false), 3000);
+      }
+    } catch {
+      setSubscribeError(true);
+      setTimeout(() => setSubscribeError(false), 3000);
+    } finally {
+      setSubscribing(false);
     }
   };
 
@@ -64,9 +87,11 @@ export const Footer = () => {
             </p>
           </div>
           <form className="footer-cta-form" onSubmit={handleSubscribe}>
-            <div className={`footer-input-wrap ${subscribed ? 'subscribed' : ''}`}>
+            <div className={`footer-input-wrap ${subscribed ? 'subscribed' : ''} ${subscribeError ? 'error' : ''}`}>
               {subscribed ? (
                 <span className="footer-subscribed-msg">✦ Asante sana, you're in!</span>
+              ) : subscribeError ? (
+                <span className="footer-subscribed-msg footer-error-msg">✦ Something went wrong. Try again?</span>
               ) : (
                 <>
                   <input
@@ -76,9 +101,10 @@ export const Footer = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     className="footer-email-input"
                     required
+                    disabled={subscribing}
                   />
-                  <button type="submit" className="footer-submit-btn" aria-label="Subscribe">
-                    <Send size={16} />
+                  <button type="submit" className="footer-submit-btn" aria-label="Subscribe" disabled={subscribing}>
+                    {subscribing ? <span className="footer-spinner" /> : <Send size={16} />}
                   </button>
                 </>
               )}
@@ -94,6 +120,7 @@ export const Footer = () => {
               <img
                 src={visuals.getSingle('branding.logo', visualsData.branding.logo)}
                 alt="Tanzania Sensational"
+                loading="lazy"
               />
             </div>
             <p className="footer-tagline">
@@ -122,7 +149,6 @@ export const Footer = () => {
             </div>
           </div>
 
-          {/* Navigation columns */}
           <div className="footer-nav-columns">
             <div className="footer-nav-col">
               <div className="footer-nav-label">
@@ -130,6 +156,7 @@ export const Footer = () => {
                 Kilimanjaro
               </div>
               <ul className="footer-links">
+                <li><Link href="/trekking/kilimanjaro">Overview & Routes</Link></li>
                 <li><Link href="/trekking/kilimanjaro/lemosho">Lemosho Route</Link></li>
                 <li><Link href="/trekking/kilimanjaro/machame">Machame Route</Link></li>
                 <li><Link href="/trekking/kilimanjaro/northern-circuit">Northern Circuit</Link></li>
@@ -142,15 +169,31 @@ export const Footer = () => {
             <div className="footer-nav-col">
               <div className="footer-nav-label">
                 <span className="footer-label-line" />
-                Plan Your Trip
+                Safari Packages
               </div>
               <ul className="footer-links">
-                <li><Link href="/safaris">Safaris</Link></li>
+                <li><Link href="/safaris">All Safaris</Link></li>
+                <li><Link href="/safaris/guide">Safari Guide</Link></li>
+                <li><Link href="/safaris/packages/1">The Great Migration</Link></li>
+                <li><Link href="/safaris/packages/2">The Pioneer's Route</Link></li>
+                <li><Link href="/safaris/packages/3">The Grand Canvas</Link></li>
+                <li><Link href="/safaris/family">Family Safaris</Link></li>
+                <li><Link href="/safaris/luxury">Luxury Safaris</Link></li>
+              </ul>
+            </div>
+
+            <div className="footer-nav-col">
+              <div className="footer-nav-label">
+                <span className="footer-label-line" />
+                Destinations
+              </div>
+              <ul className="footer-links">
+                <li><Link href="/safaris/destinations/1">Serengeti</Link></li>
+                <li><Link href="/safaris/destinations/2">Ngorongoro Crater</Link></li>
+                <li><Link href="/safaris/destinations/3">Tarangire</Link></li>
+                <li><Link href="/safaris/destinations/5">Lake Manyara</Link></li>
+                <li><Link href="/safaris/destinations/7">Ruaha</Link></li>
                 <li><Link href="/zanzibar">Zanzibar</Link></li>
-                <li><Link href="/trekking/after/training">Training Guide</Link></li>
-                <li><Link href="/trekking/after/gear-list">Packing List</Link></li>
-                <li><Link href="/group-departures">Group Departures</Link></li>
-                <li><Link href="/faq">FAQ</Link></li>
               </ul>
             </div>
 
@@ -161,8 +204,12 @@ export const Footer = () => {
               </div>
               <ul className="footer-links">
                 <li><Link href="/about">About Us</Link></li>
+                <li><Link href="/company/our-guides">Our Guides</Link></li>
+                <li><Link href="/company/safety-protocols">Safety Protocols</Link></li>
                 <li><Link href="/blog">Trekker's Blog</Link></li>
                 <li><Link href="/contact">Contact</Link></li>
+                <li><Link href="/group-departures">Group Departures</Link></li>
+                <li><Link href="/faq">FAQ</Link></li>
               </ul>
 
               {/* Social links below Company nav */}

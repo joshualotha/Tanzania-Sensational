@@ -31,7 +31,7 @@ const NorthernCircuit = ({ route }) => {
             <section className="lux-hero">
                 <img
                     src={route?.hero_image || getVisual('trekking.routes.northern', visualsData.trekking.routes.northern)}
-                    alt="Northern Circuit Landscape"
+                    alt="Northern Circuit on Kilimanjaro — the longest route circumnavigating the entire mountain"
                 />
                 <div className="lux-hero-overlay"></div>
                 <div className="lux-hero-content">
@@ -97,7 +97,7 @@ const NorthernCircuit = ({ route }) => {
                     >
                         <img
                             src={route?.editorial_image || getVisual('trekking.routes.northernEditorial', visualsData.trekking.routes.northernEditorial)}
-                            alt="Northern Slopes"
+                            alt="Northern Circuit Kilimanjaro — remote northern slopes with panoramic views of Kenya"
                         />
                         <div className="lux-image-caption">The isolated, breathtaking expanse of the northern slopes.</div>
                     </motion.div>
@@ -124,7 +124,7 @@ const NorthernCircuit = ({ route }) => {
                                 transition={{ duration: 0.8, delay: index * 0.1 }}
                             >
                                 <div className="lux-package-image">
-                                    <img src={pkg.hero_image || visualsData.trekking.routes.northern} alt={pkg.name} />
+                                    <img src={pkg.hero_image || visualsData.trekking.routes.northern} alt={`${pkg.name} — Kilimanjaro trekking package on the Northern Circuit Route`} />
                                 </div>
                                 <div className="lux-package-content">
                                     <div>

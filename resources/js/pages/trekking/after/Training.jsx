@@ -21,7 +21,7 @@ const Training = () => {
                 <div className="prep-hero-bg">
                     <img
                         src={visuals.getSingle('trekking.after.training', visualsData.trekking.after.training)}
-                        alt="Peak Training"
+                        alt="Kilimanjaro training guide — physical preparation for summit trek with cardio and strength exercises"
                     />
                     <div className="prep-hero-overlay"></div>
                 </div>
@@ -53,7 +53,7 @@ const Training = () => {
                         <img
                             src={visuals.getSingle('trekking.after.trainingEditorial', visualsData.trekking.after.trainingEditorial)}
                             className="prep-editorial-img"
-                            alt="Mountain Trek"
+                            alt="Kilimanjaro mountain trek — endurance training on alpine terrain for summit success"
                         />
                         <span className="prep-img-caption">Endurance is developed through consistency.</span>
                     </motion.div>

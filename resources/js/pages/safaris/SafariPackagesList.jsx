@@ -52,7 +52,7 @@ const SafariPackagesList = ({ packages }) => {
             {/* HERITAGE COLLECTION HERO */}
             <section className="safari-pkgs-hero">
                 <div className="safari-pkgs-bg">
-                    <img src={getVisual('safaris.listHero', visualsData.safaris.listHero)} alt="Safari Heritage Hero" />
+                    <img src={getVisual('safaris.listHero', visualsData.safaris.listHero)} alt="Tanzania safari heritage collection — curated wilderness expeditions across Serengeti and beyond" />
                 </div>
                 <div className="safari-pkgs-overlay"></div>
                 
@@ -114,7 +114,7 @@ const SafariPackagesList = ({ packages }) => {
                             <motion.div key={pkg.id} variants={fadeInUp}>
                                 <Link href={`/safaris/packages/${pkg.id}`} className="heritage-card-solid">
                                     <div className="heritage-card-media">
-                                        <img src={pkg.hero_image || getVisual('safaris.listHero', visualsData.safaris.listHero)} alt={pkg.name} />
+                                        <img src={pkg.hero_image || getVisual('safaris.listHero', visualsData.safaris.listHero)} alt={`${pkg.name} — Tanzania safari package with wildlife and landscapes`} loading="lazy" />
                                         <div className="card-heritage-label">{pkg.category || 'SIGNATURE'}</div>
                                     </div>
                                     

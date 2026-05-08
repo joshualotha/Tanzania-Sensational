@@ -33,7 +33,7 @@ const Connectivity = () => {
                 <div className="sd-hero-bg">
                     <img
                         src={visuals.getSingle('trekking.during.connectivity', visualsData.trekking.during.connectivity)}
-                        alt="High altitude ridge"
+                        alt="High altitude ridge on Kilimanjaro — remote mountain landscape with sweeping views above the clouds"
                     />
                     <div className="sd-hero-overlay"></div>
                 </div>
@@ -51,7 +51,7 @@ const Connectivity = () => {
                     <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1 }}>
                         <img
                             src={visuals.getSingle('trekking.during.connectivityEditorial', visualsData.trekking.during.connectivityEditorial)}
-                            alt="Starry sky"
+                            alt="Starry sky over Kilimanjaro — the Milky Way visible from high altitude camps on the mountain"
                             style={{ width: '100%', borderRadius: '12px', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}
                         />
                     </motion.div>
@@ -124,7 +124,7 @@ const Connectivity = () => {
             <section className="sd-full-bleed">
                 <img
                     src={visualsData.trekking.after.training}
-                    alt="High mountain peak"
+                    alt="High mountain peak on Kilimanjaro — the summit approach with climbers on the alpine desert zone"
                 />
             </section>
 

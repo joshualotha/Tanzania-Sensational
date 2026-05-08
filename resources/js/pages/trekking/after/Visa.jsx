@@ -21,7 +21,7 @@ const Visa = () => {
                 <div className="prep-hero-bg">
                     <img
                         src={visuals.getSingle('trekking.after.visa', visualsData.trekking.after.visa)}
-                        alt="Border Clearance"
+                        alt="Tanzania visa for Kilimanjaro climb — entry requirements and border clearance for international trekkers"
                     />
                     <div className="prep-hero-overlay"></div>
                 </div>
@@ -44,7 +44,7 @@ const Visa = () => {
                         <img
                             src={visuals.getSingle('trekking.after.visaEditorial', visualsData.trekking.after.visaEditorial)}
                             className="prep-editorial-img"
-                            alt="Passport"
+                            alt="Tanzania visa and passport — travel documents required for Kilimanjaro trekking and safari"
                         />
                         <span className="prep-img-caption">Global Mobility Protocols.</span>
                     </motion.div>

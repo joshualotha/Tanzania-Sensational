@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title inertia>{{ $meta['title'] ?? 'Tanzania Sensational — Kilimanjaro & Meru Trekking' }}</title>
-    <meta name="description" content="{{ $meta['description'] ?? 'Premium Kilimanjaro & Meru trekking expeditions, Tanzania safaris, and Zanzibar beach extensions. Expert-led adventures since 2010.' }}">
-    <meta property="og:title" content="{{ $meta['og_title'] ?? ($meta['title'] ?? 'Tanzania Sensational — Kilimanjaro & Meru Trekking') }}">
-    <meta property="og:description" content="{{ $meta['og_description'] ?? ($meta['description'] ?? 'Premium Kilimanjaro & Meru trekking expeditions, Tanzania safaris, and Zanzibar beach extensions.') }}">
+    <title inertia>{{ $meta['title'] ?? 'Tanzania Safari & Kilimanjaro Trekking | Tanzania Sensational' }}</title>
+    <meta name="description" content="{{ $meta['description'] ?? 'Premium Tanzania safari tours, Kilimanjaro trekking expeditions, and Zanzibar beach holidays. Expert-led adventures since 2009. Book your once-in-a-lifetime experience.' }}">
+    <meta property="og:title" content="{{ $meta['og_title'] ?? ($meta['title'] ?? 'Tanzania Safari & Kilimanjaro Trekking | Tanzania Sensational') }}">
+    <meta property="og:description" content="{{ $meta['og_description'] ?? ($meta['description'] ?? 'Premium Tanzania safari tours, Kilimanjaro trekking expeditions, and Zanzibar beach holidays.') }}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ $meta['canonical'] ?? config('app.url') }}">
     @if(!empty($meta['og_image']))
@@ -19,7 +19,12 @@
     <link rel="icon" href="/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;0,900;1,400&display=swap" rel="stylesheet">
+    {{-- Preload critical font: Playfair Display (headings above the fold) --}}
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Outfit:wght@300;400;500;600&family=DM+Sans:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" />
+    {{-- Load fonts asynchronously with fallback --}}
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Outfit:wght@300;400;500;600&family=DM+Sans:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    {{-- Fallback for browsers without JS/onload support --}}
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Outfit:wght@300;400;500;600&family=DM+Sans:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" /></noscript>
     @viteReactRefresh
     @vite(['resources/js/main.jsx'])
 

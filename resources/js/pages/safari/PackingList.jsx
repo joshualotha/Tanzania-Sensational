@@ -104,7 +104,7 @@ const PackingList = () => {
             {/* ═══ HERO ═══ */}
             <section className="field-hero">
                 <div className="field-hero-img">
-                    <img src={getVisual('safari.packingHero', visualsData.planning.gearHero)} alt="Safari gear laid out" />
+                    <img src={getVisual('safari.packingHero', visualsData.planning.gearHero)} alt="Safari packing list essentials — camera, binoculars, hat, and travel gear laid out for Tanzania safari" />
                 </div>
                 <div className="field-hero-gradient" />
                 <motion.div className="field-hero-content" initial="hidden" animate="visible" variants={fade}>
@@ -149,7 +149,7 @@ const PackingList = () => {
                     </motion.div>
                 </div>
                 <motion.div className="field-split-img" initial={{ opacity: 0, scale: 1.05 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1.5 }}>
-                    <img src={getVisual('safari.packingEditorial', visualsData.trekking.routes.lemosho)} alt="Safari duffel bag" />
+                    <img src={getVisual('safari.packingEditorial', visualsData.trekking.routes.lemosho)} alt="Safari duffel bag and travel luggage packed for East African expedition" loading="lazy" />
                 </motion.div>
             </div>
 
@@ -181,7 +181,7 @@ const PackingList = () => {
 
             {/* ═══ FULL BLEED ═══ */}
             <section className="field-bleed">
-                <img src={getVisual('safari.packingFullBleed', visualsData.planning.meruHero)} alt="Safari expedition ready" />
+                <img src={getVisual('safari.packingFullBleed', visualsData.planning.meruHero)} alt="Safari expedition ready — fully packed vehicle for Tanzania wildlife adventure" />
                 <span className="field-bleed-caption">Ready for the bush</span>
             </section>
 

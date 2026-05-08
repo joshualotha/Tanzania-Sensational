@@ -54,7 +54,7 @@ const WhatToWear = () => {
             {/* ═══ HERO ═══ */}
             <section className="field-hero">
                 <div className="field-hero-img">
-                    <img src={getVisual('safari.whatToWearHero', visualsData.safaris.listHero)} alt="Safari attire in the bush" />
+                    <img src={getVisual('safari.whatToWearHero', visualsData.safaris.listHero)} alt="What to wear on safari in Tanzania — neutral-colored clothing and sun hat in the bush" />
                 </div>
                 <div className="field-hero-gradient" />
                 <motion.div className="field-hero-content" initial="hidden" animate="visible" variants={fade}>
@@ -82,7 +82,7 @@ const WhatToWear = () => {
                     </motion.div>
                 </div>
                 <motion.div className="field-split-img" initial={{ opacity: 0, scale: 1.05 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1.5 }}>
-                    <img src={getVisual('safari.whatToWearEditorial', visualsData.planning.meruHero)} alt="Earth-toned safari clothing" />
+                    <img src={getVisual('safari.whatToWearEditorial', visualsData.planning.meruHero)} alt="Earth-toned safari clothing — khaki and olive outfits for Tanzania wildlife viewing" loading="lazy" />
                 </motion.div>
             </div>
 
@@ -97,7 +97,7 @@ const WhatToWear = () => {
             {/* ═══ CHAPTER 2 — FABRIC SCIENCE ═══ */}
             <div className="field-split reversed field-split-dark">
                 <motion.div className="field-split-img" initial={{ opacity: 0, scale: 1.05 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1.5 }}>
-                    <img src={getVisual('safari.whatToWearFullBleed', visualsData.safaris.migrationHero)} alt="Breathable safari fabrics" />
+                    <img src={getVisual('safari.whatToWearFullBleed', visualsData.safaris.migrationHero)} alt="Breathable safari fabrics for Tanzania — lightweight clothing for warm climate game drives" />
                 </motion.div>
                 <div className="field-split-text">
                     <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }} variants={fade}>
@@ -116,7 +116,7 @@ const WhatToWear = () => {
 
             {/* ═══ FULL BLEED BREAK ═══ */}
             <section className="field-bleed">
-                <img src={getVisual('safari.whatToWearFullBleed', visualsData.safaris.migrationHero)} alt="Savanna landscape" />
+                <img src={getVisual('safari.whatToWearFullBleed', visualsData.safaris.migrationHero)} alt="Serengeti savanna landscape — Tanzania safari destination with acacia trees and golden plains" />
                 <span className="field-bleed-caption">Serengeti, Tanzania</span>
             </section>
 

@@ -303,6 +303,7 @@ export const Navbar = () => {
                   <div className="mega-col">
                     <h3 className="mega-heading">Safari Guide</h3>
                     <ul className="mega-sub-links">
+                      <li><Link href="/safaris/guide">Safari Guide Overview</Link></li>
                       <li><Link href="/safari-guide/what-to-wear">What to Wear</Link></li>
                       <li><Link href="/safari-guide/packing-guide">Packing List</Link></li>
                       <li><Link href="/safari-guide/health-and-safety">Health & Safety</Link></li>

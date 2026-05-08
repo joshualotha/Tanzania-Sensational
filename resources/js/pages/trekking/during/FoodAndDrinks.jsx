@@ -33,7 +33,7 @@ const FoodAndDrinks = () => {
                 <div className="sd-hero-bg">
                     <img
                         src={visuals.getSingle('trekking.during.food', visualsData.trekking.during.food)}
-                        alt="Cooking at altitude"
+                        alt="Cooking at altitude on Kilimanjaro — mountain chef preparing meals in the mess tent"
                     />
                     <div className="sd-hero-overlay"></div>
                 </div>
@@ -51,7 +51,7 @@ const FoodAndDrinks = () => {
                     <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1 }}>
                         <img
                             src={visuals.getSingle('trekking.during.foodEditorial', visualsData.trekking.during.foodEditorial)}
-                            alt="Dining Tent"
+                            alt="Dining tent on Kilimanjaro — expedition mess tent with meals prepared for trekkers"
                             style={{ width: '100%', borderRadius: '12px', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}
                         />
                     </motion.div>
@@ -124,7 +124,7 @@ const FoodAndDrinks = () => {
             <section className="sd-full-bleed">
                 <img
                     src={visualsData.trekking.routes.marangu}
-                    alt="Fresh vegetables in mountain camp"
+                    alt="Fresh vegetables and provisions at Kilimanjaro mountain camp — food supply for expedition nutrition"
                 />
             </section>
 

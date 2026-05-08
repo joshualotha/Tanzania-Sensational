@@ -31,7 +31,7 @@ const Marangu = ({ route }) => {
             <section className="lux-hero">
                 <img
                     src={route?.hero_image || getVisual('trekking.routes.marangu', visualsData.trekking.routes.marangu)}
-                    alt="Marangu Route Landscape"
+                    alt="Marangu Route on Kilimanjaro — the Coca-Cola Route through rainforest to summit"
                 />
                 <div className="lux-hero-overlay"></div>
                 <div className="lux-hero-content">
@@ -85,7 +85,7 @@ const Marangu = ({ route }) => {
                     >
                         <img
                             src={route?.editorial_image || getVisual('trekking.routes.maranguEditorial', visualsData.trekking.routes.maranguEditorial)}
-                            alt="Marangu Huts"
+                            alt="Marangu Route huts on Kilimanjaro — A-frame dormitory accommodation on the classic trail"
                         />
                         <div className="lux-image-caption">The iconic A-frame dormitories unique to the Marangu Route.</div>
                     </motion.div>
@@ -124,7 +124,7 @@ const Marangu = ({ route }) => {
                                 transition={{ duration: 0.8, delay: index * 0.1 }}
                             >
                                 <div className="lux-package-image">
-                                    <img src={pkg.hero_image || visualsData.trekking.routes.marangu} alt={pkg.name} />
+                                    <img src={pkg.hero_image || visualsData.trekking.routes.marangu} alt={`${pkg.name} — Kilimanjaro trekking package on the Marangu Route`} />
                                 </div>
                                 <div className="lux-package-content">
                                     <div>

@@ -147,7 +147,7 @@ class BlogPostsSeeder extends Seeder
     private function post1(): string
     {
         return <<<"HTMLBODY"
-<p><strong>Packing for Kilimanjaro is not about bringing everything you own - it is about bringing exactly what you need and nothing else.</strong> After guiding hundreds of climbers up all seven routes, we have refined this Kilimanjaro packing list to the essentials that actually matter for comfort, safety, and summit success.</p>
+<p><strong>Packing for Kilimanjaro is not about bringing everything you own - it is about bringing exactly what you need and nothing else.</strong> After guiding hundreds of climbers up all seven routes, we have refined this <a href="/trekking/after/gear-list">Kilimanjaro packing list</a> to the essentials that actually matter for comfort, safety, and summit success.</p>
 
 <h2>The Layering System: Your Foundation</h2>
 <p>Forget brand names. Focus on fit, fabric, and the three-layer principle:</p>
@@ -167,7 +167,7 @@ class BlogPostsSeeder extends Seeder
 </ul>
 
 <h2>Summit Night Gear</h2>
-<p>Summit night is the most physically demanding part of any Kilimanjaro climb. You start around midnight in freezing temperatures:</p>
+<p>Summit night is the most physically demanding part of any <a href="/trekking">Kilimanjaro climb</a>. You start around midnight in freezing temperatures:</p>
 <ul>
   <li><strong>Headlamp</strong> with fresh batteries and a spare set. Test it before departure.</li>
   <li><strong>Hand warmers</strong> - disposable chemical packs for gloves and boots.</li>
@@ -177,7 +177,7 @@ class BlogPostsSeeder extends Seeder
 </ul>
 
 <h2>Gear We Recommend for Every Route</h2>
-<p>Whether you choose the 7-day Lemosho Route, the 7-day Machame Route, or the 6-day Marangu Route, these items are universal:</p>
+<p>Whether you choose the 7-day <a href="/trekking/lemosho">Lemosho Route</a>, the 7-day <a href="/trekking/machame">Machame Route</a>, or the 6-day <a href="/trekking/marangu">Marangu Route</a>, these items are universal:</p>
 <ul>
   <li>Sleeping bag rated to -10 C (15 F) or colder. Rent one in Moshi if you do not own a suitable bag.</li>
   <li>Sleeping bag liner (adds warmth and hygiene).</li>
@@ -201,16 +201,16 @@ class BlogPostsSeeder extends Seeder
 
 <h2>Printable Checklist</h2>
 <p>Download our complete Kilimanjaro packing checklist when you book with us. We also offer high-quality gear rental in Moshi for items you prefer not to travel with.</p>
-<p>Ready to plan your climb? Explore our Kilimanjaro trekking packages or send a booking request - we will confirm details and help you prepare.</p>
+<p>Ready to plan your climb? Explore our <a href="/trekking">Kilimanjaro trekking packages</a> or <a href="/contact">send a booking request</a> - we will confirm details and help you prepare.</p>
 HTMLBODY;
     }
 
     private function post2(): string
     {
         return <<<"HTMLBODY"
-<p><strong>Lemosho and Machame are the two most popular Kilimanjaro routes - and for good reason.</strong> Both offer stunning scenery, high summit success rates, and proper acclimatisation profiles. But they are not the same, and choosing between them can make or break your experience on the mountain.</p>
+<p><strong>Lemosho and Machame are the two most popular <a href="/trekking">Kilimanjaro routes</a> - and for good reason.</strong> Both offer stunning scenery, high summit success rates, and proper acclimatisation profiles. But they are not the same, and choosing between them can make or break your experience on the mountain.</p>
 
-<p>This guide compares the Lemosho Route and the Machame Route across five key factors: scenery, difficulty, success rate, crowd levels, and cost. By the end, you will know exactly which route suits your goals.</p>
+<p>This guide compares the <a href="/trekking/lemosho">Lemosho Route</a> and the <a href="/trekking/machame">Machame Route</a> across five key factors: scenery, difficulty, success rate, crowd levels, and cost. By the end, you will know exactly which route suits your goals.</p>
 
 <h2>Lemosho Route Overview</h2>
 <p>The Lemosho Route approaches Kilimanjaro from the west, starting through the lush, untouched rainforest of the Londorossi Gate. It is widely considered the most scenic route on the mountain, crossing the Shira Plateau on day two with panoramic views of the summit from the west.</p>
@@ -238,7 +238,7 @@ HTMLBODY;
 <p>Lemosho wins this category. The traverse across the Shira Plateau on day two offers uninterrupted views of Kibo Peak that Machame simply does not match. However, Machame's Barranco Wall climb is a thrilling highlight that Lemosho lacks (since Lemosho approaches the wall from a different angle).</p>
 
 <h3>Acclimatisation and Success Rates</h3>
-<p>Both routes follow the "climb high, sleep low" principle, but Lemosho's longer approach gives it a slight edge. The 8-day Lemosho itinerary includes an extra acclimatisation day at Karanga Camp, pushing success rates above 90%. The 7-day Machame is excellent but slightly more compressed.</p>
+<p>Both routes follow the "climb high, sleep low" principle, but Lemosho's longer approach gives it a slight edge. The 8-day Lemosho itinerary includes an extra acclimatisation day at Karanga Camp, pushing success rates above 90%. The 7-day Machame is excellent but slightly more compressed. For a deeper dive into how altitude affects your climb, read our <a href="/trekking/health/altitude-sickness">altitude acclimatisation guide</a>.</p>
 
 <h3>Crowds</h3>
 <p>Lemosho is noticeably quieter for the first three days. You will share the trail with fewer climbers and enjoy a more wilderness experience. Machame is busier from day one, especially at camps like Barranco and Karanga.</p>
@@ -267,14 +267,14 @@ HTMLBODY;
 <h2>Other Routes Worth Considering</h2>
 <p>If neither Lemosho nor Machame feels right, consider these alternatives:</p>
 <ul>
-  <li>Rongai Route - The only route approaching from the north, drier and quieter, ideal for the rainy season.</li>
-  <li>Marangu Route - The only route with hut accommodation, easier but lower success rate due to shorter acclimatisation.</li>
-  <li>Northern Circuit - The longest and most remote route, with the highest success rate on the mountain.</li>
+  <li><a href="/trekking/rongai">Rongai Route</a> - The only route approaching from the north, drier and quieter, ideal for the rainy season.</li>
+  <li><a href="/trekking/marangu">Marangu Route</a> - The only route with hut accommodation, easier but lower success rate due to shorter acclimatisation.</li>
+  <li><a href="/trekking/northern-circuit">Northern Circuit</a> - The longest and most remote route, with the highest success rate on the mountain.</li>
 </ul>
 
 <blockquote>"I have guided both routes over 50 times. If you have the time, Lemosho in 8 days gives you the best experience. If you are fit and short on time, Machame in 7 days will still get you there." - Senior Guide, Tanzania Sensational</blockquote>
 
-<p>Not sure which route fits your fitness level and schedule? Send us a booking request and we will recommend the best option for you.</p>
+<p>Not sure which route fits your fitness level and schedule? <a href="/contact">Send us a booking request</a> and we will recommend the best option for you.</p>
 HTMLBODY;
     }
 
@@ -283,7 +283,7 @@ HTMLBODY;
         return <<<"HTMLBODY"
 <p><strong>Altitude acclimatisation is the single biggest factor determining whether you summit Kilimanjaro or turn back.</strong> Fitness matters, gear matters, and mental preparation matters - but none of it matters if your body cannot handle the altitude.</p>
 
-<p>This guide explains how altitude affects your body, what you can do to acclimatise effectively, and how to recognise the early signs of altitude sickness before they become dangerous.</p>
+<p>This guide explains how altitude affects your body, what you can do to acclimatise effectively, and how to recognise the early signs of <a href="/trekking/health/altitude-sickness">altitude sickness</a> before they become dangerous.</p>
 
 <h2>What Happens to Your Body at Altitude</h2>
 <p>At sea level, the air contains about 21% oxygen. At Kilimanjaro's summit (5,895 m / 19,341 ft), the oxygen level is roughly 49% of sea level. Your body responds by:</p>
@@ -302,7 +302,7 @@ HTMLBODY;
   <li>Descend to a lower elevation to sleep.</li>
   <li>Repeat the next day, gradually increasing your sleeping altitude.</li>
 </ul>
-<p>Routes like the 8-day Lemosho Route and 9-day Northern Circuit are designed with optimal acclimatisation profiles. Shorter routes like the 5-day Marangu Route have lower success rates precisely because they compress the ascent.</p>
+<p>Routes like the 8-day <a href="/trekking/lemosho">Lemosho Route</a> and 9-day <a href="/trekking/northern-circuit">Northern Circuit</a> are designed with optimal acclimatisation profiles. Shorter routes like the 5-day <a href="/trekking/marangu">Marangu Route</a> have lower success rates precisely because they compress the ascent.</p>
 
 <h2>Recognising Altitude Mountain Sickness (AMS)</h2>
 <p>AMS exists on a spectrum. Mild symptoms are common and manageable. Severe symptoms require immediate descent.</p>
@@ -324,10 +324,10 @@ HTMLBODY;
   <li>Inability to walk in a straight line (ataxia).</li>
   <li>Vomiting repeatedly.</li>
 </ul>
-<p><strong>What to do:</strong> Descend immediately. Do not wait. Do not "wait and see." Descending 500-1,000 m is the only effective treatment. Our guides carry emergency oxygen and a portable hyperbaric chamber (Gamow bag) on every climb.</p>
+<p><strong>What to do:</strong> Descend immediately. Do not wait. Do not "wait and see." Descending 500-1,000 m is the only effective treatment. Our guides carry emergency oxygen and a portable hyperbaric chamber (Gamow bag) on every climb. Learn more about <a href="/trekking/health/oxygen">emergency oxygen on Kilimanjaro</a>.</p>
 
 <h2>Medication: Acetazolamide (Diamox)</h2>
-<p>Acetazolamide, commonly known as Diamox, is a medication that speeds up acclimatisation by making your blood more acidic, which stimulates faster breathing. It is not a magic pill - it does not prevent severe AMS - but it can reduce mild symptoms.</p>
+<p>Acetazolamide, commonly known as <a href="/trekking/health/diamox">Diamox</a>, is a medication that speeds up acclimatisation by making your blood more acidic, which stimulates faster breathing. It is not a magic pill - it does not prevent severe AMS - but it can reduce mild symptoms.</p>
 <ul>
   <li>Typical dose: 125 mg twice daily, starting 24 hours before ascent.</li>
   <li>Side effects: tingling in fingers and toes, frequent urination, altered taste (especially carbonated drinks).</li>
@@ -344,11 +344,11 @@ HTMLBODY;
   <li><strong>7-day routes</strong> (Machame 7-day, Lemosho 7-day, Rongai 7-day): ~80-85% summit success.</li>
   <li><strong>8-9 day routes</strong> (Lemosho 8-day, Northern Circuit 9-day): ~90-95% summit success.</li>
 </ul>
-<p>The data is clear: extra days on the mountain dramatically improve your chances. If you have the time, invest in a longer itinerary.</p>
+<p>The data is clear: extra days on the mountain dramatically improve your chances. If you have the time, invest in a longer itinerary. See our <a href="/plan/group-departures">group departure dates</a> for scheduled climbs on these routes.</p>
 
 <blockquote>"I have seen ultra-fit athletes turn back at 5,000 m and 65-year-old grandmothers reach the summit. Altitude does not care about your gym routine - it cares about how slowly you ascend." - Lead Guide, Tanzania Sensational</blockquote>
 
-<p>Ready to climb? Browse our Kilimanjaro trekking packages or send a booking request for a personalised recommendation.</p>
+<p>Ready to climb? Browse our <a href="/trekking">Kilimanjaro trekking packages</a> or <a href="/contact">send a booking request</a> for a personalised recommendation.</p>
 HTMLBODY;
     }
 
@@ -365,17 +365,17 @@ HTMLBODY;
 <p>Your guide or camp staff will bring hot tea or coffee to your tent. This is not a luxury - it is essential to warm your core temperature and start rehydrating after a cold night at altitude. Drink it before you do anything else.</p>
 
 <h3>6:30 AM - Wash and Pack</h3>
-<p>A basin of warm water is provided for a quick wash. You pack your sleeping bag and duffel, which the porters will carry to the next camp. Your daypack should contain: water (3 litres), snacks, extra layers, rain gear, sunscreen, and your camera.</p>
+<p>A basin of warm water is provided for a quick wash. You pack your sleeping bag and duffel, which the porters will carry to the next camp. Your daypack should contain: water (3 litres), snacks, extra layers, rain gear, sunscreen, and your camera. For a complete packing reference, see our <a href="/trekking/after/gear-list">Kilimanjaro gear list</a>.</p>
 
 <h3>7:00 AM - Breakfast</h3>
 <p>Hot porridge, eggs, toast, fresh fruit, and endless tea or coffee. Your body needs fuel for 5-7 hours of hiking. Eat even if you have no appetite - altitude suppresses hunger, but your muscles still need energy.</p>
 
 <h3>7:45 AM - Safety Briefing</h3>
-<p>Your lead guide explains the day's route, expected duration, altitude gain, key landmarks, and potential hazards. This is also when they check each climber's condition - any signs of AMS are noted and monitored.</p>
+<p>Your lead guide explains the day's route, expected duration, altitude gain, key landmarks, and potential hazards. This is also when they check each climber's condition - any signs of AMS are noted and monitored. Learn about <a href="/trekking/health/altitude-sickness">altitude sickness symptoms</a> to know what to watch for.</p>
 
 <h3>8:00 AM - 12:00 PM - Morning Hike</h3>
 <p>The morning session is the main hiking block. You walk at a slow, steady pace - "pole pole" (slowly slowly) in Swahili. This is deliberate: walking slowly conserves energy and aids acclimatisation. Your guide sets the pace; do not overtake them.</p>
-<p>The terrain varies dramatically depending on which route you are on. On the Lemosho Route, you might traverse the Shira Plateau with panoramic views of the summit. On the Machame Route, you could be scrambling up the Barranco Wall.</p>
+<p>The terrain varies dramatically depending on which route you are on. On the <a href="/trekking/lemosho">Lemosho Route</a>, you might traverse the Shira Plateau with panoramic views of the summit. On the <a href="/trekking/machame">Machame Route</a>, you could be scrambling up the Barranco Wall.</p>
 
 <h2>Midday: 12:00 PM - 2:00 PM</h2>
 
@@ -399,7 +399,7 @@ HTMLBODY;
 <h2>Evening: 6:00 PM - 9:00 PM</h2>
 
 <h3>6:30 PM - Dinner</h3>
-<p>A three-course meal prepared by the camp cook. Soup, main course, and dessert. The quality of food on Kilimanjaro surprises most climbers - our cooks prepare fresh, varied meals that rival restaurant quality.</p>
+<p>A three-course meal prepared by the camp cook. Soup, main course, and dessert. The quality of food on Kilimanjaro surprises most climbers - our cooks prepare fresh, varied meals that rival restaurant quality. Find out more about <a href="/trekking/during/food-and-drinks">food and drinks on Kilimanjaro</a>.</p>
 
 <h3>8:00 PM - Prepare for Bed</h3>
 <p>Fill your water bottles for the next day (your guide will boil water). Lay out your clothes for the morning. Use the toilet tent (a private portable toilet is included on all our climbs). Apply hand sanitiser - hygiene at camp prevents illness.</p>
@@ -408,33 +408,33 @@ HTMLBODY;
 <p>By 8:30 PM, most of the camp is quiet. You need 8-9 hours of sleep to recover from the day's exertion. Temperatures drop to freezing or below at higher camps. Your sleeping bag rated to -10 C, a liner, and a warm layer are essential.</p>
 
 <h2>Summit Day: The Exception</h2>
-<p>Summit night is completely different. You wake at 11:30 PM, have a light snack, and begin the ascent at midnight. The climb to Stella Point (5,756 m) takes 6-8 hours, followed by 1-2 hours to Uhuru Peak (5,895 m). The descent back to camp takes another 4-6 hours. It is the longest, hardest, and most rewarding day of your life.</p>
+<p>Summit night is completely different. You wake at 11:30 PM, have a light snack, and begin the ascent at midnight. The climb to Stella Point (5,756 m) takes 6-8 hours, followed by 1-2 hours to Uhuru Peak (5,895 m). The descent back to camp takes another 4-6 hours. It is the longest, hardest, and most rewarding day of your life. Prepare with our <a href="/plan/training-guide">8-week Kilimanjaro training plan</a>.</p>
 
 <blockquote>"The daily rhythm on Kilimanjaro is simple: walk, eat, sleep, repeat. But there is a meditative quality to it. No emails, no notifications, no distractions. Just the mountain, your team, and one step at a time." - Guide, Tanzania Sensational</blockquote>
 
-<p>Ready to experience it for yourself? Explore our Kilimanjaro trekking packages or send a booking request to start planning your adventure.</p>
+<p>Ready to experience it for yourself? Explore our <a href="/trekking">Kilimanjaro trekking packages</a> or <a href="/contact">send a booking request</a> to start planning your adventure.</p>
 HTMLBODY;
     }
     private function post5(): string
     {
         return <<<'HTML'
 <h2>Combine Kilimanjaro with the Ultimate Safari Experience</h2>
-<p>You've conquered Africa's highest peak. Now it's time to explore its most iconic wilderness. Combining a Kilimanjaro trek with a Tanzania safari is the ultimate East African adventure — and one that we specialise in at <a href="/safaris">Sensational Tanzania</a>.</p>
+<p>You've conquered Africa's highest peak. Now it's time to explore its most iconic wilderness. Combining a Kilimanjaro trek with a Tanzania safari is the ultimate East African adventure — and one that we specialise in at <a href="/safaris">Sensational Tanzania</a>. For a complete overview of everything you need to know, start with our <a href="/safaris/guide">Tanzania Safari Guide</a>.</p>
 
 <h3>Why Add a Safari After Your Climb?</h3>
 <p>After 6–8 days of physical exertion on the mountain, a safari offers the perfect contrast: game drives in open-topped vehicles, luxury lodges, and the chance to witness the Big Five without breaking a sweat. Your body recovers while your sense of wonder gets a second wind.</p>
 
 <h3>3-Day Safari: The Northern Circuit Express</h3>
-<p>Short on time? This compact itinerary covers Tarangire National Park, Lake Manyara, and the Ngorongoro Crater. You'll see elephants against baobab-studded plains, tree-climbing lions, and the densest concentration of wildlife on earth inside the crater floor. Ideal for climbers flying out of Kilimanjaro Airport within the week.</p>
+<p>Short on time? This compact itinerary covers <a href="/safaris/destinations/tarangire">Tarangire National Park</a>, Lake Manyara, and the <a href="/safaris/destinations/ngorongoro">Ngorongoro Crater</a>. You'll see elephants against baobab-studded plains, tree-climbing lions, and the densest concentration of wildlife on earth inside the crater floor. Ideal for climbers flying out of Kilimanjaro Airport within the week.</p>
 
 <h3>5-Day Safari: Adding the Serengeti</h3>
-<p>This is our most popular post-climb add-on. After Tarangire and Ngorongoro, you head into the <a href="/safaris">Serengeti National Park</a> for two full days of game drives. Depending on the season, you'll witness the Great Migration — over 1.5 million wildebeest and 200,000 zebra moving across the plains in search of fresh grazing. The Serengeti is also your best chance of seeing cheetah, leopard, and serval cats.</p>
+<p>This is our most popular post-climb add-on. After Tarangire and Ngorongoro, you head into the <a href="/safaris/destinations/serengeti">Serengeti National Park</a> for two full days of game drives. Depending on the season, you'll witness the Great Migration — over 1.5 million wildebeest and 200,000 zebra moving across the plains in search of fresh grazing. The Serengeti is also your best chance of seeing cheetah, leopard, and serval cats.</p>
 
 <h3>7-Day Safari: The Complete Northern Circuit</h3>
 <p>For those with maximum time, a 7-day itinerary adds Lake Natron (home to flamingos and the active Ol Doinyo Lengai volcano) and a deeper exploration of the Serengeti's remote western corridor. You'll also visit a Maasai village for a cultural experience that puts your Kilimanjaro summit into the context of centuries of East African heritage.</p>
 
 <h3>Best Time for a Post-Climb Safari</h3>
-<p>The dry season (June–October) coincides perfectly with Kilimanjaro's best climbing windows. Wildlife congregates around water sources, making game viewing exceptional. The short rains (November–December) bring fewer crowds and lower rates, while the green season (January–March) offers newborn animals and spectacular birding.</p>
+<p>The dry season (June–October) coincides perfectly with Kilimanjaro's best climbing windows. Wildlife congregates around water sources, making game viewing exceptional. The short rains (November–December) bring fewer crowds and lower rates, while the green season (January–March) offers newborn animals and spectacular birding. For detailed timing advice, see our <a href="/safaris/guide">Safari Guide</a>.</p>
 
 <h3>Practical Tips</h3>
 <ul>
@@ -482,10 +482,10 @@ HTML;
     {
         return <<<'HTML'
 <h2>8-Week Training Plan for Kilimanjaro: Get Summit-Ready</h2>
-<p>"Will I be fit enough?" It's the most common question we hear from aspiring Kilimanjaro trekkers. The honest answer: you don't need to be an elite athlete, but you do need to prepare. This 8-week training plan is designed to build the cardiovascular endurance, leg strength, and mental resilience you'll need for summit night.</p>
+<p>"Will I be fit enough?" It's the most common question we hear from aspiring Kilimanjaro trekkers. The honest answer: you don't need to be an elite athlete, but you do need to prepare. This <a href="/plan/training-guide">8-week training plan</a> is designed to build the cardiovascular endurance, leg strength, and mental resilience you'll need for summit night.</p>
 
 <h3>Understanding the Demands of Kilimanjaro</h3>
-<p>Kilimanjaro is not a technical climb — no ropes, no ice axes, no prior mountaineering experience required. What it demands is sustained effort over many hours at low oxygen levels. Summit night alone involves 6–8 hours of continuous uphill walking at altitudes above 4,500 metres. Your training should mirror these demands: long-duration, moderate-intensity effort with a focus on recovery.</p>
+<p>Kilimanjaro is not a technical climb — no ropes, no ice axes, no prior mountaineering experience required. What it demands is sustained effort over many hours at low oxygen levels. Summit night alone involves 6–8 hours of continuous uphill walking at altitudes above 4,500 metres. Your training should mirror these demands: long-duration, moderate-intensity effort with a focus on recovery. Learn more about <a href="/trekking/health/altitude-sickness">how altitude affects your body</a> during the climb.</p>
 
 <h3>Week 1–2: Foundation Building</h3>
 <ul>
@@ -516,7 +516,7 @@ HTML;
 </ul>
 
 <h3>Week 8: Travel & Acclimatise</h3>
-<p>Arrive in Moshi 1–2 days before your trek starts. Light walks around town, stay hydrated, and trust your training. The work is done — now it's time to enjoy the experience.</p>
+<p>Arrive in Moshi 1–2 days before your trek starts. Light walks around town, stay hydrated, and trust your training. The work is done — now it's time to enjoy the experience. See our <a href="/trekking/after/getting-there">getting to Kilimanjaro guide</a> for travel logistics.</p>
 
 <h3>Additional Training Tips</h3>
 <ul>
@@ -549,7 +549,7 @@ HTML;
 </ul>
 
 <h3>How Much Should You Budget?</h3>
-<p>For a 7-day trek, a reasonable total tip per trekker is $250–$350. For an 8-day route like Lemosho or Northern Circuit, budget $300–$400. This breaks down to roughly $35–$50 per day across the entire crew. If you're on a budget, $200 is still acceptable — but $300 is the sweet spot for showing genuine appreciation.</p>
+<p>For a 7-day trek, a reasonable total tip per trekker is $250–$350. For an 8-day route like <a href="/trekking/lemosho">Lemosho</a> or <a href="/trekking/northern-circuit">Northern Circuit</a>, budget $300–$400. This breaks down to roughly $35–$50 per day across the entire crew. If you're on a budget, $200 is still acceptable — but $300 is the sweet spot for showing genuine appreciation.</p>
 
 <h3>When and How to Tip</h3>
 <p>Tipping traditionally happens on the last evening of the trek or after the final descent. Your head guide will gather the crew, introduce each member, and you'll present the tip in cash. US dollars are preferred (clean, unmarked bills — no torn notes). Have the cash ready in envelopes if you want to distribute personally, though the pool system is simpler and more equitable.</p>
@@ -557,7 +557,7 @@ HTML;
 <h3>Frequently Asked Questions</h3>
 <p><strong>Should I tip if I didn't summit?</strong> Absolutely. Your crew worked just as hard to support you. Summit success depends on many factors, including altitude response — your effort and their effort deserve recognition regardless of outcome.</p>
 <p><strong>Can I tip in other currencies?</strong> US dollars are strongly preferred. Tanzanian shillings are acceptable but less convenient for crew members. Euros and pounds are generally not recommended.</p>
-<p><strong>What about the safari crew?</strong> On <a href="/safaris">safari packages</a>, tip your driver-guide $15–$25 per day and lodge staff $5–$10 per day.</p>
+<p><strong>What about the safari crew?</strong> On <a href="/safaris">safari packages</a>, tip your driver-guide $15–$25 per day and lodge staff $5–$10 per day. For more on safari planning, see our <a href="/safaris/guide">Tanzania Safari Guide</a>.</p>
 <p><strong>Should I tip before or after the trek?</strong> After. Tipping at the end ensures the crew has delivered the full experience. However, never use the threat of withholding a tip as leverage — it undermines the relationship of trust.</p>
 
 <h3>Final Advice</h3>
@@ -571,7 +571,7 @@ HTML;
 <p>One of the most remarkable aspects of climbing Kilimanjaro is the journey through five distinct ecological zones. In just a few days, you'll ascend from lush tropical rainforest to an arctic summit landscape — a climatic transition that takes thousands of kilometres horizontally compressed into a 4,000-metre vertical climb.</p>
 
 <h3>Zone 1: Cultivated Zone (800–1,800m)</h3>
-<p>Your journey begins in the fertile foothills surrounding Moshi. This zone is dominated by small farms growing coffee, bananas, maize, and beans. The air is warm and humid, and the trails pass through vibrant villages where children wave and farmers tend their plots. This is also where you'll find the Chagga people's traditional banana-beer brewing huts and the iconic <em>shamba</em> (farm) system that has sustained communities for centuries. Most treks begin at the park gate, which sits at the boundary between the cultivated zone and the rainforest.</p>
+<p>Your journey begins in the fertile foothills surrounding Moshi. This zone is dominated by small farms growing coffee, bananas, maize, and beans. The air is warm and humid, and the trails pass through vibrant villages where children wave and farmers tend their plots. This is also where you'll find the Chagga people's traditional banana-beer brewing huts and the iconic <em>shamba</em> (farm) system that has sustained communities for centuries. Most treks begin at the park gate, which sits at the boundary between the cultivated zone and the rainforest. For details on arriving in Moshi, see our <a href="/trekking/after/getting-there">getting to Kilimanjaro guide</a>.</p>
 
 <h3>Zone 2: Montane Rainforest (1,800–2,800m)</h3>
 <p>Entering the rainforest is like stepping into another world. The canopy towers overhead, filtering sunlight into dappled patterns on the forest floor. Giant ferns, moss-draped trees, and strangler figs dominate the vegetation. This zone receives up to 2,000 mm of rainfall annually, creating a lush, humid environment. Keep your eyes open for wildlife: black-and-white colobus monkeys leap through the canopy, blue monkeys forage in the understory, and if you're lucky, you might spot a bushbuck or duiker. The birdlife is extraordinary — look for the colourful Hartlaub's turaco and the distinctive crowned hornbill. The <a href="/trekking/marangu">Marangu Route</a> and <a href="/trekking/machame">Machame Route</a> both begin their first day in this zone.</p>
@@ -580,13 +580,13 @@ HTML;
 <p>As the trees thin out, you enter a landscape of giant heather, lobelias, and groundsels. These plants have adapted to the harsh conditions with rosette shapes that protect their growing tips from frost. The temperature drops noticeably, and the air becomes thinner. This is where you'll first feel the altitude — a slight breathlessness on steep sections, a mild headache by evening. The views open up dramatically, with the mountain's bulk looming above and the plains of Tanzania stretching to the horizon below. The trail winds through valleys of volcanic rock and across streams fed by glacial meltwater. The <a href="/trekking/lemosho">Lemosho Route</a> crosses the beautiful Shira Plateau in this zone — a high-altitude desert of volcanic craters and ancient lava flows.</p>
 
 <h3>Zone 4: Alpine Desert (4,000–5,000m)</h3>
-<p>Above 4,000 metres, vegetation becomes sparse. The landscape is raw and lunar — volcanic scree, rocky outcrops, and the occasional hardy lichen clinging to boulders. Daytime temperatures can reach 30°C in direct sun, while nights plunge well below freezing. This is the zone where altitude becomes a serious factor. Most trekkers experience significant symptoms here: loss of appetite, disrupted sleep, and persistent headaches. The strategy is "climb high, sleep low" — your daily ascent takes you higher than your sleeping altitude, giving your body time to acclimatise. The Barranco Wall, a steep scramble on the Machame and Lemosho routes, sits at the boundary between moorland and alpine desert.</p>
+<p>Above 4,000 metres, vegetation becomes sparse. The landscape is raw and lunar — volcanic scree, rocky outcrops, and the occasional hardy lichen clinging to boulders. Daytime temperatures can reach 30°C in direct sun, while nights plunge well below freezing. This is the zone where altitude becomes a serious factor. Most trekkers experience significant symptoms here: loss of appetite, disrupted sleep, and persistent headaches. The strategy is "climb high, sleep low" — your daily ascent takes you higher than your sleeping altitude, giving your body time to acclimatise. The Barranco Wall, a steep scramble on the Machame and Lemosho routes, sits at the boundary between moorland and alpine desert. Learn more about <a href="/trekking/health/altitude-sickness">altitude sickness prevention and symptoms</a>.</p>
 
 <h3>Zone 5: Arctic Summit Zone (5,000–5,895m)</h3>
 <p>The final zone is a world of ice, rock, and thin air. At 50% of sea-level oxygen, every step requires conscious effort. The landscape is dominated by glaciers — the Furtwängler, Rebmann, and Ratzel glaciers — though they have receded dramatically over the past century. Summit night is a surreal experience: headlamps bobbing in the darkness, the crunch of boots on volcanic scree, and the gradual lightening of the sky as dawn approaches. Reaching Uhuru Peak at sunrise, with the African continent spread at your feet and the glaciers glowing pink in the morning light, is an experience that defies description.</p>
 
 <h3>Why Understanding the Zones Matters</h3>
-<p>Knowing what to expect in each zone helps you prepare mentally and physically. Pack for all seasons: a single day on Kilimanjaro can take you from tropical warmth to arctic cold. Layer your clothing, stay hydrated, and pace yourself. Each zone presents different challenges — and different rewards. The transition from rainforest to moorland, from moorland to alpine desert, and finally to the arctic summit is a journey through the world's climatic extremes, all in a single trek.</p>
+<p>Knowing what to expect in each zone helps you prepare mentally and physically. Pack for all seasons: a single day on Kilimanjaro can take you from tropical warmth to arctic cold. Layer your clothing, stay hydrated, and pace yourself. Each zone presents different challenges — and different rewards. The transition from rainforest to moorland, from moorland to alpine desert, and finally to the arctic summit is a journey through the world's climatic extremes, all in a single trek. For a complete packing list tailored to each zone, see our <a href="/trekking/after/gear-list">Kilimanjaro gear list</a>.</p>
 <p>Ready to experience all five zones? Explore our <a href="/trekking">Kilimanjaro trekking routes</a> and choose the one that takes you through this incredible journey.</p>
 HTML;
     }

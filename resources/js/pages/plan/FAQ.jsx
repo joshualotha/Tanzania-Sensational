@@ -112,7 +112,7 @@ const FAQ = () => {
             {/* Hero Section */}
             <section className="utility-hero">
                 <div className="utility-hero-bg">
-                    <img src={getVisual('planning.faqHero', visualsData.planning.faqHero)} alt="Kilimanjaro summit with clear sky" />
+                    <img src={getVisual('planning.faqHero', visualsData.planning.faqHero)} alt="Kilimanjaro summit with clear blue sky — frequently asked questions about climbing Tanzania's highest peak" />
                 </div>
                 <div className="utility-hero-overlay"></div>
                 <motion.div className="utility-hero-content" initial="hidden" animate="visible" variants={containerVariants}>
@@ -227,7 +227,7 @@ const FAQ = () => {
                                     transition={{ duration: 0.8, delay: sIdx * 0.1, ease: [0.16, 1, 0.3, 1] }}
                                 >
                                     <div className="bento-card-bg-img">
-                                        <img src={sectionImages[section.category]} alt={section.category} />
+                                        <img src={sectionImages[section.category]} alt={section.category} loading="lazy" />
                                     </div>
                                     <div className="bento-card-gradient"></div>
                                     

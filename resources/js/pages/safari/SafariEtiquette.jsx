@@ -74,7 +74,7 @@ const SafariEtiquette = () => {
             {/* ═══ HERO ═══ */}
             <section className="field-hero">
                 <div className="field-hero-img">
-                    <img src={getVisual('safari.etiquetteHero', visualsData.about.hero)} alt="Tanzanian cultural interaction" />
+                    <img src={getVisual('safari.etiquetteHero', visualsData.about.hero)} alt="Tanzanian cultural interaction — Maasai community greeting visitors on safari" />
                 </div>
                 <div className="field-hero-gradient" />
                 <motion.div className="field-hero-content" initial="hidden" animate="visible" variants={fade}>
@@ -102,7 +102,7 @@ const SafariEtiquette = () => {
                     </motion.div>
                 </div>
                 <motion.div className="field-split-img" initial={{ opacity: 0, scale: 1.05 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1.5 }}>
-                    <img src={getVisual('safari.etiquetteEditorial', visualsData.zanzibar.regionStoneTown)} alt="Zanzibar Stone Town culture" />
+                    <img src={getVisual('safari.etiquetteEditorial', visualsData.zanzibar.regionStoneTown)} alt="Zanzibar Stone Town culture — historic architecture and Swahili heritage in Tanzania" loading="lazy" />
                 </motion.div>
             </div>
 
@@ -143,7 +143,7 @@ const SafariEtiquette = () => {
 
             {/* ═══ FULL BLEED ═══ */}
             <section className="field-bleed">
-                <img src={getVisual('safari.etiquetteFullBleed', visualsData.safaris.migrationHero)} alt="Tanzanian landscape" />
+                <img src={getVisual('safari.etiquetteFullBleed', visualsData.safaris.migrationHero)} alt="Serengeti National Park landscape — Tanzania safari destination with wildlife on the plains" />
                 <span className="field-bleed-caption">The Serengeti, Tanzania</span>
             </section>
 

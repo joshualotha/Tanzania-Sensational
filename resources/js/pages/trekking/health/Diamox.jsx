@@ -21,7 +21,7 @@ const Diamox = () => {
                 <div className="trek-health-hero-bg">
                     <img
                         src={visuals.getSingle('trekking.health.diamox', visualsData.trekking.health.diamox)}
-                        alt="Climbers silhouette"
+                        alt="Diamox for Kilimanjaro altitude sickness — climbers silhouetted against the mountain at sunrise"
                     />
                     <div className="trek-health-overlay"></div>
                 </div>
@@ -43,7 +43,7 @@ const Diamox = () => {
                     <div className="trek-health-image">
                         <img
                             src={visuals.getSingle('trekking.health.diamoxEditorial', visualsData.trekking.health.diamoxEditorial)}
-                            alt="Detailed planning"
+                            alt="Diamox medication planning for Kilimanjaro — altitude acclimatization and medical preparation"
                         />
                     </div>
                     <div className="trek-health-content">

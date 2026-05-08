@@ -27,7 +27,7 @@ const TrainingGuide = () => {
         <div className="utility-root">
             <section className="utility-hero">
                 <div className="utility-hero-bg">
-                    <img src={getVisual('planning.trainingHero', visualsData.planning.trainingHero)} alt="Training" />
+                    <img src={getVisual('planning.trainingHero', visualsData.planning.trainingHero)} alt="Kilimanjaro training preparation — hiker on a trail building endurance for the mountain expedition" />
                 </div>
                 <div className="utility-hero-overlay"></div>
                 <motion.div className="utility-hero-content" initial="hidden" animate="visible" variants={fadeInUp}>

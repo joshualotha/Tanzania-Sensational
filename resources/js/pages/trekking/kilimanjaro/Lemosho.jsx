@@ -31,7 +31,7 @@ const Lemosho = ({ route }) => {
             <section className="lux-hero">
                 <img
                     src={route?.hero_image || getVisual('trekking.routes.lemosho', visualsData.trekking.routes.lemosho)}
-                    alt="Lemosho Route Landscape"
+                    alt="Lemosho Route on Kilimanjaro — Shira Plateau crossing with mountain views"
                 />
                 <div className="lux-hero-overlay"></div>
                 <div className="lux-hero-content">
@@ -97,7 +97,7 @@ const Lemosho = ({ route }) => {
                     >
                         <img
                             src={route?.editorial_image || getVisual('trekking.during.routine', visualsData.trekking.during.routine)}
-                            alt="Shira Plateau"
+                            alt="Shira Plateau on Kilimanjaro Lemosho Route — vast high-altitude desert landscape"
                         />
                         <div className="lux-image-caption">Crossing the vast expanse of the Shira Plateau.</div>
                     </motion.div>
@@ -124,7 +124,7 @@ const Lemosho = ({ route }) => {
                                 transition={{ duration: 0.8, delay: index * 0.1 }}
                             >
                                 <div className="lux-package-image">
-                                    <img src={pkg.hero_image || visualsData.trekking.routes.lemosho} alt={pkg.name} />
+                                    <img src={pkg.hero_image || visualsData.trekking.routes.lemosho} alt={`${pkg.name} — Kilimanjaro trekking package on the Lemosho Route`} />
                                 </div>
                                 <div className="lux-package-content">
                                     <div>

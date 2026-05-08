@@ -31,7 +31,7 @@ const Rongai = ({ route }) => {
             <section className="lux-hero">
                 <img
                     src={route?.hero_image || getVisual('trekking.routes.rongai', visualsData.trekking.routes.rongai)}
-                    alt="Rongai Route Landscape"
+                    alt="Rongai Route on Kilimanjaro — the northern approach through remote wilderness"
                 />
                 <div className="lux-hero-overlay"></div>
                 <div className="lux-hero-content">
@@ -97,7 +97,7 @@ const Rongai = ({ route }) => {
                     >
                         <img
                             src={route?.editorial_image || getVisual('trekking.routes.rongaiEditorial', visualsData.trekking.routes.rongaiEditorial)}
-                            alt="Northern Side View"
+                            alt="Rongai Route northern approach on Kilimanjaro — sweeping views of the Kenyan border"
                         />
                         <div className="lux-image-caption">The quiet, sweeping views of the northern approach.</div>
                     </motion.div>
@@ -124,7 +124,7 @@ const Rongai = ({ route }) => {
                                 transition={{ duration: 0.8, delay: index * 0.1 }}
                             >
                                 <div className="lux-package-image">
-                                    <img src={pkg.hero_image || visualsData.trekking.routes.rongai} alt={pkg.name} />
+                                    <img src={pkg.hero_image || visualsData.trekking.routes.rongai} alt={`${pkg.name} — Kilimanjaro trekking package on the Rongai Route`} />
                                 </div>
                                 <div className="lux-package-content">
                                     <div>

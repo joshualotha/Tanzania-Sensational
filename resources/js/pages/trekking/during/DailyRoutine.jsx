@@ -48,7 +48,7 @@ const DailyRoutine = () => {
                 <div className="sd-hero-bg">
                     <img
                         src={visuals.getSingle('trekking.during.routine', visualsData.trekking.during.routine)}
-                        alt="Kilimanjaro Trail"
+                        alt="Kilimanjaro trekking trail through the moorland zone — daily routine on the mountain expedition"
                     />
                     <div className="sd-hero-overlay"></div>
                 </div>
@@ -80,7 +80,7 @@ const DailyRoutine = () => {
                     >
                         <img
                             src={visualsData.trekking.during.routineEditorial}
-                            alt="Mawenzi Peak"
+                            alt="Mawenzi Peak viewed from the Kilimanjaro trekking route — dramatic volcanic ridge at sunrise"
                             style={{ width: '100%', borderRadius: '12px', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}
                         />
                     </motion.div>
@@ -122,7 +122,7 @@ const DailyRoutine = () => {
             <section className="sd-full-bleed">
                 <img
                     src={visualsData.trekking.during.foodEditorial}
-                    alt="Camp at Night"
+                    alt="Kilimanjaro camp at night — tents illuminated under the stars on the mountain expedition"
                 />
             </section>
 

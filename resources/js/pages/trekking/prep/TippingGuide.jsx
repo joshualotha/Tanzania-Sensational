@@ -21,7 +21,7 @@ const TippingGuide = () => {
                 <div className="prep-hero-bg">
                     <img
                         src={visuals.getSingle('trekking.prep.tippingHero', visualsData.trekking.prep.tippingHero)}
-                        alt="Group on the mountain"
+                        alt="Kilimanjaro tipping guide — trekking group with guides and porters on summit day"
                     />
                     <div className="prep-hero-overlay"></div>
                 </div>
@@ -54,7 +54,7 @@ const TippingGuide = () => {
                         <img
                             src={visuals.getSingle('trekking.prep.tippingEditorial', visualsData.trekking.prep.tippingEditorial)}
                             className="prep-editorial-img"
-                            alt="Mountain Crew"
+                            alt="Kilimanjaro mountain crew — porters and guides essential to every expedition"
                         />
                         <span className="prep-img-caption">The Backbone of Your Expedition</span>
                     </motion.div>

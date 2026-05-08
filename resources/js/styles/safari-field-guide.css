@@ -658,3 +658,158 @@
     .field-checklist-section { padding: 60px 24px; }
     .field-table-section { padding: 80px 24px; }
 }
+
+/* ═══ PILLAR PAGE — Grid & Card System for SafariPillar.jsx ═══ */
+.field-pillar-grid {
+    display: grid;
+    gap: 24px;
+    margin-top: 60px;
+}
+
+.field-pillar-grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.field-pillar-grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.field-pillar-grid-5 {
+    grid-template-columns: repeat(5, 1fr);
+}
+
+.field-pillar-card {
+    background: #fff;
+    border: 1px solid var(--field-border);
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+}
+
+.field-pillar-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+}
+
+.field-pillar-card-body {
+    flex: 1;
+}
+
+.field-pillar-card-icon {
+    color: var(--field-gold);
+    margin-bottom: 16px;
+    display: block;
+}
+
+.field-pillar-card-eyebrow {
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--field-gold);
+    margin-bottom: 10px;
+    display: block;
+}
+
+.field-pillar-card-title {
+    font-family: var(--field-serif);
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--field-dark);
+    margin: 0 0 10px 0;
+    line-height: 1.3;
+}
+
+.field-pillar-card-desc {
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--field-mid);
+    margin: 0;
+}
+
+.field-pillar-card-meta {
+    margin-top: 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--field-earth);
+}
+
+.field-pillar-card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--field-dark);
+    text-decoration: none;
+    transition: gap 0.3s ease;
+}
+
+.field-pillar-card:hover .field-pillar-card-link {
+    gap: 14px;
+    color: var(--field-gold);
+}
+
+/* Pillar FAQ */
+.field-pillar-faq {
+    margin-top: 40px;
+}
+
+.field-pillar-faq-item {
+    padding: 28px 0;
+    border-bottom: 1px solid var(--field-border);
+}
+
+.field-pillar-faq-item:first-child {
+    border-top: 1px solid var(--field-border);
+}
+
+.field-pillar-faq-item h3 {
+    font-family: var(--field-serif);
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--field-dark);
+    margin: 0 0 10px 0;
+    line-height: 1.3;
+}
+
+.field-pillar-faq-item p {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: var(--field-mid);
+    margin: 0;
+}
+
+.field-pillar-faq-item a {
+    color: var(--field-gold);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.field-pillar-faq-item a:hover {
+    color: var(--field-earth);
+}
+
+/* Section alt background */
+.field-section-alt {
+    background: #fff;
+}
+
+@media (max-width: 1024px) {
+    .field-pillar-grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .field-pillar-grid-5 { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 768px) {
+    .field-pillar-grid-3,
+    .field-pillar-grid-4,
+    .field-pillar-grid-5 { grid-template-columns: 1fr; }
+    .field-pillar-card { padding: 24px 20px; }
+}

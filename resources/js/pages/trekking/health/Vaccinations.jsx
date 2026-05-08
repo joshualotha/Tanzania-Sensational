@@ -21,7 +21,7 @@ const Vaccinations = () => {
                 <div className="trek-health-hero-bg">
                     <img
                         src={visuals.getSingle('trekking.health.vaccinations', visualsData.trekking.health.vaccinations)}
-                        alt="Serengeti Dawn"
+                        alt="Kilimanjaro vaccinations and travel health — medical preparation for Tanzania trekking"
                     />
                     <div className="trek-health-overlay"></div>
                 </div>
@@ -43,7 +43,7 @@ const Vaccinations = () => {
                     <div className="trek-health-image">
                         <img
                             src={visuals.getSingle('trekking.health.vaccinationsEditorial', visualsData.trekking.health.vaccinationsEditorial)}
-                            alt="Medical Consultation"
+                            alt="Medical consultation for Kilimanjaro climb — travel health advice and vaccination preparation"
                         />
                     </div>
                     <div className="trek-health-content">

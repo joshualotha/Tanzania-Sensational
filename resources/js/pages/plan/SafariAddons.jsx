@@ -32,7 +32,7 @@ const SafariAddons = () => {
         <div className="utility-root">
             <section className="utility-hero">
                 <div className="utility-hero-bg">
-                    <img src={getVisual('planning.addonsHero', visualsData.planning.addonsHero)} alt="Safari" />
+                    <img src={getVisual('planning.addonsHero', visualsData.planning.addonsHero)} alt="Tanzania safari add-on — wildlife viewing on the Serengeti plains after Kilimanjaro trek" />
                 </div>
                 <div className="utility-hero-overlay"></div>
                 <motion.div className="utility-hero-content" initial="hidden" animate="visible" variants={staggerContainer}>
@@ -48,7 +48,7 @@ const SafariAddons = () => {
                 <motion.div className="utility-grid" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={staggerContainer} style={{ gridTemplateColumns: '1fr 1fr' }}>
 
                     <motion.div className="util-card" variants={fadeInUp} style={{ padding: 0, overflow: 'hidden' }}>
-                        <img src={getVisual('planning.addonsCrater', visualsData.planning.addonsCrater)} alt="Ngorongoro Crater" style={{ width: '100%', height: '300px', objectFit: 'cover' }} />
+                        <img src={getVisual('planning.addonsCrater', visualsData.planning.addonsCrater)} alt="Ngorongoro Crater in Tanzania — post-trek safari add-on destination with wildlife and volcanic caldera views" style={{ width: '100%', height: '300px', objectFit: 'cover' }} loading="lazy" />
                         <div style={{ padding: '40px' }}>
                             <h3 className="util-card-title">2-Day Tarangire & Ngorongoro</h3>
                             <p className="util-card-p" style={{ marginBottom: '20px' }}>
@@ -59,7 +59,7 @@ const SafariAddons = () => {
                     </motion.div>
 
                     <motion.div className="util-card" variants={fadeInUp} style={{ padding: 0, overflow: 'hidden' }}>
-                        <img src={getVisual('planning.addonsZanzibar', visualsData.planning.addonsZanzibar)} alt="Zanzibar Beaches" style={{ width: '100%', height: '300px', objectFit: 'cover' }} />
+                        <img src={getVisual('planning.addonsZanzibar', visualsData.planning.addonsZanzibar)} alt="Zanzibar beaches — white sand and turquoise water post-trek recovery destination in Tanzania" style={{ width: '100%', height: '300px', objectFit: 'cover' }} loading="lazy" />
                         <div style={{ padding: '40px' }}>
                             <h3 className="util-card-title">Zanzibar Beach Recovery</h3>
                             <p className="util-card-p" style={{ marginBottom: '20px' }}>

@@ -30,7 +30,7 @@ const GettingThere = () => {
                 <div className="gt-hero-bg">
                     <img
                         src={visuals.getSingle('trekking.after.gettingThere', visualsData.trekking.after.gettingThere)}
-                        alt="Logistics View"
+                        alt="Getting to Kilimanjaro — travel logistics from Kilimanjaro International Airport to Moshi"
                     />
                     <div className="gt-hero-overlay"></div>
                 </div>
@@ -67,7 +67,7 @@ const GettingThere = () => {
                         <img
                             src={visuals.getSingle('trekking.after.gettingThereEditorial', visualsData.trekking.after.gettingThereEditorial)}
                             className="gt-editorial-img"
-                            alt="JRO Airport"
+                            alt="Kilimanjaro International Airport (JRO) — arrival point for Tanzania trekking expeditions"
                         />
                         <span className="gt-img-caption">The roof of Africa awaits.</span>
                     </motion.div>

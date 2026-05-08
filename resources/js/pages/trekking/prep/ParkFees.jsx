@@ -21,7 +21,7 @@ const ParkFees = () => {
                 <div className="prep-hero-bg">
                     <img
                         src={visuals.getSingle('trekking.prep.parkFeesHero', visualsData.trekking.prep.parkFeesHero)}
-                        alt="Serengeti Plains"
+                        alt="Kilimanjaro National Park fees — conservation areas and entry gates for trekking"
                     />
                     <div className="prep-hero-overlay"></div>
                 </div>
@@ -44,7 +44,7 @@ const ParkFees = () => {
                         <img
                             src={visuals.getSingle('trekking.prep.parkFeesEditorial', visualsData.trekking.prep.parkFeesEditorial)}
                             className="prep-editorial-img"
-                            alt="The Mountain"
+                            alt="Mount Kilimanjaro from the Marangu Gate — starting point for the classic route"
                         />
                         <span className="prep-img-caption">Protecting Tanzania's Heritage</span>
                     </motion.div>

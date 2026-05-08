@@ -100,7 +100,7 @@ const GearChecklist = () => {
         <div className="utility-root">
             <section className="utility-hero">
                 <div className="utility-hero-bg">
-                    <img src={getVisual('planning.gearHero', visualsData.planning.gearHero)} alt="Mountain Gear" />
+                    <img src={getVisual('planning.gearHero', visualsData.planning.gearHero)} alt="Kilimanjaro mountain gear — trekking equipment and clothing checklist for the expedition" />
                 </div>
                 <div className="utility-hero-overlay"></div>
                 <motion.div className="utility-hero-content" initial="hidden" animate="visible" variants={fadeInUp}>

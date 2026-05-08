@@ -22,6 +22,8 @@ Route::get('/trekking-routes', [TrekkingRouteController::class, 'index']);
 Route::get('/trekking-routes/{identifier}', [TrekkingRouteController::class, 'show']);
 Route::post('/contact', [\App\Http\Controllers\Api\ContactController::class, 'store'])
     ->middleware('throttle:10,1');
+Route::post('/newsletter', [\App\Http\Controllers\Api\ContactController::class, 'newsletter'])
+    ->middleware('throttle:10,1');
 
 Route::get('/departures', [DepartureController::class, 'index']);
 Route::get('/departures/{id}', [DepartureController::class, 'show']);

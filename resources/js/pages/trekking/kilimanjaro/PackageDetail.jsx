@@ -53,7 +53,7 @@ const PackageDetail = ({ route, pkg }) => {
         <div className="lux-root">
             {/* ─── HERO ─── */}
             <motion.section className="lux-hero" style={{ height: '70vh', opacity: heroOpacity }}>
-                <img src={viewModel.heroImg} alt={viewModel.title} />
+                <img src={viewModel.heroImg} alt={`${viewModel.title} — Kilimanjaro trekking package on Tanzania Sensational`} />
                 <div className="lux-hero-overlay"></div>
                 <div className="lux-hero-content">
                     <motion.h1 className="lux-hero-title" initial="hidden" animate="visible" variants={fadeInUp}>

@@ -91,7 +91,7 @@ const ZanzibarPage = () => {
                 <motion.div className="zan-hero-bg" style={{ y: heroY }}>
                     <img
                         src={getVisual('zanzibar.hero', visualsData.zanzibar.hero)}
-                        alt="Zanzibar Coastline"
+                        alt="Zanzibar coastline — turquoise Indian Ocean waters and white sand beaches"
                     />
                     <div className="zan-hero-overlay"></div>
                 </motion.div>
@@ -167,7 +167,7 @@ const ZanzibarPage = () => {
                         viewport={{ once: true }}
                         transition={{ duration: 1.5, ease: "easeOut" }}
                     >
-                        <img src={getVisual('zanzibar.regionStoneTown', visualsData.zanzibar.regionStoneTown)} alt="Stone Town Alleyway" />
+                        <img src={getVisual('zanzibar.regionStoneTown', visualsData.zanzibar.regionStoneTown)} alt="Stone Town alleyway in Zanzibar — historic architecture with carved wooden doors" />
                     </motion.div>
                 </div>
             </section>
@@ -192,7 +192,7 @@ const ZanzibarPage = () => {
                     {regions.map((region, i) => (
                         <motion.div key={i} className="zan-region-card" variants={fadeInUp}>
                             <div className="zan-region-img">
-                                <img src={region.img} alt={region.name} />
+                                <img src={region.img} alt={`${region.name} — Zanzibar beach and resort region`} loading="lazy" />
                             </div>
                             <span className="zan-region-tag">{region.tag}</span>
                             <h3 className="zan-region-name">{region.name}</h3>
@@ -209,7 +209,7 @@ const ZanzibarPage = () => {
 
             {/* ─── 4. FULL-BLEED PARALLAX BREAK ─── */}
             <section className="zan-parallax">
-                <img src={getVisual('zanzibar.regionNungwi', visualsData.zanzibar.regionNungwi)} alt="Nungwi Beach" />
+                <img src={getVisual('zanzibar.regionNungwi', visualsData.zanzibar.regionNungwi)} alt="Nungwi Beach in Zanzibar — white sand and turquoise water at high tide" />
                 <div className="zan-parallax-overlay"></div>
                 <motion.div
                     className="zan-parallax-label"
@@ -242,7 +242,7 @@ const ZanzibarPage = () => {
                     {experiences.map((exp, i) => (
                         <motion.div key={i} className="zan-exp-card" variants={fadeInUp}>
                             <div className="zan-exp-img">
-                                <img src={exp.img} alt={exp.name} />
+                                <img src={exp.img} alt={`${exp.name} — Zanzibar experience and activity`} loading="lazy" />
                             </div>
                             <div className="zan-exp-content">
                                 <span className="zan-eyebrow">{exp.tag}</span>
@@ -279,7 +279,7 @@ const ZanzibarPage = () => {
             {/* ─── 7. CTA FOOTER BAND ─── */}
             <section className="zan-cta-band">
                 <div className="zan-cta-bg">
-                    <img src={getVisual('zanzibar.regionPaje', visualsData.zanzibar.regionPaje)} alt="Paje Beach" />
+                    <img src={getVisual('zanzibar.regionPaje', visualsData.zanzibar.regionPaje)} alt="Paje Beach in Zanzibar — kite surfing and turquoise waters on the east coast" />
                     <div className="zan-cta-overlay"></div>
                 </div>
 

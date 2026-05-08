@@ -70,7 +70,7 @@ const HealthAndSafety = () => {
             {/* ═══ HERO ═══ */}
             <section className="field-hero">
                 <div className="field-hero-img">
-                    <img src={getVisual('safari.healthHero', visualsData.trekking.health.vaccinations)} alt="Health and safety in Tanzania" />
+                    <img src={getVisual('safari.healthHero', visualsData.trekking.health.vaccinations)} alt="Tanzania safari health and safety — medical kit and vaccinations for East African travel" />
                 </div>
                 <div className="field-hero-gradient" />
                 <motion.div className="field-hero-content" initial="hidden" animate="visible" variants={fade}>
@@ -98,7 +98,7 @@ const HealthAndSafety = () => {
                     </motion.div>
                 </div>
                 <motion.div className="field-split-img" initial={{ opacity: 0, scale: 1.05 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1.5 }}>
-                    <img src={getVisual('safari.healthEditorial', visualsData.trekking.during.routine)} alt="Medical preparation" />
+                    <img src={getVisual('safari.healthEditorial', visualsData.trekking.during.routine)} alt="Medical preparation for Tanzania safari — malaria prevention and travel health consultation" loading="lazy" />
                 </motion.div>
             </div>
 
@@ -180,7 +180,7 @@ const HealthAndSafety = () => {
 
             {/* ═══ FULL BLEED ═══ */}
             <section className="field-bleed">
-                <img src={getVisual('safari.healthFullBleed', visualsData.safaris.migrationHero)} alt="Wilderness safety" />
+                <img src={getVisual('safari.healthFullBleed', visualsData.safaris.migrationHero)} alt="Wilderness safety on Tanzania safari — wildlife viewing from a safari vehicle in Ngorongoro Crater" />
                 <span className="field-bleed-caption">Ngorongoro Crater, Tanzania</span>
             </section>
 

@@ -88,7 +88,7 @@ const SafarisPage = ({ destinations }) => {
                 <motion.div className="premium-safari-bg" style={{ y: heroY }}>
                     <img
                         src={getVisual('safaris.listHero', visualsData.safaris.listHero || "https://images.unsplash.com/photo-1516422213484-2af298bf06ad?auto=format&fit=crop&q=80")}
-                        alt="African Wilderness"
+                        alt="African safari wilderness — lioness on the Serengeti plains at golden hour"
                     />
                     <div className="premium-safari-overlay"></div>
                 </motion.div>
@@ -149,7 +149,7 @@ const SafarisPage = ({ destinations }) => {
                             <motion.div key={dest.id} variants={fadeInUp}>
                                 <Link href={`/safaris/destinations/${dest.id}`} className="premium-dest-card">
                                     <div className="premium-dest-img-wrap">
-                                        <img src={dest.hero_image || getVisual('safaris.listHero', visualsData.safaris.listHero)} alt={dest.name} />
+                                        <img src={dest.hero_image || getVisual('safaris.listHero', visualsData.safaris.listHero)} alt={`${dest.name} — Tanzania safari destination with wildlife and landscapes`} loading="lazy" />
                                         <div className="premium-dest-img-overlay"></div>
                                     </div>
                                     <div className="premium-dest-content">
@@ -192,7 +192,7 @@ const SafarisPage = ({ destinations }) => {
                 <div className="premium-exp-bg">
                     <img
                         src={visualsData.trekking.prep.whyUs || "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&q=80"}
-                        alt="Tanzania"
+                        alt="Tanzania safari experience — guide and traveler observing wildlife on the savanna"
                     />
                     <div className="premium-exp-overlay"></div>
                 </div>

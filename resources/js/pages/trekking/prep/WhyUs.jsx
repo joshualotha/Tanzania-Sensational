@@ -21,7 +21,7 @@ const WhyUs = () => {
                 <div className="prep-hero-bg">
                     <img
                         src={visuals.getSingle('trekking.prep.whyUs', visualsData.trekking.prep.whyUs)}
-                        alt="Elite guides on the mountain"
+                        alt="Why choose Tanzania Sensational — expert Kilimanjaro guides leading trekkers on the mountain"
                     />
                     <div className="prep-hero-overlay"></div>
                 </div>
@@ -43,7 +43,7 @@ const WhyUs = () => {
                         <img
                             src={visuals.getSingle('trekking.prep.whyUsEditorial', visualsData.trekking.prep.whyUsEditorial)}
                             className="prep-editorial-img"
-                            alt="Expedition Team"
+                            alt="Tanzania Sensational expedition team — professional guides and porters on Kilimanjaro"
                         />
                         <span className="prep-img-caption">Local Heritage, Global Excellence.</span>
                     </motion.div>

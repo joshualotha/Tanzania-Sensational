@@ -14,7 +14,7 @@ const BookingPage = ({ type, id, pkg, pageMeta }) => {
         <div className="booking-page-root">
             <section className="booking-page-hero">
                 <div className="booking-page-hero-bg">
-                    <img src={heroImg} alt={pageMeta?.title || 'Booking'} />
+                    <img src={heroImg} alt={`${pageMeta?.title || 'Book your Tanzania expedition'} — booking page on Tanzania Sensational`} />
                 </div>
                 <div className="booking-page-hero-overlay" />
 

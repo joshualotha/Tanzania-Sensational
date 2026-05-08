@@ -21,7 +21,7 @@ const Oxygen = () => {
                 <div className="trek-health-hero-bg">
                     <img
                         src={visuals.getSingle('trekking.health.oxygen', visualsData.trekking.health.oxygen)}
-                        alt="Mist rolling over high peaks"
+                        alt="Supplemental oxygen on Kilimanjaro — emergency oxygen equipment for high altitude trekking safety"
                     />
                     <div className="trek-health-overlay"></div>
                 </div>
@@ -43,7 +43,7 @@ const Oxygen = () => {
                     <div className="trek-health-image">
                         <img
                             src={visuals.getSingle('trekking.health.oxygenEditorial', visualsData.trekking.health.oxygenEditorial)}
-                            alt="Expedition base camp"
+                            alt="Kilimanjaro expedition base camp — oxygen equipment and emergency medical supplies for trekkers"
                         />
                     </div>
                     <div className="trek-health-content">

@@ -21,7 +21,7 @@ const BestRoutes = () => {
                 <div className="prep-hero-bg">
                     <img
                         src={visuals.getSingle('trekking.prep.bestRoutes', visualsData.trekking.prep.bestRoutes)}
-                        alt="Kilimanjaro Landscape"
+                        alt="Best Kilimanjaro trekking routes — aerial view of the mountain's diverse climbing paths"
                     />
                     <div className="prep-hero-overlay"></div>
                 </div>
@@ -44,7 +44,7 @@ const BestRoutes = () => {
                         <img
                             src={visuals.getSingle('trekking.prep.bestRoutesEditorial', visualsData.trekking.prep.bestRoutesEditorial)}
                             className="prep-editorial-img"
-                            alt="The Lemosho Trail"
+                            alt="Lemosho Trail on Kilimanjaro — the most scenic route through the Shira Plateau"
                         />
                         <span className="prep-img-caption">The Lemosho Trail - Wilderness & Majesty</span>
                     </motion.div>

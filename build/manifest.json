@@ -7,8 +7,8 @@
       "_vendor-BQl-_cl5.js"
     ]
   },
-  "_icons-BeqFBOMn.js": {
-    "file": "assets/icons-BeqFBOMn.js",
+  "_icons-FQ07qP8K.js": {
+    "file": "assets/icons-FQ07qP8K.js",
     "name": "icons",
     "imports": [
       "_motion-DVueyotn.js"
@@ -26,14 +26,14 @@
     ]
   },
   "node_modules/canvg/lib/index.es.js": {
-    "file": "assets/index.es-DoKNAOlK.js",
+    "file": "assets/index.es-DYe1h0Ge.js",
     "name": "index.es",
     "src": "node_modules/canvg/lib/index.es.js",
     "isDynamicEntry": true,
     "imports": [
       "_motion-DVueyotn.js",
       "resources/js/main.jsx",
-      "_icons-BeqFBOMn.js",
+      "_icons-FQ07qP8K.js",
       "_vendor-BQl-_cl5.js",
       "_charts-BhvJDzVr.js"
     ]
@@ -45,13 +45,13 @@
     "isDynamicEntry": true
   },
   "resources/js/main.jsx": {
-    "file": "assets/main-CvTtaM79.js",
+    "file": "assets/main-BVDFx5j-.js",
     "name": "main",
     "src": "resources/js/main.jsx",
     "isEntry": true,
     "imports": [
       "_motion-DVueyotn.js",
-      "_icons-BeqFBOMn.js",
+      "_icons-FQ07qP8K.js",
       "_vendor-BQl-_cl5.js",
       "_charts-BhvJDzVr.js"
     ],
@@ -60,7 +60,7 @@
       "node_modules/canvg/lib/index.es.js"
     ],
     "css": [
-      "assets/main-Pw5T4tA1.css"
+      "assets/main-xxzOd3de.css"
     ]
   }
 }

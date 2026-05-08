@@ -16,6 +16,43 @@ class TrekkingPageController extends Controller
         $appUrl = rtrim((string)config('app.url', url('/')), '/');
         $path = '/trekking/kilimanjaro/' . $route->slug;
 
+        // Build itinerary from route itinerary days
+        $itinerary = [];
+        $days = $route->itineraryDays()->get();
+        foreach ($days as $day) {
+            $itinerary[] = [
+                '@type' => 'TouristTripDay',
+                'dayNumber' => $day->day_number,
+                'name' => $day->title ?? 'Day ' . $day->day_number,
+                'description' => $day->description ?? '',
+            ];
+        }
+
+        // Build offers from pricing rules
+        $offers = [];
+        $pricingRules = $route->pricingRules()->get();
+        foreach ($pricingRules as $rule) {
+            $offers[] = [
+                '@type' => 'Offer',
+                'name' => $rule->name ?? $route->name . ' Package',
+                'price' => $rule->price ?? $route->base_price ?? 0,
+                'priceCurrency' => 'USD',
+                'availability' => 'https://schema.org/InStock',
+                'validFrom' => now()->toIso8601String(),
+            ];
+        }
+
+        // If no pricing rules, use base_price as a fallback offer
+        if (empty($offers) && ($route->base_price ?? false)) {
+            $offers[] = [
+                '@type' => 'Offer',
+                'name' => $route->name . ' Route',
+                'price' => $route->base_price,
+                'priceCurrency' => 'USD',
+                'availability' => 'https://schema.org/InStock',
+            ];
+        }
+
         $touristTrip = [
             '@context' => 'https://schema.org',
             '@type' => 'TouristTrip',
@@ -25,6 +62,16 @@ class TrekkingPageController extends Controller
             'image' => $route->hero_image ? $appUrl . $route->hero_image : null,
             'duration' => 'P' . ($route->duration_days ?? $route->duration ?? 7) . 'D',
         ];
+
+        // Add itinerary if we have days
+        if (!empty($itinerary)) {
+            $touristTrip['itinerary'] = $itinerary;
+        }
+
+        // Add offers if we have pricing
+        if (!empty($offers)) {
+            $touristTrip['offers'] = count($offers) === 1 ? $offers[0] : $offers;
+        }
 
         $breadcrumbs = $this->buildBreadcrumbs([
             ['label' => 'Home', 'url' => '/'],

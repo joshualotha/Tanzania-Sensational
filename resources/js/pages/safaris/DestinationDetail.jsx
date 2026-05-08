@@ -207,7 +207,7 @@ const DestinationDetail = ({ destination }) => {
                             viewport={{ once: true }}
                             transition={{ delay: i * 0.1 }}
                         >
-                            <img src={img} alt={`Gallery ${i}`} />
+                            <img src={img} alt={`Gallery ${i}`} loading="lazy" />
                         </motion.div>
                     ))}
                 </div>

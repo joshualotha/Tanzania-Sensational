@@ -21,7 +21,7 @@ const Toilets = () => {
                 <div className="prep-hero-bg">
                     <img
                         src={visuals.getSingle('trekking.prep.toiletsHero', visualsData.trekking.prep.toiletsHero)}
-                        alt="High altitude camp"
+                        alt="High altitude camp on Kilimanjaro — toilet facilities and camp setup above 4,000 meters"
                     />
                     <div className="prep-hero-overlay"></div>
                 </div>
@@ -44,7 +44,7 @@ const Toilets = () => {
                         <img
                             src={visuals.getSingle('trekking.prep.toiletsEditorial', visualsData.trekking.prep.toiletsEditorial)}
                             className="prep-editorial-img"
-                            alt="Kilimanjaro Camp Site"
+                            alt="Kilimanjaro camp site at Barranco Camp — tents on the mountain with toilet facilities"
                         />
                         <span className="prep-img-caption">Dignity at 4,000 Meters</span>
                     </motion.div>

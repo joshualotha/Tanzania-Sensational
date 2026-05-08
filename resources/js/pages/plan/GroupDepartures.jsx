@@ -76,7 +76,7 @@ const GroupDepartures = ({ departures }) => {
                 <div className="gd-hero-bg">
                     <img
                         src={getVisual('trekking.groupDeparturesHero', visualsData.trekking.groupDeparturesHero)}
-                        alt="Expedition Team"
+                        alt="Kilimanjaro expedition team — group of trekkers and guides preparing for summit climb"
                     />
                     <div className="gd-hero-gradient"></div>
                 </div>

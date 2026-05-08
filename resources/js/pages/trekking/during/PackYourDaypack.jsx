@@ -33,7 +33,7 @@ const PackYourDaypack = () => {
                 <div className="sd-hero-bg">
                     <img
                         src={visuals.getSingle('trekking.during.packDaypack', visualsData.trekking.during.packDaypack)}
-                        alt="Trekking pack"
+                        alt="Trekking daypack for Kilimanjaro — 25-35L pack with essential gear for the mountain expedition"
                     />
                     <div className="sd-hero-overlay"></div>
                 </div>
@@ -60,7 +60,7 @@ const PackYourDaypack = () => {
                     <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 1 }}>
                         <img
                             src={visuals.getSingle('trekking.during.packDaypackEditorial', visualsData.trekking.during.packDaypackEditorial)}
-                            alt="Gear layout"
+                            alt="Kilimanjaro gear layout — daypack essentials including waterproof jacket, hydration system, and sun protection"
                             style={{ width: '100%', borderRadius: '12px', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}
                         />
                     </motion.div>
@@ -124,7 +124,7 @@ const PackYourDaypack = () => {
             <section className="sd-full-bleed">
                 <img
                     src={visualsData.trekking.during.routineEditorial}
-                    alt="High mountain peak"
+                    alt="High mountain peak on Kilimanjaro — the summit ridge at dawn with dramatic alpine light"
                 />
             </section>
 

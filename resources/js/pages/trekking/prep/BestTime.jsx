@@ -21,7 +21,7 @@ const BestTime = () => {
                 <div className="prep-hero-bg">
                     <img
                         src={visuals.getSingle('trekking.prep.bestTime', visualsData.trekking.prep.bestTime)}
-                        alt="Sun hitting the peak"
+                        alt="Best time to climb Kilimanjaro — sunrise over the summit with clear dry-season skies"
                     />
                     <div className="prep-hero-overlay"></div>
                 </div>
@@ -54,7 +54,7 @@ const BestTime = () => {
                         <img
                             src={visuals.getSingle('trekking.prep.bestTimeEditorial', visualsData.trekking.prep.bestTimeEditorial)}
                             className="prep-editorial-img"
-                            alt="The Summit Dawn"
+                            alt="Kilimanjaro summit at dawn — Uhuru Peak during optimal climbing season"
                         />
                         <span className="prep-img-caption">The Summit Ridge at Sunrise</span>
                     </motion.div>
