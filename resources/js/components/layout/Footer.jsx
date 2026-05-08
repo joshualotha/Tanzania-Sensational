@@ -169,7 +169,7 @@ export const Footer = () => {
             <div className="footer-nav-col">
               <div className="footer-nav-label">
                 <span className="footer-label-line" />
-                Safari Packages
+                Safaris & Destinations
               </div>
               <ul className="footer-links">
                 <li><Link href="/safaris">All Safaris</Link></li>
@@ -177,17 +177,6 @@ export const Footer = () => {
                 <li><Link href="/safaris/packages/1">The Great Migration</Link></li>
                 <li><Link href="/safaris/packages/2">The Pioneer's Route</Link></li>
                 <li><Link href="/safaris/packages/3">The Grand Canvas</Link></li>
-                <li><Link href="/safaris/family">Family Safaris</Link></li>
-                <li><Link href="/safaris/luxury">Luxury Safaris</Link></li>
-              </ul>
-            </div>
-
-            <div className="footer-nav-col">
-              <div className="footer-nav-label">
-                <span className="footer-label-line" />
-                Destinations
-              </div>
-              <ul className="footer-links">
                 <li><Link href="/safaris/destinations/1">Serengeti</Link></li>
                 <li><Link href="/safaris/destinations/2">Ngorongoro Crater</Link></li>
                 <li><Link href="/safaris/destinations/3">Tarangire</Link></li>
