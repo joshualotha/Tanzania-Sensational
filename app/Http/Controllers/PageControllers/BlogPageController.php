@@ -11,6 +11,56 @@ use Inertia\Inertia;
 class BlogPageController extends Controller
 {
     /**
+     * Build page-specific meta array for a blog post.
+     */
+    private function buildPostMeta(BlogPost $post): array
+    {
+        $appUrl = rtrim((string)config('app.url', url('/')), '/');
+        $path = '/blog/' . $post->slug;
+
+        $blogPosting = [
+            '@context' => 'https://schema.org',
+            '@type' => 'BlogPosting',
+            'headline' => $post->title,
+            'description' => $post->meta_description ?? strip_tags(Str::limit($post->excerpt ?? '', 155)),
+            'datePublished' => optional($post->published_at)->toAtomString(),
+            'author' => [
+                '@type' => 'Person',
+                'name' => $post->author ?? 'Tanzania Sensational',
+            ],
+            'publisher' => [
+                '@type' => 'Organization',
+                'name' => config('app.name'),
+                'logo' => [
+                    '@type' => 'ImageObject',
+                    'url' => $appUrl . '/logo.png',
+                ],
+            ],
+            'image' => $post->hero_image ? $appUrl . $post->hero_image : null,
+            'mainEntityOfPage' => [
+                '@type' => 'WebPage',
+                '@id' => $appUrl . $path,
+            ],
+        ];
+
+        $breadcrumbs = $this->buildBreadcrumbs([
+            ['label' => 'Home', 'url' => '/'],
+            ['label' => 'Blog', 'url' => '/blog'],
+            ['label' => $post->title, 'url' => $path],
+        ]);
+
+        return [
+            'title' => $post->meta_title ?? $post->title . ' | Tanzania Sensational',
+            'description' => $post->meta_description ?? strip_tags(Str::limit($post->excerpt ?? $post->content ?? '', 155)),
+            'og_title' => $post->meta_title ?? $post->title,
+            'og_description' => $post->meta_description ?? strip_tags(Str::limit($post->excerpt ?? '', 155)),
+            'og_image' => $post->hero_image ? $appUrl . $post->hero_image : null,
+            'canonical' => $appUrl . $path,
+            'schema' => [$blogPosting, $breadcrumbs],
+        ];
+    }
+
+    /**
      * Display the blog list page.
      */
     public function index()
@@ -19,8 +69,24 @@ class BlogPageController extends Controller
             ->orderByDesc('published_at')
             ->get();
 
+        $appUrl = rtrim((string)config('app.url', url('/')), '/');
+
+        $breadcrumbs = $this->buildBreadcrumbs([
+            ['label' => 'Home', 'url' => '/'],
+            ['label' => 'Blog', 'url' => '/blog'],
+        ]);
+
         return Inertia::render('blog/BlogList', [
             'posts' => $posts,
+            'meta' => [
+                'title' => 'Tanzania Travel Blog | Kilimanjaro & Safari Tips | Tanzania Sensational',
+                'description' => 'Expert trekking and safari guidance from Tanzania Sensational. Kilimanjaro climbing tips, safari planning advice, Zanzibar travel guides, and Tanzania travel insights.',
+                'og_title' => 'Tanzania Travel Blog | Kilimanjaro & Safari Tips',
+                'og_description' => 'Expert trekking and safari guidance from Tanzania Sensational.',
+                'og_image' => null,
+                'canonical' => $appUrl . '/blog',
+                'schema' => [$breadcrumbs],
+            ],
         ]);
     }
 
@@ -40,6 +106,7 @@ class BlogPageController extends Controller
         return Inertia::render('blog/BlogDetail', [
             'post' => $post,
             'allPosts' => $allPosts,
+            'meta' => $this->buildPostMeta($post),
         ]);
     }
 }

@@ -9,6 +9,41 @@ use Inertia\Inertia;
 class TrekkingPageController extends Controller
 {
     /**
+     * Build page-specific meta array from a trekking route model.
+     */
+    private function buildMeta(TrekkingRoute $route): array
+    {
+        $appUrl = rtrim((string)config('app.url', url('/')), '/');
+        $path = '/trekking/kilimanjaro/' . $route->slug;
+
+        $touristTrip = [
+            '@context' => 'https://schema.org',
+            '@type' => 'TouristTrip',
+            'name' => $route->name . ' Route',
+            'description' => $route->meta_description ?? $route->name . ' on Kilimanjaro',
+            'url' => $appUrl . $path,
+            'image' => $route->hero_image ? $appUrl . $route->hero_image : null,
+            'duration' => 'P' . ($route->duration_days ?? $route->duration ?? 7) . 'D',
+        ];
+
+        $breadcrumbs = $this->buildBreadcrumbs([
+            ['label' => 'Home', 'url' => '/'],
+            ['label' => 'Kilimanjaro Routes', 'url' => '/trekking/kilimanjaro/lemosho'],
+            ['label' => $route->name, 'url' => $path],
+        ]);
+
+        return [
+            'title' => $route->meta_title ?? $route->name . ' | Kilimanjaro Trekking | Tanzania Sensational',
+            'description' => $route->meta_description ?? 'Trek the ' . $route->name . ' on Kilimanjaro. Expert guides, quality equipment, and high success rates. Book your ' . $route->name . ' adventure.',
+            'og_title' => $route->meta_title ?? $route->name . ' | Kilimanjaro Trekking',
+            'og_description' => $route->meta_description ?? 'Trek the ' . $route->name . ' on Kilimanjaro with Tanzania Sensational.',
+            'og_image' => $route->hero_image ? $appUrl . $route->hero_image : null,
+            'canonical' => $appUrl . $path,
+            'schema' => [$touristTrip, $breadcrumbs],
+        ];
+    }
+
+    /**
      * Display a trekking route detail page by slug.
      * Maps route slugs to their page component names.
      */
@@ -41,6 +76,7 @@ class TrekkingPageController extends Controller
 
         return Inertia::render($component, [
             'route' => $route,
+            'meta' => $this->buildMeta($route),
         ]);
     }
 
@@ -65,6 +101,7 @@ class TrekkingPageController extends Controller
         return Inertia::render('trekking/kilimanjaro/PackageDetail', [
             'route' => $route,
             'package' => $package,
+            'meta' => $this->buildMeta($route),
         ]);
     }
 
@@ -89,6 +126,7 @@ class TrekkingPageController extends Controller
         return Inertia::render('trekking/kilimanjaro/PackageDetail', [
             'route' => $route,
             'pkg' => $route,
+            'meta' => $this->buildMeta($route),
         ]);
     }
 }

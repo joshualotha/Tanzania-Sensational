@@ -9,6 +9,45 @@ use Inertia\Inertia;
 class MainPageController extends Controller
 {
     /**
+     * Build page-specific meta array from a CMS Page model.
+     */
+    private function buildPageMeta(Page $page): array
+    {
+        $appUrl = rtrim((string)config('app.url', url('/')), '/');
+
+        // Determine the path based on the page slug
+        $pathMap = [
+            'home' => '/',
+            'about' => '/about',
+            'contact' => '/contact',
+        ];
+
+        $path = $pathMap[$page->slug] ?? '/' . $page->slug;
+
+        // Build breadcrumbs (homepage has only one crumb)
+        $crumbs = [['label' => 'Home', 'url' => '/']];
+        if ($page->slug !== 'home') {
+            $label = match ($page->slug) {
+                'about' => 'About',
+                'contact' => 'Contact',
+                default => $page->title,
+            };
+            $crumbs[] = ['label' => $label, 'url' => $path];
+        }
+        $breadcrumbs = $this->buildBreadcrumbs($crumbs);
+
+        return [
+            'title' => $page->meta_title ?? $page->title . ' | Tanzania Sensational',
+            'description' => $page->meta_description ?? 'Explore ' . $page->title . ' with Tanzania Sensational.',
+            'og_title' => $page->meta_title ?? $page->title . ' | Tanzania Sensational',
+            'og_description' => $page->meta_description ?? 'Explore ' . $page->title . ' with Tanzania Sensational.',
+            'og_image' => null,
+            'canonical' => $appUrl . ($path === '/' ? '' : $path),
+            'schema' => [$breadcrumbs],
+        ];
+    }
+
+    /**
      * Display the homepage.
      */
     public function home()
@@ -17,6 +56,7 @@ class MainPageController extends Controller
 
         return Inertia::render('HomePage', [
             'cms' => $page,
+            'meta' => $page ? $this->buildPageMeta($page) : null,
         ]);
     }
 
@@ -29,6 +69,7 @@ class MainPageController extends Controller
 
         return Inertia::render('AboutPage', [
             'cms' => $page,
+            'meta' => $page ? $this->buildPageMeta($page) : null,
         ]);
     }
 
@@ -41,6 +82,7 @@ class MainPageController extends Controller
 
         return Inertia::render('ContactPage', [
             'cms' => $page,
+            'meta' => $page ? $this->buildPageMeta($page) : null,
         ]);
     }
 

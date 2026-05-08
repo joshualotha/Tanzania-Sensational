@@ -56,6 +56,10 @@ class HandleInertiaRequests extends Middleware
             ],
         ];
 
+        // Build default breadcrumbs based on the current URL path
+        $path = $request->getPathInfo();
+        $defaultBreadcrumbs = $this->buildDefaultBreadcrumbs($path, $appUrl);
+
         return [
             ...parent::share($request),
             'settings' => fn () => SiteSetting::all()
@@ -78,8 +82,100 @@ class HandleInertiaRequests extends Middleware
                 'og_title' => 'Tanzania Sensational — Kilimanjaro & Meru Trekking',
                 'og_description' => 'Premium Kilimanjaro & Meru trekking expeditions, Tanzania safaris, and Zanzibar beach extensions.',
                 'og_image' => null,
-                'canonical' => $appUrl . ($request->getPathInfo() === '/' ? '' : $request->getPathInfo()),
-                'schema' => null,
+                'canonical' => $appUrl . ($path === '/' ? '' : $path),
+                'schema' => $defaultBreadcrumbs,
+            ],
+        ];
+    }
+
+    /**
+     * Build default BreadcrumbList schema based on the current URL path.
+     * Used as a fallback for pages that don't override meta (e.g. closure-based routes).
+     */
+    private function buildDefaultBreadcrumbs(string $path, string $appUrl): ?array
+    {
+        // Map URL paths to breadcrumb labels
+        $pageLabels = [
+            '/' => null, // Homepage — no breadcrumbs needed
+            '/about' => 'About',
+            '/contact' => 'Contact',
+            '/safaris' => 'Safaris',
+            '/safaris/tanzania' => 'Tanzania Safaris',
+            '/safaris/kenya' => 'Kenya Safaris',
+            '/safaris/uganda' => 'Uganda Safaris',
+            '/safaris/rwanda' => 'Rwanda Safaris',
+            '/safaris/packages' => 'Safari Packages',
+            '/safaris/family' => 'Family Safaris',
+            '/safaris/honeymoon' => 'Honeymoon Safaris',
+            '/safaris/luxury' => 'Luxury Safaris',
+            '/safaris/photographic' => 'Photographic Safaris',
+            '/safaris/group-joining' => 'Group Joining Safaris',
+            '/blog' => 'Blog',
+            '/zanzibar' => 'Zanzibar',
+            '/group-departures' => 'Group Departures',
+            '/gear-checklist' => 'Gear Checklist',
+            '/training-guide' => 'Training Guide',
+            '/faq' => 'FAQ',
+            '/safari-addons' => 'Safari Add-ons',
+            '/booking' => 'Book Your Trip',
+            '/trekking/health/vaccinations' => 'Vaccinations',
+            '/trekking/health/altitude-sickness' => 'Altitude Sickness',
+            '/trekking/health/diamox' => 'Diamox',
+            '/trekking/health/oxygen' => 'Oxygen',
+            '/trekking/prep/best-routes' => 'Best Routes',
+            '/trekking/prep/best-time' => 'Best Time to Climb',
+            '/trekking/prep/why-us' => 'Why Choose Us',
+            '/trekking/prep/tipping-guide' => 'Tipping Guide',
+            '/trekking/prep/toilets' => 'Toilets on Kilimanjaro',
+            '/trekking/prep/park-fees' => 'Park Fees',
+            '/trekking/after/training' => 'Training',
+            '/trekking/after/gear-list' => 'Gear List',
+            '/trekking/after/getting-there' => 'Getting There',
+            '/trekking/after/visa' => 'Visa Information',
+            '/trekking/during/daily-routine' => 'Daily Routine',
+            '/trekking/during/food-and-drinks' => 'Food & Drinks',
+            '/trekking/during/pack-your-daypack' => 'Pack Your Daypack',
+            '/trekking/during/connectivity' => 'Connectivity',
+            '/safari-guide/what-to-wear' => 'What to Wear on Safari',
+            '/safari-guide/packing-guide' => 'Safari Packing Guide',
+            '/safari-guide/packing-list' => 'Safari Packing List',
+            '/safari-guide/health-and-safety' => 'Health & Safety',
+            '/safari-guide/local-customs' => 'Local Customs',
+            '/safari-guide/local-custom' => 'Local Customs',
+        ];
+
+        // Homepage — no breadcrumbs
+        if ($path === '/' || !isset($pageLabels[$path])) {
+            return null;
+        }
+
+        $label = $pageLabels[$path];
+
+        // For pages under /trekking/ or /safari-guide/, add parent breadcrumb
+        $crumbs = [['label' => 'Home', 'url' => '/']];
+
+        if (str_starts_with($path, '/trekking/')) {
+            $crumbs[] = ['label' => 'Trekking', 'url' => '/trekking/kilimanjaro/lemosho'];
+        } elseif (str_starts_with($path, '/safari-guide/')) {
+            $crumbs[] = ['label' => 'Safari Guide', 'url' => '/safari-guide/what-to-wear'];
+        } elseif (str_starts_with($path, '/safaris/') && $path !== '/safaris') {
+            $crumbs[] = ['label' => 'Safaris', 'url' => '/safaris'];
+        }
+
+        $crumbs[] = ['label' => $label, 'url' => $path];
+
+        return [
+            [
+                '@context' => 'https://schema.org',
+                '@type' => 'BreadcrumbList',
+                'itemListElement' => array_map(function ($i, $crumb) {
+                    return [
+                        '@type' => 'ListItem',
+                        'position' => $i + 1,
+                        'name' => $crumb['label'],
+                        'item' => url($crumb['url']),
+                    ];
+                }, array_keys($crumbs), $crumbs),
             ],
         ];
     }

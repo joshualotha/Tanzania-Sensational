@@ -14,6 +14,8 @@
         <meta property="og:image" content="{{ $meta['og_image'] }}">
     @endif
     <link rel="canonical" href="{{ $meta['canonical'] ?? config('app.url') }}">
+    <link rel="alternate" hreflang="en" href="{{ $meta['canonical'] ?? config('app.url') }}">
+    <link rel="alternate" hreflang="x-default" href="{{ $meta['canonical'] ?? config('app.url') }}">
     <link rel="icon" href="/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,7 +27,15 @@
         <script type="application/ld+json">{!! json_encode($orgSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
     @endif
     @if(!empty($meta['schema']))
+        @if(isset($meta['schema'][0]))
+            {{-- Array of schema objects --}}
+            @foreach($meta['schema'] as $schemaItem)
+        <script type="application/ld+json">{!! json_encode($schemaItem, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+            @endforeach
+        @else
+            {{-- Single schema object (backward compatibility) --}}
         <script type="application/ld+json">{!! json_encode($meta['schema'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+        @endif
     @endif
     @inertiaHead
 </head>
