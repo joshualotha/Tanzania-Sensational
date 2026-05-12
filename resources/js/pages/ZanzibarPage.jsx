@@ -4,6 +4,7 @@ import { Link } from '@inertiajs/react';
 import { ArrowRight } from 'lucide-react';
 import { usePage } from '@inertiajs/react';
 import { visualsData } from '../data/visualsData';
+import OptimizedImage from '../components/ui/OptimizedImage';
 import '../styles/zanzibar-premium.css';
 
 const ZanzibarPage = () => {
@@ -89,9 +90,11 @@ const ZanzibarPage = () => {
             {/* ─── 1. CINEMATIC HERO ─── */}
             <section className="zan-hero">
                 <motion.div className="zan-hero-bg" style={{ y: heroY }}>
-                    <img
+                    <OptimizedImage
                         src={getVisual('zanzibar.hero', visualsData.zanzibar.hero)}
                         alt="Zanzibar coastline — turquoise Indian Ocean waters and white sand beaches"
+                        priority={true}
+                        aspectRatio="16/9"
                     />
                     <div className="zan-hero-overlay"></div>
                 </motion.div>

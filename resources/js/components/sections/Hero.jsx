@@ -52,6 +52,18 @@ export const Hero = () => {
 
   const activeUrl = heroUrls[activeIndex] || visualsData.home.hero;
 
+  // Generate responsive srcSet for Unsplash LCP hero images
+  const heroSrcSet = useMemo(() => {
+    if (!activeUrl) return undefined;
+    try {
+      if (new URL(activeUrl).hostname !== 'images.unsplash.com') return undefined;
+    } catch { return undefined; }
+    const widths = [400, 800, 1200, 1600];
+    const base = activeUrl.replace(/&w=\d+/g, '').replace(/w=\d+/, '');
+    const separator = base.includes('?') ? '&' : '?';
+    return widths.map((w) => `${base}${separator}w=${w} ${w}w`).join(', ');
+  }, [activeUrl]);
+
   return (
     <section className="hero-v2">
       {/* ── Crossfade Background ── */}
@@ -60,8 +72,12 @@ export const Hero = () => {
           <motion.img
             key={activeUrl}
             src={activeUrl}
+            srcSet={heroSrcSet}
+            sizes="100vw"
             alt="Tanzania safari experience — wildlife and landscapes of East Africa"
             className="hero-v2-bg-img"
+            fetchpriority="high"
+            loading="eager"
             initial={{ opacity: 0, scale: 1.12 }}
             animate={{ opacity: 1, scale: 1.05 }}
             exit={{ opacity: 0 }}

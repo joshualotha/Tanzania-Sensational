@@ -2,12 +2,13 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from '@inertiajs/react';
 import { usePage } from '@inertiajs/react';
-import { 
-    Mountain, Clock, Activity, Shield, Map, 
-    Compass, BookOpen, ArrowRight, Sun, 
-    Heart, Luggage, Users, ChevronRight 
+import {
+    Mountain, Clock, Activity, Shield, Map,
+    Compass, BookOpen, ArrowRight, Sun,
+    Heart, Luggage, Users, ChevronRight
 } from 'lucide-react';
 import { visualsData } from '../../data/visualsData';
+import OptimizedImage from '../../components/ui/OptimizedImage';
 import '../../styles/ultra-premium.css';
 
 const KilimanjaroPillar = () => {
@@ -72,9 +73,11 @@ const KilimanjaroPillar = () => {
         <div className="lux-root">
             {/* ─── HERO ─── */}
             <section className="lux-hero">
-                <img
+                <OptimizedImage
                     src={getVisual('trekking.pillar.hero', visualsData.trekking?.routes?.lemosho || 'https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?w=1600')}
                     alt="Kilimanjaro Trekking — The Ultimate Guide"
+                    priority={true}
+                    aspectRatio="16/9"
                 />
                 <div className="lux-hero-overlay"></div>
                 <div className="lux-hero-content">

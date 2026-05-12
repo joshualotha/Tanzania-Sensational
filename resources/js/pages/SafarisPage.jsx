@@ -4,6 +4,7 @@ import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, Mountain, Trees, Waves, Map, Star, Shield, Sun, Loader2 } from 'lucide-react';
 import { visualsData } from '../data/visualsData';
 import { usePage } from '@inertiajs/react';
+import OptimizedImage from '../components/ui/OptimizedImage';
 import '../styles/safari-premium.css';
 
 const PremiumCountUp = ({ to, prefix = "", suffix = "", duration = 2 }) => {
@@ -86,9 +87,11 @@ const SafarisPage = ({ destinations }) => {
             {/* ─── 1. CINEMATIC HERO ─── */}
             <section className="premium-safari-hero">
                 <motion.div className="premium-safari-bg" style={{ y: heroY }}>
-                    <img
+                    <OptimizedImage
                         src={getVisual('safaris.listHero', visualsData.safaris.listHero || "https://images.unsplash.com/photo-1516422213484-2af298bf06ad?auto=format&fit=crop&q=80")}
                         alt="African safari wilderness — lioness on the Serengeti plains at golden hour"
+                        priority={true}
+                        aspectRatio="16/9"
                     />
                     <div className="premium-safari-overlay"></div>
                 </motion.div>

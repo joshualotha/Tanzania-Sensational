@@ -5,6 +5,7 @@ import { visualsData } from '../data/visualsData';
 import { usePage } from '@inertiajs/react';
 import { contactService } from '../services/api';
 import { CmsSection } from '../components/cms/CmsSection';
+import OptimizedImage from '../components/ui/OptimizedImage';
 import '../styles/contact-premium.css';
 
 const ContactPage = ({ cms }) => {
@@ -82,9 +83,11 @@ const ContactPage = ({ cms }) => {
             {/* ─── 1. HERO SECTION ─── */}
             <section className="premium-hero">
                 <div className="premium-hero-bg">
-                    <img
+                    <OptimizedImage
                         src={getVisual('contact.hero', visualsData.contact.hero)}
                         alt="Tanzania safari landscape — acacia trees at sunset on the Serengeti plains"
+                        priority={true}
+                        aspectRatio="16/9"
                     />
                     <div className="premium-hero-overlay"></div>
                 </div>

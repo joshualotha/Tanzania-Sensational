@@ -7,6 +7,7 @@ import {
     ChevronRight, Globe, Star, Trees, Waves
 } from 'lucide-react';
 import { visualsData } from '../../data/visualsData';
+import OptimizedImage from '../../components/ui/OptimizedImage';
 import '../../styles/safari-field-guide.css';
 
 const SafariPillar = ({ destinations, packages }) => {
@@ -70,9 +71,11 @@ const SafariPillar = ({ destinations, packages }) => {
             {/* ─── CINEMATIC HERO ─── */}
             <section className="field-hero">
                 <div className="field-hero-img">
-                    <img
+                    <OptimizedImage
                         src={getVisual('safaris.pillar.hero', 'https://images.unsplash.com/photo-1516422213484-2af298bf06ad?auto=format&fit=crop&q=80')}
                         alt="African Safari — The Ultimate Guide to Tanzania Wildlife Expeditions"
+                        priority={true}
+                        aspectRatio="16/9"
                     />
                 </div>
                 <div className="field-hero-gradient"></div>

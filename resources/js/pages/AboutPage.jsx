@@ -5,6 +5,7 @@ import { Mountain, Compass, Star, Shield, Heart, Globe, TreePine, ArrowRight } f
 import { visualsData } from '../data/visualsData';
 import { CmsSection } from '../components/cms/CmsSection';
 import { usePage } from '@inertiajs/react';
+import OptimizedImage from '../components/ui/OptimizedImage';
 import '../styles/about-premium.css';
 
 const PremiumCountUp = ({ to, prefix = "", suffix = "", duration = 2 }) => {
@@ -84,9 +85,11 @@ const AboutPage = ({ cms }) => {
             {/* ─── 1. CINEMATIC HERO ─── */}
             <section className="premium-about-hero">
                 <motion.div className="premium-about-bg" style={{ y: heroY }}>
-                    <img
+                    <OptimizedImage
                         src={getVisual('about.hero', visualsData.about.hero)}
                         alt="Mount Kilimanjaro summit at dawn — Tanzania's highest peak viewed from the Shira Plateau"
+                        priority={true}
+                        aspectRatio="16/9"
                     />
                     <div className="premium-about-overlay"></div>
                 </motion.div>
