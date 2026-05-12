@@ -36,6 +36,17 @@ class MainPageController extends Controller
         }
         $breadcrumbs = $this->buildBreadcrumbs($crumbs);
 
+        // Resolve hero image for <link rel="preload"> (LCP optimization)
+        $heroFallbacks = [
+            'home' => 'https://images.unsplash.com/photo-1516422213484-2af298bf06ad?auto=format&fit=crop&q=80&w=1600',
+            'about' => 'https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?auto=format&fit=crop&q=80&w=1600',
+            'contact' => 'https://images.unsplash.com/photo-1516422213484-2af298bf06ad?auto=format&fit=crop&q=80&w=1600',
+        ];
+        $heroImage = $this->heroImageFromVisuals(
+            $page->slug . '.hero',
+            $heroFallbacks[$page->slug] ?? ''
+        );
+
         return [
             'title' => $page->meta_title ?? $page->title . ' | Tanzania Sensational',
             'description' => $page->meta_description ?? 'Explore ' . $page->title . ' with Tanzania Sensational.',
@@ -44,6 +55,7 @@ class MainPageController extends Controller
             'og_image' => null,
             'canonical' => $appUrl . ($path === '/' ? '' : $path),
             'schema' => [$breadcrumbs],
+            'hero_image' => $heroImage,
         ];
     }
 

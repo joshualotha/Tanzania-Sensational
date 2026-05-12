@@ -16,6 +16,10 @@
     <link rel="canonical" href="{{ $meta['canonical'] ?? config('app.url') }}">
     <link rel="alternate" hreflang="en" href="{{ $meta['canonical'] ?? config('app.url') }}">
     <link rel="alternate" hreflang="x-default" href="{{ $meta['canonical'] ?? config('app.url') }}">
+    {{-- Preload hero LCP image for eligible pages (resolved server-side from VisualAsset DB) --}}
+    @if(!empty($meta['hero_image']))
+    <link rel="preload" as="image" href="{{ $meta['hero_image'] }}" fetchpriority="high">
+    @endif
     <link rel="icon" href="/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
