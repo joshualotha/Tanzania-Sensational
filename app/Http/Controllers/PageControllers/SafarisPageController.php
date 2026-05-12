@@ -22,6 +22,11 @@ class SafarisPageController extends Controller
             ['label' => 'Safaris', 'url' => '/safaris'],
         ]);
 
+        $heroImage = $this->heroImageFromVisuals(
+            'safaris.listHero',
+            'https://images.unsplash.com/photo-1516422213484-2af298bf06ad?auto=format&fit=crop&q=80&w=1600'
+        );
+
         return Inertia::render('SafarisPage', [
             'destinations' => $destinations,
             'meta' => [
@@ -31,6 +36,7 @@ class SafarisPageController extends Controller
                 'og_description' => 'Explore Tanzania\'s best safari destinations with Tanzania Sensational.',
                 'og_image' => null,
                 'canonical' => $appUrl . '/safaris',
+                'hero_image' => $heroImage,
                 'schema' => [$breadcrumbs],
             ],
         ]);
@@ -79,6 +85,11 @@ class SafarisPageController extends Controller
             ['label' => 'Safari Guide', 'url' => '/safaris/guide'],
         ]);
 
+        $heroImage = $this->heroImageFromVisuals(
+            'safaris.pillar.hero',
+            'https://images.unsplash.com/photo-1516422213484-2af298bf06ad?auto=format&fit=crop&q=80&w=1600'
+        );
+
         return Inertia::render('safari/SafariPillar', [
             'destinations' => $destinations,
             'packages' => $packages,
@@ -89,6 +100,7 @@ class SafarisPageController extends Controller
                 'og_description' => 'Your complete guide to planning a Tanzania safari — destinations, packages, packing, health & safety, and expert tips.',
                 'og_image' => null,
                 'canonical' => $appUrl . '/safaris/guide',
+                'hero_image' => $heroImage,
                 'schema' => [$breadcrumbs],
             ],
         ]);
