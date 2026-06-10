@@ -102,6 +102,91 @@ export const Navbar = () => {
           </Link>
 
           <ul className="nav-links">
+            {/* Safaris Dropdown */}
+            <li className={`dropdown mega-dropdown ${isDropdownActive('safaris') ? 'mobile-active' : ''}`}>
+              <Link href="/safaris" className="dropdown-toggle" onClick={(e) => handleToggle(e, 'safaris')}>
+                Safaris
+                <svg viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              </Link>
+              
+              {/* ─── HORIZON MEGA MENU (Desktop) ─── */}
+              <div className="mega-menu">
+                <div className="mega-menu-inner" style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
+                  {/* Column 1: Destinations */}
+                    <div className="mega-col">
+                      <h3 className="mega-heading">Destinations</h3>
+                      <ul className="mega-sub-links">
+                        {safariDestinations.length > 0 ? (
+                          safariDestinations.map(dest => (
+                            <li key={dest.id}>
+                              <Link href={`/safaris/destinations/${dest.id}`}>{dest.name}</Link>
+                            </li>
+                          ))
+                        ) : (
+                          <>
+                            <li><Link href="/safaris/tanzania">Tanzania Safaris</Link></li>
+                            <li><Link href="/safaris/kenya">Kenya Safaris</Link></li>
+                            <li><Link href="/safaris/uganda">Uganda Safaris</Link></li>
+                            <li><Link href="/safaris/rwanda">Rwanda Safaris</Link></li>
+                          </>
+                        )}
+                      </ul>
+                    </div>
+
+
+                  {/* Column 3: Packages */}
+                  <div className="mega-col">
+                    <h3 className="mega-heading">Packages</h3>
+                    <ul className="mega-sub-links">
+                      <li><Link href="/safaris">Safari Overview</Link></li>
+                      <li><Link href="/safaris/packages">Featured Packages</Link></li>
+                      <li><Link href="/safaris/group-joining">Group Joining</Link></li>
+                    </ul>
+                  </div>
+
+                  {/* Column 4: Safari Guide */}
+                  <div className="mega-col">
+                    <h3 className="mega-heading">Safari Guide</h3>
+                    <ul className="mega-sub-links">
+                      <li><Link href="/safaris/guide">Safari Guide Overview</Link></li>
+                      <li><Link href="/safari-guide/what-to-wear">What to Wear</Link></li>
+                      <li><Link href="/safari-guide/packing-guide">Packing List</Link></li>
+                      <li><Link href="/safari-guide/health-and-safety">Health & Safety</Link></li>
+                      <li><Link href="/safari-guide/local-custom">Safari Etiquette</Link></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* ─── MOBILE ACCORDION (Hidden on Desktop) ─── */}
+              <ul className="dropdown-menu mobile-only">
+                <li className={`has-submenu ${isDropdownActive('safari-dest') ? 'mobile-active' : ''}`}>
+                  <div className="dropdown-toggle" onClick={(e) => handleToggle(e, 'safari-dest')}>Destinations</div>
+                  <ul className="submenu">
+                    {safariDestinations.length > 0 ? (
+                      safariDestinations.map(dest => (
+                        <li key={dest.id}><Link href={`/safaris/destinations/${dest.id}`}>{dest.name}</Link></li>
+                      ))
+                    ) : (
+                      <>
+                        <li><Link href="/safaris/tanzania">Tanzania</Link></li>
+                        <li><Link href="/safaris/kenya">Kenya</Link></li>
+                      </>
+                    )}
+                  </ul>
+                </li>
+                <li><Link href="/safaris/packages">Packages</Link></li>
+                <li className={`has-submenu ${isDropdownActive('safari-guide') ? 'mobile-active' : ''}`}>
+                  <div className="dropdown-toggle" onClick={(e) => handleToggle(e, 'safari-guide')}>Safari Guide</div>
+                  <ul className="submenu">
+                    <li><Link href="/safari-guide/what-to-wear">What to Wear</Link></li>
+                    <li><Link href="/safari-guide/packing-list">Packing List</Link></li>
+                    <li><Link href="/safari-guide/best-time">Best Time</Link></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
             {/* Trekking Dropdown */}
             <li className={`dropdown mega-dropdown ${isDropdownActive('trekking') ? 'mobile-active' : ''}`}>
               <Link href="/#routes" className="dropdown-toggle" onClick={(e) => handleToggle(e, 'trekking')}>
@@ -257,91 +342,6 @@ export const Navbar = () => {
               </ul>
             </li>
 
-            {/* Safaris Dropdown */}
-            <li className={`dropdown mega-dropdown ${isDropdownActive('safaris') ? 'mobile-active' : ''}`}>
-              <Link href="/safaris" className="dropdown-toggle" onClick={(e) => handleToggle(e, 'safaris')}>
-                Safaris
-                <svg viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-              </Link>
-              
-              {/* ─── HORIZON MEGA MENU (Desktop) ─── */}
-              <div className="mega-menu">
-                <div className="mega-menu-inner" style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
-                  {/* Column 1: Destinations */}
-                    <div className="mega-col">
-                      <h3 className="mega-heading">Destinations</h3>
-                      <ul className="mega-sub-links">
-                        {safariDestinations.length > 0 ? (
-                          safariDestinations.map(dest => (
-                            <li key={dest.id}>
-                              <Link href={`/safaris/destinations/${dest.id}`}>{dest.name}</Link>
-                            </li>
-                          ))
-                        ) : (
-                          <>
-                            <li><Link href="/safaris/tanzania">Tanzania Safaris</Link></li>
-                            <li><Link href="/safaris/kenya">Kenya Safaris</Link></li>
-                            <li><Link href="/safaris/uganda">Uganda Safaris</Link></li>
-                            <li><Link href="/safaris/rwanda">Rwanda Safaris</Link></li>
-                          </>
-                        )}
-                      </ul>
-                    </div>
-
-
-                  {/* Column 3: Packages */}
-                  <div className="mega-col">
-                    <h3 className="mega-heading">Packages</h3>
-                    <ul className="mega-sub-links">
-                      <li><Link href="/safaris">Safari Overview</Link></li>
-                      <li><Link href="/safaris/packages">Featured Packages</Link></li>
-                      <li><Link href="/safaris/group-joining">Group Joining</Link></li>
-                    </ul>
-                  </div>
-
-                  {/* Column 4: Safari Guide */}
-                  <div className="mega-col">
-                    <h3 className="mega-heading">Safari Guide</h3>
-                    <ul className="mega-sub-links">
-                      <li><Link href="/safaris/guide">Safari Guide Overview</Link></li>
-                      <li><Link href="/safari-guide/what-to-wear">What to Wear</Link></li>
-                      <li><Link href="/safari-guide/packing-guide">Packing List</Link></li>
-                      <li><Link href="/safari-guide/health-and-safety">Health & Safety</Link></li>
-                      <li><Link href="/safari-guide/local-custom">Safari Etiquette</Link></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              {/* ─── MOBILE ACCORDION (Hidden on Desktop) ─── */}
-              <ul className="dropdown-menu mobile-only">
-                <li className={`has-submenu ${isDropdownActive('safari-dest') ? 'mobile-active' : ''}`}>
-                  <div className="dropdown-toggle" onClick={(e) => handleToggle(e, 'safari-dest')}>Destinations</div>
-                  <ul className="submenu">
-                    {safariDestinations.length > 0 ? (
-                      safariDestinations.map(dest => (
-                        <li key={dest.id}><Link href={`/safaris/destinations/${dest.id}`}>{dest.name}</Link></li>
-                      ))
-                    ) : (
-                      <>
-                        <li><Link href="/safaris/tanzania">Tanzania</Link></li>
-                        <li><Link href="/safaris/kenya">Kenya</Link></li>
-                      </>
-                    )}
-                  </ul>
-                </li>
-                <li><Link href="/safaris/packages">Packages</Link></li>
-                <li className={`has-submenu ${isDropdownActive('safari-guide') ? 'mobile-active' : ''}`}>
-                  <div className="dropdown-toggle" onClick={(e) => handleToggle(e, 'safari-guide')}>Safari Guide</div>
-                  <ul className="submenu">
-                    <li><Link href="/safari-guide/what-to-wear">What to Wear</Link></li>
-                    <li><Link href="/safari-guide/packing-list">Packing List</Link></li>
-                    <li><Link href="/safari-guide/best-time">Best Time</Link></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-
             <li><Link href="/zanzibar">Zanzibar</Link></li>
             <li><Link href="/group-departures">Departures</Link></li>
             <li><Link href="/about">About Us</Link></li>
@@ -380,6 +380,38 @@ export const Navbar = () => {
             <div className="mobile-drawer-primary">
               <div className="mobile-drawer-group">
                 <button
+                  className={`mobile-drawer-link has-children ${isDropdownActive('safaris') ? 'expanded' : ''}`}
+                  onClick={(e) => handleToggle(e, 'safaris')}
+                >
+                  <span>Safaris</span>
+                  <svg className="mobile-drawer-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path d="M3.5 5.25L7 8.75l3.5-3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button>
+                {isDropdownActive('safaris') && (
+                  <div className="mobile-drawer-sub">
+                    <div className="mobile-drawer-sub-group">
+                      <span className="mobile-drawer-label">Destinations</span>
+                      {safariDestinations.length > 0 ? safariDestinations.map(dest => (
+                        <Link key={dest.id} to={`/safaris/destinations/${dest.id}`}>{dest.name}</Link>
+                      )) : (
+                        <>
+                          <Link href="/safaris/tanzania">Tanzania</Link>
+                          <Link href="/safaris/kenya">Kenya</Link>
+                        </>
+                      )}
+                    </div>
+                    <div className="mobile-drawer-sub-group">
+                      <span className="mobile-drawer-label">Packages</span>
+                      <Link href="/safaris">Safari Overview</Link>
+                      <Link href="/safaris/packages">Featured Packages</Link>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="mobile-drawer-group">
+                <button
                   className={`mobile-drawer-link has-children ${isDropdownActive('trekking') ? 'expanded' : ''}`}
                   onClick={(e) => handleToggle(e, 'trekking')}
                 >
@@ -413,38 +445,6 @@ export const Navbar = () => {
                       <Link href="/trekking/prep/best-time">Best Time to Climb</Link>
                       <Link href="/trekking/prep/why-us">Why Climb With Us</Link>
                       <Link href="/trekking/after/gear-list">Gear List</Link>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div className="mobile-drawer-group">
-                <button
-                  className={`mobile-drawer-link has-children ${isDropdownActive('safaris') ? 'expanded' : ''}`}
-                  onClick={(e) => handleToggle(e, 'safaris')}
-                >
-                  <span>Safaris</span>
-                  <svg className="mobile-drawer-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <path d="M3.5 5.25L7 8.75l3.5-3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </button>
-                {isDropdownActive('safaris') && (
-                  <div className="mobile-drawer-sub">
-                    <div className="mobile-drawer-sub-group">
-                      <span className="mobile-drawer-label">Destinations</span>
-                      {safariDestinations.length > 0 ? safariDestinations.map(dest => (
-                        <Link key={dest.id} to={`/safaris/destinations/${dest.id}`}>{dest.name}</Link>
-                      )) : (
-                        <>
-                          <Link href="/safaris/tanzania">Tanzania</Link>
-                          <Link href="/safaris/kenya">Kenya</Link>
-                        </>
-                      )}
-                    </div>
-                    <div className="mobile-drawer-sub-group">
-                      <span className="mobile-drawer-label">Packages</span>
-                      <Link href="/safaris">Safari Overview</Link>
-                      <Link href="/safaris/packages">Featured Packages</Link>
                     </div>
                   </div>
                 )}

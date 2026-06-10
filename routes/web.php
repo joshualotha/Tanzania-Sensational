@@ -270,11 +270,27 @@ Route::get('/safaris/group-joining', [SafarisPageController::class, 'packagesLis
 
 // Zanzibar page
 Route::get('/zanzibar', function () {
-    return Inertia\Inertia::render('ZanzibarPage');
+    $heroAsset = \App\Models\VisualAsset::where('section', 'zanzibar.hero')->first();
+    $heroImage = ($heroAsset && !empty($heroAsset->url))
+        ? $heroAsset->url
+        : 'https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?auto=format&fit=crop&q=80&w=1600';
+
+    return Inertia\Inertia::render('ZanzibarPage', [
+        'heroImage' => $heroImage,
+    ]);
 })->name('zanzibar');
 
 // Kilimanjaro Trekking pillar page — the central hub for all trekking content
-Route::get('/trekking/kilimanjaro', fn() => Inertia\Inertia::render('trekking/KilimanjaroPillar'))->name('trekking.kilimanjaro');
+Route::get('/trekking/kilimanjaro', function () {
+    $heroAsset = \App\Models\VisualAsset::where('section', 'trekking.pillar.hero')->first();
+    $heroImage = ($heroAsset && !empty($heroAsset->url))
+        ? $heroAsset->url
+        : 'https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?auto=format&fit=crop&q=80&w=1600';
+
+    return Inertia\Inertia::render('trekking/KilimanjaroPillar', [
+        'heroImage' => $heroImage,
+    ]);
+})->name('trekking.kilimanjaro');
 
 // Trekking routes — single parameterized route (slug extracted from URL)
 Route::get('/trekking/kilimanjaro/{slug}', [TrekkingPageController::class, 'showRoute'])->name('trekking.routes.show');

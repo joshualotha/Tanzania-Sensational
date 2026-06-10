@@ -48,7 +48,7 @@ export const Experience = () => {
           transition={{ delay: 0.8, duration: 0.6 }}
         >
           <div className="exp-badge-num">15+</div>
-          <div className="exp-badge-text">Years guiding<br />to the summit</div>
+          <div className="exp-badge-text">Years guiding<br />across Africa</div>
         </motion.div>
       </div>
 
@@ -59,18 +59,18 @@ export const Experience = () => {
         </motion.div>
         
         <motion.h2 className="section-title" variants={itemVariants}>
-          Safety. <em>Expertise.</em><br />Zero Compromise.
+          Wild. <em>Authentic.</em><br />Unforgettable.
         </motion.h2>
         
         <motion.p className="experience-body" variants={itemVariants}>
-          High-altitude trekking demands more than enthusiasm, it demands experience, certified professionals, and a team that's brought thousands of clients safely to Uhuru Peak and back. That's us.
+          A true safari demands more than a vehicle and a checklist — it demands local knowledge, seasoned naturalists, and a team that's guided thousands of guests across the Serengeti, Ngorongoro, and beyond. That's us.
         </motion.p>
         
         <div className="pillars">
           {[
-            { id: '01', title: 'Certified Wilderness Guides', desc: 'Every guide holds Wilderness First Responder certification. Daily health checks using pulse oximetry keep you and your summit in sight.' },
-            { id: '02', title: 'Acclimatization-First Strategy', desc: 'Our routes are designed around the "Climb High, Sleep Low" principle, the gold standard for altitude safety and summit success.' },
-            { id: '03', title: 'Real-Time Pricing & Group Flexibility', desc: 'Solo traveler or a group of 15, our pricing scales with you. Join existing departures or charter a private expedition, entirely your call.' }
+            { id: '01', title: 'Expert Naturalist Guides', desc: 'Every guide is a certified naturalist with deep knowledge of East African ecosystems, wildlife behavior, and photography positioning.' },
+            { id: '02', title: 'Handcrafted Itineraries', desc: 'We design each route around seasonal wildlife movements, optimal light for photography, and secluded camps far from the crowds.' },
+            { id: '03', title: 'Transparent Pricing & Flexibility', desc: 'Solo traveler or a private party of 12, our pricing is clear and competitive. Join a group departure or charter a bespoke expedition — entirely your call.' }
           ].map((p, i) => (
             <motion.div key={p.id} className="pillar" variants={itemVariants}>
               <span className="pillar-num">{p.id}</span>

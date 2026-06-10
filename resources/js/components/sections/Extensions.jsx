@@ -29,9 +29,9 @@ export const Extensions = () => {
     <section className="extensions" id="extensions" ref={sectionRef}>
       <div className="section-eyebrow reveal">
         <div className="section-eyebrow-line"></div>
-        <span className="section-eyebrow-text">Beyond the Summit</span>
+        <span className="section-eyebrow-text">Signature Experiences</span>
       </div>
-      <h2 className="section-title reveal">Complete Your<br /><em>African Odyssey</em></h2>
+      <h2 className="section-title reveal">Discover Our<br /><em>African Odyssey</em></h2>
 
       <div className="extensions-grid">
         <div className="extension-card reveal">

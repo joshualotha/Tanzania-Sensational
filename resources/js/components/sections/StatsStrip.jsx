@@ -19,10 +19,10 @@ const itemVariants = {
 
 export const StatsStrip = () => {
   const stats = [
-    { num: '98%', label: 'Summit Success Rate' },
+    { num: '98%', label: 'Guest Satisfaction' },
     { num: '15+', label: 'Years of Expertise' },
-    { num: '3,200+', label: 'Summits Reached' },
-    { num: '24/7', label: 'On-Mountain Support' }
+    { num: '1,500+', label: 'Safaris Operated' },
+    { num: '24/7', label: 'In-Country Support' }
   ];
 
   return (

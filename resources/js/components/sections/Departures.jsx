@@ -50,7 +50,7 @@ export const Departures = () => {
           </motion.h2>
           
           <motion.p className="departures-desc-v3" variants={itemVariants}>
-            Traveling solo? Split the cost. Share the summit. Our group departures place solo adventurers into small, curated teams of like-minded explorers.
+            Traveling solo? Split the cost. Share the adventure. Our group departures place solo travelers into small, curated teams of like-minded explorers.
           </motion.p>
           
           <motion.div variants={itemVariants}>

@@ -80,10 +80,10 @@ export const Footer = () => {
           <div className="footer-cta-content">
             <span className="footer-cta-eyebrow">Stay Connected</span>
             <h3 className="footer-cta-title">
-              Stories from <em>the summit</em>
+              Stories from <em>the wild</em>
             </h3>
             <p className="footer-cta-sub">
-              Trail dispatches, expedition stories & exclusive departure alerts, delivered to your inbox.
+              Safari dispatches, wildlife stories & exclusive departure alerts, delivered to your inbox.
             </p>
           </div>
           <form className="footer-cta-form" onSubmit={handleSubscribe}>
@@ -124,7 +124,7 @@ export const Footer = () => {
               />
             </div>
             <p className="footer-tagline">
-              {general.tagline || "East Africa's most trusted mountain trekking authority. Guiding adventurers to the roof of Africa since 2009."}
+              {general.tagline || "East Africa's premier safari outfitter. Guiding adventurers across the Serengeti, Ngorongoro, and Kilimanjaro since 2009."}
             </p>
 
             <div className="footer-contact-stack">
@@ -153,22 +153,6 @@ export const Footer = () => {
             <div className="footer-nav-col">
               <div className="footer-nav-label">
                 <span className="footer-label-line" />
-                Kilimanjaro
-              </div>
-              <ul className="footer-links">
-                <li><Link href="/trekking/kilimanjaro">Overview & Routes</Link></li>
-                <li><Link href="/trekking/kilimanjaro/lemosho">Lemosho Route</Link></li>
-                <li><Link href="/trekking/kilimanjaro/machame">Machame Route</Link></li>
-                <li><Link href="/trekking/kilimanjaro/northern-circuit">Northern Circuit</Link></li>
-                <li><Link href="/trekking/kilimanjaro/marangu">Marangu Route</Link></li>
-                <li><Link href="/trekking/kilimanjaro/rongai">Rongai Route</Link></li>
-                <li><Link href="/trekking/kilimanjaro/umbwe">Umbwe Route</Link></li>
-              </ul>
-            </div>
-
-            <div className="footer-nav-col">
-              <div className="footer-nav-label">
-                <span className="footer-label-line" />
                 Safaris & Destinations
               </div>
               <ul className="footer-links">
@@ -189,13 +173,29 @@ export const Footer = () => {
             <div className="footer-nav-col">
               <div className="footer-nav-label">
                 <span className="footer-label-line" />
+                Kilimanjaro
+              </div>
+              <ul className="footer-links">
+                <li><Link href="/trekking/kilimanjaro">Overview & Routes</Link></li>
+                <li><Link href="/trekking/kilimanjaro/lemosho">Lemosho Route</Link></li>
+                <li><Link href="/trekking/kilimanjaro/machame">Machame Route</Link></li>
+                <li><Link href="/trekking/kilimanjaro/northern-circuit">Northern Circuit</Link></li>
+                <li><Link href="/trekking/kilimanjaro/marangu">Marangu Route</Link></li>
+                <li><Link href="/trekking/kilimanjaro/rongai">Rongai Route</Link></li>
+                <li><Link href="/trekking/kilimanjaro/umbwe">Umbwe Route</Link></li>
+              </ul>
+            </div>
+
+            <div className="footer-nav-col">
+              <div className="footer-nav-label">
+                <span className="footer-label-line" />
                 Company
               </div>
               <ul className="footer-links">
                 <li><Link href="/about">About Us</Link></li>
                 <li><Link href="/company/our-guides">Our Guides</Link></li>
                 <li><Link href="/company/safety-protocols">Safety Protocols</Link></li>
-                <li><Link href="/blog">Trekker's Blog</Link></li>
+                <li><Link href="/blog">Adventurer's Blog</Link></li>
                 <li><Link href="/contact">Contact</Link></li>
                 <li><Link href="/group-departures">Group Departures</Link></li>
                 <li><Link href="/faq">FAQ</Link></li>

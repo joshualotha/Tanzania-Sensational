@@ -15,8 +15,8 @@ const HomePage = ({ cms }) => {
             {cms?.content ? <CmsSection html={cms.content} /> : null}
             <Hero />
             <StatsStrip />
-            <RoutesSection />
             <Extensions />
+            <RoutesSection />
             <Experience />
             <Departures />
             <Testimonials />

@@ -101,9 +101,9 @@ export const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
         >
-          Your Summit.
+          Into the Wild.
           <br />
-          <em>Our Expertise.</em>
+          <em>Beyond the Ordinary.</em>
         </motion.h1>
 
         <motion.p
@@ -112,7 +112,7 @@ export const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.7 }}
         >
-          East Africa's most trusted trekking authority, where every ascent becomes a story worth telling.
+          East Africa's premier safari outfitter. From the Serengeti to the Crater, every expedition is a story worth telling.
         </motion.p>
 
         <motion.div
@@ -121,14 +121,14 @@ export const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.0, duration: 0.7 }}
         >
-          <Link href="/trekking/prep/best-routes" className="hero-v2-btn-primary">
-            <span>Explore Routes</span>
+          <Link href="/safaris" className="hero-v2-btn-primary">
+            <span>Explore Safaris</span>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
               <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </Link>
-          <Link href="/safaris" className="hero-v2-btn-ghost">
-            Join a Departure
+          <Link href="/trekking/kilimanjaro" className="hero-v2-btn-ghost">
+            Climb Kilimanjaro
           </Link>
         </motion.div>
       </div>

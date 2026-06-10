@@ -108,7 +108,7 @@ class MainPageController extends Controller
 
         $meta = [
             'title' => 'Page Not Found — Tanzania Sensational',
-            'description' => 'The page you are looking for does not exist. Explore our Kilimanjaro trekking, Tanzania safaris, and Zanzibar beach extensions.',
+            'description' => 'The page you are looking for does not exist. Explore our Tanzania safaris, Kilimanjaro trekking, and Zanzibar beach extensions.',
             'og_title' => 'Page Not Found — Tanzania Sensational',
             'og_description' => 'The page you are looking for does not exist.',
             'og_image' => null,
@@ -122,7 +122,7 @@ class MainPageController extends Controller
             'name' => config('app.name'),
             'url' => $appUrl,
             'logo' => $appUrl . '/logo.png',
-            'description' => 'Premium Kilimanjaro & Meru trekking expeditions, Tanzania safaris, and Zanzibar beach extensions. Expert-led adventures since 2010.',
+            'description' => 'Premium Tanzania safaris, Kilimanjaro & Meru trekking expeditions, and Zanzibar beach extensions. Expert-led adventures since 2010.',
             'address' => [
                 '@type' => 'PostalAddress',
                 'addressLocality' => 'Moshi',
