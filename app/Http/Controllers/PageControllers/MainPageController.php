@@ -4,6 +4,7 @@ namespace App\Http\Controllers\PageControllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Page;
+use App\Models\SafariPackage;
 use Inertia\Inertia;
 
 class MainPageController extends Controller
@@ -66,8 +67,14 @@ class MainPageController extends Controller
     {
         $page = Page::where('slug', 'home')->first();
 
+        $safariPackages = SafariPackage::select('id', 'slug', 'name', 'category', 'duration', 'description', 'hero_image', 'base_price', 'meta_tag')
+            ->orderBy('duration')
+            ->limit(6)
+            ->get();
+
         return Inertia::render('HomePage', [
             'cms' => $page,
+            'safariPackages' => $safariPackages,
             'meta' => $page ? $this->buildPageMeta($page) : null,
         ]);
     }
