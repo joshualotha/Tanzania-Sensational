@@ -268,8 +268,8 @@ const GearList = () => {
             <section className="prep-cta-band">
                 <h2 className="prep-cta-title">Finalize the <em>Logistics.</em></h2>
                 <div className="prep-btn-group">
-                    <Link to="/trekking/after/getting-there" className="prep-btn-sand">Travel Logistics</Link>
-                    <Link to="/trekking/after/visa" className="prep-btn-outline">Visa Requirements</Link>
+                    <Link href="/trekking/after/getting-there" className="prep-btn-sand">Travel Logistics</Link>
+                    <Link href="/trekking/after/visa" className="prep-btn-outline">Visa Requirements</Link>
                 </div>
             </section>
         </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { usePage } from '@inertiajs/react';
+import { usePage, Link } from '@inertiajs/react';
 import { visualsData } from '../../data/visualsData';
 import { Search, ChevronDown, Mail, Phone, MessageSquare } from 'lucide-react';
 import '../../styles/utility-pages-premium.css';
@@ -319,10 +319,10 @@ const FAQ = () => {
                     <motion.h3 variants={itemVariants} style={{ fontFamily: "'Playfair Display', serif", fontWeight: 400, fontSize: '2.5rem' }}>Still have questions?</motion.h3>
                     <motion.p variants={itemVariants} style={{ opacity: 0.7, fontFamily: "'Inter', sans-serif" }}>Our expert team is here to help you plan your perfect adventure.</motion.p>
                     <div className="cta-buttons">
-                        <a href="/contact" className="cta-btn primary">
+                        <Link href="/contact" className="cta-btn primary">
                             <Mail size={18} />
                             Contact Us
-                        </a>
+                        </Link>
                         <a href="tel:+255787654321" className="cta-btn secondary">
                             <Phone size={18} />
                             Call +255 787 654 321

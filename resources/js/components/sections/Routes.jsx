@@ -70,7 +70,7 @@ export const RoutesSection = () => {
       <div className="carousel-track-container">
         <div className="carousel-track">
           {routes.map((route, index) => (
-            <Link key={`route-${route.slug}`} to={getBaseRouteUrl(route.slug)} className="carousel-card">
+            <Link key={`route-${route.slug}`} href={getBaseRouteUrl(route.slug)} className="carousel-card">
               <div className="carousel-card-media">
                 {index === 0 && <span className="carousel-badge">Signature</span>}
                 <img 

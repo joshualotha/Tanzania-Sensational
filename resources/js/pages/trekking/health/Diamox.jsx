@@ -121,8 +121,8 @@ const Diamox = () => {
             <section className="trek-health-footer-band">
                 <h2 className="trek-health-footer-title">Ready for the <em>Ascent?</em></h2>
                 <div className="trek-health-cta-group">
-                    <Link to="/contact" className="trek-health-btn-solid">Commission Custom Trip</Link>
-                    <Link to="/safaris" className="trek-health-btn-outline">View Safari Pairings</Link>
+                    <Link href="/contact" className="trek-health-btn-solid">Commission Custom Trip</Link>
+                    <Link href="/safaris" className="trek-health-btn-outline">View Safari Pairings</Link>
                 </div>
             </section>
         </div>

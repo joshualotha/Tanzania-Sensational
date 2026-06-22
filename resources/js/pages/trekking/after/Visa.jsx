@@ -116,8 +116,8 @@ const Visa = () => {
             <section className="prep-cta-band">
                 <h2 className="prep-cta-title">Finalize Your <em>Expedition.</em></h2>
                 <div className="prep-btn-group">
-                    <Link to="/trekking/health/vaccinations" className="prep-btn-sand">Health Requirements</Link>
-                    <Link to="/contact" className="prep-btn-outline">Speak with a Specialist</Link>
+                    <Link href="/trekking/health/vaccinations" className="prep-btn-sand">Health Requirements</Link>
+                    <Link href="/contact" className="prep-btn-outline">Speak with a Specialist</Link>
                 </div>
             </section>
         </div>

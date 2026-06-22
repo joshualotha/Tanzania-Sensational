@@ -148,8 +148,8 @@ const BestTime = () => {
             <section className="prep-cta-band">
                 <motion.h2 className="prep-cta-title" initial="hidden" whileInView="visible" variants={fadeInUp}>When will you <em>Witness?</em></motion.h2>
                 <div className="prep-btn-group">
-                    <Link to="/contact" className="prep-btn-sand">Check Availability</Link>
-                    <Link to="/safaris" className="prep-btn-outline">View Seasonal Safaris</Link>
+                    <Link href="/contact" className="prep-btn-sand">Check Availability</Link>
+                    <Link href="/safaris" className="prep-btn-outline">View Seasonal Safaris</Link>
                 </div>
             </section>
         </div>

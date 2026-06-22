@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Models\SiteSetting;
 use App\Models\VisualAsset;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -79,19 +80,23 @@ class HandleInertiaRequests extends Middleware
 
         return [
             ...parent::share($request),
-            'settings' => fn () => SiteSetting::all()
-                ->groupBy('group')
-                ->map(function ($items) {
-                    return $items->mapWithKeys(function ($s) {
-                        // value is stored as ['value' => '...'] – unwrap it for the frontend
-                        $raw = $s->value;
-                        $unwrapped = is_array($raw) && array_key_exists('value', $raw) ? $raw['value'] : $raw;
-                        return [$s->key => $unwrapped];
-                    });
-                }),
-            'visuals' => fn () => VisualAsset::all(['section', 'url'])
-                ->groupBy('section')
-                ->map(fn ($items) => $items->pluck('url')),
+            'settings' => fn () => Cache::remember('inertia:settings', 3600, fn () =>
+                SiteSetting::all()
+                    ->groupBy('group')
+                    ->map(function ($items) {
+                        return $items->mapWithKeys(function ($s) {
+                            // value is stored as ['value' => '...'] – unwrap it for the frontend
+                            $raw = $s->value;
+                            $unwrapped = is_array($raw) && array_key_exists('value', $raw) ? $raw['value'] : $raw;
+                            return [$s->key => $unwrapped];
+                        });
+                    })
+            ),
+            'visuals' => fn () => Cache::remember('inertia:visuals', 3600, fn () =>
+                VisualAsset::all(['section', 'url'])
+                    ->groupBy('section')
+                    ->map(fn ($items) => $items->pluck('url'))
+            ),
             'orgSchema' => $orgSchema,
             'meta' => [
                 'title' => 'Tanzania Safari & Kilimanjaro Trekking | Tanzania Sensational',

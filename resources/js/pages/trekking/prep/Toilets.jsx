@@ -99,8 +99,8 @@ const Toilets = () => {
             <section className="prep-cta-band">
                 <motion.h2 className="prep-cta-title" initial="hidden" whileInView="visible" variants={fadeInUp}>Comfort in the <em>Wilds.</em></motion.h2>
                 <div className="prep-btn-group">
-                    <Link to="/contact" className="prep-btn-sand">Inquire About Luxury Tiers</Link>
-                    <Link to="/safaris" className="prep-btn-outline">View Safari Comforts</Link>
+                    <Link href="/contact" className="prep-btn-sand">Inquire About Luxury Tiers</Link>
+                    <Link href="/safaris" className="prep-btn-outline">View Safari Comforts</Link>
                 </div>
             </section>
         </div>

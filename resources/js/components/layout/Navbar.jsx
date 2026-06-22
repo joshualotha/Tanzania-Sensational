@@ -393,7 +393,7 @@ export const Navbar = () => {
                     <div className="mobile-drawer-sub-group">
                       <span className="mobile-drawer-label">Destinations</span>
                       {safariDestinations.length > 0 ? safariDestinations.map(dest => (
-                        <Link key={dest.id} to={`/safaris/destinations/${dest.id}`}>{dest.name}</Link>
+                        <Link key={dest.id} href={`/safaris/destinations/${dest.id}`}>{dest.name}</Link>
                       )) : (
                         <>
                           <Link href="/safaris/tanzania">Tanzania</Link>

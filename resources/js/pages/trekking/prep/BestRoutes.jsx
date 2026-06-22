@@ -164,8 +164,8 @@ const BestRoutes = () => {
             <section className="prep-cta-band">
                 <motion.h2 className="prep-cta-title" initial="hidden" whileInView="visible" variants={fadeInUp}>Which trail will be <em>Yours?</em></motion.h2>
                 <div className="prep-btn-group">
-                    <Link to="/contact" className="prep-btn-sand">Commission Custom Trip</Link>
-                    <Link to="/safaris" className="prep-btn-outline">Explore Safari Add-ons</Link>
+                    <Link href="/contact" className="prep-btn-sand">Commission Custom Trip</Link>
+                    <Link href="/safaris" className="prep-btn-outline">Explore Safari Add-ons</Link>
                 </div>
             </section>
         </div>

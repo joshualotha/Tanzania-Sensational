@@ -109,8 +109,8 @@ const ParkFees = () => {
             <section className="prep-cta-band">
                 <motion.h2 className="prep-cta-title" initial="hidden" whileInView="visible" variants={fadeInUp}>Clarity at Every <em>Step.</em></motion.h2>
                 <div className="prep-btn-group">
-                    <Link to="/contact" className="prep-btn-sand">Get a Custom Quote</Link>
-                    <Link to="/about" className="prep-btn-outline">Why Experience Matters</Link>
+                    <Link href="/contact" className="prep-btn-sand">Get a Custom Quote</Link>
+                    <Link href="/about" className="prep-btn-outline">Why Experience Matters</Link>
                 </div>
             </section>
         </div>

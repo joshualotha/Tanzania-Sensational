@@ -107,8 +107,8 @@ const TippingGuide = () => {
             <section className="prep-cta-band">
                 <motion.h2 className="prep-cta-title" initial="hidden" whileInView="visible" variants={fadeInUp}>Tread with <em>Integrity.</em></motion.h2>
                 <div className="prep-btn-group">
-                    <Link to="/contact" className="prep-btn-sand">Plan Your Trek</Link>
-                    <Link to="/about" className="prep-btn-outline">Our Ethical Commitments</Link>
+                    <Link href="/contact" className="prep-btn-sand">Plan Your Trek</Link>
+                    <Link href="/about" className="prep-btn-outline">Our Ethical Commitments</Link>
                 </div>
             </section>
         </div>

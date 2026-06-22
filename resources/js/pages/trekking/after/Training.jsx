@@ -109,8 +109,8 @@ const Training = () => {
             <section className="prep-cta-band">
                 <h2 className="prep-cta-title">Prepare for <em>Discovery.</em></h2>
                 <div className="prep-btn-group">
-                    <Link to="/trekking/after/gear-list" className="prep-btn-sand">View Equipment List</Link>
-                    <Link to="/contact" className="prep-btn-outline">Speak with a Specialist</Link>
+                    <Link href="/trekking/after/gear-list" className="prep-btn-sand">View Equipment List</Link>
+                    <Link href="/contact" className="prep-btn-outline">Speak with a Specialist</Link>
                 </div>
             </section>
         </div>

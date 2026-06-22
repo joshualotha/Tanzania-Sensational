@@ -123,8 +123,8 @@ const WhyUs = () => {
             <section className="prep-cta-band">
                 <h2 className="prep-cta-title">Experience the <em>Extraordinary.</em></h2>
                 <div className="prep-btn-group">
-                    <Link to="/contact" className="prep-btn-sand">Start Your Legacy</Link>
-                    <Link to="/trekking/prep/best-time" className="prep-btn-outline">Plan Your Window</Link>
+                    <Link href="/contact" className="prep-btn-sand">Start Your Legacy</Link>
+                    <Link href="/trekking/prep/best-time" className="prep-btn-outline">Plan Your Window</Link>
                 </div>
             </section>
         </div>

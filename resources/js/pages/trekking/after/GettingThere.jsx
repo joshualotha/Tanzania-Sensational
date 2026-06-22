@@ -167,8 +167,8 @@ const GettingThere = () => {
                     Finalize the <em>Paperwork.</em>
                 </motion.h2>
                 <motion.div className="gt-btn-group" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
-                    <Link to="/trekking/after/visa" className="gt-btn-solid">Visa Requirements</Link>
-                    <Link to="/contact" className="gt-btn-outline">Arrange My Pickup</Link>
+                    <Link href="/trekking/after/visa" className="gt-btn-solid">Visa Requirements</Link>
+                    <Link href="/contact" className="gt-btn-outline">Arrange My Pickup</Link>
                 </motion.div>
             </section>
         </div>
