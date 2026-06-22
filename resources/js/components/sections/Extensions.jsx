@@ -35,12 +35,12 @@ export const Extensions = () => {
 
       <div className="extensions-grid">
         <div className="extension-card reveal">
-          <div className="extension-img" style={{ backgroundImage: `url('${visuals.getSingle('home.extensionSerengeti', visualsData.home.extensionSerengeti)}')` }}></div>
+          <div className="extension-img" style={{ backgroundImage: `url('${visuals.getSingle('home.extensionKilimanjaro', visualsData.trekking.routes.lemosho)}')` }}></div>
           <div className="extension-overlay"></div>
           <div className="extension-content">
-            <h3 className="extension-name">Wilderness Safaris</h3>
-            <p className="extension-desc">From the endless plains of the Serengeti to the "Eden" of Ngorongoro. Experience the Great Migration in unparalleled luxury.</p>
-            <a href="/safaris" className="extension-link">Explore Safaris</a>
+            <h3 className="extension-name">Kilimanjaro Trekking</h3>
+            <p className="extension-desc">Stand on the roof of Africa. Seven distinct routes, expert-certified guides, and a summit success rate that leads the industry.</p>
+            <Link href="/trekking/kilimanjaro" className="extension-link">Explore Trekking</Link>
           </div>
         </div>
 
