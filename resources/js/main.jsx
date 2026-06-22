@@ -9,16 +9,14 @@ if (typeof window !== 'undefined') {
     window.React = React;
 }
 
+const pages = import.meta.glob('./pages/**/*.jsx');
+
 createInertiaApp({
     resolve: (name) => {
-        // Map Inertia page names to their components — lazy loading for code-splitting
-        const pages = import.meta.glob('./pages/**/*.jsx');
         const page = pages[`./pages/${name}.jsx`];
         if (!page) {
             throw new Error(`Page not found: ${name}`);
         }
-        // Set PublicLayout for non-admin pages so Navbar/Footer render
-        // within Inertia's context provider (usePage() must be inside Inertia <App>)
         return page().then((module) => {
             const component = module.default;
             if (!name.startsWith('admin/')) {
@@ -29,8 +27,21 @@ createInertiaApp({
     },
     setup({ el, App, props }) {
         const root = createRoot(el);
-        
         root.render(<App {...props} />);
+
+        // Prefetch all public page JS chunks after initial render for instant navigation
+        const prefetchPages = () => {
+            Object.entries(pages).forEach(([path]) => {
+                if (!path.includes('/admin/')) {
+                    pages[path]();
+                }
+            });
+        };
+        if (typeof requestIdleCallback !== 'undefined') {
+            requestIdleCallback(prefetchPages);
+        } else {
+            setTimeout(prefetchPages, 2000);
+        }
     },
     progress: {
         color: '#C9A84C',

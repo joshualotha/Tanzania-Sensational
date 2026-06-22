@@ -34,8 +34,10 @@ class HandleInertiaRequests extends Middleware
     {
         $appUrl = rtrim((string)config('app.url', url('/')), '/');
 
-        // Load contact settings for telephone number
-        $contactSettings = SiteSetting::where('group', 'contact')->get()->keyBy('key');
+        // Load contact settings for telephone number (cached)
+        $contactSettings = Cache::remember('inertia:contactSettings', 3600, fn () =>
+            SiteSetting::where('group', 'contact')->get()->keyBy('key')
+        );
 
         $orgSchema = [
             '@context' => 'https://schema.org',
@@ -82,7 +84,7 @@ class HandleInertiaRequests extends Middleware
 
         return [
             ...parent::share($request),
-            'settings' => fn () => Cache::remember('inertia:settings', 3600, fn () =>
+            'settings' => Cache::remember('inertia:settings', 3600, fn () =>
                 SiteSetting::all()
                     ->groupBy('group')
                     ->map(function ($items) {
@@ -94,12 +96,12 @@ class HandleInertiaRequests extends Middleware
                         });
                     })
             ),
-            'visuals' => fn () => Cache::remember('inertia:visuals', 3600, fn () =>
+            'visuals' => Cache::remember('inertia:visuals', 3600, fn () =>
                 VisualAsset::all(['section', 'url'])
                     ->groupBy('section')
                     ->map(fn ($items) => $items->pluck('url'))
             ),
-            'navData' => fn () => Cache::remember('inertia:navData', 3600, fn () => [
+            'navData' => Cache::remember('inertia:navData', 3600, fn () => [
                 'trekkingRoutes' => TrekkingRoute::select('id', 'name', 'slug', 'duration')
                     ->orderBy('id', 'desc')
                     ->get(),
