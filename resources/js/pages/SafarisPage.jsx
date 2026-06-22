@@ -150,7 +150,7 @@ const SafarisPage = ({ destinations }) => {
                     >
                         {destinations.length > 0 ? destinations.map((dest) => (
                             <motion.div key={dest.id} variants={fadeInUp}>
-                                <Link href={`/safaris/destinations/${dest.id}`} className="premium-dest-card">
+                                <Link href={`/safaris/destinations/${dest.slug}`} className="premium-dest-card">
                                     <div className="premium-dest-img-wrap">
                                         <img src={dest.hero_image || getVisual('safaris.listHero', visualsData.safaris.listHero)} alt={`${dest.name} — Tanzania safari destination with wildlife and landscapes`} loading="lazy" />
                                         <div className="premium-dest-img-overlay"></div>

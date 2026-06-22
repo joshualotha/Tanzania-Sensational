@@ -103,7 +103,7 @@ export const Navbar = () => {
                         {safariDestinations.length > 0 ? (
                           safariDestinations.map(dest => (
                             <li key={dest.id}>
-                              <Link href={`/safaris/destinations/${dest.id}`}>{dest.name}</Link>
+                              <Link href={`/safaris/destinations/${dest.slug}`}>{dest.name}</Link>
                             </li>
                           ))
                         ) : (
@@ -149,7 +149,7 @@ export const Navbar = () => {
                   <ul className="submenu">
                     {safariDestinations.length > 0 ? (
                       safariDestinations.map(dest => (
-                        <li key={dest.id}><Link href={`/safaris/destinations/${dest.id}`}>{dest.name}</Link></li>
+                        <li key={dest.id}><Link href={`/safaris/destinations/${dest.slug}`}>{dest.name}</Link></li>
                       ))
                     ) : (
                       <>
@@ -377,7 +377,7 @@ export const Navbar = () => {
                     <div className="mobile-drawer-sub-group">
                       <span className="mobile-drawer-label">Destinations</span>
                       {safariDestinations.length > 0 ? safariDestinations.map(dest => (
-                        <Link key={dest.id} href={`/safaris/destinations/${dest.id}`}>{dest.name}</Link>
+                        <Link key={dest.id} href={`/safaris/destinations/${dest.slug}`}>{dest.name}</Link>
                       )) : (
                         <>
                           <Link href="/safaris/tanzania">Tanzania</Link>

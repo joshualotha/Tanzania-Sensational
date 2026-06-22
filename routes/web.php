@@ -235,11 +235,11 @@ Route::get('/ops-7f3d', function () {
 Route::get('/blog', [BlogPageController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [BlogPageController::class, 'show'])->name('blog.show');
 
-// Safari package detail
-Route::get('/safaris/packages/{packageId}', [SafariPageController::class, 'showPackage'])->name('safaris.packages.show');
+// Safari package detail (slug-based for SEO)
+Route::get('/safaris/packages/{slug}', [SafariPageController::class, 'showPackage'])->name('safaris.packages.show');
 
-// Destination detail
-Route::get('/safaris/destinations/{id}', [SafariPageController::class, 'showDestination'])->name('safaris.destinations.show');
+// Destination detail (slug-based for SEO)
+Route::get('/safaris/destinations/{slug}', [SafariPageController::class, 'showDestination'])->name('safaris.destinations.show');
 
 // Content pages (company, safari-guide)
 Route::get('/company/{page}', [ContentPageController::class, 'show'])->name('content.company')->defaults('fixedSection', 'company');

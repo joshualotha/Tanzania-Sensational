@@ -54,7 +54,7 @@ export const SafariPackages = ({ packages }) => {
         >
           {packages.slice(0, 6).map((pkg) => (
             <motion.div key={pkg.id} variants={fadeInUp}>
-              <Link href={`/safaris/packages/${pkg.id}`} className="safari-home-card">
+              <Link href={`/safaris/packages/${pkg.slug}`} className="safari-home-card">
                 <div className="safari-home-card-img">
                   <img src={getHeroImage(pkg)} alt={pkg.name} loading="lazy" />
                   <div className="safari-home-card-overlay"></div>

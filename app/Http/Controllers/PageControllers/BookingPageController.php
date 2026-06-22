@@ -56,7 +56,7 @@ class BookingPageController extends Controller
         } elseif ($packageId) {
             $type = 'safari';
             $id = $packageId;
-            $safari = SafariPackage::findOrFail($id);
+            $safari = SafariPackage::where('slug', $id)->firstOrFail();
             $pkg = $safari;
             $pageMeta = [
                 'hero_image' => $safari->hero_image ?? null,

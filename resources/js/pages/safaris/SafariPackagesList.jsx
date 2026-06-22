@@ -112,7 +112,7 @@ const SafariPackagesList = ({ packages }) => {
                     {filteredPackages.length > 0 ? (
                         filteredPackages.map((pkg) => (
                             <motion.div key={pkg.id} variants={fadeInUp}>
-                                <Link href={`/safaris/packages/${pkg.id}`} className="heritage-card-solid">
+                                <Link href={`/safaris/packages/${pkg.slug}`} className="heritage-card-solid">
                                     <div className="heritage-card-media">
                                         <img src={pkg.hero_image || getVisual('safaris.listHero', visualsData.safaris.listHero)} alt={`${pkg.name} — Tanzania safari package with wildlife and landscapes`} loading="lazy" />
                                         <div className="card-heritage-label">{pkg.category || 'SIGNATURE'}</div>

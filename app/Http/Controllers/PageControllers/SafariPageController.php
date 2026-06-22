@@ -121,9 +121,9 @@ class SafariPageController extends Controller
     /**
      * Display a safari package detail page.
      */
-    public function showPackage($packageId)
+    public function showPackage($slug)
     {
-        $pkg = SafariPackage::findOrFail($packageId);
+        $pkg = SafariPackage::where('slug', $slug)->firstOrFail();
 
         return Inertia::render('safaris/SafariPackageDetail', [
             'pkg' => $pkg,
@@ -134,9 +134,9 @@ class SafariPageController extends Controller
     /**
      * Display a destination detail page.
      */
-    public function showDestination($id)
+    public function showDestination($slug)
     {
-        $destination = Destination::findOrFail($id);
+        $destination = Destination::where('slug', $slug)->firstOrFail();
 
         return Inertia::render('safaris/DestinationDetail', [
             'destination' => $destination,

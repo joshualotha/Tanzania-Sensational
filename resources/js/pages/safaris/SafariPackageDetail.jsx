@@ -266,7 +266,7 @@ const SafariPackageDetail = ({ pkg }) => {
                             </div>
 
                             <Link
-                                href={`/booking/safari/${pkg.id}`}
+                                href={`/booking/safari/${pkg.slug}`}
                                 style={{
                                     display: 'flex',
                                     alignItems: 'center',
@@ -424,7 +424,7 @@ const SafariPackageDetail = ({ pkg }) => {
                         every detail to match your travel style, interests, and pace.
                     </p>
                     <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
-                        <Link href={`/booking/safari/${pkg.id}`} className="field-btn">
+                        <Link href={`/booking/safari/${pkg.slug}`} className="field-btn">
                             Book This Safari <ArrowRight size={16} />
                         </Link>
                         <Link href="/contact" className="field-btn" style={{ borderColor: 'var(--field-gold)', color: 'var(--field-gold)' }}>
