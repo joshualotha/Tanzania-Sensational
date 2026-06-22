@@ -2,6 +2,17 @@
     php_value upload_max_filesize 20M
     php_value post_max_size 25M
     php_value memory_limit 128M
+
+    # OPcache — eliminates PHP file re-parsing on every request
+    php_value opcache.enable 1
+    php_value opcache.memory_consumption 128
+    php_value opcache.interned_strings_buffer 16
+    php_value opcache.max_accelerated_files 50000
+    php_value opcache.revalidate_freq 60
+    php_value opcache.fast_shutdown 1
+    php_value opcache.enable_cli 1
+    php_value opcache.file_cache /tmp
+    php_value opcache.validate_timestamps 1
 </IfModule>
 
 <IfModule mod_rewrite.c>
