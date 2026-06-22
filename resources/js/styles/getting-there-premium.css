@@ -7,8 +7,8 @@
 :root {
     --bg-parchment: #FDF8F0;
     --dark: #1A1A1A;
-    --gold: #C8860A;
-    --gold-dim: #A66E08;
+    /* --gold: inherited from index.css global */
+    --gold-dim: #B8965A;
     --earth: #8B5E3C;
     --savanna-border: rgba(0, 0, 0, 0.08);
 }

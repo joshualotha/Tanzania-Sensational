@@ -35,7 +35,7 @@ button {
   --bg: var(--neutral);
   --text: var(--dark);
   --text-muted: #535C58;
-  --gold: #C9A84C;       /* Retaining branding gold for CTAs */
+  --gold: #D4AF37;       /* True gold — no orange, single source of truth */
 
   /* Typography Stacks */
   --font-heading: 'Playfair Display', serif;
