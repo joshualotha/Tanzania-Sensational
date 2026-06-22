@@ -813,3 +813,51 @@
     .field-pillar-grid-5 { grid-template-columns: 1fr; }
     .field-pillar-card { padding: 24px 20px; }
 }
+
+/* ═══ PACKAGE DETAIL — Responsive ═══ */
+.field-pkg-stats {
+    background: #fff;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--field-border);
+    padding: 40px 32px;
+}
+
+.field-pkg-sidebar {
+    position: sticky;
+    top: 120px;
+}
+
+.field-pkg-day-num {
+    font-family: var(--field-serif);
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--field-gold);
+    line-height: 1;
+    padding-top: 4px;
+}
+@media (max-width: 1024px) {
+    .field-pkg-layout {
+        grid-template-columns: 1fr !important;
+        gap: 60px !important;
+    }
+    .field-pkg-sidebar {
+        position: relative !important;
+        top: 0 !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .field-pkg-stats {
+        grid-template-columns: 1fr 1fr !important;
+        padding: 24px 20px !important;
+    }
+    .field-pkg-day-row {
+        grid-template-columns: 50px 1fr !important;
+        gap: 20px !important;
+        padding: 28px 0 !important;
+    }
+    .field-pkg-day-num {
+        font-size: 1.8rem !important;
+    }
+}
