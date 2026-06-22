@@ -2,7 +2,7 @@ import React from 'react';
 import { Hero } from '../components/sections/Hero';
 import { StatsStrip } from '../components/sections/StatsStrip';
 import { SafariPackages } from '../components/sections/SafariPackages';
-import { RoutesSection } from '../components/sections/Routes';
+import { SafariDestinations } from '../components/sections/SafariDestinations';
 import { Experience } from '../components/sections/Experience';
 import { Departures } from '../components/sections/Departures';
 import { Testimonials } from '../components/sections/Testimonials';
@@ -10,7 +10,7 @@ import { Extensions } from '../components/sections/Extensions';
 import { CTA } from '../components/sections/CTA';
 import { CmsSection } from '../components/cms/CmsSection';
 
-const HomePage = ({ cms, safariPackages }) => {
+const HomePage = ({ cms, safariPackages, destinations }) => {
     return (
         <main>
             {cms?.content ? <CmsSection html={cms.content} /> : null}
@@ -18,7 +18,7 @@ const HomePage = ({ cms, safariPackages }) => {
             <StatsStrip />
             <Extensions />
             <SafariPackages packages={safariPackages} />
-            <RoutesSection />
+            <SafariDestinations destinations={destinations} />
             <Experience />
             <Departures />
             <Testimonials />

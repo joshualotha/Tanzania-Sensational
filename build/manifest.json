@@ -1,11 +1,11 @@
 {
-  "_AuthContext-BfZ4nyAW.js": {
-    "file": "assets/AuthContext-BfZ4nyAW.js",
+  "_AuthContext-DfFha1K6.js": {
+    "file": "assets/AuthContext-DfFha1K6.js",
     "name": "AuthContext",
     "imports": [
       "_motion-BcUyiVqE.js",
       "_icons-C37JQNvr.js",
-      "_api-C4g6ENPW.js"
+      "_api-Bw_21cDt.js"
     ]
   },
   "_CmsSection-2dDYBUMR.js": {
@@ -17,8 +17,8 @@
       "node_modules/dompurify/dist/purify.es.mjs"
     ]
   },
-  "_GearList-oGST65Bj.js": {
-    "file": "assets/GearList-oGST65Bj.js",
+  "_GearList-6iWovRkU.js": {
+    "file": "assets/GearList-6iWovRkU.js",
     "name": "GearList",
     "isDynamicEntry": true,
     "imports": [
@@ -43,22 +43,22 @@
       "_icons-C37JQNvr.js"
     ]
   },
-  "_PrivateTrekPricing-Pv8zz2VO.js": {
-    "file": "assets/PrivateTrekPricing-Pv8zz2VO.js",
+  "_PrivateTrekPricing-CRlBKaRP.js": {
+    "file": "assets/PrivateTrekPricing-CRlBKaRP.js",
     "name": "PrivateTrekPricing",
     "imports": [
       "_motion-BcUyiVqE.js",
       "_icons-C37JQNvr.js",
       "resources/js/main.jsx",
-      "_api-C4g6ENPW.js"
+      "_api-Bw_21cDt.js"
     ]
   },
   "_admin-premium-B-9Mok3N.css": {
     "file": "assets/admin-premium-B-9Mok3N.css",
     "src": "_admin-premium-B-9Mok3N.css"
   },
-  "_api-C4g6ENPW.js": {
-    "file": "assets/api-C4g6ENPW.js",
+  "_api-Bw_21cDt.js": {
+    "file": "assets/api-Bw_21cDt.js",
     "name": "api",
     "imports": [
       "resources/js/main.jsx"
@@ -123,13 +123,13 @@
     ]
   },
   "node_modules/canvg/lib/index.es.js": {
-    "file": "assets/index.es-DzO2vXD6.js",
+    "file": "assets/index.es-DemOw7gr.js",
     "name": "index.es",
     "src": "node_modules/canvg/lib/index.es.js",
     "isDynamicEntry": true,
     "imports": [
       "_icons-C37JQNvr.js",
-      "_GearList-oGST65Bj.js",
+      "_GearList-6iWovRkU.js",
       "_motion-BcUyiVqE.js",
       "resources/js/main.jsx",
       "_vendor-Dr3yieHi.js"
@@ -151,7 +151,7 @@
     "isDynamicEntry": true
   },
   "resources/js/main.jsx": {
-    "file": "assets/main-BOrqCsGQ.js",
+    "file": "assets/main-DiB8yRq8.js",
     "name": "main",
     "src": "resources/js/main.jsx",
     "isEntry": true,
@@ -204,7 +204,7 @@
       "resources/js/pages/safaris/SafariPackageDetail.jsx",
       "resources/js/pages/safaris/SafariPackagesList.jsx",
       "resources/js/pages/trekking/KilimanjaroPillar.jsx",
-      "_GearList-oGST65Bj.js",
+      "_GearList-6iWovRkU.js",
       "resources/js/pages/trekking/after/GettingThere.jsx",
       "resources/js/pages/trekking/after/Training.jsx",
       "resources/js/pages/trekking/after/Visa.jsx",
@@ -238,7 +238,7 @@
     ]
   },
   "resources/js/pages/AboutPage.jsx": {
-    "file": "assets/AboutPage-CI0hyyMi.js",
+    "file": "assets/AboutPage-BrJdUjLL.js",
     "name": "AboutPage",
     "src": "resources/js/pages/AboutPage.jsx",
     "isDynamicEntry": true,
@@ -256,7 +256,7 @@
     ]
   },
   "resources/js/pages/BookingPage.jsx": {
-    "file": "assets/BookingPage-BhQElJXk.js",
+    "file": "assets/BookingPage-BI1n7i29.js",
     "name": "BookingPage",
     "src": "resources/js/pages/BookingPage.jsx",
     "isDynamicEntry": true,
@@ -264,7 +264,7 @@
       "_motion-BcUyiVqE.js",
       "_icons-C37JQNvr.js",
       "resources/js/main.jsx",
-      "_api-C4g6ENPW.js",
+      "_api-Bw_21cDt.js",
       "_vendor-Dr3yieHi.js"
     ],
     "css": [
@@ -272,7 +272,7 @@
     ]
   },
   "resources/js/pages/ContactPage.jsx": {
-    "file": "assets/ContactPage-BvRWd_GX.js",
+    "file": "assets/ContactPage-DVNx_Qov.js",
     "name": "ContactPage",
     "src": "resources/js/pages/ContactPage.jsx",
     "isDynamicEntry": true,
@@ -280,7 +280,7 @@
       "_motion-BcUyiVqE.js",
       "_icons-C37JQNvr.js",
       "resources/js/main.jsx",
-      "_api-C4g6ENPW.js",
+      "_api-Bw_21cDt.js",
       "_CmsSection-2dDYBUMR.js",
       "_OptimizedImage-DNyO1vGM.js",
       "_vendor-Dr3yieHi.js",
@@ -291,7 +291,7 @@
     ]
   },
   "resources/js/pages/HomePage.jsx": {
-    "file": "assets/HomePage-DA6FWs8d.js",
+    "file": "assets/HomePage-BT_4y9pH.js",
     "name": "HomePage",
     "src": "resources/js/pages/HomePage.jsx",
     "isDynamicEntry": true,
@@ -299,17 +299,17 @@
       "_motion-BcUyiVqE.js",
       "_icons-C37JQNvr.js",
       "resources/js/main.jsx",
-      "_api-C4g6ENPW.js",
+      "_api-Bw_21cDt.js",
       "_CmsSection-2dDYBUMR.js",
       "_vendor-Dr3yieHi.js",
       "node_modules/dompurify/dist/purify.es.mjs"
     ],
     "css": [
-      "assets/HomePage-CTb_IfCo.css"
+      "assets/HomePage-zfqrWVXs.css"
     ]
   },
   "resources/js/pages/NotFound.jsx": {
-    "file": "assets/NotFound-BGEJc3B9.js",
+    "file": "assets/NotFound-BYuMvBZR.js",
     "name": "NotFound",
     "src": "resources/js/pages/NotFound.jsx",
     "isDynamicEntry": true,
@@ -321,7 +321,7 @@
     ]
   },
   "resources/js/pages/SafarisPage.jsx": {
-    "file": "assets/SafarisPage-CHbDpr6p.js",
+    "file": "assets/SafarisPage-DslNJuUp.js",
     "name": "SafarisPage",
     "src": "resources/js/pages/SafarisPage.jsx",
     "isDynamicEntry": true,
@@ -337,7 +337,7 @@
     ]
   },
   "resources/js/pages/ZanzibarPage.jsx": {
-    "file": "assets/ZanzibarPage-D2Jf5HmT.js",
+    "file": "assets/ZanzibarPage-BFUFA4D-.js",
     "name": "ZanzibarPage",
     "src": "resources/js/pages/ZanzibarPage.jsx",
     "isDynamicEntry": true,
@@ -353,14 +353,14 @@
     ]
   },
   "resources/js/pages/admin/AdminApp.jsx": {
-    "file": "assets/AdminApp-DN1MoT0k.js",
+    "file": "assets/AdminApp-DyEwx1BW.js",
     "name": "AdminApp",
     "src": "resources/js/pages/admin/AdminApp.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_motion-BcUyiVqE.js",
       "_icons-C37JQNvr.js",
-      "_AuthContext-BfZ4nyAW.js",
+      "_AuthContext-DfFha1K6.js",
       "resources/js/pages/admin/AdminLogin.jsx",
       "resources/js/pages/admin/AdminLayout.jsx",
       "resources/js/pages/admin/AdminDashboard.jsx",
@@ -378,7 +378,7 @@
       "resources/js/pages/admin/AdminPages.jsx",
       "resources/js/pages/admin/AdminPricing.jsx",
       "_vendor-Dr3yieHi.js",
-      "_api-C4g6ENPW.js",
+      "_api-Bw_21cDt.js",
       "resources/js/main.jsx"
     ],
     "css": [
@@ -386,14 +386,14 @@
     ]
   },
   "resources/js/pages/admin/AdminBlog.jsx": {
-    "file": "assets/AdminBlog-jecRK2dV.js",
+    "file": "assets/AdminBlog-CsE08fPG.js",
     "name": "AdminBlog",
     "src": "resources/js/pages/admin/AdminBlog.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_motion-BcUyiVqE.js",
       "_icons-C37JQNvr.js",
-      "_api-C4g6ENPW.js",
+      "_api-Bw_21cDt.js",
       "_vendor-Dr3yieHi.js",
       "resources/js/main.jsx"
     ],
@@ -402,14 +402,14 @@
     ]
   },
   "resources/js/pages/admin/AdminBookingsList.jsx": {
-    "file": "assets/AdminBookingsList-CPZGVAVZ.js",
+    "file": "assets/AdminBookingsList-CqyqQRXL.js",
     "name": "AdminBookingsList",
     "src": "resources/js/pages/admin/AdminBookingsList.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_motion-BcUyiVqE.js",
       "_icons-C37JQNvr.js",
-      "_api-C4g6ENPW.js",
+      "_api-Bw_21cDt.js",
       "_vendor-Dr3yieHi.js",
       "resources/js/main.jsx"
     ],
@@ -418,14 +418,14 @@
     ]
   },
   "resources/js/pages/admin/AdminDashboard.jsx": {
-    "file": "assets/AdminDashboard-BulUbeko.js",
+    "file": "assets/AdminDashboard-CY_c8cm2.js",
     "name": "AdminDashboard",
     "src": "resources/js/pages/admin/AdminDashboard.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_motion-BcUyiVqE.js",
       "_icons-C37JQNvr.js",
-      "_api-C4g6ENPW.js",
+      "_api-Bw_21cDt.js",
       "_vendor-Dr3yieHi.js",
       "resources/js/main.jsx"
     ],
@@ -434,14 +434,14 @@
     ]
   },
   "resources/js/pages/admin/AdminDepartures.jsx": {
-    "file": "assets/AdminDepartures-CLxjHIe7.js",
+    "file": "assets/AdminDepartures-Bg-6UKmf.js",
     "name": "AdminDepartures",
     "src": "resources/js/pages/admin/AdminDepartures.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_motion-BcUyiVqE.js",
       "_icons-C37JQNvr.js",
-      "_api-C4g6ENPW.js",
+      "_api-Bw_21cDt.js",
       "resources/js/main.jsx",
       "_vendor-Dr3yieHi.js"
     ],
@@ -450,14 +450,14 @@
     ]
   },
   "resources/js/pages/admin/AdminDestinations.jsx": {
-    "file": "assets/AdminDestinations-B2v6uHp9.js",
+    "file": "assets/AdminDestinations-Cf_ZhRUS.js",
     "name": "AdminDestinations",
     "src": "resources/js/pages/admin/AdminDestinations.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_motion-BcUyiVqE.js",
       "_icons-C37JQNvr.js",
-      "_api-C4g6ENPW.js",
+      "_api-Bw_21cDt.js",
       "resources/js/main.jsx",
       "_vendor-Dr3yieHi.js"
     ],
@@ -466,14 +466,14 @@
     ]
   },
   "resources/js/pages/admin/AdminGearRequests.jsx": {
-    "file": "assets/AdminGearRequests-BDz9pJFr.js",
+    "file": "assets/AdminGearRequests-AB1LM3xU.js",
     "name": "AdminGearRequests",
     "src": "resources/js/pages/admin/AdminGearRequests.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_motion-BcUyiVqE.js",
       "_icons-C37JQNvr.js",
-      "_api-C4g6ENPW.js",
+      "_api-Bw_21cDt.js",
       "resources/js/main.jsx",
       "_vendor-Dr3yieHi.js"
     ],
@@ -482,14 +482,14 @@
     ]
   },
   "resources/js/pages/admin/AdminInquiries.jsx": {
-    "file": "assets/AdminInquiries-BOYz5opr.js",
+    "file": "assets/AdminInquiries-B1wy4X-3.js",
     "name": "AdminInquiries",
     "src": "resources/js/pages/admin/AdminInquiries.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_motion-BcUyiVqE.js",
       "_icons-C37JQNvr.js",
-      "_api-C4g6ENPW.js",
+      "_api-Bw_21cDt.js",
       "resources/js/main.jsx",
       "_vendor-Dr3yieHi.js"
     ],
@@ -498,15 +498,15 @@
     ]
   },
   "resources/js/pages/admin/AdminLayout.jsx": {
-    "file": "assets/AdminLayout-DmiXPogE.js",
+    "file": "assets/AdminLayout-CrwImqs_.js",
     "name": "AdminLayout",
     "src": "resources/js/pages/admin/AdminLayout.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_motion-BcUyiVqE.js",
       "_icons-C37JQNvr.js",
-      "_AuthContext-BfZ4nyAW.js",
-      "_api-C4g6ENPW.js",
+      "_AuthContext-DfFha1K6.js",
+      "_api-Bw_21cDt.js",
       "_vendor-Dr3yieHi.js",
       "resources/js/main.jsx"
     ],
@@ -515,16 +515,16 @@
     ]
   },
   "resources/js/pages/admin/AdminLogin.jsx": {
-    "file": "assets/AdminLogin-DIlYslqH.js",
+    "file": "assets/AdminLogin-Bdq8G9o_.js",
     "name": "AdminLogin",
     "src": "resources/js/pages/admin/AdminLogin.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_motion-BcUyiVqE.js",
       "_icons-C37JQNvr.js",
-      "_AuthContext-BfZ4nyAW.js",
+      "_AuthContext-DfFha1K6.js",
       "_vendor-Dr3yieHi.js",
-      "_api-C4g6ENPW.js",
+      "_api-Bw_21cDt.js",
       "resources/js/main.jsx"
     ],
     "css": [
@@ -532,14 +532,14 @@
     ]
   },
   "resources/js/pages/admin/AdminPages.jsx": {
-    "file": "assets/AdminPages-9V2KUbxu.js",
+    "file": "assets/AdminPages-DdmRNeGs.js",
     "name": "AdminPages",
     "src": "resources/js/pages/admin/AdminPages.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_motion-BcUyiVqE.js",
       "_icons-C37JQNvr.js",
-      "_api-C4g6ENPW.js",
+      "_api-Bw_21cDt.js",
       "resources/js/main.jsx",
       "_vendor-Dr3yieHi.js"
     ],
@@ -548,14 +548,14 @@
     ]
   },
   "resources/js/pages/admin/AdminPricing.jsx": {
-    "file": "assets/AdminPricing-BRQpkwi7.js",
+    "file": "assets/AdminPricing-CQOJxs7P.js",
     "name": "AdminPricing",
     "src": "resources/js/pages/admin/AdminPricing.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_motion-BcUyiVqE.js",
       "_icons-C37JQNvr.js",
-      "_api-C4g6ENPW.js",
+      "_api-Bw_21cDt.js",
       "resources/js/main.jsx",
       "_vendor-Dr3yieHi.js"
     ],
@@ -564,14 +564,14 @@
     ]
   },
   "resources/js/pages/admin/AdminSafaris.jsx": {
-    "file": "assets/AdminSafaris-Dk2ZHncw.js",
+    "file": "assets/AdminSafaris-DtoDJ_Mu.js",
     "name": "AdminSafaris",
     "src": "resources/js/pages/admin/AdminSafaris.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_motion-BcUyiVqE.js",
       "_icons-C37JQNvr.js",
-      "_api-C4g6ENPW.js",
+      "_api-Bw_21cDt.js",
       "resources/js/main.jsx",
       "_vendor-Dr3yieHi.js"
     ],
@@ -580,14 +580,14 @@
     ]
   },
   "resources/js/pages/admin/AdminSafarisList.jsx": {
-    "file": "assets/AdminSafarisList-JzrE3y1i.js",
+    "file": "assets/AdminSafarisList-VfU11g9S.js",
     "name": "AdminSafarisList",
     "src": "resources/js/pages/admin/AdminSafarisList.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_motion-BcUyiVqE.js",
       "_icons-C37JQNvr.js",
-      "_api-C4g6ENPW.js",
+      "_api-Bw_21cDt.js",
       "resources/js/main.jsx",
       "_vendor-Dr3yieHi.js"
     ],
@@ -596,14 +596,14 @@
     ]
   },
   "resources/js/pages/admin/AdminSettings.jsx": {
-    "file": "assets/AdminSettings-BUE9MDaI.js",
+    "file": "assets/AdminSettings-CmuSuqPn.js",
     "name": "AdminSettings",
     "src": "resources/js/pages/admin/AdminSettings.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_motion-BcUyiVqE.js",
       "_icons-C37JQNvr.js",
-      "_api-C4g6ENPW.js",
+      "_api-Bw_21cDt.js",
       "resources/js/main.jsx",
       "_vendor-Dr3yieHi.js"
     ],
@@ -612,14 +612,14 @@
     ]
   },
   "resources/js/pages/admin/AdminTrekking.jsx": {
-    "file": "assets/AdminTrekking-DsB_deNc.js",
+    "file": "assets/AdminTrekking-GeLwhZve.js",
     "name": "AdminTrekking",
     "src": "resources/js/pages/admin/AdminTrekking.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_motion-BcUyiVqE.js",
       "_icons-C37JQNvr.js",
-      "_api-C4g6ENPW.js",
+      "_api-Bw_21cDt.js",
       "resources/js/main.jsx",
       "_vendor-Dr3yieHi.js"
     ],
@@ -628,14 +628,14 @@
     ]
   },
   "resources/js/pages/admin/AdminUsers.jsx": {
-    "file": "assets/AdminUsers-BZn7iZfY.js",
+    "file": "assets/AdminUsers-B_sUpfYX.js",
     "name": "AdminUsers",
     "src": "resources/js/pages/admin/AdminUsers.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_motion-BcUyiVqE.js",
       "_icons-C37JQNvr.js",
-      "_api-C4g6ENPW.js",
+      "_api-Bw_21cDt.js",
       "resources/js/main.jsx",
       "_vendor-Dr3yieHi.js"
     ],
@@ -644,14 +644,14 @@
     ]
   },
   "resources/js/pages/admin/AdminVisuals.jsx": {
-    "file": "assets/AdminVisuals-DJWQaeZc.js",
+    "file": "assets/AdminVisuals-RKZxr3Zw.js",
     "name": "AdminVisuals",
     "src": "resources/js/pages/admin/AdminVisuals.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_motion-BcUyiVqE.js",
       "_icons-C37JQNvr.js",
-      "_api-C4g6ENPW.js",
+      "_api-Bw_21cDt.js",
       "resources/js/main.jsx",
       "_vendor-Dr3yieHi.js"
     ],
@@ -660,7 +660,7 @@
     ]
   },
   "resources/js/pages/blog/BlogDetail.jsx": {
-    "file": "assets/BlogDetail-BxhDNwDX.js",
+    "file": "assets/BlogDetail-DqAqzQqU.js",
     "name": "BlogDetail",
     "src": "resources/js/pages/blog/BlogDetail.jsx",
     "isDynamicEntry": true,
@@ -676,7 +676,7 @@
     ]
   },
   "resources/js/pages/blog/BlogList.jsx": {
-    "file": "assets/BlogList-CNzON-Vt.js",
+    "file": "assets/BlogList-Di7ELqji.js",
     "name": "BlogList",
     "src": "resources/js/pages/blog/BlogList.jsx",
     "isDynamicEntry": true,
@@ -691,7 +691,7 @@
     ]
   },
   "resources/js/pages/content/ContentPage.jsx": {
-    "file": "assets/ContentPage-BrL0hPnf.js",
+    "file": "assets/ContentPage-BQQNvHyA.js",
     "name": "ContentPage",
     "src": "resources/js/pages/content/ContentPage.jsx",
     "isDynamicEntry": true,
@@ -708,7 +708,7 @@
     ]
   },
   "resources/js/pages/plan/DepartureDetail.jsx": {
-    "file": "assets/DepartureDetail-B6k_VykX.js",
+    "file": "assets/DepartureDetail-CRgaJxhi.js",
     "name": "DepartureDetail",
     "src": "resources/js/pages/plan/DepartureDetail.jsx",
     "isDynamicEntry": true,
@@ -723,7 +723,7 @@
     ]
   },
   "resources/js/pages/plan/FAQ.jsx": {
-    "file": "assets/FAQ-CSXbLLUa.js",
+    "file": "assets/FAQ-DUV-9tvd.js",
     "name": "FAQ",
     "src": "resources/js/pages/plan/FAQ.jsx",
     "isDynamicEntry": true,
@@ -738,7 +738,7 @@
     ]
   },
   "resources/js/pages/plan/GearChecklist.jsx": {
-    "file": "assets/GearChecklist-Ba6ryZjp.js",
+    "file": "assets/GearChecklist-Bi1d78tI.js",
     "name": "GearChecklist",
     "src": "resources/js/pages/plan/GearChecklist.jsx",
     "isDynamicEntry": true,
@@ -746,7 +746,7 @@
       "_motion-BcUyiVqE.js",
       "_icons-C37JQNvr.js",
       "resources/js/main.jsx",
-      "_api-C4g6ENPW.js",
+      "_api-Bw_21cDt.js",
       "_vendor-Dr3yieHi.js"
     ],
     "css": [
@@ -754,7 +754,7 @@
     ]
   },
   "resources/js/pages/plan/GroupDepartures.jsx": {
-    "file": "assets/GroupDepartures-1z0apfET.js",
+    "file": "assets/GroupDepartures-B98aSxCs.js",
     "name": "GroupDepartures",
     "src": "resources/js/pages/plan/GroupDepartures.jsx",
     "isDynamicEntry": true,
@@ -769,7 +769,7 @@
     ]
   },
   "resources/js/pages/plan/SafariAddons.jsx": {
-    "file": "assets/SafariAddons-NGqq2FVq.js",
+    "file": "assets/SafariAddons-ODEhTxU9.js",
     "name": "SafariAddons",
     "src": "resources/js/pages/plan/SafariAddons.jsx",
     "isDynamicEntry": true,
@@ -784,7 +784,7 @@
     ]
   },
   "resources/js/pages/plan/TrainingGuide.jsx": {
-    "file": "assets/TrainingGuide-P0lUtLbk.js",
+    "file": "assets/TrainingGuide-DMaX28zB.js",
     "name": "TrainingGuide",
     "src": "resources/js/pages/plan/TrainingGuide.jsx",
     "isDynamicEntry": true,
@@ -799,7 +799,7 @@
     ]
   },
   "resources/js/pages/safari/HealthAndSafety.jsx": {
-    "file": "assets/HealthAndSafety-C7h5xA45.js",
+    "file": "assets/HealthAndSafety-CiXpmHJd.js",
     "name": "HealthAndSafety",
     "src": "resources/js/pages/safari/HealthAndSafety.jsx",
     "isDynamicEntry": true,
@@ -814,7 +814,7 @@
     ]
   },
   "resources/js/pages/safari/PackingList.jsx": {
-    "file": "assets/PackingList-CdZUV1VD.js",
+    "file": "assets/PackingList-ACfNjYWl.js",
     "name": "PackingList",
     "src": "resources/js/pages/safari/PackingList.jsx",
     "isDynamicEntry": true,
@@ -829,7 +829,7 @@
     ]
   },
   "resources/js/pages/safari/SafariEtiquette.jsx": {
-    "file": "assets/SafariEtiquette-DZzWK7-Y.js",
+    "file": "assets/SafariEtiquette-PCNhD8Ad.js",
     "name": "SafariEtiquette",
     "src": "resources/js/pages/safari/SafariEtiquette.jsx",
     "isDynamicEntry": true,
@@ -844,7 +844,7 @@
     ]
   },
   "resources/js/pages/safari/SafariPillar.jsx": {
-    "file": "assets/SafariPillar-Bstjv8Ic.js",
+    "file": "assets/SafariPillar-CXvMRmZM.js",
     "name": "SafariPillar",
     "src": "resources/js/pages/safari/SafariPillar.jsx",
     "isDynamicEntry": true,
@@ -860,7 +860,7 @@
     ]
   },
   "resources/js/pages/safari/WhatToWear.jsx": {
-    "file": "assets/WhatToWear-VgbABfy6.js",
+    "file": "assets/WhatToWear-9HeVfZob.js",
     "name": "WhatToWear",
     "src": "resources/js/pages/safari/WhatToWear.jsx",
     "isDynamicEntry": true,
@@ -875,7 +875,7 @@
     ]
   },
   "resources/js/pages/safaris/DestinationDetail.jsx": {
-    "file": "assets/DestinationDetail-DVbVrNkM.js",
+    "file": "assets/DestinationDetail-e4iLebuF.js",
     "name": "DestinationDetail",
     "src": "resources/js/pages/safaris/DestinationDetail.jsx",
     "isDynamicEntry": true,
@@ -890,7 +890,7 @@
     ]
   },
   "resources/js/pages/safaris/SafariPackageDetail.jsx": {
-    "file": "assets/SafariPackageDetail-C5EUdAIL.js",
+    "file": "assets/SafariPackageDetail-lCGPocL5.js",
     "name": "SafariPackageDetail",
     "src": "resources/js/pages/safaris/SafariPackageDetail.jsx",
     "isDynamicEntry": true,
@@ -906,7 +906,7 @@
     ]
   },
   "resources/js/pages/safaris/SafariPackagesList.jsx": {
-    "file": "assets/SafariPackagesList-DmQ8Jt5i.js",
+    "file": "assets/SafariPackagesList-DBVwfKv_.js",
     "name": "SafariPackagesList",
     "src": "resources/js/pages/safaris/SafariPackagesList.jsx",
     "isDynamicEntry": true,
@@ -921,7 +921,7 @@
     ]
   },
   "resources/js/pages/trekking/KilimanjaroPillar.jsx": {
-    "file": "assets/KilimanjaroPillar-OSrDZgUD.js",
+    "file": "assets/KilimanjaroPillar-DB7U-Cik.js",
     "name": "KilimanjaroPillar",
     "src": "resources/js/pages/trekking/KilimanjaroPillar.jsx",
     "isDynamicEntry": true,
@@ -937,7 +937,7 @@
     ]
   },
   "resources/js/pages/trekking/after/GettingThere.jsx": {
-    "file": "assets/GettingThere-CpXEP8bO.js",
+    "file": "assets/GettingThere-_Vwrk_Tu.js",
     "name": "GettingThere",
     "src": "resources/js/pages/trekking/after/GettingThere.jsx",
     "isDynamicEntry": true,
@@ -952,7 +952,7 @@
     ]
   },
   "resources/js/pages/trekking/after/Training.jsx": {
-    "file": "assets/Training-W4MNXafQ.js",
+    "file": "assets/Training-BrQUlO_e.js",
     "name": "Training",
     "src": "resources/js/pages/trekking/after/Training.jsx",
     "isDynamicEntry": true,
@@ -967,7 +967,7 @@
     ]
   },
   "resources/js/pages/trekking/after/Visa.jsx": {
-    "file": "assets/Visa-Bjvp8XnC.js",
+    "file": "assets/Visa-yCv6umKY.js",
     "name": "Visa",
     "src": "resources/js/pages/trekking/after/Visa.jsx",
     "isDynamicEntry": true,
@@ -982,7 +982,7 @@
     ]
   },
   "resources/js/pages/trekking/during/Connectivity.jsx": {
-    "file": "assets/Connectivity-BW_wWuY7.js",
+    "file": "assets/Connectivity-CRNtkqoN.js",
     "name": "Connectivity",
     "src": "resources/js/pages/trekking/during/Connectivity.jsx",
     "isDynamicEntry": true,
@@ -997,7 +997,7 @@
     ]
   },
   "resources/js/pages/trekking/during/DailyRoutine.jsx": {
-    "file": "assets/DailyRoutine-B7qCg0DE.js",
+    "file": "assets/DailyRoutine-awWt2Kb_.js",
     "name": "DailyRoutine",
     "src": "resources/js/pages/trekking/during/DailyRoutine.jsx",
     "isDynamicEntry": true,
@@ -1012,7 +1012,7 @@
     ]
   },
   "resources/js/pages/trekking/during/FoodAndDrinks.jsx": {
-    "file": "assets/FoodAndDrinks-Dx3iNI79.js",
+    "file": "assets/FoodAndDrinks-Du8z8-RM.js",
     "name": "FoodAndDrinks",
     "src": "resources/js/pages/trekking/during/FoodAndDrinks.jsx",
     "isDynamicEntry": true,
@@ -1027,7 +1027,7 @@
     ]
   },
   "resources/js/pages/trekking/during/PackYourDaypack.jsx": {
-    "file": "assets/PackYourDaypack-Dl1vIJxS.js",
+    "file": "assets/PackYourDaypack-Drl0Zj3E.js",
     "name": "PackYourDaypack",
     "src": "resources/js/pages/trekking/during/PackYourDaypack.jsx",
     "isDynamicEntry": true,
@@ -1042,7 +1042,7 @@
     ]
   },
   "resources/js/pages/trekking/health/AltitudeSickness.jsx": {
-    "file": "assets/AltitudeSickness-L58B2cXm.js",
+    "file": "assets/AltitudeSickness-DjwoaCGQ.js",
     "name": "AltitudeSickness",
     "src": "resources/js/pages/trekking/health/AltitudeSickness.jsx",
     "isDynamicEntry": true,
@@ -1057,7 +1057,7 @@
     ]
   },
   "resources/js/pages/trekking/health/Diamox.jsx": {
-    "file": "assets/Diamox-CY0mnpMe.js",
+    "file": "assets/Diamox-DOYZizPn.js",
     "name": "Diamox",
     "src": "resources/js/pages/trekking/health/Diamox.jsx",
     "isDynamicEntry": true,
@@ -1072,7 +1072,7 @@
     ]
   },
   "resources/js/pages/trekking/health/Oxygen.jsx": {
-    "file": "assets/Oxygen-NOkY_GJC.js",
+    "file": "assets/Oxygen-BCMnG_pY.js",
     "name": "Oxygen",
     "src": "resources/js/pages/trekking/health/Oxygen.jsx",
     "isDynamicEntry": true,
@@ -1087,7 +1087,7 @@
     ]
   },
   "resources/js/pages/trekking/health/Vaccinations.jsx": {
-    "file": "assets/Vaccinations-B9zNKC_0.js",
+    "file": "assets/Vaccinations-CXbvaYuX.js",
     "name": "Vaccinations",
     "src": "resources/js/pages/trekking/health/Vaccinations.jsx",
     "isDynamicEntry": true,
@@ -1102,7 +1102,7 @@
     ]
   },
   "resources/js/pages/trekking/kilimanjaro/Lemosho.jsx": {
-    "file": "assets/Lemosho-CJFxN2lt.js",
+    "file": "assets/Lemosho-DIZO_5Xa.js",
     "name": "Lemosho",
     "src": "resources/js/pages/trekking/kilimanjaro/Lemosho.jsx",
     "isDynamicEntry": true,
@@ -1110,16 +1110,16 @@
       "_motion-BcUyiVqE.js",
       "_icons-C37JQNvr.js",
       "resources/js/main.jsx",
-      "_PrivateTrekPricing-Pv8zz2VO.js",
+      "_PrivateTrekPricing-CRlBKaRP.js",
       "_vendor-Dr3yieHi.js",
-      "_api-C4g6ENPW.js"
+      "_api-Bw_21cDt.js"
     ],
     "css": [
       "assets/ultra-premium-CkSmbWIi.css"
     ]
   },
   "resources/js/pages/trekking/kilimanjaro/Machame.jsx": {
-    "file": "assets/Machame-B52-9pc5.js",
+    "file": "assets/Machame-Bix1y_gz.js",
     "name": "Machame",
     "src": "resources/js/pages/trekking/kilimanjaro/Machame.jsx",
     "isDynamicEntry": true,
@@ -1127,16 +1127,16 @@
       "_motion-BcUyiVqE.js",
       "_icons-C37JQNvr.js",
       "resources/js/main.jsx",
-      "_PrivateTrekPricing-Pv8zz2VO.js",
+      "_PrivateTrekPricing-CRlBKaRP.js",
       "_vendor-Dr3yieHi.js",
-      "_api-C4g6ENPW.js"
+      "_api-Bw_21cDt.js"
     ],
     "css": [
       "assets/ultra-premium-CkSmbWIi.css"
     ]
   },
   "resources/js/pages/trekking/kilimanjaro/Marangu.jsx": {
-    "file": "assets/Marangu-Cds4fAUu.js",
+    "file": "assets/Marangu-X-YbWAyd.js",
     "name": "Marangu",
     "src": "resources/js/pages/trekking/kilimanjaro/Marangu.jsx",
     "isDynamicEntry": true,
@@ -1144,9 +1144,9 @@
       "_motion-BcUyiVqE.js",
       "_icons-C37JQNvr.js",
       "resources/js/main.jsx",
-      "_PrivateTrekPricing-Pv8zz2VO.js",
+      "_PrivateTrekPricing-CRlBKaRP.js",
       "_vendor-Dr3yieHi.js",
-      "_api-C4g6ENPW.js"
+      "_api-Bw_21cDt.js"
     ],
     "css": [
       "assets/ultra-premium-CkSmbWIi.css"
@@ -1165,7 +1165,7 @@
     ]
   },
   "resources/js/pages/trekking/kilimanjaro/NorthernCircuit.jsx": {
-    "file": "assets/NorthernCircuit-B_ax46X1.js",
+    "file": "assets/NorthernCircuit-qSoMJEd9.js",
     "name": "NorthernCircuit",
     "src": "resources/js/pages/trekking/kilimanjaro/NorthernCircuit.jsx",
     "isDynamicEntry": true,
@@ -1173,16 +1173,16 @@
       "_motion-BcUyiVqE.js",
       "_icons-C37JQNvr.js",
       "resources/js/main.jsx",
-      "_PrivateTrekPricing-Pv8zz2VO.js",
+      "_PrivateTrekPricing-CRlBKaRP.js",
       "_vendor-Dr3yieHi.js",
-      "_api-C4g6ENPW.js"
+      "_api-Bw_21cDt.js"
     ],
     "css": [
       "assets/ultra-premium-CkSmbWIi.css"
     ]
   },
   "resources/js/pages/trekking/kilimanjaro/PackageDetail.jsx": {
-    "file": "assets/PackageDetail-CRJxRGk5.js",
+    "file": "assets/PackageDetail-BBiDdc-t.js",
     "name": "PackageDetail",
     "src": "resources/js/pages/trekking/kilimanjaro/PackageDetail.jsx",
     "isDynamicEntry": true,
@@ -1199,7 +1199,7 @@
     ]
   },
   "resources/js/pages/trekking/kilimanjaro/Rongai.jsx": {
-    "file": "assets/Rongai-DLIrE8JA.js",
+    "file": "assets/Rongai-BQ5DIsag.js",
     "name": "Rongai",
     "src": "resources/js/pages/trekking/kilimanjaro/Rongai.jsx",
     "isDynamicEntry": true,
@@ -1207,16 +1207,16 @@
       "_motion-BcUyiVqE.js",
       "_icons-C37JQNvr.js",
       "resources/js/main.jsx",
-      "_PrivateTrekPricing-Pv8zz2VO.js",
+      "_PrivateTrekPricing-CRlBKaRP.js",
       "_vendor-Dr3yieHi.js",
-      "_api-C4g6ENPW.js"
+      "_api-Bw_21cDt.js"
     ],
     "css": [
       "assets/ultra-premium-CkSmbWIi.css"
     ]
   },
   "resources/js/pages/trekking/kilimanjaro/Umbwe.jsx": {
-    "file": "assets/Umbwe-75cg81J3.js",
+    "file": "assets/Umbwe-D4ZOxIf3.js",
     "name": "Umbwe",
     "src": "resources/js/pages/trekking/kilimanjaro/Umbwe.jsx",
     "isDynamicEntry": true,
@@ -1224,16 +1224,16 @@
       "_motion-BcUyiVqE.js",
       "_icons-C37JQNvr.js",
       "resources/js/main.jsx",
-      "_PrivateTrekPricing-Pv8zz2VO.js",
+      "_PrivateTrekPricing-CRlBKaRP.js",
       "_vendor-Dr3yieHi.js",
-      "_api-C4g6ENPW.js"
+      "_api-Bw_21cDt.js"
     ],
     "css": [
       "assets/ultra-premium-CkSmbWIi.css"
     ]
   },
   "resources/js/pages/trekking/prep/BestRoutes.jsx": {
-    "file": "assets/BestRoutes-By24O0Jb.js",
+    "file": "assets/BestRoutes-CRwdSclv.js",
     "name": "BestRoutes",
     "src": "resources/js/pages/trekking/prep/BestRoutes.jsx",
     "isDynamicEntry": true,
@@ -1248,7 +1248,7 @@
     ]
   },
   "resources/js/pages/trekking/prep/BestTime.jsx": {
-    "file": "assets/BestTime-Ccj8uNVe.js",
+    "file": "assets/BestTime-BwGVUyi0.js",
     "name": "BestTime",
     "src": "resources/js/pages/trekking/prep/BestTime.jsx",
     "isDynamicEntry": true,
@@ -1263,7 +1263,7 @@
     ]
   },
   "resources/js/pages/trekking/prep/ChooseOperator.jsx": {
-    "file": "assets/ChooseOperator-BvTXjlnb.js",
+    "file": "assets/ChooseOperator-CMb4pFgq.js",
     "name": "ChooseOperator",
     "src": "resources/js/pages/trekking/prep/ChooseOperator.jsx",
     "isDynamicEntry": true,
@@ -1278,7 +1278,7 @@
     ]
   },
   "resources/js/pages/trekking/prep/CostBreakdown.jsx": {
-    "file": "assets/CostBreakdown-Du57hjcU.js",
+    "file": "assets/CostBreakdown-B1IBCOkC.js",
     "name": "CostBreakdown",
     "src": "resources/js/pages/trekking/prep/CostBreakdown.jsx",
     "isDynamicEntry": true,
@@ -1293,7 +1293,7 @@
     ]
   },
   "resources/js/pages/trekking/prep/ParkFees.jsx": {
-    "file": "assets/ParkFees-BcbiU3hK.js",
+    "file": "assets/ParkFees-BEVgg4PY.js",
     "name": "ParkFees",
     "src": "resources/js/pages/trekking/prep/ParkFees.jsx",
     "isDynamicEntry": true,
@@ -1308,7 +1308,7 @@
     ]
   },
   "resources/js/pages/trekking/prep/TippingGuide.jsx": {
-    "file": "assets/TippingGuide-DuCTVknS.js",
+    "file": "assets/TippingGuide-CwQpLTcL.js",
     "name": "TippingGuide",
     "src": "resources/js/pages/trekking/prep/TippingGuide.jsx",
     "isDynamicEntry": true,
@@ -1323,7 +1323,7 @@
     ]
   },
   "resources/js/pages/trekking/prep/Toilets.jsx": {
-    "file": "assets/Toilets-FbUJ9aYi.js",
+    "file": "assets/Toilets-C-NlEmYH.js",
     "name": "Toilets",
     "src": "resources/js/pages/trekking/prep/Toilets.jsx",
     "isDynamicEntry": true,
@@ -1338,7 +1338,7 @@
     ]
   },
   "resources/js/pages/trekking/prep/WhyUs.jsx": {
-    "file": "assets/WhyUs-CYAYqMqD.js",
+    "file": "assets/WhyUs-CjQqGrwT.js",
     "name": "WhyUs",
     "src": "resources/js/pages/trekking/prep/WhyUs.jsx",
     "isDynamicEntry": true,

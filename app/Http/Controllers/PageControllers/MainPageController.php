@@ -5,6 +5,7 @@ namespace App\Http\Controllers\PageControllers;
 use App\Http\Controllers\Controller;
 use App\Models\Page;
 use App\Models\SafariPackage;
+use App\Models\Destination;
 use Inertia\Inertia;
 
 class MainPageController extends Controller
@@ -72,9 +73,14 @@ class MainPageController extends Controller
             ->limit(6)
             ->get();
 
+        $destinations = Destination::select('id', 'slug', 'name', 'meta_subtitle', 'meta_tag', 'hero_image', 'overview')
+            ->limit(6)
+            ->get();
+
         return Inertia::render('HomePage', [
             'cms' => $page,
             'safariPackages' => $safariPackages,
+            'destinations' => $destinations,
             'meta' => $page ? $this->buildPageMeta($page) : null,
         ]);
     }
