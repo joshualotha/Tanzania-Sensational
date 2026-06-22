@@ -3,10 +3,11 @@
    ════════════════════════════════════════════════════════ */
 
 .safari-home {
-    background: #F6F3EC;
+    background: #fff;
     padding: 120px 0;
     position: relative;
     overflow: hidden;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
 }
 
 .safari-home-inner {
@@ -90,8 +91,8 @@
 .safari-home-card {
     display: flex;
     flex-direction: column;
-    background: #fff;
-    border: 1px solid rgba(0,0,0,0.06);
+    background: #F6F3EC;
+    border: 1px solid rgba(0,0,0,0.05);
     text-decoration: none;
     color: inherit;
     transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
@@ -117,8 +118,8 @@
 
 .safari-home-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.08);
-    border-color: rgba(184, 150, 90, 0.2);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+    border-color: rgba(184, 150, 90, 0.25);
 }
 
 /* ─── CARD IMAGE ─── */
