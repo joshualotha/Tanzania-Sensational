@@ -1,1 +1,0 @@
-import{j as s}from"./motion-qA_U92gg.js";import"./icons-BlN-Jj40.js";import e from"./purify.es-CovBOfck.js";function m({html:t}){if(!t)return null;const r=e.sanitize(t,{USE_PROFILES:{html:!0}});return s.jsx("div",{className:"cms-section",dangerouslySetInnerHTML:{__html:r}})}export{m as C};

@@ -1,0 +1,294 @@
+/* ════════════════════════════════════════════════════════
+   SAFARI HOME SECTION — Dark Editorial Grid
+   Completely distinct from the Kilimanjaro carousel.
+   ════════════════════════════════════════════════════════ */
+
+.safari-home {
+    background: #1C1917;
+    padding: 120px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle noise texture */
+.safari-home::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+}
+
+.safari-home-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+    position: relative;
+}
+
+/* ─── HEADER ─── */
+.safari-home-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 60px;
+    gap: 40px;
+}
+
+.safari-home-eyebrow {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.35em;
+    color: #B8965A;
+    margin-bottom: 16px;
+}
+
+.safari-home-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 3.8rem);
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.1;
+    margin: 0;
+}
+
+.safari-home-title em {
+    font-style: italic;
+    color: #B8965A;
+}
+
+.safari-home-sub {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.45);
+    max-width: 480px;
+    margin-top: 16px;
+}
+
+.safari-home-viewall {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    padding-bottom: 6px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.safari-home-viewall:hover {
+    color: #B8965A;
+    border-color: #B8965A;
+}
+
+/* ─── GRID ─── */
+.safari-home-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+}
+
+/* ─── CARD ─── */
+.safari-home-card {
+    display: flex;
+    flex-direction: column;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.safari-home-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 0;
+    background: #B8965A;
+    transition: height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 2;
+}
+
+.safari-home-card:hover::before {
+    height: 100%;
+}
+
+.safari-home-card:hover {
+    background: rgba(255,255,255,0.07);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    border-color: rgba(184, 150, 90, 0.15);
+}
+
+/* ─── CARD IMAGE ─── */
+.safari-home-card-img {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+}
+
+.safari-home-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    filter: brightness(0.75) saturate(0.9);
+}
+
+.safari-home-card:hover .safari-home-card-img img {
+    transform: scale(1.06);
+    filter: brightness(0.85) saturate(1);
+}
+
+.safari-home-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(28, 25, 23, 0.6) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.safari-home-card-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(28, 25, 23, 0.8);
+    backdrop-filter: blur(8px);
+    color: #B8965A;
+    padding: 5px 14px;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border: 1px solid rgba(184, 150, 90, 0.2);
+}
+
+/* ─── CARD BODY ─── */
+.safari-home-card-body {
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.safari-home-card-meta {
+    display: flex;
+    gap: 16px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 14px;
+}
+
+.safari-home-card-meta span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.safari-home-card-meta svg {
+    color: #B8965A;
+}
+
+.safari-home-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: #fff;
+    margin: 0 0 12px 0;
+    line-height: 1.25;
+}
+
+.safari-home-card-desc {
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.4);
+    margin: 0 0 20px 0;
+    flex: 1;
+}
+
+.safari-home-card-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: #B8965A;
+    margin-bottom: 20px;
+    font-weight: 400;
+}
+
+.safari-home-card-price span {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.3);
+    margin-left: 6px;
+    font-weight: 400;
+}
+
+.safari-home-card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.5);
+    padding-top: 18px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    transition: all 0.3s ease;
+}
+
+.safari-home-card:hover .safari-home-card-cta {
+    color: #B8965A;
+    gap: 14px;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+    .safari-home-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .safari-home {
+        padding: 80px 0;
+    }
+    .safari-home-inner {
+        padding: 0 20px;
+    }
+    .safari-home-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
+        margin-bottom: 40px;
+    }
+    .safari-home-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .safari-home-card-img {
+        height: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .safari-home-card-body {
+        padding: 20px 18px;
+    }
+    .safari-home-card-title {
+        font-size: 1.15rem;
+    }
+}
