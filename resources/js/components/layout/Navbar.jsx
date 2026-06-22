@@ -2,15 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { Link, usePage } from '@inertiajs/react';
 import { visualsData } from '../../data/visualsData';
 import { useVisuals } from '../../context/VisualsContext';
-import { trekkingService, destinationService } from '../../services/api';
 
 export const Navbar = () => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [activeDropdowns, setActiveDropdowns] = useState([]);
-  const [meruPackages, setMeruPackages] = useState([]);
-  const [safariDestinations, setSafariDestinations] = useState([]);
-  const { url, component } = usePage();
+  const { url, component, props } = usePage();
   const visuals = useVisuals();
+
+  const navData = props.navData || {};
+  const allTrekkingRoutes = navData.trekkingRoutes || [];
+  const safariDestinations = navData.destinations || [];
+
+  const meruPackages = allTrekkingRoutes
+    .filter(r => r.slug && r.slug.startsWith('mt-meru'))
+    .sort((a, b) => (b.duration || 0) - (a.duration || 0));
 
   const scrollToSection = (id) => {
     const el = document.getElementById(id);
@@ -22,27 +27,6 @@ export const Navbar = () => {
   };
 
 
-
-  // Fetch Mt Meru packages and Safari destinations for dropdown
-  useEffect(() => {
-    let mounted = true;
-    trekkingService.getAll().then(res => {
-        if (mounted && res.data) {
-            const meru = res.data
-                .filter(r => r.slug && r.slug.startsWith('mt-meru'))
-                .sort((a, b) => (b.duration || 0) - (a.duration || 0));
-            setMeruPackages(meru);
-        }
-    }).catch(err => console.error("Could not load Mt Meru packages", err));
-
-    destinationService.getAll().then(res => {
-        if (mounted && res.data) {
-            setSafariDestinations(res.data);
-        }
-    }).catch(err => console.error("Could not load Safari destinations", err));
-
-    return () => { mounted = false; };
-  }, []);
 
   // Parse hash from Inertia URL
   const hash = url ? (url.includes('#') ? '#' + url.split('#')[1] : '') : '';

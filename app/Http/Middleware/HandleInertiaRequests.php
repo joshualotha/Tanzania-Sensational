@@ -4,6 +4,8 @@ namespace App\Http\Middleware;
 
 use App\Models\SiteSetting;
 use App\Models\VisualAsset;
+use App\Models\TrekkingRoute;
+use App\Models\Destination;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Inertia\Middleware;
@@ -97,6 +99,12 @@ class HandleInertiaRequests extends Middleware
                     ->groupBy('section')
                     ->map(fn ($items) => $items->pluck('url'))
             ),
+            'navData' => fn () => Cache::remember('inertia:navData', 3600, fn () => [
+                'trekkingRoutes' => TrekkingRoute::select('id', 'name', 'slug', 'duration')
+                    ->orderBy('id', 'desc')
+                    ->get(),
+                'destinations' => Destination::select('id', 'name', 'slug')->get(),
+            ]),
             'orgSchema' => $orgSchema,
             'meta' => [
                 'title' => 'Tanzania Safari & Kilimanjaro Trekking | Tanzania Sensational',
