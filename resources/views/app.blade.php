@@ -4,15 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title inertia>{{ $meta['title'] ?? 'Tanzania Safari & Kilimanjaro Trekking | Tanzania Sensational' }}</title>
-    <meta name="description" content="{{ $meta['description'] ?? 'Premium Tanzania safari tours, Kilimanjaro trekking expeditions, and Zanzibar beach holidays. Expert-led adventures since 2009. Book your once-in-a-lifetime experience.' }}">
-    <meta property="og:title" content="{{ $meta['og_title'] ?? ($meta['title'] ?? 'Tanzania Safari & Kilimanjaro Trekking | Tanzania Sensational') }}">
-    <meta property="og:description" content="{{ $meta['og_description'] ?? ($meta['description'] ?? 'Premium Tanzania safari tours, Kilimanjaro trekking expeditions, and Zanzibar beach holidays.') }}">
+    <meta name="robots" content="index, follow">
+    <title inertia>{{ $meta['title'] ?? 'Tanzania Safari Tours & Kilimanjaro Trekking | Tanzania Sensational' }}</title>
+    <meta name="description" content="{{ $meta['description'] ?? 'Award-winning Tanzania safari tours, Kilimanjaro trekking expeditions, and Zanzibar beach holidays. TATO-certified operators. Expert-led adventures since 2009.' }}">
+    <meta property="og:title" content="{{ $meta['og_title'] ?? ($meta['title'] ?? 'Tanzania Safari Tours & Kilimanjaro Trekking | Tanzania Sensational') }}">
+    <meta property="og:description" content="{{ $meta['og_description'] ?? ($meta['description'] ?? 'Award-winning Tanzania safari tours, Kilimanjaro trekking expeditions, and Zanzibar beach holidays. TATO-certified. Expert-led since 2009.') }}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ $meta['canonical'] ?? config('app.url') }}">
-    @if(!empty($meta['og_image']))
-        <meta property="og:image" content="{{ $meta['og_image'] }}">
-    @endif
+    <meta property="og:image" content="{{ $meta['og_image'] ?? config('app.url') . '/og-default.jpg' }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    {{-- Twitter Card --}}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $meta['og_title'] ?? ($meta['title'] ?? 'Tanzania Safari & Kilimanjaro Trekking | Tanzania Sensational') }}">
+    <meta name="twitter:description" content="{{ $meta['og_description'] ?? ($meta['description'] ?? 'Premium Tanzania safari tours, Kilimanjaro trekking expeditions, and Zanzibar beach holidays.') }}">
+    <meta name="twitter:image" content="{{ $meta['og_image'] ?? config('app.url') . '/og-default.jpg' }}">
     <link rel="canonical" href="{{ $meta['canonical'] ?? config('app.url') }}">
     <link rel="alternate" hreflang="en" href="{{ $meta['canonical'] ?? config('app.url') }}">
     <link rel="alternate" hreflang="x-default" href="{{ $meta['canonical'] ?? config('app.url') }}">

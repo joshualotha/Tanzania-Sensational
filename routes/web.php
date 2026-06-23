@@ -333,7 +333,28 @@ Route::get('/group-departures/{departureId}', [PlanPageController::class, 'depar
 // Static Plan Your Trip / Safari Guide pages (no API data needed, just render component)
 Route::get('/gear-checklist', fn() => Inertia\Inertia::render('plan/GearChecklist'))->name('gear-checklist');
 Route::get('/training-guide', fn() => Inertia\Inertia::render('plan/TrainingGuide'))->name('training-guide');
-Route::get('/faq', fn() => Inertia\Inertia::render('plan/FAQ'))->name('faq');
+Route::get('/faq', function () {
+    $faqSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'FAQPage',
+        'mainEntity' => [
+            ['@type' => 'Question', 'name' => 'How difficult is climbing Kilimanjaro?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Kilimanjaro is a non-technical mountain, meaning no ropes or ice axes are needed for the standard routes. However, it is an extreme altitude trek requiring mental fortitude and physical preparation.']],
+            ['@type' => 'Question', 'name' => 'Which route has the highest success rate?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'The longer routes — Lemosho (8 days) and Northern Circuit (9 days) — have the highest success rates, often exceeding 90%. They allow for the necessary acclimatization profile.']],
+            ['@type' => 'Question', 'name' => 'What is the best time to climb Kilimanjaro?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'The best climbing seasons are January–March (dry and clear) and June–October (cooler and drier).']],
+            ['@type' => 'Question', 'name' => 'What is Altitude Sickness (AMS)?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Acute Mountain Sickness occurs when ascending to high altitudes too quickly. Symptoms include headache, nausea, and fatigue. Our guides monitor heart rate and oxygen saturation twice daily.']],
+            ['@type' => 'Question', 'name' => 'What vaccinations are required for Kilimanjaro?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yellow fever vaccination is mandatory for entry into Tanzania. We also recommend Hepatitis A & B, Typhoid, and routine vaccinations. Consult your travel clinic 6–8 weeks before departure.']],
+            ['@type' => 'Question', 'name' => 'How far in advance should I book my climb?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'We recommend booking 6–12 months in advance for the best departure dates and route selection. Last-minute bookings are sometimes possible.']],
+            ['@type' => 'Question', 'name' => 'Can I extend my trip with a safari?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Absolutely! Most climbers add a 3–7 day safari in Serengeti, Ngorongoro, or Tarangire. We offer seamless safari extensions.']],
+            ['@type' => 'Question', 'name' => 'What gear do I need for Kilimanjaro?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Essential items include waterproof hiking boots, layered clothing, sleeping bag (-10°C rating), headlamp, trekking poles, and personal medications. We provide a detailed packing list upon booking.']],
+        ],
+    ];
+
+    return Inertia\Inertia::render('plan/FAQ', [
+        'meta' => [
+            'schema' => [$faqSchema],
+        ],
+    ]);
+})->name('faq');
 Route::get('/safari-addons', fn() => Inertia\Inertia::render('plan/SafariAddons'))->name('safari-addons');
 Route::get('/trekking/health/vaccinations', fn() => Inertia\Inertia::render('trekking/health/Vaccinations'))->name('vaccinations');
 Route::get('/trekking/health/altitude-sickness', fn() => Inertia\Inertia::render('trekking/health/AltitudeSickness'))->name('altitude-sickness');

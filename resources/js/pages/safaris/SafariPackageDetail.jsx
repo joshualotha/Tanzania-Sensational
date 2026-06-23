@@ -52,7 +52,7 @@ const SafariPackageDetail = ({ pkg }) => {
                 <div className="field-hero-img">
                     <OptimizedImage
                         src={heroImage}
-                        alt={pkg.name}
+                        alt={`${pkg.name} — Tanzania safari package with wildlife viewing and guided game drives`}
                         priority={true}
                         aspectRatio="16/9"
                     />

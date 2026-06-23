@@ -26,7 +26,7 @@ const DestinationDetail = ({ destination }) => {
     return (
         <div className="dest-detail-root">
             <div className="dest-fixed-bg">
-                <img src={(destination.gallery && destination.gallery[4]) || destination.hero_image} alt="Environment Substrate" />
+                <img src={(destination.gallery && destination.gallery[4]) || destination.hero_image} alt={`${destination.name} — Tanzania safari destination landscape and wilderness`} />
             </div>
             
             <div className="dest-content-veil">
@@ -207,7 +207,7 @@ const DestinationDetail = ({ destination }) => {
                             viewport={{ once: true }}
                             transition={{ delay: i * 0.1 }}
                         >
-                            <img src={img} alt={`Gallery ${i}`} loading="lazy" />
+                            <img src={img} alt={`${destination.name} — Tanzania safari destination gallery image ${i + 1}`} loading="lazy" />
                         </motion.div>
                     ))}
                 </div>

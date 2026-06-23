@@ -45,7 +45,7 @@ class HandleInertiaRequests extends Middleware
             'name' => config('app.name'),
             'url' => $appUrl,
             'logo' => $appUrl . '/logo.png',
-            'description' => 'Premium Kilimanjaro & Meru trekking expeditions, Tanzania safaris, and Zanzibar beach extensions. Expert-led adventures since 2010.',
+            'description' => 'Award-winning Tanzania safari tours, Kilimanjaro trekking expeditions, and Zanzibar beach holidays. Expert-led adventures since 2010. TATO-certified.',
             'telephone' => $contactSettings->has('phone')
                 ? $contactSettings->get('phone')->value['value'] ?? '+255621220912'
                 : '+255621220912',
@@ -109,10 +109,10 @@ class HandleInertiaRequests extends Middleware
             ]),
             'orgSchema' => $orgSchema,
             'meta' => [
-                'title' => 'Tanzania Safari & Kilimanjaro Trekking | Tanzania Sensational',
-                'description' => 'Premium Tanzania safari tours, Kilimanjaro trekking expeditions, and Zanzibar beach holidays. Expert-led adventures since 2009. Book your once-in-a-lifetime experience.',
-                'og_title' => 'Tanzania Safari & Kilimanjaro Trekking | Tanzania Sensational',
-                'og_description' => 'Premium Tanzania safari tours, Kilimanjaro trekking expeditions, and Zanzibar beach holidays.',
+                'title' => 'Tanzania Safari Tours & Kilimanjaro Trekking | Tanzania Sensational',
+                'description' => 'Award-winning Tanzania safari tours and Kilimanjaro trekking expeditions since 2009. Serengeti, Ngorongoro Crater & Zanzibar. TATO-certified. Book your adventure.',
+                'og_title' => 'Tanzania Safari Tours & Kilimanjaro Trekking | Tanzania Sensational',
+                'og_description' => 'Award-winning Tanzania safari tours and Kilimanjaro trekking expeditions since 2009. Serengeti, Ngorongoro Crater & Zanzibar. TATO-certified. Book your adventure.',
                 'og_image' => null,
                 'canonical' => $appUrl . ($path === '/' ? '' : $path),
                 'schema' => $defaultBreadcrumbs,
