@@ -10,7 +10,7 @@ import { visualsData } from '../../data/visualsData';
 import OptimizedImage from '../../components/ui/OptimizedImage';
 import '../../styles/safari-field-guide.css';
 
-const KilimanjaroPillar = () => {
+const KilimanjaroPillar = ({ routeImages = {} }) => {
     const { props } = usePage();
     const visuals = props.visuals;
 
@@ -19,6 +19,20 @@ const KilimanjaroPillar = () => {
     const getVisual = (section, fallback) => {
         if (visuals?.[section]?.[0]) return visuals[section][0];
         return fallback;
+    };
+
+    // Get route image from DB (hero_image), fallback to legacy visualsData
+    const getRouteImage = (slug) => {
+        if (routeImages[slug]) return routeImages[slug];
+        switch (slug) {
+            case 'lemosho': return visualsData.trekking?.routes?.lemoshoEditorial;
+            case 'machame': return visualsData.trekking?.routes?.machameEditorial;
+            case 'northern-circuit': return visualsData.trekking?.routes?.northernEditorial;
+            case 'marangu': return visualsData.trekking?.routes?.maranguEditorial;
+            case 'rongai': return visualsData.trekking?.routes?.rongaiEditorial;
+            case 'umbwe': return visualsData.trekking?.routes?.umbweEditorial;
+            default: return null;
+        }
     };
 
     const fadeInUp = {
@@ -32,12 +46,12 @@ const KilimanjaroPillar = () => {
     };
 
     const routes = [
-        { slug: 'lemosho', name: 'Lemosho Route', tagline: 'The Western Approach', days: '7–8 days', difficulty: 'Moderate', scenery: '★★★★★', success: 'Very High', desc: 'Our most recommended route. The Lemosho offers superb scenery, excellent acclimatization, and high summit success rates.', image: visualsData.trekking?.routes?.lemoshoEditorial },
-        { slug: 'machame', name: 'Machame Route', tagline: 'The Whiskey Route', days: '6–7 days', difficulty: 'Moderate–Challenging', scenery: '★★★★★', success: 'High', desc: 'The most popular route on Kilimanjaro. Known for stunning scenery and a challenging but rewarding climb.', image: visualsData.trekking?.routes?.machameEditorial },
-        { slug: 'northern-circuit', name: 'Northern Circuit', tagline: 'The Long & Scenic', days: '9 days', difficulty: 'Moderate', scenery: '★★★★★', success: 'Very High', desc: 'The newest route on Kilimanjaro. Nine days on the mountain with exceptional acclimatization and remote wilderness.', image: visualsData.trekking?.routes?.northernEditorial },
-        { slug: 'marangu', name: 'Marangu Route', tagline: 'The Coca-Cola Route', days: '5–6 days', difficulty: 'Moderate', scenery: '★★★☆☆', success: 'Moderate', desc: 'The only route with hut accommodation. A classic climb with a shorter duration but lower success rate.', image: visualsData.trekking?.routes?.maranguEditorial },
-        { slug: 'rongai', name: 'Rongai Route', tagline: 'The Northern Approach', days: '6–7 days', difficulty: 'Moderate', scenery: '★★★★☆', success: 'High', desc: 'The only route approaching from the north. Offers a unique perspective and drier conditions during rainy seasons.', image: null },
-        { slug: 'umbwe', name: 'Umbwe Route', tagline: 'The Challenger', days: '5–6 days', difficulty: 'Challenging', scenery: '★★★★☆', success: 'Low–Moderate', desc: 'The steepest and most technical route. For experienced trekkers seeking a physical challenge.', image: null },
+        { slug: 'lemosho', name: 'Lemosho Route', tagline: 'The Western Approach', days: '7–8 days', difficulty: 'Moderate', scenery: '★★★★★', success: 'Very High', desc: 'Our most recommended route. The Lemosho offers superb scenery, excellent acclimatization, and high summit success rates.' },
+        { slug: 'machame', name: 'Machame Route', tagline: 'The Whiskey Route', days: '6–7 days', difficulty: 'Moderate–Challenging', scenery: '★★★★★', success: 'High', desc: 'The most popular route on Kilimanjaro. Known for stunning scenery and a challenging but rewarding climb.' },
+        { slug: 'northern-circuit', name: 'Northern Circuit', tagline: 'The Long & Scenic', days: '9 days', difficulty: 'Moderate', scenery: '★★★★★', success: 'Very High', desc: 'The newest route on Kilimanjaro. Nine days on the mountain with exceptional acclimatization and remote wilderness.' },
+        { slug: 'marangu', name: 'Marangu Route', tagline: 'The Coca-Cola Route', days: '5–6 days', difficulty: 'Moderate', scenery: '★★★☆☆', success: 'Moderate', desc: 'The only route with hut accommodation. A classic climb with a shorter duration but lower success rate.' },
+        { slug: 'rongai', name: 'Rongai Route', tagline: 'The Northern Approach', days: '6–7 days', difficulty: 'Moderate', scenery: '★★★★☆', success: 'High', desc: 'The only route approaching from the north. Offers a unique perspective and drier conditions during rainy seasons.' },
+        { slug: 'umbwe', name: 'Umbwe Route', tagline: 'The Challenger', days: '5–6 days', difficulty: 'Challenging', scenery: '★★★★☆', success: 'Low–Moderate', desc: 'The steepest and most technical route. For experienced trekkers seeking a physical challenge.' },
     ];
 
     const prepTopics = [
@@ -195,10 +209,10 @@ const KilimanjaroPillar = () => {
                 >
                     {routes.map((route) => (
                         <motion.div key={route.slug} className="field-pillar-card" variants={fadeInUp}>
-                            {route.image && (
+                            {getRouteImage(route.slug) && (
                                 <div style={{ margin: '-32px -28px 20px', overflow: 'hidden', height: '160px' }}>
                                     <img
-                                        src={route.image}
+                                        src={getRouteImage(route.slug)}
                                         alt={`${route.name} — ${route.tagline}`}
                                         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                                         loading="lazy"

@@ -287,8 +287,30 @@ Route::get('/trekking/kilimanjaro', function () {
         ? $heroAsset->url
         : 'https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?auto=format&fit=crop&q=80&w=1600';
 
+    // Get first hero_image for each Kilimanjaro route type from DB
+    $routeImages = \App\Models\TrekkingRoute::select('slug', 'hero_image')
+        ->whereNotNull('hero_image')
+        ->where(function ($q) {
+            $q->where('slug', 'like', 'lemosho%')
+              ->orWhere('slug', 'like', 'machame%')
+              ->orWhere('slug', 'like', 'marangu%')
+              ->orWhere('slug', 'like', 'rongai%')
+              ->orWhere('slug', 'like', 'northern-circuit%')
+              ->orWhere('slug', 'like', 'umbwe%');
+        })
+        ->get()
+        ->groupBy(function ($item) {
+            $parts = explode('-', $item->slug);
+            if ($parts[0] === 'northern') return 'northern-circuit';
+            return $parts[0];
+        })
+        ->map(function ($routes) {
+            return $routes->first()->hero_image;
+        });
+
     return Inertia\Inertia::render('trekking/KilimanjaroPillar', [
         'heroImage' => $heroImage,
+        'routeImages' => $routeImages,
     ]);
 })->name('trekking.kilimanjaro');
 
