@@ -68,7 +68,7 @@ final class TS_Booking_Workflow {
 
 			$held      = (int) $departure->held_seats + $group_size;
 			$remaining = max( 0, (int) $departure->total_seats - (int) $departure->booked_seats - $held );
-			$wpdb->update(
+			if ( false === $wpdb->update(
 				$departures,
 				array(
 					'held_seats' => $held,
@@ -76,7 +76,9 @@ final class TS_Booking_Workflow {
 					'updated_at' => $now,
 				),
 				array( 'id' => (int) $departure->id )
-			);
+			) ) {
+				return new WP_Error( 'ts_departure_update_failed', __( 'The departure availability could not be updated.', 'tanzania-sensational' ), array( 'status' => 500 ) );
+			}
 
 			return $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$bookings} WHERE id = %d", $wpdb->insert_id ) );
 		} );
@@ -138,14 +140,18 @@ final class TS_Booking_Workflow {
 			)
 		);
 
+		$released = 0;
 		foreach ( array_map( 'intval', $ids ) as $booking_id ) {
-			self::expire_hold( $booking_id );
+			$result = self::expire_hold( $booking_id );
+			if ( $result && ! is_wp_error( $result ) ) {
+				++$released;
+			}
 		}
 
-		return count( $ids );
+		return $released;
 	}
 
-	public static function transition_status( $booking_id, $new_status ) {
+	public static function transition_status( $booking_id, $new_status, $require_expired_hold = false ) {
 		global $wpdb;
 
 		$allowed = array( 'new', 'contacted', 'confirmed', 'cancelled' );
@@ -154,7 +160,7 @@ final class TS_Booking_Workflow {
 			return new WP_Error( 'ts_invalid_booking_status', __( 'Invalid booking status.', 'tanzania-sensational' ) );
 		}
 
-		return self::transaction( function() use ( $wpdb, $booking_id, $status ) {
+		return self::transaction( function() use ( $wpdb, $booking_id, $status, $require_expired_hold ) {
 			$bookings  = $wpdb->prefix . 'ts_bookings';
 			$departures = $wpdb->prefix . 'ts_departures';
 			$booking   = $wpdb->get_row(
@@ -172,6 +178,10 @@ final class TS_Booking_Workflow {
 				'cancelled' => array( 'cancelled' ),
 			);
 			$current_status = strtolower( (string) $booking->status );
+			if ( $require_expired_hold && ( ! in_array( $current_status, array( 'new', 'contacted' ), true ) || empty( $booking->hold_expires_at ) || (string) $booking->hold_expires_at >= current_time( 'mysql', true ) ) ) {
+				return false;
+			}
+
 			if ( ! isset( $transitions[ $current_status ] ) || ! in_array( $status, $transitions[ $current_status ], true ) ) {
 				return new WP_Error(
 					'ts_invalid_booking_transition',
@@ -224,21 +234,25 @@ final class TS_Booking_Workflow {
 				}
 
 				$remaining  = max( 0, (int) $departure->total_seats - $booked - $dheld );
-				$dep_status = self::availability_status( $remaining );
-				$wpdb->update(
+				$dep_status = 'closed' === strtolower( (string) $departure->status ) ? 'closed' : self::availability_status( $remaining );
+				if ( false === $wpdb->update(
 					$departures,
 					array( 'booked_seats' => $booked, 'held_seats' => $dheld, 'status' => $dep_status, 'updated_at' => $now ),
 					array( 'id' => (int) $departure->id )
-				);
+				) ) {
+					return new WP_Error( 'ts_departure_update_failed', __( 'The departure availability could not be updated.', 'tanzania-sensational' ) );
+				}
 			}
 
-			$wpdb->update( $bookings, $updates, array( 'id' => (int) $booking->id ) );
+			if ( false === $wpdb->update( $bookings, $updates, array( 'id' => (int) $booking->id ) ) ) {
+				return new WP_Error( 'ts_booking_update_failed', __( 'The booking status could not be updated.', 'tanzania-sensational' ) );
+			}
 			return $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$bookings} WHERE id = %d", $booking->id ) );
 		} );
 	}
 
 	private static function expire_hold( $booking_id ) {
-		return self::transition_status( $booking_id, 'cancelled' );
+		return self::transition_status( $booking_id, 'cancelled', true );
 	}
 
 	private static function availability_status( $remaining ) {
@@ -252,18 +266,30 @@ final class TS_Booking_Workflow {
 	private static function transaction( $callback ) {
 		global $wpdb;
 
-		$wpdb->query( 'START TRANSACTION' );
+		if ( false === $wpdb->query( 'START TRANSACTION' ) ) {
+			return new WP_Error( 'ts_booking_transaction_start_failed', __( 'The booking could not be processed. Please retry.', 'tanzania-sensational' ) );
+		}
+
 		try {
 			$result = $callback();
-			if ( is_wp_error( $result ) ) {
-				$wpdb->query( 'ROLLBACK' );
+			if ( is_wp_error( $result ) || false === $result || null === $result ) {
+				if ( false === $wpdb->query( 'ROLLBACK' ) ) {
+					return new WP_Error( 'ts_booking_rollback_failed', __( 'The booking could not be processed. Please contact support before retrying.', 'tanzania-sensational' ) );
+				}
+				if ( null === $result ) {
+					return new WP_Error( 'ts_booking_transaction_empty', __( 'The booking could not be processed. Please retry.', 'tanzania-sensational' ) );
+				}
 				return $result;
 			}
-			$wpdb->query( 'COMMIT' );
+
+			if ( false === $wpdb->query( 'COMMIT' ) ) {
+				$wpdb->query( 'ROLLBACK' );
+				return new WP_Error( 'ts_booking_commit_failed', __( 'The booking could not be confirmed as saved. Please check its status before retrying.', 'tanzania-sensational' ) );
+			}
 			return $result;
 		} catch ( Throwable $error ) {
 			$wpdb->query( 'ROLLBACK' );
-			return new WP_Error( 'ts_booking_transaction_failed', $error->getMessage() );
+			return new WP_Error( 'ts_booking_transaction_failed', __( 'The booking could not be processed. Please retry.', 'tanzania-sensational' ) );
 		}
 	}
 }

@@ -362,9 +362,11 @@ Last updated: 2026-10-24
   departure opens the form and sets its ID/label. The form has no horizontal
   overflow at 390px; the homepage still has a mobile header/utility-bar
   overflow, and full template-by-template visual acceptance remains pending.
-- A protected WordPress UI for operations staff to create, edit, and close
-  departure inventory is still missing; inventory cannot yet be managed through
-  a normal departure-admin workflow.
+- Added the protected `Departures` administrator screen to `tanzania-sensational-core` 0.5.0. It provides paginated inventory, create/edit forms, explicit open/closed controls, safe local route links, and close-without-delete actions. Only `manage_options` users can access it; create/edit and close handlers require distinct WordPress nonces. Capacity cannot be reduced below booked plus held seats, and availability is recalculated transactionally.
+- Added focused PHP checks for validation, capacity protection, transaction failures, capability gates, CSRF nonces, escaping, pagination, and action wiring. All seven migration PHP scripts pass.
+- Deployed the four changed core-plugin PHP files to staging after verifying the dated pre-departure-admin database/plugin backup manifest and archive. Remote SHA-256 values match the local release; WP-CLI confirms plugin 0.5.0 is active, the menu and both mutation handlers are registered, the departures table uses InnoDB, and the admin screen renders expected controls for an administrator. Staging home and group-departures endpoints return HTTP 200; production remains untouched.
+- Added and ran isolated staging booking tests for a concurrent capacity edit/booking race, repeated confirm/cancel transitions, hold expiry, and seat reconciliation. The first run exposed missing `global $wpdb` declarations in the WP-CLI test snippets; the harness and regression test were corrected, the isolated test then passed, and the two orphaned synthetic departures from failed test runs were transactionally removed after confirming they had no associated bookings.
+- Staging SMTP remains unverified: WP Mail SMTP is active but configured for the PHP `mail` transport, not SMTP. Notification routing was verified with an intercepted-mail test only; no email was sent. A configured SMTP transport and approved test mailbox/sink are still needed for delivery verification.
 
 ## Source inventory reconciliation (2026-10-24)
 
