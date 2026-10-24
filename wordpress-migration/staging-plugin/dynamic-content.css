@@ -1,0 +1,831 @@
+/* ════════════════════════════════════════════
+   DYNAMIC CONTENT — Tours & Destinations
+   ════════════════════════════════════════════ */
+
+/* ─── TOURS GRID SECTION (homepage) ─── */
+.ts-tours-grid-section,
+.ts-dests-grid-section {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--ts-space-xl) var(--ts-space-md);
+}
+
+.ts-tours-grid-header,
+.ts-dests-grid-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: var(--ts-space-md);
+    margin-bottom: var(--ts-space-lg);
+}
+
+.ts-tours-grid-eyebrow,
+.ts-dests-grid-eyebrow {
+    font-family: var(--ts-font-label);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ts-primary);
+    display: block;
+    margin-bottom: var(--ts-space-xs);
+}
+
+.ts-tours-grid-title,
+.ts-dests-grid-title {
+    font-family: var(--ts-font-heading);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 400;
+    margin: 0 0 var(--ts-space-sm);
+    color: var(--ts-dark);
+}
+
+.ts-tours-grid-title em,
+.ts-dests-grid-title em {
+    font-style: italic;
+    color: var(--ts-secondary);
+}
+
+.ts-tours-grid-sub {
+    max-width: 540px;
+    color: var(--ts-text-muted);
+    margin: 0;
+    line-height: 1.7;
+}
+
+.ts-tours-grid-viewall,
+.ts-dests-grid-viewall {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--ts-font-label);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ts-dark);
+    text-decoration: none;
+    transition: gap 0.3s ease;
+    flex-shrink: 0;
+}
+
+.ts-tours-grid-viewall:hover,
+.ts-dests-grid-viewall:hover {
+    gap: 0.75rem;
+    color: var(--ts-primary);
+}
+
+.ts-tours-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+}
+
+@media (max-width: 1024px) {
+    .ts-tours-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .ts-tours-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ts-tours-grid-header,
+    .ts-dests-grid-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* ─── TOUR CARD ─── */
+.ts-tour-card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid rgba(31, 41, 38, 0.08);
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: 0 8px 24px rgba(31, 41, 38, 0.06);
+}
+
+.ts-tour-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 48px rgba(31, 41, 38, 0.12);
+}
+
+.ts-tour-card-img {
+    position: relative;
+    height: 240px;
+    overflow: hidden;
+}
+
+.ts-tour-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.ts-tour-card:hover .ts-tour-card-img img {
+    transform: scale(1.05);
+}
+
+.ts-tour-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(31, 41, 38, 0.45) 0%, transparent 60%);
+}
+
+.ts-tour-card-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: var(--ts-gold);
+    color: var(--ts-dark);
+    font-family: var(--ts-font-label);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 99px;
+}
+
+.ts-tour-card-body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.ts-tour-card-meta {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 14px;
+    font-family: var(--ts-font-ui);
+    font-size: 0.78rem;
+    color: var(--ts-text-muted);
+}
+
+.ts-tour-card-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.ts-tour-card-title {
+    font-family: var(--ts-font-heading);
+    font-size: 1.35rem;
+    font-weight: 500;
+    color: var(--ts-dark);
+    margin: 0 0 10px;
+    line-height: 1.2;
+}
+
+.ts-tour-card-desc {
+    font-size: 0.92rem;
+    color: var(--ts-text-muted);
+    line-height: 1.6;
+    margin: 0 0 16px;
+    flex: 1;
+}
+
+.ts-tour-card-price {
+    font-family: var(--ts-font-heading);
+    font-size: 1.15rem;
+    color: var(--ts-dark);
+    margin-bottom: 16px;
+}
+
+.ts-tour-card-price span {
+    font-family: var(--ts-font-body);
+    font-size: 0.85rem;
+    color: var(--ts-text-muted);
+}
+
+.ts-tour-card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--ts-font-label);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ts-dark);
+    transition: gap 0.3s ease, color 0.3s ease;
+}
+
+.ts-tour-card:hover .ts-tour-card-cta {
+    gap: 12px;
+    color: var(--ts-primary);
+}
+
+/* ─── DESTINATIONS GRID (homepage) ─── */
+.ts-dests-grid-layout {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    gap: 24px;
+    min-height: 540px;
+}
+
+.ts-dests-grid-small {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+@media (max-width: 1024px) {
+    .ts-dests-grid-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .ts-dests-grid-featured .ts-dest-card-large {
+        min-height: 380px;
+    }
+}
+
+@media (max-width: 640px) {
+    .ts-dests-grid-small {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ─── DESTINATION CARD ─── */
+.ts-dest-card {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: 0 8px 24px rgba(31, 41, 38, 0.08);
+}
+
+.ts-dest-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 48px rgba(31, 41, 38, 0.14);
+}
+
+.ts-dest-card-img {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.ts-dest-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.ts-dest-card:hover .ts-dest-card-img img {
+    transform: scale(1.05);
+}
+
+.ts-dest-card-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(31, 41, 38, 0.85) 0%, rgba(31, 41, 38, 0.2) 50%, transparent 100%);
+    z-index: 1;
+}
+
+.ts-dest-card-content {
+    position: relative;
+    z-index: 2;
+    padding: 28px;
+}
+
+.ts-dest-card-region {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--ts-font-label);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ts-gold);
+    margin-bottom: 10px;
+}
+
+.ts-dest-card-name {
+    font-family: var(--ts-font-heading);
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin: 0 0 6px;
+    line-height: 1.1;
+}
+
+.ts-dest-card-tagline {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.75);
+    margin: 0 0 16px;
+    line-height: 1.4;
+}
+
+.ts-dest-card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--ts-font-label);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #fff;
+    transition: gap 0.3s ease;
+}
+
+.ts-dest-card:hover .ts-dest-card-link {
+    gap: 10px;
+}
+
+.ts-dest-card-large {
+    min-height: 540px;
+}
+
+.ts-dest-card-large .ts-dest-card-name {
+    font-size: 2.4rem;
+}
+
+.ts-dest-card-small {
+    min-height: 258px;
+}
+
+.ts-dest-card-medium {
+    min-height: 360px;
+}
+
+/* ─── SINGLE TOUR ─── */
+.ts-single-tour,
+.ts-single-destination {
+    background: var(--ts-bg);
+    color: var(--ts-text);
+    font-family: var(--ts-font-body);
+}
+
+.ts-single-tour-hero,
+.ts-single-dest-hero {
+    position: relative;
+    min-height: 70vh;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+}
+
+.ts-single-tour-hero-bg,
+.ts-single-dest-hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.ts-single-tour-hero-bg img,
+.ts-single-dest-hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ts-single-tour-hero-overlay,
+.ts-single-dest-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(31, 41, 38, 0.85) 0%, rgba(31, 41, 38, 0.25) 50%, transparent 100%);
+    z-index: 1;
+}
+
+.ts-single-tour-hero-content,
+.ts-single-dest-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 120px var(--ts-space-md) 60px;
+    width: 100%;
+    color: #fff;
+}
+
+.ts-single-tour-badge {
+    display: inline-block;
+    background: var(--ts-gold);
+    color: var(--ts-dark);
+    font-family: var(--ts-font-label);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 99px;
+    margin-bottom: 16px;
+}
+
+.ts-single-tour-hero-content h1,
+.ts-single-dest-hero-content h1 {
+    font-family: var(--ts-font-heading);
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 500;
+    margin: 0 0 12px;
+    color: #fff;
+}
+
+.ts-single-tour-tagline,
+.ts-single-dest-subtitle {
+    font-family: var(--ts-font-alt);
+    font-size: 1.4rem;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0 0 20px;
+}
+
+.ts-single-tour-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-family: var(--ts-font-label);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.ts-single-dest-shortdesc {
+    max-width: 600px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+}
+
+.ts-single-tour-body,
+.ts-single-dest-body {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: var(--ts-space-xl) var(--ts-space-md);
+}
+
+.ts-single-tour-body section,
+.ts-single-dest-body section {
+    margin-bottom: var(--ts-space-xl);
+}
+
+.ts-single-tour-body h2,
+.ts-single-dest-body h2 {
+    font-family: var(--ts-font-heading);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 500;
+    margin-bottom: var(--ts-space-md);
+    color: var(--ts-dark);
+}
+
+.ts-single-tour-overview,
+.ts-single-dest-overview {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.ts-single-dest-quote {
+    font-family: var(--ts-font-heading);
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--ts-secondary);
+    border-left: 3px solid var(--ts-gold);
+    padding-left: 24px;
+    margin-bottom: var(--ts-space-md);
+}
+
+/* Vitals */
+.ts-single-dest-vitals {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 20px;
+    padding: 32px;
+    background: #fff;
+    border: 1px solid rgba(31, 41, 38, 0.08);
+    border-radius: 16px;
+}
+
+.ts-single-dest-vitals div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.ts-single-dest-vitals span {
+    font-family: var(--ts-font-label);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ts-text-muted);
+}
+
+.ts-single-dest-vitals strong {
+    font-family: var(--ts-font-heading);
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--ts-dark);
+}
+
+/* Lists */
+.ts-single-tour-highlights ul,
+.ts-single-tour-inclusions ul,
+.ts-single-tour-exclusions ul,
+.ts-single-dest-highlights ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 12px;
+}
+
+.ts-single-tour-highlights li,
+.ts-single-tour-inclusions li,
+.ts-single-tour-exclusions li,
+.ts-single-dest-highlights li {
+    position: relative;
+    padding-left: 24px;
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+.ts-single-tour-highlights li::before,
+.ts-single-dest-highlights li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 8px;
+    height: 8px;
+    background: var(--ts-gold);
+    border-radius: 50%;
+}
+
+.ts-single-tour-inclusions li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #38a169;
+    font-weight: 700;
+}
+
+.ts-single-tour-exclusions li::before {
+    content: '✕';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #e53e3e;
+    font-weight: 700;
+}
+
+.ts-single-tour-inex {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+@media (max-width: 768px) {
+    .ts-single-tour-inex {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Itinerary */
+.ts-itinerary {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.ts-itinerary-day {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 24px;
+    padding: 32px 0;
+    border-bottom: 1px solid rgba(31, 41, 38, 0.08);
+}
+
+.ts-itinerary-day:first-child {
+    padding-top: 0;
+}
+
+.ts-itinerary-day-num {
+    font-family: var(--ts-font-heading);
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--ts-gold);
+    line-height: 1;
+}
+
+.ts-itinerary-day-body h3 {
+    font-family: var(--ts-font-heading);
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin: 0 0 10px;
+    color: var(--ts-dark);
+}
+
+.ts-itinerary-day-body p {
+    color: var(--ts-text-muted);
+    line-height: 1.7;
+    margin: 0 0 12px;
+}
+
+.ts-itinerary-day-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-family: var(--ts-font-label);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ts-text-muted);
+}
+
+/* Experience grid */
+.ts-dest-experience-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+}
+
+.ts-dest-experience-grid h3 {
+    font-family: var(--ts-font-heading);
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 12px;
+    color: var(--ts-dark);
+}
+
+.ts-dest-experience-grid p {
+    color: var(--ts-text-muted);
+    line-height: 1.7;
+    margin: 0;
+}
+
+@media (max-width: 900px) {
+    .ts-dest-experience-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Wildlife list */
+.ts-wildlife-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.ts-wildlife-list span {
+    display: inline-block;
+    padding: 8px 16px;
+    background: rgba(91, 123, 122, 0.08);
+    color: var(--ts-primary);
+    border-radius: 99px;
+    font-family: var(--ts-font-label);
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* Gallery */
+.ts-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.ts-gallery-item {
+    aspect-ratio: 4/3;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.ts-gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.ts-gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .ts-gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Archive sections */
+.ts-dest-archive-section {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--ts-space-xl) var(--ts-space-md);
+}
+
+.ts-dest-archive-header {
+    text-align: center;
+    margin-bottom: var(--ts-space-lg);
+}
+
+.ts-dest-archive-eyebrow {
+    font-family: var(--ts-font-label);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ts-primary);
+    display: block;
+    margin-bottom: var(--ts-space-xs);
+}
+
+.ts-dest-archive-title {
+    font-family: var(--ts-font-heading);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 400;
+    margin: 0;
+    color: var(--ts-dark);
+}
+
+.ts-dest-archive-title em {
+    font-style: italic;
+    color: var(--ts-secondary);
+}
+
+.ts-dest-archive-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+}
+
+@media (max-width: 1024px) {
+    .ts-dest-archive-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .ts-dest-archive-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* CTA */
+.ts-single-tour-cta,
+.ts-single-dest-cta {
+    text-align: center;
+    padding-top: var(--ts-space-md);
+}
+
+.ts-booking-panel {
+    display: grid;
+    grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+    gap: clamp(32px, 6vw, 80px);
+    margin-top: var(--ts-space-xl);
+    padding: clamp(32px, 6vw, 72px);
+    border-radius: 20px;
+    background: var(--ts-dark);
+    color: var(--white);
+    scroll-margin-top: 120px;
+}
+
+.ts-booking-panel-copy h2 { color: var(--white); margin: 10px 0 18px; }
+.ts-booking-panel-copy p { color: rgba(255,255,255,.72); line-height: 1.7; }
+.ts-booking-eyebrow { color: var(--ts-gold); font: 600 .72rem/1.4 var(--ts-font-label); letter-spacing: .18em; text-transform: uppercase; }
+.ts-booking-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.ts-booking-form label { display: grid; gap: 7px; }
+.ts-booking-form label > span { color: rgba(255,255,255,.8); font: 600 .76rem/1.4 var(--ts-font-label); letter-spacing: .04em; }
+.ts-booking-form input,
+.ts-booking-form textarea { width: 100%; border: 1px solid rgba(255,255,255,.2); border-radius: 8px; background: rgba(255,255,255,.08); color: var(--white); padding: 12px 14px; }
+.ts-booking-form input:focus,
+.ts-booking-form textarea:focus { outline: 2px solid var(--ts-gold); outline-offset: 2px; }
+.ts-booking-wide { margin-top: 18px; }
+.ts-booking-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; margin-top: 20px; }
+.ts-booking-actions span { color: rgba(255,255,255,.62); font-size: .85rem; }
+.ts-booking-actions button:disabled { cursor: wait; opacity: .65; }
+.ts-booking-message { display: none; margin-top: 18px; padding: 12px 14px; border-radius: 8px; }
+.ts-booking-message.is-success { display: block; background: rgba(91,123,122,.35); }
+.ts-booking-message.is-error { display: block; background: rgba(170,50,50,.3); }
+.ts-booking-honeypot { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+
+@media (max-width: 800px) {
+    .ts-booking-panel { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+    .ts-booking-fields { grid-template-columns: 1fr; }
+    .ts-booking-panel { padding: 28px 20px; border-radius: 14px; }
+}
