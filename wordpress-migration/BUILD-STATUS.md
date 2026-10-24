@@ -366,19 +366,25 @@ Last updated: 2026-10-24
   departure inventory is still missing; inventory cannot yet be managed through
   a normal departure-admin workflow.
 
+## Source inventory reconciliation (2026-10-24)
+
+- Identified `joshualotha/Tanzania-Sensational` as the tracked application repository. Its default `main` is `4b48e685`; the WordPress work remains isolated in `wordpress-migration/` on `wp-migration/phase-0-baseline` (`c7e66760`), based on `main` with changes confined to that directory.
+- The local no-Git source snapshot matches main’s `routes/web.php` and SQLite database. Its built `build/manifest.json` exactly matches the public production manifest; GitHub main’s manifest differs, so the exact production code ref remains unverified. The local Trekking controller has a small uncommitted delta. Live production behavior remains the route/content authority.
+- Completed production sitemap, rendered-link, local-source, and staging inventories. Production has 56 live sitemap URLs; staging has 19 404s among those and 29 final-path mismatches. A further 155 unique internal paths were catalogued, including 99 not in the sitemap; 19 non-sitemap linked paths were directly probed.
+- Documented the migration scope and unresolved source/live/local package differences in `PARITY-AUDIT-2026-10-24.md`, `SOURCE-URL-PARITY-LEDGER-2026-10-24.csv`, and `SOURCE-INTERNAL-ROUTE-INVENTORY-2026-10-24.csv`.
+- Verified all five SHA-256 entries in the existing staging backup. Restore rehearsal remains outstanding.
+- Production received only read-only public GET requests; no production configuration, files, database, content, or deployment settings were changed.
+
 ## Remaining release blockers
 
-1. Build the protected WordPress departure-inventory management screen.
-2. Add repeatable automated concurrency and expiry-reconciliation tests.
-3. Verify SMTP delivery for customer and administrator messages.
-4. Resolve the missing/misrouted public routes and content recorded in
-   `PARITY-AUDIT-2026-10-24.md`.
-5. Complete source-to-staging visual comparisons and breakpoint tuning,
-   including the observed homepage utility/header overflow at 390px.
+1. Build and verify the protected departure-inventory admin UI.
+2. Add repeatable isolated booking concurrency, expiry, idempotence, and seat-reconciliation tests.
+3. Verify staging SMTP and customer/admin delivery using synthetic test data.
+4. Migrate and verify each owner-approved missing route/content item; resolve package/source-data conflicts before publishing.
+5. Complete source-to-staging visual comparisons for every page family at desktop, tablet, and mobile; fix and recheck responsive defects.
+6. Complete restore rehearsal, editor, functional, security, accessibility, SEO, and performance gates; collect staging acceptance evidence.
+7. Do not modify or cut over production. A cutover remains blocked on staging acceptance and a separate explicit owner go-ahead.
 
 ## Constraint
 
-Screenshot-level comparison across all templates is still pending. Headless
-Chromium was available for this release and verified the homepage at desktop
-and mobile sizes and the query-selected booking panel; full visual comparisons
-and the remaining responsive issues still require review.
+Screenshot-level comparison across all templates is still pending. Headless Chromium verified the homepage at desktop/mobile sizes and the query-selected booking panel; full visual comparisons remain open. The homepage has a mobile header/utility-bar overflow at 390px; the selected booking form itself has no horizontal overflow at 390px.

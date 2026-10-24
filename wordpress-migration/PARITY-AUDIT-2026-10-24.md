@@ -1,78 +1,51 @@
 # WordPress Migration Parity Audit
 
-Audit date: 2026-10-24
-Source: `https://tanzaniasensational.com` (custom Laravel website)
-Target: `https://test.tanzaniasensational.com` (WordPress staging)
+- Audit date: 2026-10-24
+- Source: `https://tanzaniasensational.com` (live custom Laravel site)
+- Target: `https://test.tanzaniasensational.com` (WordPress staging)
 
-## Verified environment
+## Authority, repository, and safety boundary
 
-- Staging runs WordPress 7.1.3 with `tanzania-sensational-design` and `tanzania-sensational-core` active; the active theme is Hello Elementor.
-- Published staging content: 13 pages, 1 post, 3 `ts_tour`, 3 `ts_destination`; 0 published `ts_trek_route`. The custom sitemap index exposes 15 URLs.
-- The local Laravel SQLite snapshot has 12 pages, 12 blog posts, 3 safari packages, 9 destinations, 112 trekking routes, 132 itinerary days, 30 departures, 25 gear items, 144 pricing rules, and 88 visual assets. It is a source snapshot; reconcile it with the live site before importing.
-- The local departure snapshot's latest date is 2026-10-02, so none of those 30 dates should be treated as upcoming on the audit date (2026-10-24). Fresh departure data requires operations confirmation.
-- Fresh staging backup created at `/home/tanzhihb/ts-migration-backups/20261024T093932Z-pre-migration-work` (database export, custom plugin archive, plugin/theme inventories, version, SHA-256 manifest). The WordPress database check passed; backup checksums and plugin archive integrity passed. A restore drill remains pending.
-- The original project workspace and its parent are not Git checkouts. A separate checkout is on branch `wp-migration/phase-0-baseline` with `origin` set to `joshualotha/Tanzania-Sensational`; whether it is canonical or used for deployment remains unverified. The staging plugin snapshot was initially mirrored exactly (core 8/8 files; design 40/40 files by SHA-256), with the earlier incomplete design-plugin snapshot preserved outside the repository. Five plugin files now differ intentionally because of local departure-inventory work; these changes have not been deployed.
-- HTTP checks: source homepage 200, staging homepage 200, staging group departures 200.
-- Production was not modified during this discovery/backup work.
+- The authoritative application repository is the public GitHub repo `joshualotha/Tanzania-Sensational`; its default `main` is `4b48e685707dfcbd3b8ce7d16c6b2a3ded809d66` (2026-06-23). The task branch `wp-migration/phase-0-baseline` is `c7e66760f06e98988bb2371dccbd3cb0a9973a47`, has `main` as its merge base, and its 60 committed changes are confined to `wordpress-migration/`. The deployment guide describes a manual cPanel “Update from Remote”; no GitHub Actions workflow is present, but the active cPanel remote/ref is not documented.
+- The no-Git source workspace `/Users/joshcodes/Documents/Tanzania-Sensational` matches GitHub `main` byte-for-byte for `routes/web.php`, `database/database.sqlite`, `.cpanel.yml`, `DEPLOYMENT_GUIDE.md`, and the checked Safari/Blog controllers. Its `TrekkingPageController.php` differs from `main` by a local variations-data addition (the route-component fallback remains); preserve that delta and do not assume a precise deployed commit. The live public `/build/manifest.json` SHA-256 exactly matches the local workspace manifest (`b7894405…`), while GitHub `main`’s manifest differs (`85483057…`). Thus the local asset build matches production, but the exact deployed source ref is still unknown; production-rendered behavior remains the route/content authority.
+- The repository’s root `.cpanel.yml` runs Composer install, database migrations, cache operations, and storage-link setup; the migration branch is not to be sent through cPanel deployment. The staging runbook identifies direct SSH deployment to `Tss_web:/home/tanzhihb/test.tanzaniasensational.com`. Do not push `main`, run cPanel “Update from Remote,” or otherwise deploy to production. The migration branch is an isolated WordPress/staging workstream only.
+- Staging was inspected read-only during this inventory. Production received only public GET requests; no production configuration, database, files, or content were changed.
+- Existing staging backup `/home/tanzhihb/ts-migration-backups/20261024T093932Z-pre-migration-work` was present and its five SHA-256 manifest entries verified. Restore rehearsal is still outstanding.
 
-## Confirmed URL/content gaps
+## Verified source and staging counts
 
-### Missing blog articles (12 source URLs return 404 on staging)
+- The production sitemap contains **56 URLs**; all 56 returned HTTP 200 with no redirects during the inventory. Page families: 9 static/pillar pages, 16 trekking route details, 12 blog articles, 9 destination details, 2 safari package details, 2 company pages, and 6 safari-guide articles.
+- Staging WordPress 7.1.3 has **13 published pages, 1 post, 3 `ts_tour`, 3 `ts_destination`, and 0 `ts_trek_route`**. The three tour slugs are `great-migration-edition`, `pioneers-route`, and `grand-canvas`; destination slugs are `serengeti`, `ngorongoro`, and `tarangire`.
+- Staging `wp-sitemap.xml` has 15 feed entries (12 page, 2 post, 1 category) but 14 unique URLs because the homepage appears in both page and post feeds. It includes the default `hello-world` post and `uncategorized` category, and omits the custom tour/destination/trek post types. All 56 audited staging responses were marked `noindex,nofollow`; page-level canonical and meta-description fields were absent. Keep staging noindex; fix the production sitemap and remove demo content before any release.
+- On the live source, all 56 server responses expose the same generic title, description, and root canonical rather than page-specific metadata. The browser-rendered document title was blank on 12 of the 56 pages. Target metadata is also incomplete. Generate route-specific titles, descriptions, and canonicals from verified content rather than copying the source’s defective shared head values.
+- The local Laravel SQLite snapshot contains 12 `pages`, 12 `blog_posts`, 3 `safari_packages`, 9 `destinations`, 112 `trekking_routes`, 30 `departures`, and 88 `visual_assets`. Only 16 of the 112 route rows have all of `duration`, `base_price`, and `hero_image`; the other 96 are not route-shaped under that check. `routes/web.php` iterates every row for sitemap routes, so the raw snapshot must not be imported as-is.
+- All 12 local blog slugs and all 9 destination slugs match live sitemap entries. The 3 local safari-package slugs do **not** match either of the 2 live package slugs. Six local Safari Guide `Page` records contain 2,926–3,999 content characters, while the corresponding live rendered pages expose only 203–265 visible characters; use the local records as a content reference and verify before import.
+- The 30 local departure rows range from 2026-06-14 through 2026-10-02; none is current or future as of 2026-10-24. They are not safe upcoming-departure inventory. Staging departures must use operations-approved/synthetic data only.
+- The browser capture found 89 unique image sources across the 56 source pages versus 88 rows in the local visual-asset table. These counts are not a one-to-one media map; asset URLs, alt text, and usage still require reconciliation.
 
-- `/blog/kilimanjaro-packing-list-what-actually-matters`
-- `/blog/lemosho-vs-machame-choosing-your-route`
-- `/blog/altitude-acclimatization-a-practical-guide`
-- `/blog/what-a-kilimanjaro-day-looks-like-on-the-mountain`
-- `/blog/safari-after-the-summit-best-pairings`
-- `/blog/zanzibar-the-perfect-recovery-itinerary`
-- `/blog/training-for-kilimanjaro-8-weeks-no-guesswork`
-- `/blog/how-to-tip-on-kilimanjaro-simple-breakdown`
-- `/blog/the-5-ecological-zones-of-kilimanjaro`
-- `/blog/why-group-departures-work-and-when-they-dont`
-- `/blog/moshi-arrival-hotels-and-what-to-expect`
-- `/blog/common-mistakes-first-time-trekkers-make`
+## Exact URL parity: production sitemap vs staging
 
-### Missing destination pages (6 source URLs return 404)
+- Of the 56 source sitemap paths, **37** staging requests returned 200 and **19** returned 404.
+- **29** requests ended at a different path. Three are content-related aliases (`/about` → `/about-us/`, `/safaris/guide` → `/safari-guide/`, and the Kilimanjaro hub → `/kilimanjaro-pillar/`); the original source paths should still be preserved. The other 26 are not equivalent destinations. Seven further responses only added a trailing slash; one kept the exact normalized path without redirect.
+- The 19 staging 404s are all 12 source blog articles, 5 destinations (Kilimanjaro, Lake Manyara, Zanzibar, Nyerere, Mahale), and 2 source safari-package details. The remaining destination, Ruaha, returns the destination archive rather than its detail page. Only Serengeti, Ngorongoro, and Tarangire currently resolve as matching destination details.
+- All 16 trekking detail URLs currently reach the generic Kilimanjaro pillar on staging. On production, all 16 distinct route URLs render the same H1, `Lemosho Route.`; this is a source rendering defect, not evidence that the route records are duplicates. Use the 16 route-shaped source records as corroborating data, preserve each live slug, and build distinct route content.
+- Both company URLs resolve to About Us on staging. All six Safari Guide child URLs resolve to the guide root or Gear Checklist rather than their own articles.
+- A same-path HTTP 200 is only route coverage, not content parity. The row-level comparison is in `SOURCE-URL-PARITY-LEDGER-2026-10-24.csv`.
 
-- `/safaris/destinations/kilimanjaro`
-- `/safaris/destinations/lake-manyara`
-- `/safaris/destinations/zanzibar`
-- `/safaris/destinations/nyerere`
-- `/safaris/destinations/mahale`
-- `/safaris/destinations/ruaha` resolves to the destination archive, not the Ruaha detail page.
+## Internal links and routes beyond the sitemap
 
-Three other destination routes resolve to WordPress detail pages: Serengeti, Ngorongoro, and Tarangire.
+- The 56 rendered source pages contain **155 unique normalized internal path strings**, of which **99 are not in the sitemap**. The inventory records link counts, sample anchor text, known source GET status, source route classification, and migration disposition in `SOURCE-INTERNAL-ROUTE-INVENTORY-2026-10-24.csv`. It includes dynamic departures, route-family/package choices, filters, booking flows, and static guide pages; these are not all editorial pages, and unprobed paths are explicitly marked.
+- The shared navigation emits `/safaris/destinations/1`, `/2`, `/3`, `/5`, and `/7` on all 56 source pages; all five return 404. Their link labels and local records map to Serengeti, Ngorongoro, Tarangire, Lake Manyara, and Ruaha slugs that are present in the production sitemap. Fix links to those slugs; only add numeric 301s after validating the ID mapping against production.
+- `/safaris/packages/1`, `/2`, and `/3` also appear on all 56 pages and all return 404. Local IDs map to `great-migration-edition`, `pioneers-route`, and `grand-canvas`, which match staging but are not the two live source package slugs. Do not redirect or publish these three from the local snapshot without an owner decision about which package set is current.
+- Additional live probes confirmed `/trekking/kilimanjaro/lemosho`, `/trekking/kilimanjaro/lemosho/1`, `/trekking/meru/mt-meru-3-days`, `/group-departures/1`, `/faq`, and `/training-guide` return 200. These routes are outside the source sitemap and need correct target route/flow handling; group-departure content must not use the historical local dates.
+- Broken source paths confirmed by GET include `/safaris/destinations` (the breadcrumb/archive path), `/safaris/destinations/arusha`, `/safari-guide/best-time`, `/safari-guide/packing-list`, and both `/booking/safari/{live-package-slug}` paths. The local route file declares a 301 for `packing-list`, but production returns 404; it declares a redirect for `/safari-guide/local-custom`, but production returns 200 at that path. Therefore the local route file is not a reliable description of current runtime behavior. The `/safari-guide/katavi`, `/manyara`, and `/selous`-style destination links were not individually probed and lack matching local destination records.
+- `routes/web.php` additionally declares country listing aliases, `/trekking/prep/choose-operator`, `/trekking/prep/cost-breakdown`, `/booking/departure/{id}`, and other content/flow routes. They are not all linked or in the production sitemap; verify live runtime and owner scope before adding target pages. Exclude admin/API routes from public content migration.
 
-### Missing safari package detail pages (2 source URLs return 404)
+## Migration scope and open decisions
 
-- `/safaris/packages/ultimate-fly-in-northern-circuit`
-- `/safaris/packages/expected-wildlife-serengeti`
-
-WordPress currently has three different published tour slugs (`great-migration-edition`, `pioneers-route`, `grand-canvas`), so content/slug parity remains unverified and requires reconciliation against source content.
-
-### Missing trekking route content
-
-- All 14 source trekking detail URLs currently redirect to the generic `/kilimanjaro-pillar/` page rather than distinct route/package details.
-- WordPress has no published `ts_trek_route` entries.
-
-### Existing URLs that resolve only by generic redirect
-
-- `/blog` resolves to the homepage, not a blog archive.
-- `/company/our-guides` and `/company/safety-protocols` both resolve to About Us.
-- Safari guide child routes resolve to the Safari Guide root or Gear Checklist, not matching article pages.
-- `/safaris/destinations/ruaha` resolves to the destination archive.
-
-These HTTP 200 responses are not content parity; each needs a matching page or a deliberately equivalent destination.
-
-## Visual acceptance
-
-Not verified. A screenshot comparison could not start because the browser profile was locked by the running Chrome session. Exact visual parity must be checked at desktop, tablet, and mobile widths across all migrated page families, followed by CSS/layout corrections and re-checks.
-
-## Remaining acceptance gates
-
-1. Inventory every source sitemap URL and all internal routes/content types (including pages omitted from the sitemap).
-2. Import/create the missing blog, destination, tour, trekking, company, safari-guide, and other editorial content while preserving slugs and media.
-3. Replace generic redirects with matching WordPress content; retain redirects only for intentionally retired/renamed URLs.
-4. Compare rendered content, forms, navigation, metadata, and desktop/tablet/mobile screenshots against the custom source.
-5. Crawl all source URLs against staging and require intended final routes to return 200 with matching page identity/content.
-6. Keep production untouched until staging parity is accepted and a separate cutover is approved.
+1. Preserve all 56 production sitemap paths with their intended page identity, content, media, metadata, navigation, and working form/booking behavior. Do not count generic redirects as parity.
+2. Migrate the 12 live blog articles, 6 missing destination details, 2 live package details, 16 distinct trekking route details, 2 company articles, and 6 Safari Guide articles. Resolve the local-package/live-package mismatch and the source trekking H1 fallback before using local database values as final copy.
+3. Reconcile all 99 non-sitemap linked paths by route family. Preserve working dynamic flows and aliases; repair the known broken internal links; do not invent content for paths with no live source page or source record.
+4. Map the 89 captured image sources against staging media and the 88 local asset rows. Validate each hero/gallery and alt text during the later visual-QA phase.
+5. Complete the direct source/runtime route probes for any remaining routes selected for migration, then crawl all migrated staging routes and confirm final path, page identity, links, and metadata.
+6. Keep production untouched. Visual comparison at desktop/tablet/mobile, restore rehearsal, SMTP and booking tests, security/accessibility/performance gates, and staging acceptance remain open.
