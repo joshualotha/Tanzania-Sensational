@@ -330,23 +330,41 @@ Last updated: 2026-10-24
 - Verified Safari Guide, Kilimanjaro Pillar, Gear Checklist, Training Guide, and
   Safari Add-ons return HTTP 200 and load `public-layout.css` 1.2.6
 
-## Current local-only continuation (2026-10-24)
+## Departure inventory release (2026-10-24)
 
 - Added a shared future/available-departure query to the core plugin and reused
   it for the public departures page.
-- Replaced the homepage widget's stale date/price/seat repeater defaults with
-  live database inventory, an editor-controlled card limit and empty state, and
-  links that identify the selected departure on the booking page.
-- Added query-string auto-selection to the group-departures form, so a homepage
-  card opens the form for that exact departure.
-- Added a server-side guard so direct/stale requests cannot book a past or
-  closed departure. A protected WordPress UI for operations staff to create,
-  edit, and close inventory is still missing; records are not yet manageable
-  through a normal admin workflow.
-- Bumped the core plugin to 0.4.0 for cache invalidation. Added isolated PHP
-  query/render/booking-guard tests and a Node test for browser selection.
-- Verification: all four modified PHP files pass `php -l`; all three PHP tests
-  and the Node test pass. These changes are local only and have not been deployed.
+- Replaced stale homepage date/price/seat repeater defaults with live database
+  inventory, an editor-controlled card limit and empty state, and direct links
+  that identify the selected departure on the booking page.
+- Added query-string auto-selection to the group-departures form. The selected
+  card now opens the form for that exact departure and the browser scrolls it
+  into view.
+- Added REST and workflow validation for integer group sizes from 1 to 20; the
+  workflow rejects invalid values before starting a transaction. Booking checks
+  still reject past/closed departures and requests beyond remaining capacity.
+- The Elementor editor preview now uses aria-hidden layout placeholders and
+  clearly states that live details appear on the published page.
+- Bumped the core plugin to 0.4.0 for cache invalidation. The tested release is
+  commit `5342d89` on branch `wp-migration/phase-0-baseline`.
+- Deployed only the five changed plugin files to WordPress staging after a
+  database/plugin backup at
+  `/home/tanzhihb/ts-migration-backups/20261024T111433Z-pre-departures-deploy`.
+  Backup checksums, plugin archive integrity, uploaded release checksum, and
+  deployed-file SHA-256 matches were verified. WordPress cache was flushed.
+  Production Laravel was not modified.
+- Verification: 43/43 PHP syntax checks; all three PHP tests; the Node
+  query-selection test; and the 10-file static scan passed. WordPress core
+  checksums passed with a warning for a pre-existing `wp-admin/error_log`
+  (mtime 2026-09-17); it was not modified. Staging homepage and departures
+  pages return HTTP 200. The homepage renders two available departure cards
+  with query-only links; a real headless Chromium run confirmed the selected
+  departure opens the form and sets its ID/label. The form has no horizontal
+  overflow at 390px; the homepage still has a mobile header/utility-bar
+  overflow, and full template-by-template visual acceptance remains pending.
+- A protected WordPress UI for operations staff to create, edit, and close
+  departure inventory is still missing; inventory cannot yet be managed through
+  a normal departure-admin workflow.
 
 ## Remaining release blockers
 
@@ -355,11 +373,12 @@ Last updated: 2026-10-24
 3. Verify SMTP delivery for customer and administrator messages.
 4. Resolve the missing/misrouted public routes and content recorded in
    `PARITY-AUDIT-2026-10-24.md`.
-5. Complete source-to-staging visual comparisons and final breakpoint tuning.
+5. Complete source-to-staging visual comparisons and breakpoint tuning,
+   including the observed homepage utility/header overflow at 390px.
 
 ## Constraint
 
-Screenshot-level visual comparison is pending because no controllable browser
-was available in the current session. Server-side implementation and HTTP
-verification can continue, but responsive visual acceptance requires a browser
-session.
+Screenshot-level comparison across all templates is still pending. Headless
+Chromium was available for this release and verified the homepage at desktop
+and mobile sizes and the query-selected booking panel; full visual comparisons
+and the remaining responsive issues still require review.
