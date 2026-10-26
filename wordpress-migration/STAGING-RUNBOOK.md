@@ -23,10 +23,19 @@ After every deployment unit:
 
 1. Run PHP syntax checks on changed PHP files.
 2. Confirm WordPress core integrity.
-3. Confirm Elementor editor loads.
+3. In an authenticated staging session, verify the target Elementor editor in
+   normal mode. Require visible panel content, a preview iframe whose document
+   reaches `complete`, and no visible loading overlay; capture a screenshot.
+   An editor shell alone is not a pass.
 4. Confirm the homepage and one dynamic detail page return HTTP 200.
 5. Confirm responsive behavior at phone, tablet, and desktop widths.
 6. Confirm no changes occurred on the production Laravel site.
+
+Keep editor diagnostics read-only unless the owner explicitly authorizes a
+specific test. Do not toggle Safe Mode, persistent Elementor settings, or save
+content as a diagnostic shortcut without that authorization. If loading fails,
+capture console/network evidence and correlate it with current staging logs;
+`ERR_ABORTED` without an HTTP status does not establish a server-side cause.
 
 ## Backups
 

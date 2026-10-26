@@ -1,6 +1,31 @@
 # Build Status
 
-Last updated: 2026-10-26
+Last updated: 2026-10-27
+
+## Current snapshot (2026-10-27)
+
+- Staging is `https://test.tanzaniasensational.com`, remains `blog_public=0`,
+  and the homepage returns HTTP 200. Current verified stack: WordPress 7.1.3,
+  Hello Elementor 3.5.1, Elementor 4.3.5, Elementor Pro 4.3.2, ACF Pro 6.8.9,
+  design plugin 1.2.19, and core plugin 0.5.0. Elementor Pro is active.
+- Authenticated normal-mode Elementor verification now passes for post 91
+  (“Trekker’s Journal”): panel content is visible, the preview iframe reaches
+  `complete`, the loader is hidden, and Safe Mode is off. No page content was
+  changed or saved.
+- The alternate editor-loader option was tested and did not resolve the initial
+  loading stall; it was removed afterward, restoring its original unset state.
+  Safe Mode also remained stalled during its test and was exited. A later normal-
+  mode reload loaded successfully; the precise trigger is unconfirmed.
+- One retry recorded `POST /wp-json/elementor/v1/design-system-sync/stylesheet`
+  failing with `net::ERR_ABORTED` and no HTTP status; no JavaScript exception or
+  HTTP error was recorded in that capture. This is not confirmed as the cause.
+- Verified pre-diagnostic backup:
+  `/home/tanzhihb/ts-migration-backups/staging-20261026T195754Z-pre-loader-method-test`.
+  It contains the database, both custom plugins, Elementor Pro, plugin/theme
+  inventories, and SHA-256 manifest. All manifest checks and archive integrity
+  checks passed; directory/files were mode 700/600 respectively.
+- No license disconnect/reconnect or license change was made. Production
+  Laravel was not modified.
 
 ## Completed
 
@@ -385,16 +410,30 @@ Last updated: 2026-10-26
 - Browser verification: the cache-busted stylesheet (`ver=1793037124`) returns HTTP 200; the CTA stays inside the viewport at 320, 390, 768, 900, 901, and 1440 px, and the contact group is hidden at widths through 900 px. Homepage, `/blog/`, and the altitude-acclimatization article return HTTP 200. Staging remains `blog_public=0`; production was not touched.
 - `wp core verify-checksums` exits successfully with the existing extra-file warning for `wp-admin/error_log`; the file was not changed. Elementor editor and console diagnostics were not exercised in this CSS-focused pass.
 
-## Remaining release blockers
+## Remaining release blockers (as of 2026-10-27)
 
-1. Build and verify the protected departure-inventory admin UI.
-2. Add repeatable isolated booking concurrency, expiry, idempotence, and seat-reconciliation tests.
-3. Verify staging SMTP and customer/admin delivery using synthetic test data.
-4. Migrate and verify each owner-approved missing route/content item; resolve package/source-data conflicts before publishing.
-5. Complete source-to-staging visual comparisons for every page family at desktop, tablet, and mobile; fix and recheck responsive defects.
-6. Complete restore rehearsal, editor, functional, security, accessibility, SEO, and performance gates; collect staging acceptance evidence.
-7. Do not modify or cut over production. A cutover remains blocked on staging acceptance and a separate explicit owner go-ahead.
+1. Close route/content parity against the current source and staging state. Use
+   `PARITY-AUDIT-2026-10-24.md` and the URL ledgers, then re-audit before import.
+   Route-specific trekking detail imports remain a separate task; resolve the
+   documented source/local package-set conflicts before publishing those records.
+   Do not count generic redirects as content parity.
+2. Complete source-to-staging visual comparisons for every page family at
+   desktop, tablet, and mobile. The utility-bar booking-CTA clipping was fixed
+   and verified at 320, 390, 768, 900, 901, and 1440 px; full template-by-template
+   screenshot acceptance is still open.
+3. Complete a restore/rollback rehearsal and record its results.
+4. Finish staging acceptance: test the normal editing workflow with a
+   non-admin editor; complete end-to-end forms and mail delivery; and collect
+   the remaining functional, security, accessibility, SEO, and performance
+   evidence. SMTP delivery remains unverified: WP Mail SMTP is configured for
+   PHP `mail`, and an approved SMTP transport plus test sink/mailbox is needed.
+5. Keep production read-only. Production cutover is not authorized and remains
+   blocked on staging acceptance plus separate explicit owner approval.
 
 ## Constraint
 
-Screenshot-level comparison across all templates is still pending. Headless Chromium verified the homepage at desktop/mobile sizes and the query-selected booking panel; full visual comparisons remain open. The homepage has a mobile header/utility-bar overflow at 390px; the selected booking form itself has no horizontal overflow at 390px.
+Screenshot-level comparison across all templates is still pending. Headless
+Chromium verified the homepage at desktop/mobile sizes and the query-selected
+booking panel; the booking CTA clipping has since been fixed and verified at the
+widths listed above. Do not treat that resolved clipping as an open defect; full
+visual comparisons and any other page-family findings remain open.
