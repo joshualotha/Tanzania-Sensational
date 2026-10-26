@@ -87,3 +87,74 @@ intentional; do not add a staging self-canonical. Before any production cutover,
 verify that the production pages are indexable and self-canonical on their final
 production URLs.
 
+## Blog posts, archive, and Elementor template
+
+The reviewed importer creates exactly twelve approved standard posts, the `/blog`
+archive page, and a single-post Theme Builder template scoped only to those twelve
+post IDs. It is staging-only; the default `hello-world` post must remain unchanged
+and must not be included in the archive, related-story queries, or template.
+
+The importer applies each post or layout-resource create in its own InnoDB transaction.
+It sets `REPEATABLE READ` for that transaction and takes a `FOR UPDATE` range lock on
+the indexed WordPress `post_name` before inserting, so a post-preflight slug
+collision is rejected before a write. The full twelve-post-and-layout batch is not
+one all-or-nothing transaction. If an apply is interrupted, keep the original
+pre-write backup and run the read-only preflight before doing anything else. A safe
+resume must show completed importer-owned records as `unchanged` and only unfinished
+approved posts/resources as `create`; stop if any record is edited, unowned,
+incomplete, or otherwise differs from that recovery plan. Use the same verified
+pre-write backup for a resume. Restore from it only if the recovery plan is unsafe
+or post-apply verification fails.
+
+Before any remote blog plugin, template, or content write:
+
+1. Confirm the remote working directory, the exact HTTPS origin
+   `https://test.tanzaniasensational.com/`, and `blog_public=0`. Never run these
+   steps in the production document root.
+2. Create a fresh dated backup outside the public root under
+   `/home/tanzhihb/ts-migration-backups/<backup-id>/`. Include `database.sql`,
+   `custom-plugins.tgz`, `plugin-inventory.txt`, `theme-inventory.txt`, and
+   `SHA256SUMS`; keep the directory mode `700` and files mode `600`. Verify the
+   checksum manifest, confirm `database.sql` is readable, and run `gzip -t` on
+   `custom-plugins.tgz` (and any compressed database archive, if used).
+3. Copy `migration/blog-importer.php`, `migration/blog-import-runtime.php`,
+   `migration/blog-import-cli.php`, and `migration/blog-import-manifest.json` to
+   `/home/tanzhihb/ts-migration-releases/<release-id>/import/`. Deploy only the
+   reviewed custom-plugin files to staging. Run PHP lint and
+   `wp core verify-checksums`; then check the homepage and a dynamic route.
+4. Run the read-only preflight. It must list only the twelve approved article
+   creates plus the `/blog` page and single-template actions, with no unowned slug
+   collisions, changed snapshots, or missing ACF fields:
+
+   ```sh
+   wp --path=/home/tanzhihb/test.tanzaniasensational.com \
+     --require=/home/tanzhihb/ts-migration-releases/<release-id>/import/blog-import-cli.php \
+     ts blog import
+   ```
+
+5. Stop if the host, noindex, backup, transactional table, ACF, slug, or Elementor
+   targeting checks fail. Apply only as a staging administrator, with the exact
+   verified backup path:
+
+   ```sh
+   wp --path=/home/tanzhihb/test.tanzaniasensational.com \
+     --user=<staging-admin-id> \
+     --require=/home/tanzhihb/ts-migration-releases/<release-id>/import/blog-import-cli.php \
+     ts blog import --apply --confirm-staging-write \
+     --backup-dir=/home/tanzhihb/ts-migration-backups/<backup-id>
+   ```
+
+6. Read back all twelve posts, their source-managed fields and hashes, the `/blog`
+   page and Elementor data, and the template conditions. The importer re-saves the
+   single-template conditions after publication, invalidates Elementor Pro's
+   location cache, and reads the conditions back; verify they contain exactly the
+   imported post IDs. Re-run the dry-run; all posts and both resources must report
+   unchanged. Verify `hello-world` status, slug, modified date, content, and template
+   exclusion remain unchanged.
+7. In a real browser, verify `/blog` and all twelve article routes, and confirm each
+   article actually renders the imported single-post template (not a fallback),
+   internal links, image behavior (the known broken hero remains omitted), staging
+   `noindex`, and clean console/network state at phone, tablet, and desktop widths.
+   Do not add a staging self-canonical. Production remains read-only; a production
+   cutover requires separate approval.
+

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Tanzania Sensational — Design System
  * Description: Global design tokens, fonts, layouts, and interactions for the Elementor migration.
- * Version: 1.2.18
+ * Version: 1.2.19
  * Author: Migration Team
  */
 
@@ -54,6 +54,15 @@ add_action( 'wp_enqueue_scripts', function() {
             '1.0.3'
         );
     }
+
+    if ( is_page( 'blog' ) || is_singular( 'post' ) ) {
+        wp_enqueue_style(
+            'ts-blog',
+            plugin_dir_url( __FILE__ ) . 'blog.css',
+            [ 'ts-public-layout' ],
+            filemtime( __DIR__ . '/blog.css' )
+        );
+    }
 } );
 
 add_action( 'wp_enqueue_scripts', function() {
@@ -85,6 +94,7 @@ require_once __DIR__ . '/cpt.php';
  * ACF field groups.
  */
 require_once __DIR__ . '/acf-fields.php';
+require_once __DIR__ . '/blog-fields.php';
 
 /**
  * Global site settings (contact, social, header, footer).
@@ -105,6 +115,7 @@ require_once __DIR__ . '/seed-data.php';
  * Dynamic content shortcodes and helpers.
  */
 require_once __DIR__ . '/dynamic-content.php';
+require_once __DIR__ . '/blog-render-helpers.php';
 
 /**
  * Elementor custom widgets.
@@ -115,6 +126,7 @@ require_once __DIR__ . '/elementor-widgets.php';
  * Temporary fallbacks for Laravel routes not yet represented by WordPress
  * content. Exact redirects run only when WordPress has already resolved 404.
  */
+require_once __DIR__ . '/blog-routing.php';
 require_once __DIR__ . '/route-fallbacks.php';
 
 /**
