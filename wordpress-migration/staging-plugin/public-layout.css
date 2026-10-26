@@ -213,15 +213,6 @@ body {
 body.ts-menu-open { overflow: hidden !important; }
 
 @media (max-width: 900px) {
-  .topbar {
-    padding: 0 16px;
-    justify-content: flex-end;
-  }
-
-  .topbar-left { display: none; }
-  .topbar-right { flex: 1 1 auto; justify-content: flex-end; }
-  .topbar-cta { white-space: nowrap; }
-
   #navbar {
     width: calc(100% - 24px);
     min-width: 0;
@@ -371,6 +362,17 @@ body.ts-menu-open { overflow: hidden !important; }
 
 .topbar-cta:hover {
   background: #111;
+}
+
+@media (max-width: 900px) {
+  .topbar {
+    padding: 0 16px;
+    justify-content: flex-end;
+  }
+
+  .topbar-left { display: none; }
+  .topbar-right { flex: 1 1 auto; justify-content: flex-end; }
+  .topbar-cta { white-space: nowrap; }
 }
 
 /* GTranslate Widget Styles */

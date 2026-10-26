@@ -25,7 +25,7 @@ add_action( 'wp_enqueue_scripts', function() {
         'ts-public-layout',
         plugin_dir_url( __FILE__ ) . 'public-layout.css',
         [],
-        '1.2.18'
+        filemtime( __DIR__ . '/public-layout.css' )
     );
 
     if ( is_front_page() ) {
