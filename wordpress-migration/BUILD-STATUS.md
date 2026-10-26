@@ -1,6 +1,6 @@
 # Build Status
 
-Last updated: 2026-10-24
+Last updated: 2026-10-26
 
 ## Completed
 
@@ -376,6 +376,14 @@ Last updated: 2026-10-24
 - Documented the migration scope and unresolved source/live/local package differences in `PARITY-AUDIT-2026-10-24.md`, `SOURCE-URL-PARITY-LEDGER-2026-10-24.csv`, and `SOURCE-INTERNAL-ROUTE-INVENTORY-2026-10-24.csv`.
 - Verified all five SHA-256 entries in the existing staging backup. Restore rehearsal remains outstanding.
 - Production received only read-only public GET requests; no production configuration, files, database, content, or deployment settings were changed.
+
+## Mobile utility-bar booking CTA fix (2026-10-26)
+
+- Fixed the mobile booking CTA clipping: the mobile `.topbar` overrides now follow the desktop declarations, so they win the CSS cascade. The `public-layout.css` enqueue version now uses the stylesheet's `filemtime()` to ensure changed CSS is fetched.
+- Added `tests/header-responsive-css.php`; it fails on the original cascade order and passes with the corrected order/cache version. All 20 WordPress migration PHP test scripts pass.
+- Commit `776dae3` is pushed to `wp-migration/phase-0-baseline`. Deployed only `public-layout.css` and `tanzania-sensational-design.php` to staging release `/home/tanzhihb/ts-migration-releases/staging-20261026T174642Z-mobile-topbar` after the verified pre-change backup `/home/tanzhihb/ts-migration-backups/staging-20261026T174642Z-mobile-topbar-precss`. Remote SHA-256 values match the release files.
+- Browser verification: the cache-busted stylesheet (`ver=1793037124`) returns HTTP 200; the CTA stays inside the viewport at 320, 390, 768, 900, 901, and 1440 px, and the contact group is hidden at widths through 900 px. Homepage, `/blog/`, and the altitude-acclimatization article return HTTP 200. Staging remains `blog_public=0`; production was not touched.
+- `wp core verify-checksums` exits successfully with the existing extra-file warning for `wp-admin/error_log`; the file was not changed. Elementor editor and console diagnostics were not exercised in this CSS-focused pass.
 
 ## Remaining release blockers
 
