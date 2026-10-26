@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Tanzania Sensational — Design System
  * Description: Global design tokens, fonts, layouts, and interactions for the Elementor migration.
- * Version: 1.2.16
+ * Version: 1.2.18
  * Author: Migration Team
  */
 
@@ -25,7 +25,7 @@ add_action( 'wp_enqueue_scripts', function() {
         'ts-public-layout',
         plugin_dir_url( __FILE__ ) . 'public-layout.css',
         [],
-        '1.2.15'
+        '1.2.18'
     );
 
     if ( is_front_page() ) {
@@ -51,7 +51,7 @@ add_action( 'wp_enqueue_scripts', function() {
             'ts-dynamic-content',
             plugin_dir_url( __FILE__ ) . 'dynamic-content.css',
             [],
-            '1.0.2'
+            '1.0.3'
         );
     }
 } );

@@ -1,0 +1,79 @@
+{
+  "kilimanjaro": {
+    "source_url": "https://tanzaniasensational.com/safaris/destinations/kilimanjaro",
+    "hero": {
+      "url": "https://tanzaniasensational.com/storage/destinations/1RFdWTsjKoD6DMO0WsTQIO0JTKxSDKrAzB6Jpygq.jpg",
+      "alt": "Mount Kilimanjaro"
+    },
+    "gallery": [
+      {"url": "https://tanzaniasensational.com/storage/destinations/gallery/6nTAyiCxlUjHCpSOsyH7RImRkhpj4gXg9kNxAOzO.jpg", "alt": "Mount Kilimanjaro — Tanzania safari destination gallery image 1"},
+      {"url": "https://tanzaniasensational.com/storage/destinations/gallery/NeH5ECUUPYfOMTGwTVjs0otUFT4M7VwseHp722Zf.jpg", "alt": "Mount Kilimanjaro — Tanzania safari destination gallery image 2"},
+      {"url": "https://tanzaniasensational.com/storage/destinations/gallery/XOxkTYswN4z10bDS77yMEX19biJtKu4Wqgx67PZm.jpg", "alt": "Mount Kilimanjaro — Tanzania safari destination gallery image 3"}
+    ]
+  },
+  "lake-manyara": {
+    "source_url": "https://tanzaniasensational.com/safaris/destinations/lake-manyara",
+    "hero": {
+      "url": "https://tanzaniasensational.com/storage/destinations/aB8lrVjgmbOEMsNOiMTzraKZBASmvVx1OcC0VXSC.jpg",
+      "alt": "Lake Manyara"
+    },
+    "gallery": [
+      {"url": "https://tanzaniasensational.com/storage/destinations/gallery/zJkrchv6jRyKalBeQkAOI1SgA4zQMHaGpL93rEAw.jpg", "alt": "Lake Manyara — Tanzania safari destination gallery image 1"},
+      {"url": "https://tanzaniasensational.com/storage/destinations/gallery/pN2OV1oddwPmelbp3MrhQSIQ50uIClKjeJsNXJ7T.jpg", "alt": "Lake Manyara — Tanzania safari destination gallery image 2"},
+      {"url": "https://tanzaniasensational.com/storage/destinations/gallery/RwQsgLpKGtWXwBHYdYuxvXc9yBFnjXpW0k2Xnool.jpg", "alt": "Lake Manyara — Tanzania safari destination gallery image 3"}
+    ]
+  },
+  "mahale": {
+    "source_url": "https://tanzaniasensational.com/safaris/destinations/mahale",
+    "hero": {
+      "url": "https://images.unsplash.com/photo-1520114878144-6123749968dd?w=2000&q=85&auto=format&fit=crop",
+      "alt": "Mahale Mountains"
+    },
+    "gallery": [
+      {"url": "https://images.unsplash.com/photo-1520114878144-6123749968dd?w=800&q=80", "alt": "Mahale Mountains — Tanzania safari destination gallery image 1"},
+      {"url": "https://images.unsplash.com/photo-1549366021-9f761d450615?w=800&q=80", "alt": "Mahale Mountains — Tanzania safari destination gallery image 3"},
+      {"url": "https://images.unsplash.com/photo-1589553416260-f586c8f1514f?w=800&q=80", "alt": "Mahale Mountains — Tanzania safari destination gallery image 4"},
+      {"url": "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800&q=80", "alt": "Mahale Mountains — Tanzania safari destination gallery image 6"}
+    ],
+    "excluded_gallery": [
+      {"url": "https://images.unsplash.com/photo-1518173335487-347a0e39129d?w=800&q=80", "alt": "Mahale Mountains — Tanzania safari destination gallery image 2", "status": 404, "reason": "Source image returned 404; excluded from staging import."},
+      {"url": "https://images.unsplash.com/photo-1498426002933-72797e5510b6?w=800&q=80", "alt": "Mahale Mountains — Tanzania safari destination gallery image 5", "status": 404, "reason": "Source image returned 404; excluded from staging import."}
+    ]
+  },
+  "nyerere": {
+    "source_url": "https://tanzaniasensational.com/safaris/destinations/nyerere",
+    "hero": {
+      "url": "https://tanzaniasensational.com/storage/destinations/Kytt2WqUUHpFiT935Zty4gRFhBorHsXXi3JUEyBJ.jpg",
+      "alt": "Nyerere National Park"
+    },
+    "gallery": [
+      {"url": "https://tanzaniasensational.com/storage/destinations/gallery/YFKRs8Mpk2AWSFsgwaVSoNM39M8Dmh60vqDYfMAu.jpg", "alt": "Nyerere National Park — Tanzania safari destination gallery image 1"},
+      {"url": "https://tanzaniasensational.com/storage/destinations/gallery/V8RKQsRxmjre69jMildayShUlso7OkonUlO09oTp.jpg", "alt": "Nyerere National Park — Tanzania safari destination gallery image 2"},
+      {"url": "https://tanzaniasensational.com/storage/destinations/gallery/dKAJveIQSo9jkBZQrM6jFkUM10L0xa4REBmntuVV.jpg", "alt": "Nyerere National Park — Tanzania safari destination gallery image 3"}
+    ]
+  },
+  "ruaha": {
+    "source_url": "https://tanzaniasensational.com/safaris/destinations/ruaha",
+    "hero": {
+      "url": "https://tanzaniasensational.com/storage/destinations/1aSUmPG8kM1sshnOiuo5x2LlBzRxiNjxO0RvkXvo.jpg",
+      "alt": "Ruaha National Park"
+    },
+    "gallery": [
+      {"url": "https://tanzaniasensational.com/storage/destinations/gallery/lSNNCohd0nuwGdtLBGlDQNNSIcoJxGSkakSmYaXZ.jpg", "alt": "Ruaha National Park — Tanzania safari destination gallery image 1"},
+      {"url": "https://tanzaniasensational.com/storage/destinations/gallery/aDrZxKmlvVHPY6gjsAUiSs6mrVXEgnhPNkSM4qpE.jpg", "alt": "Ruaha National Park — Tanzania safari destination gallery image 2"},
+      {"url": "https://tanzaniasensational.com/storage/destinations/gallery/BKxfi3tWuq4iRzJWnLgFdgmWhVFT5ir8reyN1Egj.jpg", "alt": "Ruaha National Park — Tanzania safari destination gallery image 3"}
+    ]
+  },
+  "zanzibar": {
+    "source_url": "https://tanzaniasensational.com/safaris/destinations/zanzibar",
+    "hero": {
+      "url": "https://tanzaniasensational.com/storage/destinations/0VQX7YKtWYPc96KCmuaV6MAaaAv0kdQ6PUuPPDI0.jpg",
+      "alt": "Zanzibar"
+    },
+    "gallery": [
+      {"url": "https://tanzaniasensational.com/storage/destinations/gallery/gNIXFmaJ2OWe44FsjGHyxB3kbEdEp9j1zZupVxDq.jpg", "alt": "Zanzibar — Tanzania safari destination gallery image 1"},
+      {"url": "https://tanzaniasensational.com/storage/destinations/gallery/oXuVl8sGQlzdTrjo46Iz1wqjMEgUoxhBoT4IL02g.jpg", "alt": "Zanzibar — Tanzania safari destination gallery image 2"},
+      {"url": "https://tanzaniasensational.com/storage/destinations/gallery/qCN1CpNspqdz5CEe1od5gJvMBqnWoWG3quHjAnt9.jpg", "alt": "Zanzibar — Tanzania safari destination gallery image 3"}
+    ]
+  }
+}

@@ -50,6 +50,50 @@ function ts_get_field( $key, $post_id = false ) {
 }
 
 /**
+ * Use destination-specific SEO values through Rank Math's documented filters.
+ * Source: https://rankmath.com/docs/filters-and-hooks/frontend/meta-data/
+ */
+function ts_destination_rank_math_title( $title ) {
+    if ( ! is_singular( 'ts_destination' ) ) {
+        return $title;
+    }
+
+    $value = ts_get_field( 'ts_dest_meta_title', get_queried_object_id() );
+    return is_string( $value ) && '' !== trim( $value ) ? trim( $value ) : $title;
+}
+add_filter( 'rank_math/frontend/title', 'ts_destination_rank_math_title' );
+
+function ts_destination_rank_math_description( $description ) {
+    if ( ! is_singular( 'ts_destination' ) ) {
+        return $description;
+    }
+
+    $value = ts_get_field( 'ts_dest_meta_description', get_queried_object_id() );
+    return is_string( $value ) && '' !== trim( $value ) ? trim( $value ) : $description;
+}
+add_filter( 'rank_math/frontend/description', 'ts_destination_rank_math_description' );
+
+function ts_destination_rank_math_canonical( $canonical ) {
+    if ( ! is_singular( 'ts_destination' ) ) {
+        return $canonical;
+    }
+
+    $permalink = get_permalink( get_queried_object_id() );
+    return is_string( $permalink ) && '' !== $permalink ? $permalink : $canonical;
+}
+add_filter( 'rank_math/frontend/canonical', 'ts_destination_rank_math_canonical' );
+
+/**
+ * Hello Elementor also outputs the post excerpt as a description meta tag.
+ * Keep that fallback on other content, but use only Rank Math's field value
+ * for destination pages to avoid duplicate description tags.
+ */
+function ts_destination_hello_elementor_description_meta_tag( $enabled ) {
+    return is_singular( 'ts_destination' ) ? false : $enabled;
+}
+add_filter( 'hello_elementor_description_meta_tag', 'ts_destination_hello_elementor_description_meta_tag' );
+
+/**
  * Image URL fallback helper.
  */
 function ts_image_url( $url, $fallback ) {
@@ -133,7 +177,7 @@ function ts_render_dest_card( $post_id, $size = 'small' ) {
     $tag      = ts_get_field( 'ts_dest_tag', $post_id ) ?: '';
     $subtitle = ts_get_field( 'ts_dest_subtitle', $post_id ) ?: '';
     $hero     = ts_get_field( 'ts_dest_hero_image', $post_id );
-    $hero_url = is_array( $hero ) ? ( $hero['url'] ?? '' ) : ( is_numeric( $hero ) ? wp_get_attachment_url( $hero ) : $hero );
+    $hero_url = ts_get_field( 'ts_dest_hero_image_url', $post_id ) ?: ( is_array( $hero ) ? ( $hero['url'] ?? '' ) : ( is_numeric( $hero ) ? wp_get_attachment_url( $hero ) : $hero ) );
     $hero_url = $hero_url ?: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=800&auto=format&fit=crop';
 
     $permalink = get_permalink( $post_id );
@@ -482,10 +526,13 @@ add_shortcode( 'ts_single_destination', function() {
     $experience    = ts_get_field( 'ts_dest_experience', $post_id ) ?: [];
     $atmosphere_vitals = ts_get_field( 'ts_dest_atmosphere_vitals', $post_id ) ?: [];
     $wildlife_vitals   = ts_get_field( 'ts_dest_wildlife_vitals', $post_id ) ?: [];
-    $gallery       = ts_get_field( 'ts_dest_gallery', $post_id ) ?: [];
+    $atmosphere_footer = ts_get_field( 'ts_dest_atmosphere_footer', $post_id ) ?: '';
+    $wildlife_footer   = ts_get_field( 'ts_dest_wildlife_footer', $post_id ) ?: '';
+    $gallery_urls      = ts_get_field( 'ts_dest_gallery_urls', $post_id ) ?: [];
+    $gallery           = $gallery_urls ?: ( ts_get_field( 'ts_dest_gallery', $post_id ) ?: [] );
 
     $hero = ts_get_field( 'ts_dest_hero_image', $post_id );
-    $hero_url = is_array( $hero ) ? ( $hero['url'] ?? '' ) : ( is_numeric( $hero ) ? wp_get_attachment_url( $hero ) : $hero );
+    $hero_url = ts_get_field( 'ts_dest_hero_image_url', $post_id ) ?: ( is_array( $hero ) ? ( $hero['url'] ?? '' ) : ( is_numeric( $hero ) ? wp_get_attachment_url( $hero ) : $hero ) );
     $hero_url = $hero_url ?: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=2000&auto=format&fit=crop';
 
     $title = get_the_title( $post_id );
@@ -500,8 +547,7 @@ add_shortcode( 'ts_single_destination', function() {
             </div>
             <div class="ts-single-dest-hero-content">
                 <?php if ( $tag ) : ?><span class="ts-single-dest-tag"><?php echo esc_html( $tag ); ?></span><?php endif; ?>
-                <h1><?php echo esc_html( $title ); ?></h1>
-                <?php if ( $subtitle ) : ?><p class="ts-single-dest-subtitle"><?php echo esc_html( $subtitle ); ?></p><?php endif; ?>
+                <h1><?php echo esc_html( $title ); ?><?php if ( $subtitle ) : ?><em><?php echo esc_html( $subtitle ); ?></em><?php endif; ?></h1>
                 <?php if ( $short_desc ) : ?><p class="ts-single-dest-shortdesc"><?php echo esc_html( $short_desc ); ?></p><?php endif; ?>
             </div>
         </section>
@@ -518,33 +564,49 @@ add_shortcode( 'ts_single_destination', function() {
                 <?php if ( $coordinates ) : ?><div><span>Coordinates</span><strong><?php echo esc_html( $coordinates ); ?></strong></div><?php endif; ?>
                 <?php if ( $elevation ) : ?><div><span>Elevation</span><strong><?php echo esc_html( $elevation ); ?></strong></div><?php endif; ?>
                 <?php if ( $duration ) : ?><div><span>Duration</span><strong><?php echo esc_html( $duration ); ?></strong></div><?php endif; ?>
-                <?php if ( $best_time ) : ?><div><span>Best Time</span><strong><?php echo esc_html( $best_time ); ?></strong></div><?php endif; ?>
+                <?php if ( $best_time ) : ?><div><span>Best Season</span><strong><?php echo esc_html( $best_time ); ?></strong></div><?php endif; ?>
                 <?php if ( $encounter ) : ?><div><span>Encounter Rate</span><strong><?php echo esc_html( $encounter ); ?></strong></div><?php endif; ?>
-                <?php if ( $tier ) : ?><div><span>Tier</span><strong><?php echo esc_html( $tier ); ?></strong></div><?php endif; ?>
-                <?php if ( $tracking ) : ?><div><span>Tracking</span><strong><?php echo esc_html( $tracking ); ?></strong></div><?php endif; ?>
             </section>
 
-            <?php if ( ! empty( $experience ) ) : ?>
+            <?php if ( $encounter || $best_time || $tier || $tracking ) : ?>
+                <section class="ts-single-dest-ledger ts-dest-ledger-panel">
+                    <h2>Expedition Ledger</h2>
+                    <dl class="ts-dest-ledger-list">
+                        <?php if ( $encounter ) : ?><div><dt>Primary Success</dt><dd><?php echo esc_html( $encounter ); ?></dd></div><?php endif; ?>
+                        <?php if ( $best_time ) : ?><div><dt>Optimal Cycle</dt><dd><?php echo esc_html( $best_time ); ?></dd></div><?php endif; ?>
+                        <?php if ( $tier ) : ?><div><dt>Expedition Level</dt><dd><?php echo esc_html( $tier ); ?></dd></div><?php endif; ?>
+                        <?php if ( $tracking ) : ?><div><dt>Tracking Protocol</dt><dd><?php echo esc_html( $tracking ); ?></dd></div><?php endif; ?>
+                    </dl>
+                </section>
+            <?php endif; ?>
+
+            <?php if ( ! empty( $experience ) || ! empty( $atmosphere_vitals ) ) : ?>
                 <section class="ts-single-dest-experience">
                     <h2>The Experience</h2>
                     <div class="ts-dest-experience-grid">
-                        <?php if ( ! empty( $experience['atmosphere'] ) ) : ?>
-                            <div>
+                        <?php if ( ! empty( $atmosphere_vitals ) ) : ?>
+                            <div class="ts-dest-ledger-panel">
                                 <h3>Atmosphere</h3>
-                                <p><?php echo esc_html( $experience['atmosphere'] ); ?></p>
+                                <dl class="ts-dest-ledger-list">
+                                    <?php foreach ( $atmosphere_vitals as $vital ) :
+                                        $label = is_array( $vital ) ? ( $vital['label'] ?? '' ) : '';
+                                        $text  = is_array( $vital ) ? ( $vital['text'] ?? '' ) : '';
+                                        if ( '' === trim( (string) $label ) || '' === trim( (string) $text ) ) continue;
+                                    ?>
+                                        <div><dt><?php echo esc_html( $label ); ?></dt><dd><?php echo esc_html( $text ); ?></dd></div>
+                                    <?php endforeach; ?>
+                                </dl>
+                                <?php if ( $atmosphere_footer ) : ?><p class="ts-dest-ledger-footer"><?php echo esc_html( $atmosphere_footer ); ?></p><?php endif; ?>
                             </div>
+                        <?php endif; ?>
+                        <?php if ( ! empty( $experience['atmosphere'] ) ) : ?>
+                            <div><h3>Atmosphere</h3><p><?php echo esc_html( $experience['atmosphere'] ); ?></p></div>
                         <?php endif; ?>
                         <?php if ( ! empty( $experience['wildlife'] ) ) : ?>
-                            <div>
-                                <h3>Wildlife</h3>
-                                <p><?php echo esc_html( $experience['wildlife'] ); ?></p>
-                            </div>
+                            <div><h3>Wildlife</h3><p><?php echo esc_html( $experience['wildlife'] ); ?></p></div>
                         <?php endif; ?>
                         <?php if ( ! empty( $experience['impact'] ) ) : ?>
-                            <div>
-                                <h3>Impact</h3>
-                                <p><?php echo esc_html( $experience['impact'] ); ?></p>
-                            </div>
+                            <div><h3>Impact</h3><p><?php echo esc_html( $experience['impact'] ); ?></p></div>
                         <?php endif; ?>
                     </div>
                 </section>
@@ -561,14 +623,31 @@ add_shortcode( 'ts_single_destination', function() {
                 </section>
             <?php endif; ?>
 
-            <?php if ( ! empty( $wildlife ) ) : ?>
+            <?php if ( ! empty( $wildlife ) || ! empty( $wildlife_vitals ) ) : ?>
                 <section class="ts-single-dest-wildlife">
                     <h2>Wildlife</h2>
-                    <div class="ts-wildlife-list">
-                        <?php foreach ( $wildlife as $w ) : ?>
-                            <span><?php echo esc_html( is_array( $w ) ? ( $w['text'] ?? '' ) : $w ); ?></span>
-                        <?php endforeach; ?>
-                    </div>
+                    <?php if ( ! empty( $wildlife ) ) : ?>
+                        <div class="ts-wildlife-list">
+                            <?php foreach ( $wildlife as $w ) : ?>
+                                <span><?php echo esc_html( is_array( $w ) ? ( $w['text'] ?? '' ) : $w ); ?></span>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+                    <?php if ( ! empty( $wildlife_vitals ) ) : ?>
+                        <div class="ts-dest-ledger-panel ts-dest-wildlife-ledger">
+                            <h3>Wildlife Ledger</h3>
+                            <dl class="ts-dest-ledger-list">
+                                <?php foreach ( $wildlife_vitals as $vital ) :
+                                    $label = is_array( $vital ) ? ( $vital['label'] ?? '' ) : '';
+                                    $text  = is_array( $vital ) ? ( $vital['text'] ?? '' ) : '';
+                                    if ( '' === trim( (string) $label ) || '' === trim( (string) $text ) ) continue;
+                                ?>
+                                    <div><dt><?php echo esc_html( $label ); ?></dt><dd><?php echo esc_html( $text ); ?></dd></div>
+                                <?php endforeach; ?>
+                            </dl>
+                            <?php if ( $wildlife_footer ) : ?><p class="ts-dest-ledger-footer"><?php echo esc_html( $wildlife_footer ); ?></p><?php endif; ?>
+                        </div>
+                    <?php endif; ?>
                 </section>
             <?php endif; ?>
 
@@ -578,10 +657,11 @@ add_shortcode( 'ts_single_destination', function() {
                     <div class="ts-gallery-grid">
                         <?php foreach ( $gallery as $img ) :
                             $img_url = is_array( $img ) ? ( $img['url'] ?? '' ) : ( is_numeric( $img ) ? wp_get_attachment_url( $img ) : $img );
+                            $img_alt = is_array( $img ) ? ( $img['alt'] ?? '' ) : '';
                             if ( ! $img_url ) continue;
                         ?>
                             <div class="ts-gallery-item">
-                                <img src="<?php echo esc_url( $img_url ); ?>" alt="<?php echo esc_attr( $title ); ?> gallery" loading="lazy" />
+                                <img src="<?php echo esc_url( $img_url ); ?>" alt="<?php echo esc_attr( $img_alt ?: $title . ' gallery' ); ?>" loading="lazy" />
                             </div>
                         <?php endforeach; ?>
                     </div>

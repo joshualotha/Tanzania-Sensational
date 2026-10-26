@@ -1,0 +1,282 @@
+{
+  "manifest_version": 1,
+  "scope": "staging-only; approved destination details",
+  "verified_date": "2026-10-25",
+  "source_reference": "Local Laravel destinations snapshot reconciled against current rendered source pages and their live media.",
+  "records": [
+    {
+      "source_record_id": 4,
+      "slug": "kilimanjaro",
+      "source_url": "https://tanzaniasensational.com/safaris/destinations/kilimanjaro",
+      "source_heading": "Mount Kilimanjaro. Africa.",
+      "post_title": "Mount Kilimanjaro",
+      "post_excerpt": "Rising majestically from the African plains, Mount Kilimanjaro is a dormant volcano and the highest peak on the continent at 5,895 meters. It stands as a beacon…",
+      "post_content": "Rising majestically from the African plains, Mount Kilimanjaro is a dormant volcano and the highest peak on the continent at 5,895 meters. It stands as a beacon for adventurers, offering a multi-day trek through incredibly diverse ecosystems—starting in dense, primate-filled forests and ending in the surreal, icy silence of the arctic summit zone.",
+      "fields": {
+        "ts_dest_tag": "EXPERTLY CURATED DESTINATION",
+        "ts_dest_subtitle": ". Africa.",
+        "ts_dest_short_description": "Rising majestically from the African plains, Mount Kilimanjaro is a dormant volcano and the highest peak on the continent at 5,895 meters. It stands as a beacon…",
+        "ts_dest_overview_quote": "To climb Kilimanjaro is to walk from the equator to the North Pole in a matter of days—a journey not just of elevation, but of the spirit.",
+        "ts_dest_coordinates": "3.0674° S, 37.3556° E",
+        "ts_dest_elevation": "5,895m (Uhuru Peak)",
+        "ts_dest_best_time": "Jan to March & June to October",
+        "ts_dest_encounter_rate": "100%",
+        "ts_dest_expedition_tier": "Summit Tier 01",
+        "ts_dest_tracking_method": "Guided Alpine Ascent",
+        "ts_dest_atmosphere_vitals": [
+          {"text": "Stark, shifting extremes from jungle to ice.", "label": "Sensory Vibe"},
+          {"text": "Forest canopy calls fading into alpine wind.", "label": "Audio Profile"},
+          {"text": "Above the clouds with infinite horizons.", "label": "Visibility"},
+          {"text": "25°C at base dropping to -15°C at summit.", "label": "Ambient Temp"}
+        ],
+        "ts_dest_wildlife_vitals": [
+          {"text": "Unique afro-alpine gigantism species.", "label": "Flora Stat"},
+          {"text": "Colobus monkeys, endemic birds, Giant Lobelia.", "label": "Key Species"},
+          {"text": "Sky island ecosystem isolated by altitude.", "label": "Bio Profile"},
+          {"text": "85-95% (Route dependent)", "label": "Success Rate"}
+        ],
+        "ts_dest_atmosphere_footer": "Five climate zones compressed into one mountain.",
+        "ts_dest_wildlife_footer": "A botanical wonderland leading to eternal ice.",
+        "ts_dest_hero_image_url": "https://tanzaniasensational.com/storage/destinations/1RFdWTsjKoD6DMO0WsTQIO0JTKxSDKrAzB6Jpygq.jpg",
+        "ts_dest_gallery_urls": [
+          {"url": "https://tanzaniasensational.com/storage/destinations/gallery/6nTAyiCxlUjHCpSOsyH7RImRkhpj4gXg9kNxAOzO.jpg", "alt": "Mount Kilimanjaro — Tanzania safari destination gallery image 1"},
+          {"url": "https://tanzaniasensational.com/storage/destinations/gallery/NeH5ECUUPYfOMTGwTVjs0otUFT4M7VwseHp722Zf.jpg", "alt": "Mount Kilimanjaro — Tanzania safari destination gallery image 2"},
+          {"url": "https://tanzaniasensational.com/storage/destinations/gallery/XOxkTYswN4z10bDS77yMEX19biJtKu4Wqgx67PZm.jpg", "alt": "Mount Kilimanjaro — Tanzania safari destination gallery image 3"}
+        ],
+        "ts_dest_meta_title": "Mount Kilimanjaro National Park | Climb Kili | Tanzania Destinations",
+        "ts_dest_meta_description": "Explore Mount Kilimanjaro National Park — home of Africa's highest peak. Trek Kilimanjaro via multiple routes. Book your Kilimanjaro climbing adventure.",
+        "ts_dest_featured": false,
+        "ts_dest_display_order": 9001
+      }
+    },
+    {
+      "source_record_id": 5,
+      "slug": "lake-manyara",
+      "source_url": "https://tanzaniasensational.com/safaris/destinations/lake-manyara",
+      "source_heading": "Lake Manyara. Lake.",
+      "post_title": "Lake Manyara",
+      "post_excerpt": "Described by Ernest Hemingway as 'the loveliest I had seen in Africa,' Lake Manyara National Park is a compact, breathtakingly beautiful reserve. The alkaline l…",
+      "post_content": "Described by Ernest Hemingway as 'the loveliest I had seen in Africa,' Lake Manyara National Park is a compact, breathtakingly beautiful reserve. The alkaline lake takes up much of the park, creating a vibrant ecosystem where dense groundwater forests give way to open grassy floodplains and the steep, dramatic cliffs of the Rift Valley.",
+      "fields": {
+        "ts_dest_tag": "EXPERTLY CURATED DESTINATION",
+        "ts_dest_subtitle": ". Lake.",
+        "ts_dest_short_description": "Described by Ernest Hemingway as 'the loveliest I had seen in Africa,' Lake Manyara National Park is a compact, breathtakingly beautiful reserve. The alkaline l…",
+        "ts_dest_overview_quote": "It is a pocket-sized Serengeti—a lush, concentrated burst of life where the escarpment meets the water.",
+        "ts_dest_coordinates": "3.5833° S, 35.8333° E",
+        "ts_dest_elevation": "960m",
+        "ts_dest_best_time": "June to October (Large Mammals) / Nov to April (Birding & Waterfalls)",
+        "ts_dest_encounter_rate": "92.0%",
+        "ts_dest_expedition_tier": "Heritage Tier 02",
+        "ts_dest_tracking_method": "Lakeside Guided Patrol",
+        "ts_dest_atmosphere_vitals": [
+          {"text": "Lush, jungle-like density opening to water.", "label": "Sensory Vibe"},
+          {"text": "Baboon barks and the murmur of flamingos.", "label": "Audio Profile"},
+          {"text": "Dramatic Rift Valley escarpment backdrop.", "label": "Visibility"},
+          {"text": "Pleasant 15°C mornings to 29°C afternoons.", "label": "Ambient Temp"}
+        ],
+        "ts_dest_wildlife_vitals": [
+          {"text": "Famous tree-climbing lion populations.", "label": "Predator Stat"},
+          {"text": "Flamingos, Elephants, Baboons, Tree Lions.", "label": "Key Species"},
+          {"text": "Groundwater forest meeting alkaline lake.", "label": "Bio Profile"},
+          {"text": "92.0% (Lakeside Grazers)", "label": "Encounter Prob"}
+        ],
+        "ts_dest_atmosphere_footer": "Where the Rift Valley wall meets a shimmering lake.",
+        "ts_dest_wildlife_footer": "Over 400 bird species recorded — unparalleled avian diversity.",
+        "ts_dest_hero_image_url": "https://tanzaniasensational.com/storage/destinations/aB8lrVjgmbOEMsNOiMTzraKZBASmvVx1OcC0VXSC.jpg",
+        "ts_dest_gallery_urls": [
+          {"url": "https://tanzaniasensational.com/storage/destinations/gallery/zJkrchv6jRyKalBeQkAOI1SgA4zQMHaGpL93rEAw.jpg", "alt": "Lake Manyara — Tanzania safari destination gallery image 1"},
+          {"url": "https://tanzaniasensational.com/storage/destinations/gallery/pN2OV1oddwPmelbp3MrhQSIQ50uIClKjeJsNXJ7T.jpg", "alt": "Lake Manyara — Tanzania safari destination gallery image 2"},
+          {"url": "https://tanzaniasensational.com/storage/destinations/gallery/RwQsgLpKGtWXwBHYdYuxvXc9yBFnjXpW0k2Xnool.jpg", "alt": "Lake Manyara — Tanzania safari destination gallery image 3"}
+        ],
+        "ts_dest_meta_title": "Lake Manyara National Park Safari | Tanzania Safari Destinations",
+        "ts_dest_meta_description": "Visit Lake Manyara National Park — famous for tree-climbing lions and vast flamingo flocks. Book Lake Manyara safari packages. Perfect day trip destination.",
+        "ts_dest_featured": false,
+        "ts_dest_display_order": 9002
+      }
+    },
+    {
+      "source_record_id": 9,
+      "slug": "mahale",
+      "source_url": "https://tanzaniasensational.com/safaris/destinations/mahale",
+      "source_heading": "Mahale Mountains. Peaks.",
+      "post_title": "Mahale Mountains",
+      "post_excerpt": "Tucked away in the far west of Tanzania, Mahale Mountains National Park is breathtakingly isolated. Accessible only by boat across the massive, deep blue expans…",
+      "post_content": "Tucked away in the far west of Tanzania, Mahale Mountains National Park is breathtakingly isolated. Accessible only by boat across the massive, deep blue expanse of Lake Tanganyika, or by light aircraft, there are no roads here. Dense, pristine rainforest cascades straight down the mountain slopes to white sandy beaches along the lake shore, creating a truly otherworldly environment.",
+      "fields": {
+        "ts_dest_tag": "EXPERTLY CURATED DESTINATION",
+        "ts_dest_subtitle": ". Peaks.",
+        "ts_dest_short_description": "Tucked away in the far west of Tanzania, Mahale Mountains National Park is breathtakingly isolated. Accessible only by boat across the massive, deep blue expans…",
+        "ts_dest_overview_quote": "To sit quietly in the dappled forest light at Mahale, watching a chimpanzee hold the hand of its young, is to look directly into the mirror of our own evolution.",
+        "ts_dest_coordinates": "6.1167° S, 29.7333° E",
+        "ts_dest_elevation": "773m – 2,462m",
+        "ts_dest_best_time": "July to October (Drier paths for trekking)",
+        "ts_dest_encounter_rate": "90.0%",
+        "ts_dest_expedition_tier": "Exclusive Tier 04",
+        "ts_dest_tracking_method": "Deep Forest Trekking",
+        "ts_dest_atmosphere_vitals": [
+          {"text": "Steep, humid jungle meeting crystal fresh water.", "label": "Sensory Vibe"},
+          {"text": "Echoing chimpanzee pant-hoots in deep forest.", "label": "Audio Profile"},
+          {"text": "Dappled forest light & endless lake blue.", "label": "Visibility"},
+          {"text": "Warm and humid 20°C to 28°C.", "label": "Ambient Temp"}
+        ],
+        "ts_dest_wildlife_vitals": [
+          {"text": "Home to about 1,000 wild chimpanzees.", "label": "Primate Stat"},
+          {"text": "Chimpanzees, Red Colobus, Forest Birds, Cichlids.", "label": "Key Species"},
+          {"text": "Afromontane forest bordering a rift valley lake.", "label": "Bio Profile"},
+          {"text": "90.0% (With experienced trackers)", "label": "Encounter Prob"}
+        ],
+        "ts_dest_atmosphere_footer": "A roadless paradise accessible only by boat or air.",
+        "ts_dest_wildlife_footer": "Researchers have studied the chimps here since 1965.",
+        "ts_dest_hero_image_url": "https://images.unsplash.com/photo-1520114878144-6123749968dd?w=2000&q=85&auto=format&fit=crop",
+        "ts_dest_gallery_urls": [
+          {"url": "https://images.unsplash.com/photo-1520114878144-6123749968dd?w=800&q=80", "alt": "Mahale Mountains — Tanzania safari destination gallery image 1"},
+          {"url": "https://images.unsplash.com/photo-1549366021-9f761d450615?w=800&q=80", "alt": "Mahale Mountains — Tanzania safari destination gallery image 3"},
+          {"url": "https://images.unsplash.com/photo-1589553416260-f586c8f1514f?w=800&q=80", "alt": "Mahale Mountains — Tanzania safari destination gallery image 4"},
+          {"url": "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800&q=80", "alt": "Mahale Mountains — Tanzania safari destination gallery image 6"}
+        ],
+        "ts_dest_meta_title": "Mahale Mountains National Park | Chimpanzee Trekking | Tanzania Destinations",
+        "ts_dest_meta_description": "Track chimpanzees in Mahale Mountains National Park on the shores of Lake Tanganyika. Book Mahale chimpanzee trekking safaris. Tanzania's primate paradise.",
+        "ts_dest_featured": false,
+        "ts_dest_display_order": 9003
+      }
+    },
+    {
+      "source_record_id": 8,
+      "slug": "nyerere",
+      "source_url": "https://tanzaniasensational.com/safaris/destinations/nyerere",
+      "source_heading": "Nyerere National Park. River.",
+      "post_title": "Nyerere National Park",
+      "post_excerpt": "Formerly the northern part of the Selous Game Reserve, Nyerere National Park is spectacularly expansive, larger than Switzerland. Its lifeblood is the massive R…",
+      "post_content": "Formerly the northern part of the Selous Game Reserve, Nyerere National Park is spectacularly expansive, larger than Switzerland. Its lifeblood is the massive Rufiji River, which carves a complex network of channels, lakes, and swamps through the wilderness. This aquatic environment allows for uniquely varied safari experiences, shifting seamlessly from dusty game drives to silent, gliding boat safaris.",
+      "fields": {
+        "ts_dest_tag": "EXPERTLY CURATED DESTINATION",
+        "ts_dest_subtitle": ". River.",
+        "ts_dest_short_description": "Formerly the northern part of the Selous Game Reserve, Nyerere National Park is spectacularly expansive, larger than Switzerland. Its lifeblood is the massive R…",
+        "ts_dest_overview_quote": "Drifting down the Rufiji as crocodiles slip into the dark water and elephants drink on the banks—it is the continent perfectly distilled.",
+        "ts_dest_coordinates": "8.8000° S, 37.8333° E",
+        "ts_dest_elevation": "100m – 400m",
+        "ts_dest_best_time": "June to October (Dry Season)",
+        "ts_dest_encounter_rate": "91.5%",
+        "ts_dest_expedition_tier": "Frontier Tier 03",
+        "ts_dest_tracking_method": "Boat Safari & Bush Walk",
+        "ts_dest_atmosphere_vitals": [
+          {"text": "Humid riverine lushness meeting dry bush.", "label": "Sensory Vibe"},
+          {"text": "Hippo grunts and the cry of the Fish Eagle.", "label": "Audio Profile"},
+          {"text": "Vast waterways winding through palm forests.", "label": "Visibility"},
+          {"text": "Hot and humid 22°C to 36°C.", "label": "Ambient Temp"}
+        ],
+        "ts_dest_wildlife_vitals": [
+          {"text": "Dense populations of hippos and huge crocodiles.", "label": "Marine Stat"},
+          {"text": "Wild Dogs, Hippos, Crocs, Buffalo, Elephants.", "label": "Key Species"},
+          {"text": "Aquatic labyrinth within a massive dry reserve.", "label": "Bio Profile"},
+          {"text": "91.5% (Riverine zones)", "label": "Encounter Prob"}
+        ],
+        "ts_dest_atmosphere_footer": "Life orchestrated by the flow of the mighty Rufiji.",
+        "ts_dest_wildlife_footer": "Superb aquatic birding with over 440 species.",
+        "ts_dest_hero_image_url": "https://tanzaniasensational.com/storage/destinations/Kytt2WqUUHpFiT935Zty4gRFhBorHsXXi3JUEyBJ.jpg",
+        "ts_dest_gallery_urls": [
+          {"url": "https://tanzaniasensational.com/storage/destinations/gallery/YFKRs8Mpk2AWSFsgwaVSoNM39M8Dmh60vqDYfMAu.jpg", "alt": "Nyerere National Park — Tanzania safari destination gallery image 1"},
+          {"url": "https://tanzaniasensational.com/storage/destinations/gallery/V8RKQsRxmjre69jMildayShUlso7OkonUlO09oTp.jpg", "alt": "Nyerere National Park — Tanzania safari destination gallery image 2"},
+          {"url": "https://tanzaniasensational.com/storage/destinations/gallery/dKAJveIQSo9jkBZQrM6jFkUM10L0xa4REBmntuVV.jpg", "alt": "Nyerere National Park — Tanzania safari destination gallery image 3"}
+        ],
+        "ts_dest_meta_title": "Nyerere National Park Safari | Selous Game Reserve | Tanzania Destinations",
+        "ts_dest_meta_description": "Discover Nyerere National Park (formerly Selous Game Reserve) — one of Africa's largest protected areas. Book Nyerere safari packages for wilderness exploration.",
+        "ts_dest_featured": false,
+        "ts_dest_display_order": 9004
+      }
+    },
+    {
+      "source_record_id": 7,
+      "slug": "ruaha",
+      "source_url": "https://tanzaniasensational.com/safaris/destinations/ruaha",
+      "source_heading": "Ruaha National Park. South.",
+      "post_title": "Ruaha National Park",
+      "post_excerpt": "Ruaha National Park is a massive, untamed stretch of wilderness in Southern Tanzania. It is renowned for its harsh, rugged beauty, characterized by rolling hill…",
+      "post_content": "Ruaha National Park is a massive, untamed stretch of wilderness in Southern Tanzania. It is renowned for its harsh, rugged beauty, characterized by rolling hills, rocky escarpments, and the life-giving Great Ruaha River. Because it is less accessible than the northern parks, Ruaha offers a deeply exclusive and spectacular safari experience, completely void of crowds.",
+      "fields": {
+        "ts_dest_tag": "EXPERTLY CURATED DESTINATION",
+        "ts_dest_subtitle": ". South.",
+        "ts_dest_short_description": "Ruaha National Park is a massive, untamed stretch of wilderness in Southern Tanzania. It is renowned for its harsh, rugged beauty, characterized by rolling hill…",
+        "ts_dest_overview_quote": "There is a quiet violence to Ruaha's beauty. It is an ancient, unyielding earth where survival is earned every single day.",
+        "ts_dest_coordinates": "7.6167° S, 34.8833° E",
+        "ts_dest_elevation": "750m – 1,868m",
+        "ts_dest_best_time": "June to November (River bed congregations)",
+        "ts_dest_encounter_rate": "88.0%",
+        "ts_dest_expedition_tier": "Frontier Tier 03",
+        "ts_dest_tracking_method": "Deep Bush Walking & 4x4",
+        "ts_dest_atmosphere_vitals": [
+          {"text": "Raw wilderness, baked earth, and ancient silence.", "label": "Sensory Vibe"},
+          {"text": "Lion roars echoing far across the sand rivers.", "label": "Audio Profile"},
+          {"text": "Vast sweeps of rugged baobab-studded plains.", "label": "Visibility"},
+          {"text": "Scorching up to 35°C in dry season.", "label": "Ambient Temp"}
+        ],
+        "ts_dest_wildlife_vitals": [
+          {"text": "10% of the world's remaining lion population.", "label": "Predator Stat"},
+          {"text": "Lions, Wild Dogs, Elephants, Greater Kudu.", "label": "Key Species"},
+          {"text": "Convergence zone of eastern and southern flora/fauna.", "label": "Bio Profile"},
+          {"text": "88.0% (High predator activity during dry season)", "label": "Encounter Prob"}
+        ],
+        "ts_dest_atmosphere_footer": "A harsh, majestic landscape demanding absolute respect.",
+        "ts_dest_wildlife_footer": "One of the last strongholds for the African Wild Dog.",
+        "ts_dest_hero_image_url": "https://tanzaniasensational.com/storage/destinations/1aSUmPG8kM1sshnOiuo5x2LlBzRxiNjxO0RvkXvo.jpg",
+        "ts_dest_gallery_urls": [
+          {"url": "https://tanzaniasensational.com/storage/destinations/gallery/lSNNCohd0nuwGdtLBGlDQNNSIcoJxGSkakSmYaXZ.jpg", "alt": "Ruaha National Park — Tanzania safari destination gallery image 1"},
+          {"url": "https://tanzaniasensational.com/storage/destinations/gallery/aDrZxKmlvVHPY6gjsAUiSs6mrVXEgnhPNkSM4qpE.jpg", "alt": "Ruaha National Park — Tanzania safari destination gallery image 2"},
+          {"url": "https://tanzaniasensational.com/storage/destinations/gallery/BKxfi3tWuq4iRzJWnLgFdgmWhVFT5ir8reyN1Egj.jpg", "alt": "Ruaha National Park — Tanzania safari destination gallery image 3"}
+        ],
+        "ts_dest_meta_title": "Ruaha National Park Safari | Tanzania Safari Destinations",
+        "ts_dest_meta_description": "Explore Ruaha National Park — Tanzania's largest park with wild landscapes and abundant predators. Book Ruaha safari packages for an off-the-beaten-path adventure.",
+        "ts_dest_featured": false,
+        "ts_dest_display_order": 9005
+      }
+    },
+    {
+      "source_record_id": 6,
+      "slug": "zanzibar",
+      "source_url": "https://tanzaniasensational.com/safaris/destinations/zanzibar",
+      "source_heading": "Zanzibar. Island.",
+      "post_title": "Zanzibar",
+      "post_excerpt": "Floating off the coast of mainland Tanzania, the Zanzibar Archipelago is a tropical paradise steeped in a rich, complex history. Known globally for its spice pl…",
+      "post_content": "Floating off the coast of mainland Tanzania, the Zanzibar Archipelago is a tropical paradise steeped in a rich, complex history. Known globally for its spice plantations and Swahili culture, the main island of Unguja offers a breathtaking contrast between the vibrant, historical labyrinth of Stone Town and the quiet, luxurious seclusion of its palm-fringed eastern shores.",
+      "fields": {
+        "ts_dest_tag": "EXPERTLY CURATED DESTINATION",
+        "ts_dest_subtitle": ". Island.",
+        "ts_dest_short_description": "Floating off the coast of mainland Tanzania, the Zanzibar Archipelago is a tropical paradise steeped in a rich, complex history. Known globally for its spice pl…",
+        "ts_dest_overview_quote": "Where the scent of cloves meets the salt of the Indian Ocean, time slows to the rhythm of dhow sails on the horizon.",
+        "ts_dest_coordinates": "6.1659° S, 39.2026° E",
+        "ts_dest_elevation": "Sea Level",
+        "ts_dest_best_time": "June to October & Dec to Feb",
+        "ts_dest_encounter_rate": "98.5%",
+        "ts_dest_expedition_tier": "Retreat Tier 01",
+        "ts_dest_tracking_method": "Dhow Sailing & Dive Tech",
+        "ts_dest_atmosphere_vitals": [
+          {"text": "Barefoot luxury wrapped in spiced sea breezes.", "label": "Sensory Vibe"},
+          {"text": "Lapping waves, rustling palms & distant calls to prayer.", "label": "Audio Profile"},
+          {"text": "Crystal clear turquoise water over white coral sand.", "label": "Visibility"},
+          {"text": "Tropical 25°C to 32°C year-round.", "label": "Ambient Temp"}
+        ],
+        "ts_dest_wildlife_vitals": [
+          {"text": "Pristine coral atolls with exceptional visibility.", "label": "Marine Stat"},
+          {"text": "Green Turtles, Bottlenose Dolphins, Red Colobus.", "label": "Key Species"},
+          {"text": "Vibrant Indian Ocean reef ecosystems.", "label": "Bio Profile"},
+          {"text": "98.5% (Marine & Reef Dives)", "label": "Encounter Prob"}
+        ],
+        "ts_dest_atmosphere_footer": "A rhythmic slow-down on the shores of the Indian Ocean.",
+        "ts_dest_wildlife_footer": "World-class diving around Mnemba Atoll.",
+        "ts_dest_hero_image_url": "https://tanzaniasensational.com/storage/destinations/0VQX7YKtWYPc96KCmuaV6MAaaAv0kdQ6PUuPPDI0.jpg",
+        "ts_dest_gallery_urls": [
+          {"url": "https://tanzaniasensational.com/storage/destinations/gallery/gNIXFmaJ2OWe44FsjGHyxB3kbEdEp9j1zZupVxDq.jpg", "alt": "Zanzibar — Tanzania safari destination gallery image 1"},
+          {"url": "https://tanzaniasensational.com/storage/destinations/gallery/oXuVl8sGQlzdTrjo46Iz1wqjMEgUoxhBoT4IL02g.jpg", "alt": "Zanzibar — Tanzania safari destination gallery image 2"},
+          {"url": "https://tanzaniasensational.com/storage/destinations/gallery/qCN1CpNspqdz5CEe1od5gJvMBqnWoWG3quHjAnt9.jpg", "alt": "Zanzibar — Tanzania safari destination gallery image 3"}
+        ],
+        "ts_dest_meta_title": "Zanzibar Beach Holiday | Tanzania Island Destinations | Tanzania Sensational",
+        "ts_dest_meta_description": "Escape to Zanzibar — pristine beaches, turquoise waters, and rich Swahili culture. Book Zanzibar beach holidays and island extensions. Tanzania's paradise island.",
+        "ts_dest_featured": false,
+        "ts_dest_display_order": 9006
+      }
+    }
+  ],
+  "not_imported": "Local meta_subtitle, meta_tag, highlights, and unsupported duration/experience/wildlife-list values were omitted when they did not match the current public source page.",
+  "seo_note": "Destination-specific title/description come from the source destination records; Rank Math canonical is generated from the staging WordPress permalink.",
+  "elevation_note": "The target uses the stored source value without repeating the live source template’s extra “m ASL” suffix; this avoids duplicating units already present in the source values."
+}

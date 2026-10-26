@@ -1,0 +1,44 @@
+{
+  "kilimanjaro": {
+    "source_url": "https://tanzaniasensational.com/safaris/destinations/kilimanjaro",
+    "heading": "Mount Kilimanjaro. Africa.",
+    "heading_suffix": ". Africa.",
+    "eyebrow": "EXPERTLY CURATED DESTINATION",
+    "hero_lead": "Rising majestically from the African plains, Mount Kilimanjaro is a dormant volcano and the highest peak on the continent at 5,895 meters. It stands as a beacon…"
+  },
+  "lake-manyara": {
+    "source_url": "https://tanzaniasensational.com/safaris/destinations/lake-manyara",
+    "heading": "Lake Manyara. Lake.",
+    "heading_suffix": ". Lake.",
+    "eyebrow": "EXPERTLY CURATED DESTINATION",
+    "hero_lead": "Described by Ernest Hemingway as 'the loveliest I had seen in Africa,' Lake Manyara National Park is a compact, breathtakingly beautiful reserve. The alkaline l…"
+  },
+  "mahale": {
+    "source_url": "https://tanzaniasensational.com/safaris/destinations/mahale",
+    "heading": "Mahale Mountains. Peaks.",
+    "heading_suffix": ". Peaks.",
+    "eyebrow": "EXPERTLY CURATED DESTINATION",
+    "hero_lead": "Tucked away in the far west of Tanzania, Mahale Mountains National Park is breathtakingly isolated. Accessible only by boat across the massive, deep blue expans…"
+  },
+  "nyerere": {
+    "source_url": "https://tanzaniasensational.com/safaris/destinations/nyerere",
+    "heading": "Nyerere National Park. River.",
+    "heading_suffix": ". River.",
+    "eyebrow": "EXPERTLY CURATED DESTINATION",
+    "hero_lead": "Formerly the northern part of the Selous Game Reserve, Nyerere National Park is spectacularly expansive, larger than Switzerland. Its lifeblood is the massive R…"
+  },
+  "ruaha": {
+    "source_url": "https://tanzaniasensational.com/safaris/destinations/ruaha",
+    "heading": "Ruaha National Park. South.",
+    "heading_suffix": ". South.",
+    "eyebrow": "EXPERTLY CURATED DESTINATION",
+    "hero_lead": "Ruaha National Park is a massive, untamed stretch of wilderness in Southern Tanzania. It is renowned for its harsh, rugged beauty, characterized by rolling hill…"
+  },
+  "zanzibar": {
+    "source_url": "https://tanzaniasensational.com/safaris/destinations/zanzibar",
+    "heading": "Zanzibar. Island.",
+    "heading_suffix": ". Island.",
+    "eyebrow": "EXPERTLY CURATED DESTINATION",
+    "hero_lead": "Floating off the coast of mainland Tanzania, the Zanzibar Archipelago is a tropical paradise steeped in a rich, complex history. Known globally for its spice pl…"
+  }
+}

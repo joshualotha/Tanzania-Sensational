@@ -291,12 +291,54 @@ add_action( 'acf/include_fields', function() {
                 'preview_size'  => 'medium',
             ],
             [
+                'key'           => 'field_ts_dest_hero_image_url',
+                'label'         => __( 'Source Hero Image URL', 'tanzania-sensational' ),
+                'name'          => 'ts_dest_hero_image_url',
+                'type'          => 'url',
+                'instructions'  => __( 'Use the exact image URL already displayed on the public source when an external source image is required.', 'tanzania-sensational' ),
+            ],
+            [
                 'key'           => 'field_ts_dest_gallery',
                 'label'         => __( 'Gallery', 'tanzania-sensational' ),
                 'name'          => 'ts_dest_gallery',
                 'type'          => 'gallery',
                 'return_format' => 'url',
                 'preview_size'  => 'medium',
+            ],
+            [
+                'key'           => 'field_ts_dest_gallery_urls',
+                'label'         => __( 'Source Gallery URLs', 'tanzania-sensational' ),
+                'name'          => 'ts_dest_gallery_urls',
+                'type'          => 'repeater',
+                'layout'        => 'table',
+                'button_label'  => __( 'Add Source Image', 'tanzania-sensational' ),
+                'sub_fields'    => [
+                    [
+                        'key'   => 'field_ts_dest_gallery_url',
+                        'label' => __( 'Image URL', 'tanzania-sensational' ),
+                        'name'  => 'url',
+                        'type'  => 'url',
+                    ],
+                    [
+                        'key'   => 'field_ts_dest_gallery_alt',
+                        'label' => __( 'Alt Text', 'tanzania-sensational' ),
+                        'name'  => 'alt',
+                        'type'  => 'text',
+                    ],
+                ],
+            ],
+            [
+                'key'           => 'field_ts_dest_meta_title',
+                'label'         => __( 'SEO Title', 'tanzania-sensational' ),
+                'name'          => 'ts_dest_meta_title',
+                'type'          => 'text',
+            ],
+            [
+                'key'           => 'field_ts_dest_meta_description',
+                'label'         => __( 'SEO Description', 'tanzania-sensational' ),
+                'name'          => 'ts_dest_meta_description',
+                'type'          => 'textarea',
+                'rows'          => 3,
             ],
             [
                 'key'           => 'field_ts_dest_short_description',
@@ -469,6 +511,18 @@ add_action( 'acf/include_fields', function() {
                         'wrapper' => [ 'width' => '60' ],
                     ],
                 ],
+            ],
+            [
+                'key'           => 'field_ts_dest_atmosphere_footer',
+                'label'         => __( 'Atmosphere Closing Line', 'tanzania-sensational' ),
+                'name'          => 'ts_dest_atmosphere_footer',
+                'type'          => 'text',
+            ],
+            [
+                'key'           => 'field_ts_dest_wildlife_footer',
+                'label'         => __( 'Wildlife Closing Line', 'tanzania-sensational' ),
+                'name'          => 'ts_dest_wildlife_footer',
+                'type'          => 'text',
             ],
         ],
         'location'              => [
