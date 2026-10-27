@@ -48,6 +48,7 @@ add_action( 'elementor/widgets/register', function( $widgets_manager ) {
     require_once __DIR__ . '/elementor/widgets/class-ts-cta-widget.php';
     require_once __DIR__ . '/elementor/widgets/class-ts-blog-archive-widget.php';
     require_once __DIR__ . '/elementor/widgets/class-ts-single-blog-widget.php';
+    require_once __DIR__ . '/elementor/widgets/class-ts-single-trek-route-widget.php';
 
     $widgets_manager->register( new TS_Hero_Widget() );
     $widgets_manager->register( new TS_Header_Widget() );
@@ -75,4 +76,5 @@ add_action( 'elementor/widgets/register', function( $widgets_manager ) {
     $widgets_manager->register( new TS_CTA_Widget() );
     $widgets_manager->register( new TS_Blog_Archive_Widget() );
     $widgets_manager->register( new TS_Single_Blog_Widget() );
+    $widgets_manager->register( new TS_Single_Trek_Route_Widget() );
 } );

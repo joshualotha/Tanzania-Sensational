@@ -410,6 +410,27 @@ Last updated: 2026-10-27
 - Browser verification: the cache-busted stylesheet (`ver=1793037124`) returns HTTP 200; the CTA stays inside the viewport at 320, 390, 768, 900, 901, and 1440 px, and the contact group is hidden at widths through 900 px. Homepage, `/blog/`, and the altitude-acclimatization article return HTTP 200. Staging remains `blog_public=0`; production was not touched.
 - `wp core verify-checksums` exits successfully with the existing extra-file warning for `wp-admin/error_log`; the file was not changed. Elementor editor and console diagnostics were not exercised in this CSS-focused pass.
 
+## Live route probe (2026-10-27)
+
+A fresh read-only HTTP crawl requested the 56 source-sitemap URLs and their 56 staging counterparts (112 GETs; no request failures). All 56 production requests returned HTTP 200. Staging returned 54 HTTP 200 and 2 HTTP 404; all 56 staging responses carried a `noindex, nofollow` robots meta tag. This confirms public noindex output only; the WordPress `blog_public` option was not remotely inspected in this run.
+
+- The two staging 404s are `/safaris/packages/expected-wildlife-serengeti` and `/safaris/packages/ultimate-fly-in-northern-circuit`. Both source routes remain HTTP 200. Package source/local-record conflicts remain unresolved, so do not import or redirect based on the local package set alone.
+- All 12 source blog article paths now return HTTP 200 on staging with article-specific H1s. This verifies route availability, not full copy, media, metadata, or template parity.
+- The six previously missing sitemap-backed destination routes now return HTTP 200 on staging. Route status alone is not a content/visual acceptance pass.
+- 27 of the 56 staging requests end at a different normalized path. Most importantly, all 16 sitemap trekking-detail URLs currently land on the same Kilimanjaro destination page (`/safaris/destinations/kilimanjaro/`) rather than distinct route details. Do not count these as route/content parity.
+- The runbook's `Tss_web` SSH alias does not resolve in this environment, so this pass was limited to public GET requests. No WordPress settings, content, files, or production configuration were changed.
+
+Next: reconcile package source records and route-specific trekking mappings, then resume the staging-only importer workflow after the verified SSH connection is available. Keep production read-only.
+
+## Trekking-route template development (2026-10-27)
+
+- Local-only draft adds a structured single-route renderer, responsive route stylesheet, and registered Elementor widget. Section-label controls pass directly into the renderer; contextual inclusion/exclusion headings and the empty Elementor preview guard are covered by behavioral regression tests.
+- A user-local PHP 8.5.4 CLI runtime is installed at `/home/hermes/.local/opt/php8.5` (wrapper: `/home/hermes/.local/bin/php`); no system-wide install was possible because this account lacks passwordless `sudo`.
+- Verification: all 25 WordPress migration PHP test scripts pass on local PHP 8.5.4 and staging PHP 8.2.35. The remote test runner needs `TMPDIR` set to its private release scratch directory. A font-enabled Chromium preview was visually checked at 390, 768, and 1440 px with no horizontal overflow; it has no source hero image, so it is not a live route acceptance check.
+- Read-only SSH access now works via `Tss_web` (`tanzhihb@104.207.79.85:21098`); the VPS identifies as `server409.web-hosting.com`. Staging is present at `/home/tanzhihb/test.tanzaniasensational.com`, WordPress is 7.1.3, `home` is `https://test.tanzaniasensational.com`, and `blog_public=0`.
+- Staging still runs design plugin 1.2.19 and core plugin 0.5.0. The live `ts_trek_route` post type and `group_ts_trek_route` field group are absent; the trekking renderer, stylesheet, and Elementor widget files are not in the active plugin. A verification package is staged outside the public root at `/home/tanzhihb/ts-migration-releases/staging-2026-10-27-trek-route-1.3.0`; active site code, settings, and content remain unchanged.
+- The local route-template changes remain uncommitted. A fresh dated database/custom-plugin backup at `/home/tanzhihb/ts-migration-backups/staging-20261027T083610Z-pre-trek-route-code` passed SHA-256 and archive-integrity checks. After review, deploy only the bounded code slice, then verify route registration, template conditions, and rendered layout. Production remains untouched.
+
 ## Remaining release blockers (as of 2026-10-27)
 
 1. Close route/content parity against the current source and staging state. Use

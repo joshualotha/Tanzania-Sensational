@@ -1,5 +1,11 @@
 # Tanzania Sensational Design System Changelog
 
+## 1.3.0 — 2026-10-27
+
+### Added
+- Add an editable single-route trekking renderer and Elementor widget, with responsive layout, contextual inclusion headings, safe empty-preview behavior, and configurable section labels.
+- Register source-path-preserving trekking route records and route-specific ACF editorial fields.
+
 ## 1.2.18 — 2026-10-26
 
 ### Fixed
