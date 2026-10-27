@@ -79,6 +79,28 @@ add_action( 'init', function() {
     ] );
 
     /**
+     * Trekking route details use the exact source path family. The archive is
+     * disabled so the existing /trekking/kilimanjaro landing page keeps its URL.
+     */
+    register_post_type( 'ts_trek_route', [
+        'labels'              => [
+            'name'                  => __( 'Trekking Routes', 'tanzania-sensational' ),
+            'singular_name'         => __( 'Trekking Route', 'tanzania-sensational' ),
+            'add_new_item'          => __( 'Add New Trekking Route', 'tanzania-sensational' ),
+            'edit_item'             => __( 'Edit Trekking Route', 'tanzania-sensational' ),
+            'all_items'             => __( 'All Trekking Routes', 'tanzania-sensational' ),
+            'menu_name'             => __( 'Trekking Routes', 'tanzania-sensational' ),
+        ],
+        'public'              => true,
+        'has_archive'         => false,
+        'rewrite'             => [ 'slug' => 'trekking/kilimanjaro', 'with_front' => false ],
+        'supports'            => [ 'title', 'editor', 'thumbnail', 'excerpt', 'revisions' ],
+        'menu_icon'           => 'dashicons-location',
+        'menu_position'       => 23,
+        'show_in_rest'        => true,
+    ] );
+
+    /**
      * Site Settings (global options replacement)
      */
     register_post_type( 'ts_site_setting', [

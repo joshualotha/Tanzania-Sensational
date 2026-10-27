@@ -94,6 +94,7 @@ require_once __DIR__ . '/cpt.php';
  * ACF field groups.
  */
 require_once __DIR__ . '/acf-fields.php';
+require_once __DIR__ . '/trekking-fields.php';
 require_once __DIR__ . '/blog-fields.php';
 
 /**
