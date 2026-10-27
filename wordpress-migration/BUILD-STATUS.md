@@ -7,11 +7,12 @@ Last updated: 2026-10-27
 - Staging is `https://test.tanzaniasensational.com`, remains `blog_public=0`,
   and the homepage returns HTTP 200. Current verified stack: WordPress 7.1.3,
   Hello Elementor 3.5.1, Elementor 4.3.5, Elementor Pro 4.3.2, ACF Pro 6.8.9,
-  design plugin 1.2.19, and core plugin 0.5.0. Elementor Pro is active.
-- Authenticated normal-mode Elementor verification now passes for post 91
-  (“Trekker’s Journal”): panel content is visible, the preview iframe reaches
-  `complete`, the loader is hidden, and Safe Mode is off. No page content was
-  changed or saved.
+  design plugin 1.3.0, and core plugin 0.5.0. Elementor Pro is active.
+- The pre-deployment authenticated normal-mode Elementor check passed for post 91
+  (“Trekker’s Journal”): panel content was visible, the preview iframe reached
+  `complete`, the loader was hidden, and Safe Mode was off. No page content was
+  changed or saved. A post-deployment editor recheck remains pending because
+  the current environment cannot start Chromium (`libatk-1.0.so.0` is missing).
 - The alternate editor-loader option was tested and did not resolve the initial
   loading stall; it was removed afterward, restoring its original unset state.
   Safe Mode also remained stalled during its test and was exited. A later normal-
@@ -428,8 +429,10 @@ Next: reconcile package source records and route-specific trekking mappings, the
 - A user-local PHP 8.5.4 CLI runtime is installed at `/home/hermes/.local/opt/php8.5` (wrapper: `/home/hermes/.local/bin/php`); no system-wide install was possible because this account lacks passwordless `sudo`.
 - Verification: all 25 WordPress migration PHP test scripts pass on local PHP 8.5.4 and staging PHP 8.2.35. The remote test runner needs `TMPDIR` set to its private release scratch directory. A font-enabled Chromium preview was visually checked at 390, 768, and 1440 px with no horizontal overflow; it has no source hero image, so it is not a live route acceptance check.
 - Read-only SSH access now works via `Tss_web` (`tanzhihb@104.207.79.85:21098`); the VPS identifies as `server409.web-hosting.com`. Staging is present at `/home/tanzhihb/test.tanzaniasensational.com`, WordPress is 7.1.3, `home` is `https://test.tanzaniasensational.com`, and `blog_public=0`.
-- Staging still runs design plugin 1.2.19 and core plugin 0.5.0. The live `ts_trek_route` post type and `group_ts_trek_route` field group are absent; the trekking renderer, stylesheet, and Elementor widget files are not in the active plugin. A verification package is staged outside the public root at `/home/tanzhihb/ts-migration-releases/staging-2026-10-27-trek-route-1.3.0`; active site code, settings, and content remain unchanged.
-- The reviewed code is pushed to `joshualotha/Tanzania-Sensational` on `wp-migration/phase-0-baseline` at `8b51c8b`. A fresh dated database/custom-plugin backup at `/home/tanzhihb/ts-migration-backups/staging-20261027T083610Z-pre-trek-route-code` passed SHA-256 and archive-integrity checks. The 1.3.0 verification package is outside the public root; active staging code, settings, and content remain unchanged pending the bounded code deployment. Production remains untouched.
+- Staging now runs design plugin 1.3.0 and core plugin 0.5.0. The `ts_trek_route` CPT, `group_ts_trek_route` ACF group, `[ts_trek_route]` shortcode, and `TS Single Trekking Route` Elementor widget are registered; there are currently zero route posts. Rewrite rules include the `trekking/kilimanjaro/{slug}` single-route pattern. No route content or Theme Builder template was created.
+- Commit `8b51c8b` was deployed as a bounded staging code slice: `cpt.php`, `elementor-widgets.php`, `tanzania-sensational-design.php`, the new trekking field group, renderer, stylesheet, and Elementor widget. All seven active file SHA-256 values match the verified 1.3.0 release package and repository. The pre-write backup at `/home/tanzhihb/ts-migration-backups/staging-20261027T083610Z-pre-trek-route-code` passed all manifest checks; the only database change was flushing WordPress rewrite rules. No route content, Elementor template conditions, or production files were changed.
+- Post-deploy verification: all 25 PHP migration tests pass on staging PHP 8.2.35; all changed PHP files pass `php -l`; home and Kilimanjaro destination return HTTP 200 with `noindex, nofollow`; WordPress core checksums pass with the pre-existing extra-file warning for `wp-admin/error_log`. The old `/trekking/kilimanjaro/lemosho` URL still lands on the Kilimanjaro destination page because no route record exists; do not count that as route parity.
+- The post-deployment authenticated Elementor editor and live responsive screenshot checks remain pending: bundled Chromium could not start because `libatk-1.0.so.0` is missing in this environment. Production remains untouched.
 
 ## Remaining release blockers (as of 2026-10-27)
 
