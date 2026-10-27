@@ -39,11 +39,19 @@ capture console/network evidence and correlate it with current staging logs;
 
 ## Backups
 
-Backups are stored outside the public web root and include:
+Backups are stored outside the public web root. Each dated backup directory must
+be mode `700`; backup files must be mode `600`. Include:
 
-- A timestamped WordPress database export
-- A timestamped archive of the custom Tanzania Sensational plugin
-- An inventory of active plugins and themes
+- `database.sql` — a non-empty, readable timestamped WordPress database export
+- `custom-plugins.tgz` — a timestamped archive of the custom Tanzania Sensational plugin
+- `plugin-inventory.txt` and `theme-inventory.txt` — active plugin/theme inventories
+- `SHA256SUMS` — checksums for every required backup file
+
+Run `sha256sum -c SHA256SUMS`, verify the database export is readable (restore
+it to an isolated database when available), and check compressed archive
+integrity with `gzip -t` and `tar -tzf`. Keep the verified backup unchanged for
+the whole apply and recovery window; do not substitute a backup from another
+migration.
 
 Backup retention and deletion must follow the hosting account's available
 storage and should be agreed before old backups are removed.
@@ -95,6 +103,87 @@ metadata, and staging noindex. For noindex staging pages, canonical absence is
 intentional; do not add a staging self-canonical. Before any production cutover,
 verify that the production pages are indexable and self-canonical on their final
 production URLs.
+
+## Trekking-route content and single-route template
+
+The local importer is limited to the 16 live-verified route cards. It writes the
+source-matched title, duration, difficulty, overview, hero URL/alt text, route
+family, source URL, and SEO title. Price, success rate, itinerary, highlights,
+inclusions, exclusions, and other unverified fields remain blank. Its Elementor
+Theme Builder condition targets only the dedicated `ts_trek_route` post type;
+it does not apply to standard posts or pages.
+
+Before any staging apply:
+
+1. Confirm the exact HTTPS staging origin
+   `https://test.tanzaniasensational.com/`, `blog_public=0`, and staging document
+   root. Production remains read-only.
+2. Create a fresh dated, checksummed database/custom-plugin backup outside the
+   public root using the backup requirements above. Verify the manifest,
+   database readability, and archive integrity; keep the backup available for
+   every recovery attempt.
+3. Deploy only `migration/trekking-importer.php`,
+   `migration/trekking-import-cli.php`, and
+   `migration/trekking-import-manifest.json` into a bounded release directory.
+   Confirm the ACF field names, types, and repeater sub-fields match the
+   registered route schema. Confirm `wp_posts` is InnoDB and has the expected
+   `post_name` index. Before apply, a staging operator must verify the exact
+   range-lock query against the live database and run a two-connection test
+   with a throwaway slug, confirming the competing insert blocks until the
+   first transaction ends; the in-memory test stub is not proof of gap locking.
+4. Run the read-only preflight first. It must report exactly 16 approved route
+   actions and one template action, with no unowned slug, snapshot, ACF, origin,
+   privacy, or backup problems:
+
+   ```sh
+   wp --path=/home/tanzhihb/test.tanzaniasensational.com \
+     --require=/home/tanzhihb/ts-migration-releases/<release-id>/import/trekking-import-cli.php \
+     ts trek-routes import
+   ```
+
+5. Only after reviewing that plan, apply as a staging administrator with the
+   exact verified pre-write backup:
+
+   ```sh
+   wp --path=/home/tanzhihb/test.tanzaniasensational.com \
+     --user=<staging-admin-id> \
+     --require=/home/tanzhihb/ts-migration-releases/<release-id>/import/trekking-import-cli.php \
+     ts trek-routes import --apply --confirm-staging-write \
+     --backup-dir=/home/tanzhihb/ts-migration-backups/<backup-id>
+   ```
+
+Each route is created as a draft in its own InnoDB transaction. The importer
+sets `REPEATABLE READ`, locks and rechecks the indexed slug range, writes ACF
+values, reads them back without display formatting, stores ownership/snapshot
+metadata, then publishes and verifies the post before commit. The template is
+created only after all route records are complete; its Elementor data and exact
+conditions are read back before commit, and the location cache is refreshed.
+The 16 routes plus template are **not** one batch-atomic transaction. A failure
+rolls back the in-flight record, while earlier committed records remain. If a
+rollback fails or the new post remains after rollback, the importer attempts to
+quarantine it as a draft; for a template it also clears targeting conditions
+and refreshes the location cache. It reports manual recovery as required if
+quarantine cannot be verified. Do not retry or delete a surviving draft until
+its state is inspected and the backup/recovery path is chosen. Hooks that write
+to external systems or non-transactional stores are not undone by a database
+rollback.
+
+If apply is interrupted during the route loop, keep the original backup and run
+the dry-run before doing anything else. Because the template is created only
+after every route has committed, a safe resume shows completed routes as
+`unchanged`, only missing routes as `create`, and the template as `create`. The
+importer refuses to repair a missing route when the owned template already
+exists; treat that combination as an unexpected deletion or database-state
+problem and investigate rather than deleting or recreating records. After
+apply, rerun the dry-run and require all 16 routes and
+the template to be `unchanged`. Read back the exact route fields, ownership
+metadata, published status, and Elementor widget tree/conditions; then verify
+the rendered route and noindex behavior in a real browser. The local test suite
+uses WordPress/DB stubs and does not prove live database locking, Elementor
+runtime routing, or browser rendering.
+
+No route content or route template has been applied to staging as part of this
+local importer-development pass.
 
 ## Blog posts, archive, and Elementor template
 

@@ -1,0 +1,50 @@
+<?php
+$root = dirname(__DIR__);
+require_once $root . '/migration/trekking-importer.php';
+$manifest = json_decode(file_get_contents($root . '/migration/trekking-import-manifest.json'), true, 512, JSON_THROW_ON_ERROR);
+$assert = static function (bool $condition, string $message): void { if (!$condition) { throw new RuntimeException($message); } };
+$throws = static function (callable $fn, string $message) use ($assert): void { try { $fn(); } catch (RuntimeException $e) { return; } $assert(false, $message); };
+ts_trek_validate_manifest($manifest);
+$assert(count($manifest['routes']) === 16, 'exactly 16 routes');
+$approved = ['lemosho-7-days','lemosho-8-days','lemosho-8-days-crater','machame-6-days','machame-7-days','marangu-5-days','marangu-6-days','mt-meru-3-days','mt-meru-4-days','northern-circuit-8-days','northern-circuit-9-days','northern-circuit-9-days-crater','rongai-6-days','rongai-7-days','umbwe-6-days','umbwe-7-days'];
+$assert(array_column($manifest['routes'], 'slug') === $approved, 'approved route order and exact slugs');
+$assert($manifest['routes'][0]['description'] === 'The Lemosho route is widely considered to be the most scenic route on Kilimanjaro, offering panoramic views on various sides of the mountain. It starts with a wild and quiet start in the rainforest before opening up to the literal roof of Africa.', 'source overview wording is preserved for the unedited route');
+$assert($manifest['routes'][1]['description'] === 'The 8-day Lemosho route adds an extra day for acclimatization and offers the same scenery as the 7-day version at a gentler pace.', 'Lemosho success claim is removed without losing source-derived route facts');
+$assert($manifest['routes'][4]['description'] === 'The 7-day Machame route includes an extra day at Karanga Valley for essential acclimatization.', 'Machame success claim is removed while preserving the visible card detail');
+$assert($manifest['routes'][8]['description'] === 'The 4-day Mount Meru itinerary includes an extra day at Saddle Hut for acclimatization before the Socialist Peak summit attempt.', 'Mount Meru success claim is removed from source-derived copy');
+$descriptions = implode(' ', array_column($manifest['routes'], 'description'));
+$assert(!preg_match('/(?:success rate|gold standard for success|higher success|highest success rate)/i', $descriptions), 'overview copy excludes unverified success claims');
+$assert(str_starts_with($manifest['routes'][7]['hero_image_alt'], 'Trekking route: '), 'alt text avoids invented visual details');
+foreach ($manifest['routes'] as $r) {
+    $assert(!array_intersect(['highlights','itinerary','inclusions','exclusions','distance','elevation_gain','accommodation_style','base_price','currency','meta_description'], array_keys($r)), 'unverified fields excluded');
+    $assert($r['price'] === '' && $r['success_rate'] === '', 'price and success explicitly blank');
+    $fields = ts_trek_expected_fields($r);
+    $assert($fields['ts_trek_highlights'] === [] && $fields['ts_trek_itinerary'] === [] && $fields['ts_trek_inclusions'] === [] && $fields['ts_trek_exclusions'] === [], 'unverified repeaters empty');
+    $assert($r['source_url'] === 'https://tanzaniasensational.com/trekking/kilimanjaro/' . $r['slug'], 'listing source URL');
+}
+$bad = $manifest; $bad['routes'][0]['source_url'] = 'http://test.tanzaniasensational.com/x'; $throws(static fn() => ts_trek_validate_manifest($bad), 'reject unsafe source URL');
+$bad = $manifest; $bad['routes'][0]['description'] = 'This route has a higher success rate.'; $throws(static fn() => ts_trek_validate_manifest($bad), 'reject unverified overview success claims');
+$bad = $manifest; $bad['routes'][0]['description'] = ''; $throws(static fn() => ts_trek_validate_manifest($bad), 'reject empty overview');
+$bad = $manifest; $bad['routes'][1]['source_id'] = $bad['routes'][0]['source_id']; $throws(static fn() => ts_trek_validate_manifest($bad), 'reject duplicate source record IDs');
+$assert(ts_trek_expected_template_conditions() === ['include/singular/ts_trek_route'], 'exact single route condition');
+$template = ts_trek_expected_template_state();
+$assert($template['template_type'] === 'single' && $template['widget_type'] === 'ts_single_trek_route', 'route Elementor template widget contract');
+$acf_types = ['ts_trek_duration'=>'text','ts_trek_route_family'=>'text','ts_trek_duration_variant'=>'text','ts_trek_difficulty'=>'text','ts_trek_distance'=>'text','ts_trek_elevation_gain'=>'text','ts_trek_success_rate'=>'text','ts_trek_accommodation_style'=>'text','ts_trek_base_price'=>'number','ts_trek_currency'=>'text','ts_trek_featured'=>'true_false','ts_trek_display_order'=>'number','ts_trek_hero_image_url'=>'url','ts_trek_hero_image_alt'=>'text','ts_trek_editorial_image_url'=>'url','ts_trek_gallery_urls'=>'repeater','ts_trek_overview'=>'wysiwyg','ts_trek_highlights'=>'repeater','ts_trek_itinerary'=>'repeater','ts_trek_inclusions'=>'repeater','ts_trek_exclusions'=>'repeater','ts_trek_source_url'=>'url','ts_trek_meta_title'=>'text','ts_trek_meta_description'=>'textarea'];
+$acf_subfields = ['ts_trek_gallery_urls'=>['url'=>'url','alt'=>'text'],'ts_trek_highlights'=>['text'=>'text'],'ts_trek_itinerary'=>['day'=>'number','title'=>'text','description'=>'textarea','elevation'=>'text','distance'=>'text','habitat'=>'text','meals'=>'text','camp'=>'text'],'ts_trek_inclusions'=>['text'=>'text'],'ts_trek_exclusions'=>['text'=>'text']];
+$acf_fixture = []; foreach ($acf_types as $name=>$type) { $field=['key'=>'field_'.$name,'name'=>$name,'type'=>$type]; if(isset($acf_subfields[$name]))$field['sub_fields']=array_map(static fn($sub,$subtype)=>['name'=>$sub,'type'=>$subtype],array_keys($acf_subfields[$name]),array_values($acf_subfields[$name])); $acf_fixture['field_'.$name]=$field; }
+$assert(count($acf_types)===24,'complete importer ACF field schema is explicit');
+ts_trek_validate_acf_schema(static fn(string $key) => $acf_fixture[$key] ?? null);
+$assert(true,'complete registered ACF schema passes importer preflight');
+$bad_acf=$acf_fixture;$bad_acf['field_ts_trek_duration']['type']='number';$throws(static fn()=>ts_trek_validate_acf_schema(static fn(string $key)=>$bad_acf[$key]??null),'reject incorrect ACF field type');
+$bad_acf=$acf_fixture;$bad_acf['field_ts_trek_itinerary']['sub_fields']=array_slice($bad_acf['field_ts_trek_itinerary']['sub_fields'],1);$throws(static fn()=>ts_trek_validate_acf_schema(static fn(string $key)=>$bad_acf[$key]??null),'reject incomplete ACF repeater schema');
+$assert(ts_trek_validate_run_mode(false, false, false, 'https://test.tanzaniasensational.com/', '0') === true, 'private staging dry-run allowed');
+foreach (['http://test.tanzaniasensational.com/','https://test.tanzaniasensational.com:444/','https://test.tanzaniasensational.com.evil/','https://prod.example/'] as $origin) $throws(static fn() => ts_trek_validate_run_mode(false, false, false, $origin, '0'), 'reject origin ' . $origin);
+$throws(static fn() => ts_trek_validate_run_mode(false, true, false, 'https://test.tanzaniasensational.com/', '0'), 'reject confirmation without apply');
+$throws(static fn() => ts_trek_validate_run_mode(true, true, true, 'https://test.tanzaniasensational.com/', '1'), 'reject public staging');
+$plan = ts_trek_build_plan($manifest, []);
+$assert(count($plan) === 17 && $plan[0]['action'] === 'create' && $plan[16]['kind'] === 'single_template', 'plan includes exact routes and template');
+$existing = ts_trek_expected_existing($manifest); $assert(ts_trek_build_plan($manifest, $existing)[0]['action'] === 'unchanged', 'owned intact imports unchanged');
+$existing[$approved[0]]['actual_snapshot_hash'] = str_repeat('0',64); $throws(static fn() => ts_trek_build_plan($manifest, $existing), 'reject editor drift');
+$existing = ts_trek_expected_existing($manifest); unset($existing[$approved[0]]['owner']); $throws(static fn() => ts_trek_build_plan($manifest, $existing), 'reject unowned collision');
+$throws(static fn() => ts_trek_verify_backup_directory('/definitely/missing/backup', '/var/www/html'), 'reject missing backup');
+echo "PASS: trekking importer contracts\n";
