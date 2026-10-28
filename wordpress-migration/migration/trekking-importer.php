@@ -157,8 +157,14 @@ function ts_trek_current_template_state(int $post_id): array
     if (!is_array($conditions_raw)) throw new RuntimeException('Elementor template conditions are missing or invalid.');
     $conditions = [];
     foreach ($conditions_raw as $condition) {
+        if (is_string($condition) && $condition !== '') {
+            $conditions[] = $condition;
+            continue;
+        }
         if (!is_array($condition)) throw new RuntimeException('Elementor template condition is malformed.');
-        $conditions[] = implode('/', array_map('strval', $condition));
+        $normalized = implode('/', array_map('strval', $condition));
+        if ($normalized === '') throw new RuntimeException('Elementor template condition is malformed.');
+        $conditions[] = $normalized;
     }
     $page_settings = get_post_meta($post_id, '_elementor_page_settings', true);
     return [
@@ -241,9 +247,7 @@ function ts_trek_quarantine_failed_post(int $post_id, bool $template): bool
             || !method_exists($manager, 'clear_location_cache')) {
             throw new RuntimeException('Could not disable targeting for failed Elementor template '.$post_id.'.');
         }
-        if ($manager->save_conditions($post_id, []) === false) {
-            throw new RuntimeException('Could not clear conditions for failed Elementor template '.$post_id.'.');
-        }
+        $manager->save_conditions($post_id, []);
         clean_post_cache($post_id);
         $conditions = get_post_meta($post_id, '_elementor_conditions', true);
         if (!in_array($conditions, [[], '', null, false], true)) {
@@ -352,14 +356,10 @@ function ts_trek_refresh_template_conditions(int $post_id): void
         || !is_object($post) || $post->post_status !== 'publish' || !method_exists($module, 'get_document') || !is_object($module->get_document($post_id))) {
         throw new RuntimeException('Elementor cannot refresh published trekking-template conditions.');
     }
-    if ($manager->save_conditions($post_id, ts_trek_template_conditions_api()) === false) {
-        throw new RuntimeException('Elementor rejected published trekking-template conditions.');
-    }
-    if ($manager->clear_location_cache() === false) {
-        throw new RuntimeException('Elementor trekking-template location cache refresh failed.');
-    }
+    $manager->save_conditions($post_id, ts_trek_template_conditions_api());
+    $manager->clear_location_cache();
     clean_post_cache($post_id);
-    if (get_post_meta($post_id, '_elementor_conditions', true) !== ts_trek_template_conditions_api()) {
+    if (get_post_meta($post_id, '_elementor_conditions', true) !== ts_trek_expected_template_conditions()) {
         throw new RuntimeException('Published trekking-template conditions failed read-back.');
     }
 }
