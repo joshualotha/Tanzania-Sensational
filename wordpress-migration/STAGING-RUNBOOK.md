@@ -156,17 +156,25 @@ Each route is created as a draft in its own InnoDB transaction. The importer
 sets `REPEATABLE READ`, locks and rechecks the indexed slug range, writes ACF
 values, reads them back without display formatting, stores ownership/snapshot
 metadata, then publishes and verifies the post before commit. The template is
-created only after all route records are complete; its Elementor data and exact
-conditions are read back before commit, and the location cache is refreshed.
-The 16 routes plus template are **not** one batch-atomic transaction. A failure
-rolls back the in-flight record, while earlier committed records remain. If a
-rollback fails or the new post remains after rollback, the importer attempts to
-quarantine it as a draft; for a template it also clears targeting conditions
-and refreshes the location cache. It reports manual recovery as required if
-quarantine cannot be verified. Do not retry or delete a surviving draft until
-its state is inspected and the backup/recovery path is chosen. Hooks that write
-to external systems or non-transactional stores are not undone by a database
-rollback.
+created only after all route records are complete. Its conditions are written
+and read back before commit; after commit, the importer calls the installed
+Elementor manager API again and verifies that the exact target appears in the
+persisted single-template conditions cache before marking the template ready.
+Metadata readback alone does not prove that Elementor's runtime cache contains
+the new template. An apply rerun on an owned template repeats this refresh and
+cache check. If post-commit refresh/cache verification fails on either first
+creation or an idempotent rerun, the importer attempts to move the owned
+template to draft, clear targeting through the manager API, and verify that it
+is absent from the runtime conditions cache; otherwise stop for manual
+recovery. The 16 routes plus template are **not** one batch-atomic transaction.
+A failure rolls back the in-flight record, while earlier committed records
+remain. If a rollback fails or the new post remains after rollback, the importer
+attempts to quarantine it as a draft; for a template it also clears targeting
+conditions and refreshes the location cache. It reports manual recovery as
+required if quarantine cannot be verified. Do not retry or delete a surviving
+draft until its state is inspected and the backup/recovery path is chosen. Hooks
+that write to external systems or non-transactional stores are not undone by a
+database rollback.
 
 If apply is interrupted during the route loop, keep the original backup and run
 the dry-run before doing anything else. Because the template is created only
@@ -175,15 +183,15 @@ after every route has committed, a safe resume shows completed routes as
 importer refuses to repair a missing route when the owned template already
 exists; treat that combination as an unexpected deletion or database-state
 problem and investigate rather than deleting or recreating records. After
-apply, rerun the dry-run and require all 16 routes and
-the template to be `unchanged`. Read back the exact route fields, ownership
-metadata, published status, and Elementor widget tree/conditions; then verify
-the rendered route and noindex behavior in a real browser. The local test suite
-uses WordPress/DB stubs and does not prove live database locking, Elementor
-runtime routing, or browser rendering.
+apply, rerun the dry-run and require all 16 routes and the template to be
+`unchanged`. Read back the exact route fields, ownership metadata, published
+status, Elementor widget tree/conditions, and the runtime conditions-cache
+entry; then verify the rendered route and noindex behavior in a real browser.
+The local test suite uses WordPress/DB stubs and does not prove live database
+locking or replace browser verification.
 
-No route content or route template has been applied to staging as part of this
-local importer-development pass.
+The staging import was applied on 2026-10-28. See `BUILD-STATUS.md` for the
+current staging IDs and verification record; production remains read-only.
 
 ## Blog posts, archive, and Elementor template
 

@@ -248,10 +248,14 @@ function ts_trek_quarantine_failed_post(int $post_id, bool $template): bool
             throw new RuntimeException('Could not disable targeting for failed Elementor template '.$post_id.'.');
         }
         $manager->save_conditions($post_id, []);
+        $manager->clear_location_cache();
         clean_post_cache($post_id);
         $conditions = get_post_meta($post_id, '_elementor_conditions', true);
         if (!in_array($conditions, [[], '', null, false], true)) {
             throw new RuntimeException('Failed Elementor template still has targeting conditions: '.$post_id.'.');
+        }
+        if (ts_trek_template_cached_conditions($post_id) !== []) {
+            throw new RuntimeException('Failed Elementor template remains in the runtime conditions cache: '.$post_id.'.');
         }
     }
 
@@ -346,6 +350,38 @@ function ts_trek_conditions_manager()
     return is_object($module) ? $module->get_conditions_manager() : null;
 }
 
+function ts_trek_template_cached_conditions(int $post_id): array
+{
+    $manager = ts_trek_conditions_manager();
+    if (!is_object($manager) || !method_exists($manager, 'get_cache')) {
+        throw new RuntimeException('Elementor cannot read the Theme Builder conditions cache.');
+    }
+    $cache = $manager->get_cache();
+    if (!is_object($cache) || !method_exists($cache, 'get_by_location')) {
+        throw new RuntimeException('Elementor Theme Builder conditions cache is unavailable.');
+    }
+    $templates = $cache->get_by_location('single');
+    if (!is_array($templates)) throw new RuntimeException('Elementor single-template conditions cache is invalid.');
+    $conditions = $templates[$post_id] ?? $templates[(string)$post_id] ?? [];
+    if (!is_array($conditions)) throw new RuntimeException('Elementor template conditions-cache entry is invalid.');
+    return $conditions;
+}
+
+function ts_trek_assert_template_condition_cache(int $post_id): void
+{
+    if (ts_trek_template_cached_conditions($post_id) !== ts_trek_expected_template_conditions()) {
+        throw new RuntimeException('Published trekking-template targeting is missing from Elementor runtime conditions cache.');
+    }
+}
+
+function ts_trek_quarantine_committed_template(int $post_id): void
+{
+    if (!ts_trek_quarantine_failed_post($post_id, true)) {
+        throw new RuntimeException('Committed Elementor template could not be quarantined.');
+    }
+    ts_trek_save_meta($post_id, '_ts_trek_template_state', 'quarantined');
+}
+
 function ts_trek_refresh_template_conditions(int $post_id): void
 {
     $module_class = 'ElementorPro\\Modules\\ThemeBuilder\\Module';
@@ -412,13 +448,23 @@ function ts_trek_apply_template(): array
             throw new RuntimeException('Trekking template failed post-publish verification.');
         }
         ts_trek_refresh_template_conditions($post_id);
-        ts_trek_save_meta($post_id, '_ts_trek_template_state', 'ready');
         if ($wpdb->query('COMMIT') === false) throw new RuntimeException('Trekking template transaction commit failed.');
         $transaction_active = false;
         clean_post_cache($post_id);
+        ts_trek_refresh_template_conditions($post_id);
+        ts_trek_assert_template_condition_cache($post_id);
+        ts_trek_save_meta($post_id, '_ts_trek_template_state', 'ready');
         return ['action'=>'created','kind'=>'single_template','slug'=>'ts-single-trek-route','post_id'=>$post_id];
     } catch (Throwable $error) {
         $recovery = $transaction_active ? ts_trek_rollback_failed_create($post_id, true, 'template') : null;
+        if (!$transaction_active && $post_id > 0) {
+            try {
+                ts_trek_quarantine_committed_template($post_id);
+                $recovery = 'committed template was quarantined as draft; manual recovery is required';
+            } catch (Throwable $recovery_error) {
+                $recovery = 'post-commit template recovery failed: '.$recovery_error->getMessage();
+            }
+        }
         if ($post_id > 0) clean_post_cache($post_id);
         if ($recovery !== null) {
             throw new RuntimeException($error->getMessage().' Recovery required: '.$recovery.'.', 0, $error);
@@ -466,7 +512,18 @@ function ts_trek_import_run(bool $apply=false,bool $confirm=false,string $backup
         $applied_template = ts_trek_apply_template();
     } else {
         $template_id = (int)$template_plan['post_id'];
-        ts_trek_refresh_template_conditions($template_id);
+        try {
+            ts_trek_refresh_template_conditions($template_id);
+            ts_trek_assert_template_condition_cache($template_id);
+        } catch (Throwable $error) {
+            try {
+                ts_trek_quarantine_committed_template($template_id);
+                $recovery = 'committed template was quarantined as draft; manual recovery is required';
+            } catch (Throwable $recovery_error) {
+                $recovery = 'template quarantine failed: '.$recovery_error->getMessage();
+            }
+            throw new RuntimeException($error->getMessage().' Recovery required: '.$recovery.'.', 0, $error);
+        }
         $applied_template = ['action'=>'unchanged','kind'=>'single_template','slug'=>'ts-single-trek-route','post_id'=>$template_id];
     }
 
