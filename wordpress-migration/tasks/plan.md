@@ -86,8 +86,14 @@ Implement only on staging `https://test.tanzaniasensational.com`; production rem
   checked at 390/768/1280 px; a post-rerun desktop check confirmed route/noindex
   behavior. The browser harness reports no known same-origin HTTP failures but
   does not expose console events, so console cleanliness remains unverified.
-- Still open: verify excluded route itinerary/pricing/inclusion claims from
-  authoritative sources; resolve package-source conflicts; complete full
+- A read-only source-card audit on 2026-10-29 captured exact displayed starting-
+  price strings and matching package-card titles for all 16 approved routes in
+  `../SOURCE-TREKKING-CARD-PRICES-2026-10-29.csv`. Every source page returned
+  HTTP 200, but all 16 page H1s read “Lemosho Route.”; generic hero and success
+  claims therefore remain excluded. No price fields were imported.
+- Still open: reconcile whether the displayed “From … /pp” strings should map to
+  numeric `base_price`; verify route-specific itinerary/highlights/inclusions/
+  exclusions and resolve package-source conflicts; complete full
   cross-template visual acceptance, restore rehearsal, non-admin editor and
   end-to-end form/mail workflows, SMTP delivery, and remaining functional,
   security, accessibility, SEO, and performance checks. Production remains

@@ -477,9 +477,29 @@ This 2026-10-27 HTTP-only checkpoint predates the 2026-10-28 route import and br
   events are not exposed by this harness, so a clean-console claim is not made.
   The temporary staging admin session was logged out; production was untouched.
 
+## Read-only route-card price audit (2026-10-29)
+
+- Captured the exact visible starting-price string, card label/title, source URL,
+  HTTP status, and page H1 for each of the 16 approved trekking routes in
+  `SOURCE-TREKKING-CARD-PRICES-2026-10-29.csv`. Each route's matching package
+  card was present and each source page returned HTTP 200.
+- All 16 pages displayed the same H1, “Lemosho Route.”, despite different route
+  slugs. Treat page-level hero and success claims as generic/unverified; the
+  audit establishes only what the matched package cards displayed on that date.
+- The cards label prices as “From … /pp.” These verbatim starting-price strings
+  are recorded but were not mapped into numeric `base_price` fields or staging
+  content. The route renderer intentionally omits prices; operations must
+  confirm the pricing semantics before any field/import change. Itineraries,
+  highlights, inclusions, and exclusions remain unverified. The audit was
+  read-only; staging and production content were not changed.
+
 ## Remaining release blockers (as of 2026-10-29)
 
-1. Complete source verification for trekking itinerary/pricing/inclusion/exclusion fields that were intentionally excluded, and resolve the documented package-source conflicts before extending those imports. The 16 approved route-card fields are staged; do not count generic redirects as content parity.
+1. Resolve remaining trekking source/operations questions before extending
+   fields: decide whether the 16 captured “From … /pp” strings should map to
+   numeric `base_price`; verify route-specific itinerary/highlights/inclusions/
+   exclusions and resolve package-source conflicts. The 16 approved route-card
+   fields are staged; do not count generic redirects as content parity.
 2. Complete source-to-staging visual comparisons for every page family at
    desktop, tablet, and mobile. The utility-bar booking-CTA clipping was fixed
    and verified at 320, 390, 768, 900, 901, and 1440 px; full template-by-template
