@@ -127,10 +127,14 @@ Before any staging apply:
    `migration/trekking-import-manifest.json` into a bounded release directory.
    Confirm the ACF field names, types, and repeater sub-fields match the
    registered route schema. Confirm `wp_posts` is InnoDB and has the expected
-   `post_name` index. Before apply, a staging operator must verify the exact
-   range-lock query against the live database and run a two-connection test
-   with a throwaway slug, confirming the competing insert blocks until the
-   first transaction ends; the in-memory test stub is not proof of gap locking.
+   `post_name` index. Before apply, a staging operator must exercise the exact
+   range-lock query against the live database using two separate WP-CLI
+   processes/connections and a unique throwaway slug: connection A locks the
+   missing slug range, inserts a draft, and holds its transaction; connection B
+   runs the same `SELECT ... FOR UPDATE` and must block until A commits, then read
+   A's row. Remove the test row and verify it is absent in a separate read-only
+   query before importing. The in-memory test stub is not proof of live gap
+   locking.
 4. Run the read-only preflight first. It must report exactly 16 approved route
    actions and one template action, with no unowned slug, snapshot, ACF, origin,
    privacy, or backup problems:
@@ -190,8 +194,10 @@ entry; then verify the rendered route and noindex behavior in a real browser.
 The local test suite uses WordPress/DB stubs and does not prove live database
 locking or replace browser verification.
 
-The staging import was applied on 2026-10-28. See `BUILD-STATUS.md` for the
-current staging IDs and verification record; production remains read-only.
+The initial staging import was applied on 2026-10-28. The 2026-10-29 idempotent
+cache-refresh apply and live lock probe are recorded in `BUILD-STATUS.md`; the
+verified release and backup paths are preserved there. Production remains
+read-only.
 
 ## Blog posts, archive, and Elementor template
 

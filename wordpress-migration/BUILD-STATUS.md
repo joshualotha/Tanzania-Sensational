@@ -1,18 +1,18 @@
 # Build Status
 
-Last updated: 2026-10-27
+Last updated: 2026-10-29
 
-## Current snapshot (2026-10-27)
+## Current snapshot (2026-10-29)
 
 - Staging is `https://test.tanzaniasensational.com`, remains `blog_public=0`,
   and the homepage returns HTTP 200. Current verified stack: WordPress 7.1.3,
   Hello Elementor 3.5.1, Elementor 4.3.5, Elementor Pro 4.3.2, ACF Pro 6.8.9,
   design plugin 1.3.0, and core plugin 0.5.0. Elementor Pro is active.
 - The pre-deployment authenticated normal-mode Elementor check passed for post 91
-  (“Trekker’s Journal”): panel content was visible, the preview iframe reached
-  `complete`, the loader was hidden, and Safe Mode was off. No page content was
-  changed or saved. A post-deployment editor recheck remains pending because
-  the current environment cannot start Chromium (`libatk-1.0.so.0` is missing).
+  (“Trekker’s Journal”). The post-deployment editor check for the new single-route
+  template (post 131) passed on 2026-10-29: panel content was visible, the preview
+  iframe reached `complete`, and no loader or Safe Mode prompt remained. No page
+  content was changed or saved; see the dated follow-up below.
 - The alternate editor-loader option was tested and did not resolve the initial
   loading stall; it was removed afterward, restoring its original unset state.
   Safe Mode also remained stalled during its test and was exited. A later normal-
@@ -434,10 +434,50 @@ This 2026-10-27 HTTP-only checkpoint predates the 2026-10-28 route import and br
 - The local itinerary rows contain title/description mismatches; shared inclusions/exclusions incorrectly list Kilimanjaro National Park fees for Mount Meru; route copy includes unverified success claims. Price, success claims, itinerary, highlights, inclusions, and exclusions remain blank pending source/operations verification. The staging import populated only verified route title/slug, duration, difficulty, overview, and hero image; production content remains unchanged.
 - Commit `8b51c8b` was deployed as a bounded staging code slice: `cpt.php`, `elementor-widgets.php`, `tanzania-sensational-design.php`, the new trekking field group, renderer, stylesheet, and Elementor widget. All seven active file SHA-256 values match the verified 1.3.0 release package and repository. The pre-write backup at `/home/tanzhihb/ts-migration-backups/staging-20261027T083610Z-pre-trek-route-code` passed all manifest checks; at that deployment point the only database change was flushing WordPress rewrite rules, and no route content or template conditions had yet been changed. Production files remain untouched.
 - Post-deploy verification: all 25 plugin-level migration tests passed on staging PHP 8.2.35; all changed PHP files passed `php -l`; home and the Kilimanjaro destination returned HTTP 200 with `noindex, nofollow`; WordPress core checksums passed with the pre-existing extra-file warning for `wp-admin/error_log`. Legacy `/trekking/kilimanjaro/lemosho` is not one of the 16 approved route slugs and still lands on the Kilimanjaro destination page; no redirect was added. The imported route page is `/trekking/kilimanjaro/lemosho-7-days/`.
-- The authenticated Elementor editor check remains unverified; no login or content save was attempted. Live browser checks covered all 16 routes at 390, 768, and 1280 px: correct H1, description, route widget, loaded hero image, `noindex`, and no horizontal overflow. The clean browser still showed the site's consent banner, which was not accepted. This browser harness does not expose console logs, so console-error verification remains outstanding.
-- The local trekking importer validates all 16 approved route records and the 24 ACF field/repeater schemas; it uses per-record repeatable-read transactions and slug-range locks, verifies raw ACF/ownership readback, and creates the Elementor template last. The full local suite passes all 28 PHP test scripts. New cache regressions cover first creation and idempotent refresh: if post-commit cache verification fails, the owned template is quarantined as draft and targeting is cleared. These runtime tests use WordPress/ACF/database stubs and do not prove live gap locking. On staging, the initial template metadata was correct but its persistent Theme Builder cache omitted ID 131; re-saving the exact condition through the installed Elementor API repaired it. Runtime selection now includes template 131 for route posts and excludes the default `Hello world!` post. All 16 route pages passed browser checks at 390, 768, and 1280 px for H1, description, route widget, hero image, `noindex`, and no horizontal overflow. The latest local importer fix has not been rerun against staging; browser-console capture and the two-connection database lock test remain outstanding. Production remains untouched.
+- At the 2026-10-28 checkpoint, the authenticated editor recheck for the new
+  single-route template was still outstanding; see the follow-up below. Live
+  browser checks covered all 16 routes at 390, 768, and 1280 px: correct H1,
+  description, route widget, loaded hero image, `noindex`, and no horizontal
+  overflow. The consent banner was not accepted. This browser harness does not
+  expose console logs, so console-error verification remains outstanding.
+- The local trekking importer validates all 16 approved route records and the 24 ACF field/repeater schemas; it uses per-record repeatable-read transactions and slug-range locks, verifies raw ACF/ownership readback, and creates the Elementor template last. The full local suite passes all 28 PHP test scripts. New cache regressions cover first creation and idempotent refresh: if post-commit cache verification fails, the owned template is quarantined as draft and targeting is cleared. These runtime tests use WordPress/ACF/database stubs and do not prove live gap locking. On staging, the initial template metadata was correct but its persistent Theme Builder cache omitted ID 131; re-saving the exact condition through the installed Elementor API repaired it. Runtime selection now includes template 131 for route posts and excludes the default `Hello world!` post. All 16 route pages passed browser checks at 390, 768, and 1280 px for H1, description, route widget, hero image, `noindex`, and no horizontal overflow. At the 2026-10-28 checkpoint, the latest cache-failure fix had not been rerun and the live two-connection lock proof was pending; the 2026-10-29 follow-up below records both as completed. Browser-console capture remains outstanding because the browser harness does not expose console events. Production remains untouched.
 
-## Remaining release blockers (as of 2026-10-28)
+## Trekking-route cache/lock verification (2026-10-29)
+
+- Deployed the reviewed importer from commit `3523773` to the bounded staging
+  release `/home/tanzhihb/ts-migration-releases/staging-20261029T054020Z-trek-cache-quarantine-3523773/import/`.
+  The three importer files' remote SHA-256 values match the local release files.
+- Re-verified pre-write backup
+  `/home/tanzhihb/ts-migration-backups/staging-20261029T053206Z-pre-trek-cache-refresh`:
+  all manifest entries pass, the plugin archive passes `gzip -t` and `tar -tzf`,
+  the database export is non-empty/readable, the directory is mode 700, and all
+  files are mode 600.
+- The read-only preflight reported all 16 routes and the template unchanged with
+  staging `blog_public=0`. The administrator-gated idempotent apply completed
+  using that exact backup; its built-in readback and a separate dry-run both
+  reported all 16 routes and the template unchanged. Template 131 remains
+  published and `ready`; both `_elementor_conditions` and Elementor's single
+  conditions cache contain exactly `include/singular/ts_trek_route`. Hello World
+  post 1 remains published as `hello-world` and is excluded from the route widget
+  on the public page.
+- A live two-process WP-CLI probe exercised the exact indexed slug-range lock on
+  separate database connections. Connection A held a `REPEATABLE READ` range
+  lock, inserted one temporary route draft, and delayed commit; connection B's
+  same-slug `SELECT ... FOR UPDATE` blocked until that commit and then read A's
+  row ID. The assertion passed. Cleanup deleted the temporary row, a separate
+  readback found zero test rows, and the private scratch directory was removed.
+  This verifies the importer lock/read collision path, not two simultaneous
+  full importer runs.
+- Post-apply browser checks at 1280 px confirmed the Lemosho route renders one
+  route widget with its H1/hero and `noindex`, while Hello World renders zero
+  route widgets. The template's normal-mode Elementor editor (post 131) loaded
+  with visible panel content, a complete preview iframe, no loading overlay or
+  Safe Mode prompt, and the expected widget; no content was saved. The browser
+  reported 242 same-origin resource entries and no known HTTP failures. Console
+  events are not exposed by this harness, so a clean-console claim is not made.
+  The temporary staging admin session was logged out; production was untouched.
+
+## Remaining release blockers (as of 2026-10-29)
 
 1. Complete source verification for trekking itinerary/pricing/inclusion/exclusion fields that were intentionally excluded, and resolve the documented package-source conflicts before extending those imports. The 16 approved route-card fields are staged; do not count generic redirects as content parity.
 2. Complete source-to-staging visual comparisons for every page family at

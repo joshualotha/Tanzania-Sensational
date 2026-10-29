@@ -37,13 +37,13 @@ Implement only on staging `https://test.tanzaniasensational.com`; production rem
 - A staging-only blog importer is implemented, tested, and independently reviewed. Follow-up hardening now validates the complete HTTPS staging origin, normalizes legacy internal-link variants, and checks each manifest repair against its article-specific mapping. A runtime test confirms JSON metadata round-trips through the slashing API and a one-post partial import resumes as one `unchanged` plus eleven `create` actions. A dedicated concurrency test now verifies both post and layout-resource creation start a `REPEATABLE READ` transaction, take a `FOR UPDATE` range lock using the indexed WordPress slug key, and refuse a post-preflight collision before insertion. The independent review's snapshot concern was not reproduced: the runtime already decodes stored JSON, and the regression test passes; its user-info concern was also not reproduced because the origin gate rejects empty as well as non-empty userinfo. The batch is per-record transactional and resumable, not one all-or-nothing transaction; the runbook documents the safe resume/stop path. The Impeccable detector reports no findings.
 - Staging recheck: `home_url()` is `https://test.tanzaniasensational.com/`, `blog_public=0`, MariaDB `11.4.13-MariaDB-cll-lve`, `REPEATABLE-READ`, `@@innodb_snapshot_isolation=0`, and `wpjn_posts` is InnoDB with the `post_name` index. Original pre-write backup `/home/tanzhihb/ts-migration-backups/staging-20261026T133948Z-blog-prewrite/` remains verified; fresh pre-apply backup `/home/tanzhihb/ts-migration-backups/staging-20261026T142100Z-blog-preapply/` is also checksummed and verified (directory 700; files 600), and includes deployed plugin v1.2.19. The local concurrency test now covers the post-preflight collision and uses MariaDB `REPEATABLE READ` gap locking; the independent review applied the `READ COMMITTED` no-gap rule and its blocker was disproved with a real two-connection probe (error 1205, no row). The follow-up template-cache review's test concern was also disproved experimentally: removing the post-publish call makes `tests/blog-importer.php` fail; the assertion was tightened to the exact callsite. Importer v4 is checksum-verified at `/home/tanzhihb/ts-migration-releases/staging-20261026T165014Z-blog-import-v4`; its dry-run reports all 12 posts, `/blog`, and the single template `unchanged`. The fresh pre-refresh database/plugin backup `/home/tanzhihb/ts-migration-backups/staging-20261026T165419Z-blog-pre-cache-refresh` is checksummed and verified. The importer v4 apply completed against the verified pre-refresh backup `/home/tanzhihb/ts-migration-backups/staging-20261026T165419Z-blog-pre-cache-refresh`; it re-saved published template conditions, invalidated Elementor's location cache, and read the conditions back. Post-apply read-only verification and dry-run report all 12 posts, `/blog`, and the template unchanged; `_elementor_conditions` contains exactly the twelve imported post IDs (67–89, odd IDs) and excludes Hello World ID 1. Current Hello World readback remains `publish` / `hello-world`; it was not included in the template conditions. All 12 article routes return HTTP 200, each renders Elementor single template ID 93, and each is `noindex, nofollow`; the archive returns 200 with 11 cards, a two-line headline clear of navigation, and no canonical. Responsive archive checks at 1440, 768, and 390 px show no horizontal overflow. The final CSS asset is deployed from `/home/tanzhihb/ts-migration-releases/staging-20261026T170834Z-blog-related-thumb-height-v2` (SHA-256 `537ab3beb536d7c34c86f95c20510b525579a607c97a1c12ac6c787db06f576f`); its pre-write rollback snapshot is `/home/tanzhihb/ts-migration-backups/staging-20261026T170834Z-blog-css-pre-thumb-height`. Browser verification confirms the related lazy thumbnail loads; the known broken tip hero remains omitted. The final independent review found no issues and all 20 PHP test scripts pass. No production writes were made. Implementation commit `fd7b53d` was pushed to `origin/wp-migration/phase-0-baseline` and the remote head was verified. The shared mobile utility-bar booking CTA was subsequently fixed and browser-verified at 320, 390, 768, 900, 901, and 1440 px; see the 2026-10-26 entry in `BUILD-STATUS.md`.
 - Historical blog-slice preflight (superseded by the importer v4 apply recorded in the preceding checkpoint): 12 live article slugs exactly match the 12 index entries. The 12 public article bodies at preflight were found to normalize to one repeated generic body; owner selected the repository's unique bodies referenced by `blog:fix-content`/`BlogPostsSeeder.php`, retaining live slugs, dates, categories, and verified media. The `how-to-tip-on-kilimanjaro-simple-breakdown` hero returns 404 and fails in the source browser; omit it without substitution. At that pre-import point, staging had `blog_public=0`, no `/blog` page, and only the default `hello-world` post published; the import later created the approved archive and posts under the verified pre-write backup recorded above.
-- The blog link audit is resolved: 67 in-site links across the 12 manifest posts collapse to 13 unique targets after repair. Twelve existing staging targets were checked in a real browser; each resolved to the intended page and retained `noindex, nofollow`. The remaining target is the `how-to-tip-on-kilimanjaro-simple-breakdown` post created by this importer. The 16 explicit legacy-route repairs point to existing relevant guides/landing pages; no redirects were added. Route-specific trekking detail imports remain a separate task.
+- The blog link audit is resolved: 67 in-site links across the 12 manifest posts collapse to 13 unique targets after repair. Twelve existing staging targets were checked in a real browser; each resolved to the intended page and retained `noindex, nofollow`. The remaining target is the `how-to-tip-on-kilimanjaro-simple-breakdown` post created by this importer. The 16 explicit legacy-route repairs point to existing relevant guides/landing pages; no redirects were added. The route-specific trekking-detail import has since been completed; unverified itinerary/pricing fields remain excluded and are tracked in the current checkpoint.
 
-## Latest staging checkpoint (2026-10-28)
+## Previous staging checkpoint (2026-10-28)
 
 - Staging remains private (`blog_public=0`); the homepage returned HTTP 200.
 - Source route audit on 2026-10-27 matched all 16 approved slugs to current live card IDs, titles, durations, difficulty, overview prefixes, and hero images; all 16 hero assets returned HTTP 200. The audited detail destinations were unusable as itinerary sources, so price, success claims, itinerary, highlights, inclusions, and exclusions remain blank pending verification. On 2026-10-28 the staging import was applied: all 16 route posts are published and verified unchanged against the manifest; production remains untouched.
-- The initial published Elementor template (post 131) had exact `_elementor_conditions` metadata but its persistent Theme Builder cache omitted it, so the route page rendered without route details. Re-saving the exact condition through the installed Elementor API after the transaction rebuilt the cache. Runtime selection now includes template 131 for route posts and excludes default `Hello world!` post 1. Local importer verifies the persisted conditions-cache entry after commit and quarantines the owned template on refresh/cache failure during either creation or an idempotent rerun. All 16 routes passed real-browser checks at 390, 768, and 1280 px for correct H1, route widget, description, loaded hero image, `noindex`, and no horizontal overflow. Live two-connection slug-lock proof and browser-console capture remain pending; production was not touched.
+- The initial published Elementor template (post 131) had exact `_elementor_conditions` metadata but its persistent Theme Builder cache omitted it, so the route page rendered without route details. Re-saving the exact condition through the installed Elementor API after the transaction rebuilt the cache. Runtime selection now includes template 131 for route posts and excludes default `Hello world!` post 1. Local importer verifies the persisted conditions-cache entry after commit and quarantines the owned template on refresh/cache failure during either creation or an idempotent rerun. All 16 routes passed real-browser checks at 390, 768, and 1280 px for correct H1, route widget, description, loaded hero image, `noindex`, and no horizontal overflow. At this 2026-10-28 checkpoint the live two-connection lock proof and the post-fix staging rerun remained pending; both are recorded below. Browser-console capture remains outstanding; production was not touched.
 - Elementor core 4.3.5 and Elementor Pro 4.3.2 are active. Post 91,
   “Trekker’s Journal,” was verified in normal editor mode: the panel is visible,
   the preview iframe is complete, and the loader is hidden. No page content was
@@ -55,10 +55,40 @@ Implement only on staging `https://test.tanzaniasensational.com`; production rem
 - The verified pre-diagnostic backup is
   `/home/tanzhihb/ts-migration-backups/staging-20261026T195754Z-pre-loader-method-test`;
   checksums and archive integrity passed.
-- Still open: route/content parity work (including the separate route-specific
-  trekking imports and unresolved package-source differences), SMTP delivery
-  verification, full cross-template visual acceptance, restore rehearsal,
-  non-admin editor workflow, and remaining functional/security/accessibility/
-  SEO/performance acceptance. Production cutover remains unauthorized. See
+- At this 2026-10-28 checkpoint, route/content parity work (including
+  route-specific trekking imports), unresolved package-source differences, SMTP
+  delivery verification, full cross-template visual acceptance, restore
+  rehearsal, non-admin editor workflow, and remaining
+  functional/security/accessibility/SEO/performance acceptance were still open.
+  The route import was completed and revalidated on 2026-10-29; the other
+  blockers remain. Production cutover remains unauthorized. See
   `../BUILD-STATUS.md` and `../PARITY-AUDIT-2026-10-24.md` for the detailed
   checkpoint and route ledger.
+
+## Current staging checkpoint (2026-10-29)
+
+- The 16 approved trekking routes and single-route template are present on
+  staging. The cache-failure quarantine fix was deployed in release
+  `/home/tanzhihb/ts-migration-releases/staging-20261029T054020Z-trek-cache-quarantine-3523773/import/`
+  after the verified pre-write backup
+  `/home/tanzhihb/ts-migration-backups/staging-20261029T053206Z-pre-trek-cache-refresh`.
+  The idempotent apply and following dry-run both report all routes and the
+  template unchanged; template 131 is published/ready and its persistent
+  Elementor cache contains only `include/singular/ts_trek_route`.
+- A two-process live staging DB probe confirmed the exact `REPEATABLE READ`
+  slug-range lock: the second connection's same-slug locking read waited for
+  the first transaction's commit, then detected the committed row. Cleanup
+  removed the temporary draft and a separate readback confirmed no test row.
+- The authenticated normal-mode Elementor editor for template 131 loaded with
+  panel content and a complete preview iframe; no loading overlay or Safe Mode
+  prompt appeared, and no content was saved. The route page renders the route
+  widget; the default Hello World page does not. All 16 route pages were already
+  checked at 390/768/1280 px; a post-rerun desktop check confirmed route/noindex
+  behavior. The browser harness reports no known same-origin HTTP failures but
+  does not expose console events, so console cleanliness remains unverified.
+- Still open: verify excluded route itinerary/pricing/inclusion claims from
+  authoritative sources; resolve package-source conflicts; complete full
+  cross-template visual acceptance, restore rehearsal, non-admin editor and
+  end-to-end form/mail workflows, SMTP delivery, and remaining functional,
+  security, accessibility, SEO, and performance checks. Production remains
+  read-only; cutover requires separate explicit approval.
