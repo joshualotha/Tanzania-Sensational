@@ -56,6 +56,23 @@ migration.
 Backup retention and deletion must follow the hosting account's available
 storage and should be agreed before old backups are removed.
 
+### Verified isolated restore rehearsal (2026-10-29)
+
+Backup `/home/tanzhihb/ts-migration-backups/staging-20261029T090053Z-pre-restore-rehearsal`
+was restored into an isolated MariaDB 11.4.13 container (`--network none`, no
+published ports). The source reported `11.4.13-MariaDB-cll-lve`; the target
+reported `11.4.13-MariaDB-ubu2404`. All four payload checksums matched the
+manifest; 38 database tables and 120 WordPress post rows were restored;
+`mariadb-check` passed. The plugin archive contained 67 files and all 50 PHP
+files passed syntax checks. Database import took 6.34 seconds; total rehearsal
+time was 63.73 seconds. The temporary container and scratch data were removed.
+
+When automating this check with the official MariaDB image, wait until
+`@@global.skip_networking` is `OFF` before importing. The image briefly runs a
+local initialization server with networking skipped; a socket ping can pass
+during that phase and then lose its connection when the final server starts.
+This is an isolated database-restore verification, not a production rollback.
+
 ## Destination content import
 
 The destination importer is staging-only and remains outside the public web root.

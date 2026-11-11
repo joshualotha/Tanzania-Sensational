@@ -5,9 +5,9 @@ Last updated: 2026-10-29
 ## Current snapshot (2026-10-29)
 
 - Staging is `https://test.tanzaniasensational.com`, remains `blog_public=0`,
-  and the homepage returns HTTP 200. Current verified stack: WordPress 7.1.3,
-  Hello Elementor 3.5.1, Elementor 4.3.5, Elementor Pro 4.3.2, ACF Pro 6.8.9,
-  design plugin 1.3.0, and core plugin 0.5.0. Elementor Pro is active.
+  and the homepage returns HTTP 200. Current verified stack: WordPress 7.1.4,
+  PHP 8.2.35, Hello Elementor 3.5.1, Elementor 4.3.5, Elementor Pro 4.3.2,
+  ACF Pro 6.8.9, design plugin 1.3.5, and core plugin 0.5.0. Elementor Pro is active.
 - The pre-deployment authenticated normal-mode Elementor check passed for post 91
   (“Trekker’s Journal”). The post-deployment editor check for the new single-route
   template (post 131) passed on 2026-10-29: panel content was visible, the preview
@@ -493,25 +493,117 @@ This 2026-10-27 HTTP-only checkpoint predates the 2026-10-28 route import and br
   highlights, inclusions, and exclusions remain unverified. The audit was
   read-only; staging and production content were not changed.
 
+## Isolated database restore rehearsal (2026-10-29)
+
+- Rehearsed the verified backup at
+  `/home/tanzhihb/ts-migration-backups/staging-20261029T090053Z-pre-restore-rehearsal`
+  in an isolated MariaDB container with no network and no published ports.
+  All four backup payloads matched the SHA-256 manifest; the plugin archive
+  contained 67 files, and all 50 PHP files passed lint.
+- Staging source reported `11.4.13-MariaDB-cll-lve`; the isolated target reported
+  `11.4.13-MariaDB-ubu2404` (same MariaDB patch version, different build).
+  Import completed in 6.34 seconds; the target contained 38 tables and 120 rows
+  in the WordPress posts table. `mariadb-check` passed. Total rehearsal time was
+  63.73 seconds.
+- The temporary container and scratch data were removed after verification.
+  The readiness probe waits for `@@global.skip_networking=OFF`; a socket ping
+  alone can succeed against the MariaDB image's temporary initialization server.
+- This validates database restoration and plugin-archive readability in an
+  isolated target; it does not exercise a live-site rollback or production cutover.
+
+## Staging acceptance follow-up (2026-10-29)
+
+- Read-only WP-CLI readback confirms the staged runtime is WordPress 7.1.4,
+  PHP 8.2.35, design plugin 1.3.5, core plugin 0.5.0, with `blog_public=0`.
+  The design plugin's active-version readback matches the repository's 1.3.5.
+- The legacy `/trekking/kilimanjaro` route now ends at
+  `/kilimanjaro-pillar/` (HTTP 200). The H1 and complete sampled heading order
+  match the live source; the hero uses the same source image URL, loaded at
+  390/768/1280 px with no horizontal overflow. The route-audit CSV now records
+  the verified destination. Mobile screenshot pair is saved under
+  `/home/hermes/.hermes/cache/browser-use/workspace/20261027_095452_e62c3f64/qa/visual-2026-10-29/kilimanjaro-fresh/`.
+  In that fresh browser, staging displays a CookieAdmin consent panel while the
+  source does not; therefore this family is not yet a visual-acceptance pass.
+- Current live source now confirms two safari-package detail pages, both 4 days:
+  `expected-wildlife-serengeti` (visible “From $2,200” per person) and
+  `ultimate-fly-in-northern-circuit` (“From $2,400” per person). Their exact
+  current H1s, itinerary headings, and hero URLs are available on the live pages.
+  The staging detail routes still return 404. Staging `/safaris` renders the
+  package archive with three unmatched local tour records (IDs 12–14), while
+  source `/safaris` is the “Into the Untamed” safari/destination landing page;
+  source `/safaris/packages` is the two-package archive. No package records were
+  overwritten or created in this follow-up. The safe source is now identified,
+  but staging mapping and disposition of the three unmatched published records
+  remain open for the operations decision.
+- Verification run: all 31 migration PHP test scripts pass; the Elementor hero
+  preview URL-safety Node test passes. These are local tests; they do not close
+  browser-console, form/mail, non-admin editor, or live content-parity gates.
+
+## Acceptance continuation (2026-10-29)
+
+- Re-ran `bash tests/run-php-tests.sh`: all 32 migration PHP test scripts pass;
+  `node tests/hero-preview-url-safety.js` also passes.
+- Read-only staging checks confirm the exact HTTPS staging origin, `blog_public=0`,
+  active design plugin 1.3.5/core plugin 0.5.0, 16 published trekking-route
+  records, and the three original published safari-tour records (IDs 12–14).
+  No existing tour was overwritten and neither missing safari package was
+  imported in this continuation.
+- All ten changed runtime plugin files checked against the deployed staging
+  plugin have matching SHA-256 hashes. The six changed PHP files pass remote
+  `php -l`. `wp core verify-checksums` succeeds with the existing extra-file
+  warning for `wp-admin/error_log`; that file was not changed. Production remains
+  untouched.
+- Fresh homepage evidence is in the local QA workspace at
+  `qa/visual-2026-10-29/home-{source,staging}-desktop-fresh.png` and
+  `home-{source,staging}-mobile-consent-cleared.png`. At 1280×577, both hero images
+  loaded and both H1s use 102.4px text, but the staging H1 begins 42.2px higher
+  than the source (top 166.5px vs 208.7px). At 390×844 the document width reports
+  390px, but the body reports 451px while consent is open; an element scan also
+  finds the stretched Elementor header wrapper at 1280px and the closed drawer
+  positioned off-canvas. The viewport hides that content, but this is not a clean
+  responsive-overflow pass. At 390×844 the staging H1 begins 22.4px higher than
+  the source (205.7px vs 228.1px). A fresh staging visit also shows a CookieAdmin
+  consent panel and persistent preference control absent from the source. Rejecting
+  optional cookies removes the large overlay for comparison, but does not make
+  the fresh-visit UI identical. These are sampled homepage findings, not a
+  site-wide visual pass.
+- An isolated browser attempt to open staging `/wp-login.php` reached a
+  “Checking your browser…” challenge with no login form. `computer_use` cannot
+  reach a display in this runner. The normal non-admin editor workflow therefore
+  remains untested; no credential or page content was saved.
+- Forms were not submitted. WP Mail SMTP is still configured for PHP `mail`, and
+  no approved safe mailbox/sink or SMTP transport is available for delivery
+  verification.
+- The current route audit still records both approved source package detail
+  routes as staging 404s. Staging `/safaris` is still the three-record package
+  archive rather than the source “Into the Untamed” landing page. The three
+  existing tour records remain preserved. The second package's source hero image
+  did not load in the browser capture, so it must not be imported as media until
+  a source-matched asset is verified or deliberately omitted.
+
 ## Remaining release blockers (as of 2026-10-29)
 
-1. Resolve remaining trekking source/operations questions before extending
-   fields: decide whether the 16 captured “From … /pp” strings should map to
-   numeric `base_price`; verify route-specific itinerary/highlights/inclusions/
-   exclusions and resolve package-source conflicts. The 16 approved route-card
-   fields are staged; do not count generic redirects as content parity.
-2. Complete source-to-staging visual comparisons for every page family at
-   desktop, tablet, and mobile. The utility-bar booking-CTA clipping was fixed
-   and verified at 320, 390, 768, 900, 901, and 1440 px; full template-by-template
-   screenshot acceptance is still open.
-3. Complete a restore/rollback rehearsal and record its results.
-4. Finish staging acceptance: test the normal editing workflow with a
-   non-admin editor; complete end-to-end forms and mail delivery; and collect
-   the remaining functional, security, accessibility, SEO, and performance
-   evidence. SMTP delivery remains unverified: WP Mail SMTP is configured for
-   PHP `mail`, and an approved SMTP transport plus test sink/mailbox is needed.
-5. Keep production read-only. Production cutover is not authorized and remains
-   blocked on staging acceptance plus separate explicit owner approval.
+1. **Content/source parity:** create the two approved safari-package routes using
+   only verified source fields, preserve tour records 12–14, and restore the
+   `/safaris` landing/archive route split. Keep the 16 trekking “From … /pp”
+   strings out of numeric `base_price`; route itineraries/highlights/inclusions/
+   exclusions remain blank until independently verified.
+2. **Visual acceptance:** complete paired source/staging screenshot review for
+   every page family at desktop, tablet, and mobile. Current screenshot review
+   covers only a subset; route audit still contains misdirected company, guide,
+   and other legacy paths. Resolve or formally disposition the homepage consent
+   difference and measured hero-position delta.
+3. **Editor/forms:** verify normal editor behavior with a non-admin account and
+   run end-to-end forms plus email delivery only after staging login access,
+   an approved safe mailbox/sink, and SMTP transport are available. The current
+   browser challenge and PHP `mail` configuration block those checks.
+4. **Quality gates:** finish the remaining functional, security, accessibility,
+   SEO, and performance checks. Staging noindex and WordPress core integrity are
+   verified; neither substitutes for page-family acceptance or form/editor tests.
+5. **Production cutover:** keep production read-only. The exact cutover gate is
+   all staging blockers above closed, a verified rollback plan for the content
+   and code release, and separate explicit owner approval for the production
+   target. No production deployment is authorized by this acceptance work.
 
 ## Constraint
 

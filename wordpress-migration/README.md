@@ -16,9 +16,9 @@ The WordPress document root is:
 
 ## Confirmed staging stack
 
-Last verified from staging with WP-CLI on 2026-10-27:
+Last verified from staging with WP-CLI on 2026-10-29:
 
-- WordPress 7.1.3
+- WordPress 7.1.4 (PHP 8.2.35)
 - Hello Elementor 3.5.1
 - Elementor 4.3.5
 - Elementor Pro 4.3.2 (active)
@@ -26,7 +26,7 @@ Last verified from staging with WP-CLI on 2026-10-27:
 - Rank Math SEO and Rank Math SEO Pro
 - WP Mail SMTP
 - Imagify and Lazy Load
-- `tanzania-sensational-design` 1.2.19 (active)
+- `tanzania-sensational-design` 1.3.5 (active)
 - `tanzania-sensational-core` 0.5.0 (active)
 
 ## Implementation principles
