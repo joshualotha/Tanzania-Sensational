@@ -2,13 +2,15 @@
 /**
  * Plugin Name: Tanzania Sensational — Design System
  * Description: Global design tokens, fonts, layouts, and interactions for the Elementor migration.
- * Version: 1.3.0
+ * Version: 1.3.5
  * Author: Migration Team
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
+
+require_once __DIR__ . '/asset-versioning.php';
 
 /**
  * Enqueue Google Fonts used by the React design.
@@ -25,7 +27,7 @@ add_action( 'wp_enqueue_scripts', function() {
         'ts-public-layout',
         plugin_dir_url( __FILE__ ) . 'public-layout.css',
         [],
-        filemtime( __DIR__ . '/public-layout.css' )
+        ts_design_asset_version( __DIR__ . '/public-layout.css', '1.2.4' )
     );
 
     if ( is_front_page() ) {
@@ -33,7 +35,7 @@ add_action( 'wp_enqueue_scripts', function() {
             'ts-homepage',
             plugin_dir_url( __FILE__ ) . 'homepage.css',
             [],
-            '1.2.1'
+            ts_design_asset_version( __DIR__ . '/homepage.css', '1.2.1' )
         );
     }
 
@@ -42,7 +44,7 @@ add_action( 'wp_enqueue_scripts', function() {
             'ts-pages',
             plugin_dir_url( __FILE__ ) . 'pages.css',
             [],
-            '1.0.1'
+            ts_design_asset_version( __DIR__ . '/pages.css', '1.0.1' )
         );
     }
 
@@ -60,7 +62,7 @@ add_action( 'wp_enqueue_scripts', function() {
             'ts-blog',
             plugin_dir_url( __FILE__ ) . 'blog.css',
             [ 'ts-public-layout' ],
-            filemtime( __DIR__ . '/blog.css' )
+            ts_design_asset_version( __DIR__ . '/blog.css', '1.0.0' )
         );
     }
 
@@ -69,7 +71,7 @@ add_action( 'wp_enqueue_scripts', function() {
             'ts-trekking-content',
             plugin_dir_url( __FILE__ ) . 'trekking-content.css',
             [ 'ts-public-layout' ],
-            filemtime( __DIR__ . '/trekking-content.css' )
+            ts_design_asset_version( __DIR__ . '/trekking-content.css', '1.0.0' )
         );
     }
 } );

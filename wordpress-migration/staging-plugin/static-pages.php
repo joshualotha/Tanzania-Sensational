@@ -816,7 +816,7 @@ add_shortcode( 'ts_safari_guide_page', function() {
 } );
 
 add_shortcode( 'ts_kilimanjaro_pillar_page', function() {
-    $hero = 'https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=2000&auto=format&fit=crop';
+    $hero = 'https://tanzaniasensational.com/storage/visual-assets/trekking_pillar_hero/ruHzpY38hak9YFhLs849fPJ8FgpLdM2jV0jmr6Zq.jpg';
 
     $route_images = array(
         'lemosho'        => 'https://images.unsplash.com/photo-1621414050946-1b936a78490b?auto=format&fit=crop&q=80',

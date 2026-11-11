@@ -27,6 +27,11 @@
   will-change: opacity, transform;
 }
 
+/* Elementor's global img sizing sets height:auto; keep this full-bleed. */
+.hero-v2-bg > img.hero-v2-bg-img {
+  height: 100%;
+}
+
 /* ── Cinematic Gradient Overlays ── */
 .hero-v2-overlay {
   position: absolute;

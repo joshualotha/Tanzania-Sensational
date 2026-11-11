@@ -6,7 +6,7 @@ if ( false === $css ) {
 }
 
 $plugin = file_get_contents( __DIR__ . '/../staging-plugin/tanzania-sensational-design.php' );
-if ( false === $plugin || false === strpos( $plugin, "filemtime( __DIR__ . '/public-layout.css' )" ) ) {
+if ( false === $plugin || false === strpos( $plugin, "ts_design_asset_version( __DIR__ . '/public-layout.css', '1.2.4' )" ) ) {
     fwrite( STDERR, "FAIL: public-layout.css must use a file-based cache version.\n" );
     exit( 1 );
 }

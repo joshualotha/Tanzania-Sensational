@@ -47,7 +47,10 @@ class TS_Hero_Widget extends Widget_Base {
                 'label'   => __( 'Background Image', 'tanzania-sensational' ),
                 'type'    => Controls_Manager::MEDIA,
                 'default' => [
-                    'url' => 'https://images.unsplash.com/photo-1516426122078-c23e76319801?ixlib=rb-1.2.1&auto=format&fit=crop&w=2400&q=90',
+                    'url' => plugins_url(
+                        'assets/images/home-hero.webp',
+                        dirname( __FILE__, 3 ) . '/tanzania-sensational-design.php'
+                    ),
                 ],
             ]
         );
@@ -128,7 +131,10 @@ class TS_Hero_Widget extends Widget_Base {
         $settings = $this->get_settings_for_display();
 
         $bg_url = ! empty( $settings['background_image']['url'] ) ? $settings['background_image']['url'] : '';
-        $title  = nl2br( $settings['title'] );
+        $title_lines = preg_split( '/\r\n|\r|\n/', (string) ( $settings['title'] ?? '' ), 2 );
+        $title_first = trim( $title_lines[0] ?? '' );
+        $title_accent = trim( (string) preg_replace( '/\s+/', ' ', $title_lines[1] ?? '' ) );
+        $title_alt = trim( $title_first . ' ' . $title_accent );
         $subtitle = $settings['subtitle'];
 
         $primary_text = $settings['primary_button_text'];
@@ -146,13 +152,13 @@ class TS_Hero_Widget extends Widget_Base {
         <section class="hero-v2">
             <?php if ( $bg_url ) : ?>
             <div class="hero-v2-bg">
-                <img src="<?php echo esc_url( $bg_url ); ?>" alt="<?php echo esc_attr( wp_strip_all_tags( $title ) ); ?>" class="hero-v2-bg-img" fetchpriority="high" loading="eager" />
+                <img src="<?php echo esc_url( $bg_url ); ?>" alt="<?php echo esc_attr( $title_alt ); ?>" class="hero-v2-bg-img" fetchpriority="high" loading="eager" />
             </div>
             <?php endif; ?>
             <div class="hero-v2-overlay"></div>
             <div class="hero-v2-vignette"></div>
             <div class="hero-v2-content">
-                <h1 class="hero-v2-title"><?php echo wp_kses_post( $title ); ?></h1>
+                <h1 class="hero-v2-title"><?php echo esc_html( $title_first ); ?><?php if ( $title_accent ) : ?><em><?php echo esc_html( $title_accent ); ?></em><?php endif; ?></h1>
                 <?php if ( $subtitle ) : ?>
                     <p class="hero-v2-subtitle"><?php echo esc_html( $subtitle ); ?></p>
                 <?php endif; ?>
@@ -178,30 +184,51 @@ class TS_Hero_Widget extends Widget_Base {
     protected function content_template() {
         ?>
         <#
-        var title = settings.title ? settings.title.replace(/\n/g, '<br>') : '';
+        var tsSafeHeroUrl = function (raw) {
+            var value = String(raw || '').trim();
+            if (!value) {
+                return '#';
+            }
+
+            try {
+                var parsed = new URL(value, window.location.href);
+                var allowedProtocols = ['http:', 'https:', 'mailto:', 'tel:'];
+                if (allowedProtocols.indexOf(parsed.protocol.toLowerCase()) === -1) {
+                    return '#';
+                }
+            } catch (error) {
+                return '#';
+            }
+
+            return value;
+        };
+        var titleLines = (settings.title || '').split(/\r\n|\r|\n/);
+        var titleFirst = titleLines.shift() || '';
+        var titleAccent = titleLines.join(' ').replace(/\s+/g, ' ').trim();
+        var titleAlt = (titleFirst + ' ' + titleAccent).trim();
         #>
         <section class="hero-v2">
-            <# if ( settings.background_image.url ) { #>
+            <# if ( settings.background_image && settings.background_image.url ) { #>
             <div class="hero-v2-bg">
-                <img src="{{{ settings.background_image.url }}}" alt="" class="hero-v2-bg-img" />
+                <img src="{{ settings.background_image.url }}" alt="{{ titleAlt }}" class="hero-v2-bg-img" />
             </div>
             <# } #>
             <div class="hero-v2-overlay"></div>
             <div class="hero-v2-vignette"></div>
             <div class="hero-v2-content">
-                <h1 class="hero-v2-title">{{{ title }}}</h1>
+                <h1 class="hero-v2-title">{{ titleFirst }}<# if ( titleAccent ) { #><em>{{ titleAccent }}</em><# } #></h1>
                 <# if ( settings.subtitle ) { #>
-                    <p class="hero-v2-subtitle">{{{ settings.subtitle }}}</p>
+                    <p class="hero-v2-subtitle">{{ settings.subtitle }}</p>
                 <# } #>
                 <div class="hero-v2-actions">
                     <# if ( settings.primary_button_text ) { #>
-                        <a href="{{{ settings.primary_button_url.url }}}" class="hero-v2-btn-primary">
-                            <span>{{{ settings.primary_button_text }}}</span>
+                        <a href="{{ tsSafeHeroUrl(settings.primary_button_url.url) }}" class="hero-v2-btn-primary">
+                            <span>{{ settings.primary_button_text }}</span>
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
                         </a>
                     <# } #>
                     <# if ( settings.secondary_button_text ) { #>
-                        <a href="{{{ settings.secondary_button_url.url }}}" class="hero-v2-btn-ghost">{{{ settings.secondary_button_text }}}</a>
+                        <a href="{{ tsSafeHeroUrl(settings.secondary_button_url.url) }}" class="hero-v2-btn-ghost">{{ settings.secondary_button_text }}</a>
                     <# } #>
                 </div>
             </div>

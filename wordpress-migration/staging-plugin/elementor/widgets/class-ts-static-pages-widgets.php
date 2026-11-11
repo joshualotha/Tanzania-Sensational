@@ -172,7 +172,7 @@ class TS_Kilimanjaro_Pillar_Page_Widget extends TS_Structured_Page_Widget {
     protected function shortcode_tag() { return 'ts_kilimanjaro_pillar_page'; }
     protected function register_controls() {
         parent::register_controls();
-        $this->register_hero_controls( 'The Complete Guide', 'Kilimanjaro Trekking.', "Everything you need to plan, prepare, and conquer Africa's highest peak — from choosing your route to summit day.", 'https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?q=80&w=2000&auto=format&fit=crop' );
+        $this->register_hero_controls( 'The Complete Guide', 'Kilimanjaro Trekking.', "Everything you need to plan, prepare, and conquer Africa's highest peak — from choosing your route to summit day.", 'https://tanzaniasensational.com/storage/visual-assets/trekking_pillar_hero/ruHzpY38hak9YFhLs849fPJ8FgpLdM2jV0jmr6Zq.jpg' );
         $this->start_controls_section( 'cta_copy', [ 'label' => __( 'Final CTA', 'tanzania-sensational' ) ] );
         $this->add_control( 'cta_title', [ 'label' => __( 'Heading', 'tanzania-sensational' ), 'type' => Controls_Manager::TEXT, 'default' => 'Ready for the Adventure?' ] );
         $this->add_control( 'cta_body', [ 'label' => __( 'Description', 'tanzania-sensational' ), 'type' => Controls_Manager::TEXTAREA, 'rows' => 3, 'default' => 'Whether you have a specific route in mind or need help choosing the perfect Kilimanjaro climb, our expert team is here to help make your summit dream a reality.' ] );

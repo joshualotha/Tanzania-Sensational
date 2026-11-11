@@ -47,6 +47,14 @@ blog_contract_assert(
         && 1 === preg_match('/padding:\\s*clamp\\(150px,\\s*18vh,\\s*220px\\)\\s+5%\\s+100px\\s*;/', $archive_hero_rule[1]),
     'The desktop featured hero must clear the overlaid navigation and grow to fit long headlines.'
 );
+$tablet_hero_rule = [];
+blog_contract_assert(
+    1 === preg_match('/@media\\s*\\(max-width:\\s*768px\\)\\s*\\{.*?\\.blog-featured-hero\\s*\\{([^}]*)\\}/s', $blog_css, $tablet_hero_rule)
+        && 1 === preg_match('/height:\\s*70vh\\s*!important\\s*;/', $tablet_hero_rule[1])
+        && 1 === preg_match('/min-height:\\s*70vh\\s*;/', $tablet_hero_rule[1]),
+    'The tablet featured hero must not retain the desktop 90vh minimum height.'
+);
+
 $featured_title_rule = [];
 blog_contract_assert(
     1 === preg_match('/\\.blog-featured-title\\s*\\{([^}]*)\\}/s', $blog_css, $featured_title_rule)
@@ -60,6 +68,21 @@ blog_contract_assert(
         && 1 === preg_match('/display:\\s*block\\s*;/', $related_image_rule[1])
         && 1 === preg_match('/height:\\s*100px\\s*;/', $related_image_rule[1]),
     'Related thumbnails need a block box so native lazy loading can request images.'
+);
+
+$article_hero_rule = [];
+blog_contract_assert(
+    1 === preg_match('/\\.blog-article-hero\\s*\\{([^}]*)\\}/s', $blog_css, $article_hero_rule)
+        && 1 === preg_match('/overflow:\\s*hidden\\s*;/', $article_hero_rule[1]),
+    'The single-article hero must clip its full-bleed background to the hero boundary.'
+);
+$hero_image_rule = [];
+blog_contract_assert(
+    1 === preg_match('/\\.blog-featured-hero\\s+\\.blog-featured-bg\\s+img,\\s*\\.blog-article-hero\\s+\\.blog-article-bg\\s+img\\s*\\{([^}]*)\\}/s', $blog_css, $hero_image_rule)
+        && 1 === preg_match('/display:\\s*block\\s*;/', $hero_image_rule[1])
+        && 1 === preg_match('/height:\\s*100%\\s*;/', $hero_image_rule[1])
+        && 1 === preg_match('/object-fit:\\s*cover\\s*;/', $hero_image_rule[1]),
+    'Hero images must fill their containers and override Elementor’s generic image reset.'
 );
 
 fwrite(STDOUT, "PASS: blog widgets and route/content styles are integrated into the design plugin.\n");

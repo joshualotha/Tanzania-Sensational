@@ -241,6 +241,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 }
 
 .blog-article-bg {
@@ -252,6 +253,15 @@
 }
 
 .blog-article-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Beat Elementor's later, equally specific `.elementor img { height: auto; }`. */
+.blog-featured-hero .blog-featured-bg img,
+.blog-article-hero .blog-article-bg img {
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -545,6 +555,7 @@
 
     .blog-featured-hero {
         height: 70vh !important;
+        min-height: 70vh;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;

@@ -2,10 +2,15 @@
 /** Temporary exact-path fallbacks for routes not yet built in WordPress. */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-add_action( 'template_redirect', function() {
-    if ( ! is_404() ) { return; }
+/**
+ * Resolve a known legacy path to its source-matched WordPress destination.
+ *
+ * @param string $path Requested path, with or without surrounding slashes.
+ * @return string|null Destination path, or null when no fallback is defined.
+ */
+function ts_route_fallback_target( $path ) {
+    $path = trim( (string) $path, '/' );
 
-    $path = trim( (string) wp_parse_url( $_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH ), '/' );
     $fallbacks = [
         'booking' => 'contact',
         'blog' => '',
@@ -35,6 +40,7 @@ add_action( 'template_redirect', function() {
         'safaris/destinations/manyara' => 'safaris/destinations',
         'safaris/destinations/ruaha' => 'safaris/destinations',
         'safaris/destinations/selous' => 'safaris/destinations',
+        'trekking/kilimanjaro' => 'kilimanjaro-pillar',
         'trekking/meru/mt-meru-4-days' => 'trekking/kilimanjaro',
         'trekking/after/training' => 'training-guide',
         'trekking/after/gear-list' => 'gear-checklist',
@@ -49,8 +55,17 @@ add_action( 'template_redirect', function() {
         $fallbacks[ $path ] = 'trekking/kilimanjaro';
     }
 
-    if ( array_key_exists( $path, $fallbacks ) ) {
-        wp_safe_redirect( home_url( '/' . trim( $fallbacks[ $path ], '/' ) . '/' ), 302, 'Tanzania Sensational route fallback' );
+    return $fallbacks[ $path ] ?? null;
+}
+
+add_action( 'template_redirect', function() {
+    if ( ! is_404() ) { return; }
+
+    $path = trim( (string) wp_parse_url( $_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH ), '/' );
+    $target = ts_route_fallback_target( $path );
+
+    if ( null !== $target ) {
+        wp_safe_redirect( home_url( '/' . trim( $target, '/' ) . '/' ), 302, 'Tanzania Sensational route fallback' );
         exit;
     }
 }, 1 );
