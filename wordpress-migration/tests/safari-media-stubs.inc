@@ -40,7 +40,8 @@ if (!function_exists('sanitize_file_name')) {
     function sanitize_file_name($name) { return preg_replace('/[^A-Za-z0-9._-]/', '-', $name); }
 }
 if (!function_exists('wp_handle_sideload')) {
-    function wp_handle_sideload($file, $overrides = []) {
+    function wp_handle_sideload(&$file, $overrides = []) {
+        if (!empty($GLOBALS['safari_throw_sideload'])) throw new RuntimeException('Injected sideload API failure.');
         $target = $GLOBALS['safari_upload_root'] . '/' . sanitize_file_name($file['name']);
         if (file_exists($target)) $target = $GLOBALS['safari_upload_root'] . '/' . bin2hex(random_bytes(4)) . '-' . sanitize_file_name($file['name']);
         if (!rename($file['tmp_name'], $target)) return ['error' => 'rename failed'];
