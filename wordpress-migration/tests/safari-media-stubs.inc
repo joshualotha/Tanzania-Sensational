@@ -52,7 +52,8 @@ if (!function_exists('wp_insert_attachment')) {
     function wp_insert_attachment($post, $file, $parent = 0, $wp_error = false) {
         if (!empty($GLOBALS['safari_fail_attachment_insert'])) return 0;
         $id = ++$GLOBALS['safari_next'];
-        $GLOBALS['safari_posts'][$id] = (object) (['ID' => $id, 'post_type' => 'attachment', 'post_status' => $post['post_status'] ?? 'inherit', 'post_parent' => $parent] + $post);
+        $status=$post['post_status']??'inherit';if($status==='draft')$status='inherit';
+        $GLOBALS['safari_posts'][$id] = (object) (['ID' => $id, 'post_type' => 'attachment', 'post_status' => $status, 'post_parent' => $parent] + $post);
         $GLOBALS['safari_attachment_files'][$id] = $file;
         return $id;
     }

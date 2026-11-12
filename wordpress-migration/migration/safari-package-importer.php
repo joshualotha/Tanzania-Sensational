@@ -30,7 +30,7 @@ function ts_safari_hero_file_path(int $attachment_id): string {
 }
 function ts_safari_verify_hero_attachment(int $attachment_id,string $url,string $slug): array {
     $post=get_post($attachment_id);$owner=get_post_meta($attachment_id,'_ts_safari_image_owner',true);$source=get_post_meta($attachment_id,'_ts_safari_image_source',true);$package=get_post_meta($attachment_id,'_ts_safari_image_package',true);$hash=get_post_meta($attachment_id,'_ts_safari_image_hash',true);$state=get_post_meta($attachment_id,'_ts_safari_image_state',true);
-    $media_status=$post->post_status??'';if(!$post||($post->post_type??'')!=='attachment'||$owner!=='approved-safari-package-import-v1'||$source!==$url||$package!==$slug||!is_string($hash)||!preg_match('/^[a-f0-9]{64}$/',$hash)||!in_array($state,['reserved','attached'],true)||($state==='reserved'&&$media_status!=='draft')||($state==='attached'&&$media_status!=='inherit'))throw new RuntimeException('Safari hero attachment ownership or state collision detected.');
+    $media_status=$post->post_status??'';if(!$post||($post->post_type??'')!=='attachment'||$owner!=='approved-safari-package-import-v1'||$source!==$url||$package!==$slug||!is_string($hash)||!preg_match('/^[a-f0-9]{64}$/',$hash)||!in_array($state,['reserved','attached'],true)||($state==='reserved'&&$media_status!=='private')||($state==='attached'&&$media_status!=='inherit'))throw new RuntimeException('Safari hero attachment ownership or state collision detected.');
     $file=ts_safari_hero_file_path($attachment_id);$actual=hash_file('sha256',$file);
     if(!is_string($actual)||!hash_equals($hash,$actual))throw new RuntimeException('Owned safari hero attachment content drift detected.');
     return ['id'=>$attachment_id,'file'=>$file,'sha256'=>$hash,'created'=>false];
@@ -45,7 +45,7 @@ function ts_safari_cleanup_new_hero_attachment(int $attachment_id,string $file,a
     $files=[$real];$metadata=function_exists('wp_get_attachment_metadata')?wp_get_attachment_metadata($attachment_id):false;
     foreach([$metadata,$known_metadata] as $media_metadata)if(is_array($media_metadata)){if(!empty($media_metadata['original_image']))$files[]=dirname($real).DIRECTORY_SEPARATOR.basename($media_metadata['original_image']);foreach($media_metadata['sizes']??[] as $size)if(!empty($size['file']))$files[]=dirname($real).DIRECTORY_SEPARATOR.basename($size['file']);}
     $deleted=wp_delete_attachment($attachment_id,true);
-    if($deleted===false&&get_post($attachment_id))throw new RuntimeException('Safari hero attachment cleanup failed; owned draft requires manual recovery.');
+    if($deleted===false&&get_post($attachment_id))throw new RuntimeException('Safari hero attachment cleanup failed; owned private attachment requires manual recovery.');
     foreach(array_unique($files) as $path)if(is_file($path)&&!@unlink($path))throw new RuntimeException('Safari hero file cleanup failed; owned artifact requires manual recovery.');
     if(get_post($attachment_id))throw new RuntimeException('Safari hero attachment row remains after cleanup.');
     foreach($files as $path)if(is_file($path))throw new RuntimeException('Safari hero attachment file remains after cleanup.');
@@ -73,7 +73,7 @@ function ts_safari_sideload_hero(string $url,string $slug): array {
     try{$handled=wp_handle_sideload($sideload_file,['test_form'=>false,'mimes'=>['jpg|jpeg'=>'image/jpeg']]);}catch(Throwable $e){if(is_file($tmp)&&!@unlink($tmp))throw new RuntimeException('Safari temporary hero cleanup failed; manual recovery required.',0,$e);throw $e;}
     if(!is_array($handled)||!empty($handled['error'])||empty($handled['file'])||($handled['type']??'')!=='image/jpeg'){if(is_file($tmp))@unlink($tmp);if(is_array($handled)&&isset($handled['file'])&&is_string($handled['file']))ts_safari_unlink_upload_file($handled['file']);throw new RuntimeException('WordPress rejected the safari hero sideload.');}
     $file=realpath($handled['file']);$upload_base=ts_safari_hero_upload_base();if(!is_string($file)||!str_starts_with($file,$upload_base.DIRECTORY_SEPARATOR))throw new RuntimeException('Sideloaded safari hero path is outside the WordPress upload directory.');$stored_hash=hash_file('sha256',$file);if(!is_string($stored_hash)||!hash_equals($hash,$stored_hash)){if(is_file($file))@unlink($file);throw new RuntimeException('Sideloaded safari hero content verification failed.');}
-    $id=wp_insert_attachment(['post_mime_type'=>'image/jpeg','post_title'=>sanitize_file_name(basename($u['path'])),'post_status'=>'draft','post_parent'=>0],$file,0,true);
+    $id=wp_insert_attachment(['post_mime_type'=>'image/jpeg','post_title'=>sanitize_file_name(basename($u['path'])),'post_status'=>'private','post_parent'=>0],$file,0,true);
     if(is_wp_error($id)||!is_numeric($id)||(int)$id<1){if(is_file($file))@unlink($file);throw new RuntimeException('Could not create safari hero attachment row.');}$id=(int)$id;
     $generated_metadata=[];
     try {
@@ -325,7 +325,7 @@ function ts_safari_apply_package(array $p): array {
     global $wpdb;
     $hero=ts_safari_sideload_hero($p['hero_url'],$p['slug']);$hero_id=(int)($hero['id']??0);$hero_post=get_post($hero_id);$active=false;$id=0;
     try {
-        if($hero_id<1||!$hero_post||($hero_post->post_type??'')!=='attachment'||($hero_post->post_status??'')!=='draft'||get_post_meta($hero_id,'_ts_safari_image_state',true)!=='reserved')throw new RuntimeException('Safari package hero attachment is not a reusable private reservation.');
+        if($hero_id<1||!$hero_post||($hero_post->post_type??'')!=='attachment'||($hero_post->post_status??'')!=='private'||get_post_meta($hero_id,'_ts_safari_image_state',true)!=='reserved')throw new RuntimeException('Safari package hero attachment is not a reusable private reservation.');
         if($wpdb->query('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ')===false)throw new RuntimeException('Could not set safari package transaction isolation.');
         if($wpdb->query('START TRANSACTION')===false){if($wpdb->query('ROLLBACK')===false)throw new RuntimeException('Safari transaction start failed and rollback could not be verified.');throw new RuntimeException('Could not start safari package transaction.');}
         $active=true;$table=$wpdb->posts;$q=$wpdb->prepare("SELECT ID FROM {$table} FORCE INDEX (post_name) WHERE post_name = %s AND post_type = %s LIMIT 1 FOR UPDATE",$p['slug'],'ts_tour');$found=$wpdb->get_var($q);

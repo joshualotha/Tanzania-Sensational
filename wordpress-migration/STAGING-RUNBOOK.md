@@ -245,9 +245,14 @@ bounded dimensions, then sideloads through WordPress's media APIs. The image
 field stores the resulting attachment ID (not the source URL); attachment
 ownership metadata records the source URL, package slug, and SHA-256 content
 hash. A resumed import reuses only a matching owned file and verifies the hash.
-On package failure the importer removes the new attachment and its generated
-files; if cleanup cannot be verified, it leaves a private draft reservation and
-stops for manual recovery.
+The installed WordPress 7.1.4 normalizes `draft` attachment status to `inherit`, so
+unassigned reservations are created as `private` and become `inherit` only when
+bound to a published package. On package failure the importer removes the new
+attachment and its generated files; if cleanup cannot be verified, it leaves a
+private reservation and stops for manual recovery. WordPress `private` status hides
+the attachment post from public queries but does not secure the upload URL; treat
+its file bytes as publicly reachable until manual removal or access restriction is
+verified.
 
 Run a read-only staging preflight first:
 
