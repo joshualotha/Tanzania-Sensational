@@ -57,6 +57,15 @@ add_action( 'wp_enqueue_scripts', function() {
         );
     }
 
+    if ( is_page( 'safaris' ) ) {
+        wp_enqueue_style(
+            'ts-safari-landing',
+            plugin_dir_url( __FILE__ ) . 'safari-landing.css',
+            [ 'ts-public-layout' ],
+            ts_design_asset_version( __DIR__ . '/safari-landing.css', '1.0.0' )
+        );
+    }
+
     if ( is_page( 'blog' ) || is_singular( 'post' ) ) {
         wp_enqueue_style(
             'ts-blog',

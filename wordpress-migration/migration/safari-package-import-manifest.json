@@ -1,0 +1,47 @@
+{
+  "manifest_version": 1,
+  "packages": [
+    {
+      "source_id": "expected-wildlife-serengeti",
+      "slug": "expected-wildlife-serengeti",
+      "source_url": "https://tanzaniasensational.com/safaris/packages/expected-wildlife-serengeti",
+      "title": "An Expected Wildlife in Serengeti National Park",
+      "excerpt": "A perfectly paced 4-day safari across the Northern Circuit's greatest hits. From the tree-climbing lions of Lake Manyara to the vast Serengeti plains and the breathtaking Ngorongoro Crater, this itinerary delivers the quintessential Tanzanian safari experience. Designed for travelers with limited time who refuse to compromise on wildlife encounters or comfort.",
+      "badge": "CLASSIC",
+      "duration": "4 Days",
+      "parks": "Manyara • Serengeti • Ngorongoro",
+      "price": "From $2,200 per person",
+      "hero_url": "https://tanzaniasensational.com/storage/safari-packages/fFxQ9ijINDkdwdDSy4S0C8HlH7FE5Fn5Hv4LoTgz.jpg",
+      "overview": "A perfectly paced 4-day safari across the Northern Circuit's greatest hits. From the tree-climbing lions of Lake Manyara to the vast Serengeti plains and the breathtaking Ngorongoro Crater, this itinerary delivers the quintessential Tanzanian safari experience. Designed for travelers with limited time who refuse to compromise on wildlife encounters or comfort.",
+      "itinerary": [
+        {"day":1,"title":"Lake Manyara National Park","description":"Your journey begins with a scenic drive to Lake Manyara National Park, nestled at the base of the Great Rift Valley escarpment. This compact gem is famous for its tree-climbing lions, vast flocks of flamingos, and lush groundwater forests. An afternoon game drive reveals troops of baboons, elephants emerging from the woodlands, and spectacular views across the alkaline lake. Overnight at your lakeside lodge.","accommodation":"Elen Tree","meals":"Lunch, Dinner"},
+        {"day":2,"title":"Into the Serengeti Plains","description":"After an early breakfast, depart Manyara and drive through the Ngorongoro Highlands into the legendary Serengeti National Park. The landscape opens dramatically as you enter the endless plains. The afternoon is dedicated to game drives through the Seronera Valley, famous for its resident leopard population and vast lion prides. Watch the savanna come alive as the sun sets over the kopjes.","accommodation":"Moyo Tented","meals":"Breakfast, Lunch, Dinner"},
+        {"day":3,"title":"Central Serengeti Exploration","description":"A full day exploring the central Serengeti ecosystem. Your guide will track the migratory herds and their predators, stopping at prime wildlife corridors and waterholes. Spot cheetah on the hunt, pods of hippo in the rivers, and the endless herds of wildebeest and zebra that define this landscape. A bush picnic lunch is served in the shade before continuing your afternoon game drive.","accommodation":"Moyo Tented","meals":"Breakfast, Lunch, Dinner"},
+        {"day":4,"title":"Ngorongoro Crater & Departure","description":"An early departure takes you to the Ngorongoro Crater—the world's largest inactive volcanic caldera. Descend 600 meters to the crater floor for a final, unforgettable game drive. This natural amphitheater hosts an extraordinary density of wildlife, including lions, hippos, zebras, and the endangered black rhino. After a picnic lunch on the crater floor, ascend and transfer to Arusha for your departure.","accommodation":"None","meals":"Breakfast, Lunch"}
+      ],
+      "inclusions": ["Private 4x4 Safari Cruiser with pop-up roof","Professional English-speaking driver-guide","All park entry, concession, and crater fees","Full-board accommodation (breakfast, lunch, dinner)","Unlimited bottled water, coffee, and tea","Flying Doctors emergency evacuation cover","Game drives in Lake Manyara, Serengeti, and Ngorongoro","Airport transfers upon arrival and departure"],
+      "exclusions": ["International flights and visas","Premium alcoholic beverages","Gratuities for guide and camp staff","Travel insurance","Optional hot air balloon safari"]
+    },
+    {
+      "source_id": "ultimate-fly-in-northern-circuit",
+      "slug": "ultimate-fly-in-northern-circuit",
+      "source_url": "https://tanzaniasensational.com/safaris/packages/ultimate-fly-in-northern-circuit",
+      "title": "Ultimate Fly-in Northern Circuit Safari",
+      "excerpt": "An exclusive fly-in safari that maximizes your time in Tanzania's most iconic wilderness areas. Skip the long road transfers and soar above the Great Rift Valley, touching down directly into the heart of the Serengeti ecosystem. This compact yet complete Northern Circuit experience delivers big-game encounters, crater-floor drama, and the ancient baobab landscapes of Tarangire—all without the rush.",
+      "badge": "SIGNATURE",
+      "duration": "4 Days",
+      "parks": "Serengeti • Ngorongoro • Tarangire",
+      "price": "From $2,400 per person",
+      "hero_url": "https://tanzaniasensational.com/storage/safari-packages/OE8neKtMlYFpRxCbbCio1MdMFNskqgvgMX7uNBr2.jpg",
+      "overview": "An exclusive fly-in safari that maximizes your time in Tanzania's most iconic wilderness areas. Skip the long road transfers and soar above the Great Rift Valley, touching down directly into the heart of the Serengeti ecosystem. This compact yet complete Northern Circuit experience delivers big-game encounters, crater-floor drama, and the ancient baobab landscapes of Tarangire—all without the rush.",
+      "itinerary": [
+        {"day":1,"title":"Arrival & Fly to Central Serengeti","description":"Upon arrival at Kilimanjaro International Airport, you will be met by your private guide and transferred to the Arusha airstrip for a spectacular light aircraft flight over the Rift Valley into the heart of the Serengeti. Touch down on the endless plains and enjoy your first afternoon game drive, tracking lion prides and resident cheetah as the golden light spills across the savanna. Settle into your luxury camp for a three-night stay.","accommodation":"Safari Haven","meals":"Lunch, Dinner"},
+        {"day":2,"title":"Full-Day Serengeti Exploration","description":"An early start takes you deep into the Serengeti National Park, following the migratory herds and their attendant predators. Your guide will navigate the vast plains, kopjes, and riverine forests in search of the Big Five. Enjoy a picnic lunch in the shade of an acacia grove before continuing your afternoon exploration. Return to camp as the sun sets, painting the sky in shades of amber and crimson.","accommodation":"Safari Haven","meals":"Breakfast, Lunch, Dinner"},
+        {"day":3,"title":"Ngorongoro Crater Descent","description":"After breakfast, depart the Serengeti and journey to the Ngorongoro Conservation Area. Descend 600 meters into the Ngorongoro Crater—a UNESCO World Heritage Site and one of Africa's most extraordinary wildlife arenas. The crater floor is a self-contained ecosystem teeming with hippos, flamingos, hyenas, and the densest population of lions in Africa. A full afternoon is spent exploring this natural wonder before ascending to your lodge perched on the crater rim.","accommodation":"Farm of Dreams Lodge","meals":"Breakfast, Lunch, Dinner"},
+        {"day":4,"title":"Tarangire National Park & Departure","description":"Your final safari day begins with a morning drive through the baobab-dotted landscape of Tarangire National Park. Known for its massive elephant herds and iconic ancient baobab trees, Tarangire offers a fitting finale to your Northern Circuit adventure. After a final game drive and picnic lunch, you will be transferred back to Arusha and onward to Kilimanjaro International Airport for your departure flight.","accommodation":"None","meals":"Breakfast, Lunch"}
+      ],
+      "inclusions": ["Private 4x4 Safari Cruiser with pop-up roof","Professional English-speaking driver-guide","All park entry, concession, and crater fees","Full-board accommodation (breakfast, lunch, dinner)","Unlimited bottled water, coffee, and tea","Flying Doctors emergency evacuation cover","Game drives in Serengeti, Ngorongoro, and Tarangire","Airport transfers upon arrival and departure"],
+      "exclusions": ["International flights and visas","Premium alcoholic beverages","Gratuities for guide and camp staff","Travel insurance","Optional hot air balloon safari"]
+    }
+  ]
+}

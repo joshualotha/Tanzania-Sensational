@@ -40,7 +40,7 @@ capture console/network evidence and correlate it with current staging logs;
 ## Backups
 
 Backups are stored outside the public web root. Each dated backup directory must
-be mode `700`; backup files must be mode `600`. Include:
+be mode `700`; Backup files—including `SHA256SUMS`—must be mode `600`. Include:
 
 - `database.sql` — a non-empty, readable timestamped WordPress database export
 - `custom-plugins.tgz` — a timestamped archive of the custom Tanzania Sensational plugin
@@ -215,6 +215,129 @@ The initial staging import was applied on 2026-10-28. The 2026-10-29 idempotent
 cache-refresh apply and live lock probe are recorded in `BUILD-STATUS.md`; the
 verified release and backup paths are preserved there. Production remains
 read-only.
+
+## Source-backed safari package additions
+
+The importer creates only the two source-verified tour records:
+`ultimate-fly-in-northern-circuit` (SIGNATURE, 4 Days, Serengeti • Ngorongoro •
+Tarangire, `From $2,400` per person) then `expected-wildlife-serengeti`
+(CLASSIC, 4 Days, Manyara • Serengeti • Ngorongoro, `From $2,200` per person).
+Starting-price labels remain strings; do not coerce them to numeric values or
+copy the broken source links `/safaris/packages/1`, `/2`, or `/3`. The malformed
+source exclusion `Optional hot air balloon safari ( pp)` is retained only as
+`Optional hot air balloon safari`; the source amount is missing and no price is
+to be inferred.
+
+The source `/safaris/packages` body currently renders exactly those two cards.
+The separate staging acceptance is owner-preserving: keep published tour posts
+12–14 byte-for-byte unchanged and have the existing `/safaris/packages` CPT
+archive display all five cards, with the two new source cards first. This
+five-card staging target is not a claim that the current source body shows five.
+The source `/safaris` landing body has no package-card row or package CTA; its
+“Featured Packages” link is global navigation and must not be added to the page
+body. Preserve the source counters, nine destination cards, testimonial,
+“Experience That Speaks.” section, two benefit cards, and contact CTA.
+
+Package hero media is restricted to the exact per-slug URL allowlist in the
+importer. It uses WordPress's safe HTTP client with redirects disabled and an
+8 MB response cap, verifies `image/jpeg` plus the decoded JPEG format and
+bounded dimensions, then sideloads through WordPress's media APIs. The image
+field stores the resulting attachment ID (not the source URL); attachment
+ownership metadata records the source URL, package slug, and SHA-256 content
+hash. A resumed import reuses only a matching owned file and verifies the hash.
+On package failure the importer removes the new attachment and its generated
+files; if cleanup cannot be verified, it leaves a private draft reservation and
+stops for manual recovery.
+
+Run a read-only staging preflight first:
+
+```sh
+wp --path=/home/tanzhihb/test.tanzaniasensational.com \
+  --require=/home/tanzhihb/ts-migration-releases/<release-id>/import/safari-package-import-cli.php \
+  ts safari-packages import
+```
+
+The read-only preflight must show only the two approved package creates (or
+verified unchanged records), a `replace` or verified `unchanged` landing action,
+nine exact published destination mappings, and a landing snapshot SHA-256.
+It gates on the exact HTTPS staging origin, `blog_public=0`, exact post type /
+slug / published status for each destination, all ACF field and repeater
+subfield schemas, unique ownership, snapshot integrity, and editor-drift checks.
+An unowned slug, ambiguous destination, changed snapshot, or unexpected package
+state is a hard stop. Confirm the output and use its `landing.snapshot_hash` in
+the apply command; the apply recomputes the full post/meta snapshot before any
+write and refuses if it differs.
+
+Before apply, create a fresh dated backup outside the public root, within the
+last 24 hours, with `database.sql`, `custom-plugins.tgz`, plugin/theme
+inventories, and `SHA256SUMS`. Require directory/file modes 700/600, readable
+SQL, valid archive integrity, and matching hashes. Apply requires administrator
+capability, `--apply --confirm-staging-write`, that backup, and InnoDB `posts`
+and `postmeta` tables. Do not change production. After the backup is verified, deploy
+only the reviewed staging plugin files `staging-plugin/tanzania-sensational-design.php`
+and `staging-plugin/safari-landing.css` into the existing
+`/home/tanzhihb/test.tanzaniasensational.com/wp-content/plugins/tanzania-sensational-design/`
+plugin directory, following the bounded release/hash-check procedure above.
+Copy `safari-package-importer.php`, `safari-package-import-cli.php`,
+`safari-package-import-manifest.json`, and `safari-landing-manifest.json` into
+`/home/tanzhihb/ts-migration-releases/<release-id>/import/`. Run PHP lint,
+`wp core verify-checksums`, and the read-only preflight after code deployment;
+if the released importer or stylesheet differs from the reviewed files, stop.
+
+```sh
+wp --path=/home/tanzhihb/test.tanzaniasensational.com \
+  --user=<verified-staging-admin-id> \
+  --require=/home/tanzhihb/ts-migration-releases/<release-id>/import/safari-package-import-cli.php \
+  ts safari-packages import --apply --confirm-staging-write \
+  --backup-dir=/home/tanzhihb/ts-migration-backups/<backup-id> \
+  --landing-snapshot-hash=<sha256-from-preflight>
+```
+
+WP-CLI defaults to user ID 0. Supply the independently verified staging
+administrator ID on every apply and rollback command so the importer can verify
+`current_user_can('manage_options')` before a write.
+
+If an approved restore is required after apply, create and verify a fresh staging
+backup, then restore page 27 from the retained private draft clone:
+
+```sh
+wp --path=/home/tanzhihb/test.tanzaniasensational.com \
+  --user=<verified-staging-admin-id> \
+  --require=/home/tanzhihb/ts-migration-releases/<release-id>/import/safari-package-import-cli.php \
+  ts safari-packages rollback-landing --apply --confirm-staging-write \
+  --backup-dir=/home/tanzhihb/ts-migration-backups/<fresh-backup-id> \
+  --backup-id=<private-draft-clone-post-id> \
+  --snapshot-hash=<original-page-snapshot-sha256>
+```
+
+Rollback checks the fresh backup, administrator capability, transactional InnoDB
+tables, exact HTTPS staging origin, noindex state, full managed page/meta hash,
+and locked in-transaction state before restoring. It refuses on any editor drift;
+retain the clone and investigate rather than overwriting newer edits.
+
+The CLI creates/reads back each package transactionally first; only after both
+records plan `unchanged` does it clone page 27's full post and all meta (including
+the Elementor tree) into a private draft, verify that clone, then replace page
+27 within a transaction and remove Elementor rendering metadata from the live
+page. If rollback cannot be proved by a full read-back, the page is quarantined
+as a draft and the run stops for manual recovery. Packages are per-record, not
+batch-atomic: after interruption, completed packages must plan `unchanged`,
+only remaining records may plan `create`, and landing must still plan `replace`.
+The landing is applied last; a package-loop failure must leave the landing
+untouched. WordPress hooks can have external side effects that DB rollback does
+not reverse; stop and inspect those separately if an apply fails.
+
+Post-apply read-back requires both package records unchanged, landing page 27
+owned and unchanged with a verified private backup, exactly five published
+archive cards in source-first/legacy-preserving order, and legacy IDs 12–14
+hash-identical. The local tests exercise exact prepared slug collisions,
+rollback/quarantine, drift, and resume logic with stubs; they do not establish
+real database gap-lock behavior. Do not mark route parity verified until the
+staging apply, exact route read-back, and real-browser checks pass.
+
+The existing `ts_tour` archive rewrite and single-tour Elementor template remain
+unchanged. The importer performs the guarded page-27 write through its CLI; it
+does not claim route parity until staging and browser verification finish.
 
 ## Blog posts, archive, and Elementor template
 

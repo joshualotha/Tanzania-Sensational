@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "source_url": "https://tanzaniasensational.com/safaris",
+  "eyebrow": "The Expedition Collective",
+  "h1": "Into the Untamed.",
+  "intro": "Architecting bespoke, uncompromising wilderness journeys across East Africa's most legendary landscapes.",
+  "hero_image": "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=2000&q=85&auto=format&fit=crop",
+  "metrics": [
+    {"value":"0","label":"NATIONAL PARKS"},
+    {"value":"0+","label":"GUIDED EXPEDITIONS"},
+    {"value":"0","label":"BOUTIQUE CAMPS"},
+    {"value":"0+","label":"SPECIES CATALOGED"}
+  ],
+  "destinations": [
+    {"tag":"THE GREAT MIGRATION","title":"Serengeti","description":"The Serengeti is arguably the most famous wildlife sanctuary in the world, unequalled in its natural...","slug":"serengeti","source_url":"https://tanzaniasensational.com/safaris/destinations/serengeti","image":"https://tanzaniasensational.com/storage/destinations/iN2AJLH6qGrXROyPpNDmVDH56nw6fn5Z7di3BReU.jpg","alt":"Serengeti — Tanzania safari destination with wildlife and landscapes"},
+    {"tag":"UNESCO CALDERA","title":"Ngorongoro Crater","description":"Often referred to as the 'Eighth Wonder of the World,' the Ngorongoro Crater is a breathtaking natur...","slug":"ngorongoro","source_url":"https://tanzaniasensational.com/safaris/destinations/ngorongoro","image":"https://tanzaniasensational.com/storage/destinations/uM0eELO7KmOhaNpXL5imJmlduSCJP8DdOt448BZt.jpg","alt":"Ngorongoro Crater — Tanzania safari destination with wildlife and landscapes"},
+    {"tag":"ELEPHANT REALM","title":"Tarangire","description":"Tarangire is the quiet giant of the northern circuit. Dominated by the serpentine path of the Tarang...","slug":"tarangire","source_url":"https://tanzaniasensational.com/safaris/destinations/tarangire","image":"https://tanzaniasensational.com/storage/destinations/7JLk0EEMPmSPMNrMXQxwmmIN43ruF7HoAWUlzRzA.jpg","alt":"Tarangire — Tanzania safari destination with wildlife and landscapes"},
+    {"tag":"ALPINE MAJESTY","title":"Mount Kilimanjaro","description":"Rising majestically from the African plains, Mount Kilimanjaro is a dormant volcano and the highest ...","slug":"kilimanjaro","source_url":"https://tanzaniasensational.com/safaris/destinations/kilimanjaro","image":"https://tanzaniasensational.com/storage/destinations/1RFdWTsjKoD6DMO0WsTQIO0JTKxSDKrAzB6Jpygq.jpg","alt":"Mount Kilimanjaro — Tanzania safari destination with wildlife and landscapes"},
+    {"tag":"RIFT VALLEY JEWEL","title":"Lake Manyara","description":"Described by Ernest Hemingway as 'the loveliest I had seen in Africa,' Lake Manyara National Park is...","slug":"lake-manyara","source_url":"https://tanzaniasensational.com/safaris/destinations/lake-manyara","image":"https://tanzaniasensational.com/storage/destinations/aB8lrVjgmbOEMsNOiMTzraKZBASmvVx1OcC0VXSC.jpg","alt":"Lake Manyara — Tanzania safari destination with wildlife and landscapes"},
+    {"tag":"SWAHILI PARADISE","title":"Zanzibar","description":"Floating off the coast of mainland Tanzania, the Zanzibar Archipelago is a tropical paradise steeped...","slug":"zanzibar","source_url":"https://tanzaniasensational.com/safaris/destinations/zanzibar","image":"https://tanzaniasensational.com/storage/destinations/0VQX7YKtWYPc96KCmuaV6MAaaAv0kdQ6PUuPPDI0.jpg","alt":"Zanzibar — Tanzania safari destination with wildlife and landscapes"},
+    {"tag":"SOUTHERN WILDERNESS","title":"Ruaha National Park","description":"Ruaha National Park is a massive, untamed stretch of wilderness in Southern Tanzania. It is renowned...","slug":"ruaha","source_url":"https://tanzaniasensational.com/safaris/destinations/ruaha","image":"https://tanzaniasensational.com/storage/destinations/1aSUmPG8kM1sshnOiuo5x2LlBzRxiNjxO0RvkXvo.jpg","alt":"Ruaha National Park — Tanzania safari destination with wildlife and landscapes"},
+    {"tag":"RIVERINE MIGHT","title":"Nyerere National Park","description":"Formerly the northern part of the Selous Game Reserve, Nyerere National Park is spectacularly expans...","slug":"nyerere","source_url":"https://tanzaniasensational.com/safaris/destinations/nyerere","image":"https://tanzaniasensational.com/storage/destinations/Kytt2WqUUHpFiT935Zty4gRFhBorHsXXi3JUEyBJ.jpg","alt":"Nyerere National Park — Tanzania safari destination with wildlife and landscapes"},
+    {"tag":"CHIMPANZEE SANCTUARY","title":"Mahale Mountains","description":"Tucked away in the far west of Tanzania, Mahale Mountains National Park is breathtakingly isolated. ...","slug":"mahale","source_url":"https://tanzaniasensational.com/safaris/destinations/mahale","image":"https://images.unsplash.com/photo-1520114878144-6123749968dd?w=2000&q=85&auto=format&fit=crop","alt":"Mahale Mountains — Tanzania safari destination with wildlife and landscapes"}
+  ],
+  "testimonial": {"quote":"Watching the Serengeti sunrise from our balloon, followed by a champagne breakfast seamlessly prepared in the bush, felt like a dream.","attribution":"SARAH & JAMES W. • LONDON, UK"},
+  "difference_image": "https://images.unsplash.com/photo-1650668302197-7f556c34cb91?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80",
+  "benefits": [
+    {"number":"01","title":"Architected Itineraries","description":"Every detail is painstakingly considered—from specialized wildlife mapping to custom cuisine."},
+    {"number":"02","title":"Locally Born Mastery","description":"Our architects were raised here. We don't just guide—we live it."}
+  ],
+  "journey_cta": {"label":"INITIALIZE YOUR JOURNEY","url":"/contact"},
+  "source_observations": {"source_landing_package_cards":0,"second_image_section":"The Difference / Experience That Speaks.","hero_image_verified_loaded":true,"difference_image_verified_loaded":true,"destination_images_source_origin":"https://tanzaniasensational.com/storage/destinations/"}
+}
