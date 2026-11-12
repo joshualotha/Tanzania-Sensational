@@ -331,9 +331,25 @@ Post-apply read-back requires both package records unchanged, landing page 27
 owned and unchanged with a verified private backup, exactly five published
 archive cards in source-first/legacy-preserving order, and legacy IDs 12–14
 hash-identical. The local tests exercise exact prepared slug collisions,
-rollback/quarantine, drift, and resume logic with stubs; they do not establish
-real database gap-lock behavior. Do not mark route parity verified until the
-staging apply, exact route read-back, and real-browser checks pass.
+rollback/quarantine, drift, and resume logic with stubs; they do not prove live
+locking. A separate staging probe on 2026-11-12 verified the package lookup path:
+MariaDB `11.4.13-MariaDB-cll-lve`; `wpjn_posts` is InnoDB with a BTREE
+`post_name` index (191-character prefix). Connection A ran the following under
+`REPEATABLE READ`, inserted a transient draft, and held the transaction:
+
+```sql
+SELECT ID FROM wpjn_posts FORCE INDEX (post_name)
+WHERE post_name='<unique-probe-slug>' AND post_type='ts_tour'
+LIMIT 1 FOR UPDATE;
+```
+
+Independent connection B ran the same locked lookup; it waited 12.39 seconds,
+then read the committed draft (`ID 134`) after A committed. The exact probe row
+was removed, a separate query confirmed no matching slug remained, and the
+`wpjn_posts` count was 120 afterward. This verifies the second-lookup/readback
+path for an inserted slug, not two simultaneous full importer runs or the
+complete package apply. Do not mark route parity verified until the staging
+apply, exact route read-back, and real-browser checks pass.
 
 The existing `ts_tour` archive rewrite and single-tour Elementor template remain
 unchanged. The importer performs the guarded page-27 write through its CLI; it
