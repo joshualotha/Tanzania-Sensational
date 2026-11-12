@@ -288,8 +288,12 @@ and `staging-plugin/safari-landing.css` into the existing
 `/home/tanzhihb/test.tanzaniasensational.com/wp-content/plugins/tanzania-sensational-design/`
 plugin directory, following the bounded release/hash-check procedure above.
 Copy `safari-package-importer.php`, `safari-package-import-cli.php`,
-`safari-package-import-manifest.json`, and `safari-landing-manifest.json` into
-`/home/tanzhihb/ts-migration-releases/<release-id>/import/`. Run PHP lint,
+`safari-package-import-manifest.json`, `safari-landing-manifest.json`,
+`safari-image-seed-importer.php`, and `safari-image-seed-manifest.json` into
+`/home/tanzhihb/ts-migration-releases/<release-id>/import/`. The package
+landing planner shares the image-seed helper/manifest to recognize the exact
+owned local-media state, so deploy these companion files atomically with the
+package importer. Run PHP lint,
 `wp core verify-checksums`, and the read-only preflight after code deployment;
 if the released importer or stylesheet differs from the reviewed files, stop.
 
@@ -371,6 +375,138 @@ apply, exact route read-back, and real-browser checks pass.
 The existing `ts_tour` archive rewrite and single-tour Elementor template remain
 unchanged. The importer performs the guarded page-27 write through its CLI; it
 does not claim route parity until staging and browser verification finish.
+
+## Source-exact safari image seed
+
+The separate `ts safari-images seed` command imports only the eleven JPEGs
+present on the verified `/safaris` source page: its hero and difference images,
+plus the nine exact destination-card images. It stores owned attachment IDs on
+the nine existing destination records, clears only their exact matching source
+URL overrides in the same transaction, and rewrites the landing markup to the
+verified local media URLs while preserving the source alt text. Legacy tour
+posts 12–14 are out of scope. The apply requires the existing published landing
+to be owned and unchanged, records raw `postmeta` rows plus full post state for
+the landing and all destination targets in a private draft clone. It verifies
+all reads before commit. A per-site MySQL advisory writer lock serializes media
+preparation, apply, and rollback so two operators cannot race to create duplicate
+seed attachments; page and destination post/meta rows are also locked under
+`REPEATABLE READ`. The clone hash is returned as
+`image_seed_backup_hash`; the post-apply managed hash is returned as
+`managed_hash`.
+
+On 2026-11-12, two independent WP-CLI connections on the exact staging site
+exercised this image-seed advisory lock: the holder acquired it, held six seconds,
+and released it; the contender blocked for 3.219 seconds, then acquired and
+released it. This validates the named advisory-writer-lock path only.
+
+The same day, separate WP-CLI connections validated the two row-lock query paths
+used by the image seed. On temporary draft page 176, both set
+`REPEATABLE READ`; the holder held each lock for nine seconds while the contender
+blocked and read back the row:
+
+- `wpjn_posts.PRIMARY`: `SELECT ID FROM wpjn_posts WHERE ID=176 FOR UPDATE` —
+  contender waited 6.228 seconds and returned ID 176.
+- `wpjn_postmeta.post_id`: `SELECT meta_id FROM wpjn_postmeta WHERE post_id=176 ORDER BY meta_id FOR UPDATE` —
+  contender waited 6.089 seconds and read two metadata rows.
+
+The temporary draft and its metadata rows were deleted; absence was verified.
+This proves blocking for these exact row queries, not concurrent full importer
+apply/rollback behavior.
+
+After code review and a fresh private staging backup, copy
+`safari-image-seed-importer.php`, `safari-image-seed-import-cli.php`,
+`safari-image-seed-manifest.json`, `safari-package-importer.php`,
+`safari-landing-manifest.json`, and the required shared package runtime files
+into the release `import/` directory. Run the read-only plan first:
+
+```sh
+wp --path=/home/tanzhihb/test.tanzaniasensational.com \
+  --require=/home/tanzhihb/ts-migration-releases/<release-id>/import/safari-image-seed-import-cli.php \
+  ts safari-images seed
+```
+
+It must report the exact eleven source assets, nine destination targets, and a
+`managed_hash`; stop on any changed ownership hash, editor drift, source URL
+mismatch, non-owned media collision, or unexpected destination identity. The
+apply is a separately authorized staging write and must use the latest hash from
+that dry-run, a verified fresh backup, and the verified admin ID:
+
+```sh
+wp --path=/home/tanzhihb/test.tanzaniasensational.com \
+  --user=<verified-staging-admin-id> \
+  --require=/home/tanzhihb/ts-migration-releases/<release-id>/import/safari-image-seed-import-cli.php \
+  ts safari-images seed --apply --confirm-staging-write \
+  --backup-dir=/home/tanzhihb/ts-migration-backups/<backup-id> \
+  --managed-hash=<sha256-from-image-seed-dry-run>
+```
+
+After apply, require all eleven owned attachments to match the exact source URL,
+content hash, and alt; all nine ACF image fields to resolve to the owned
+attachment IDs; all nine competing source URL overrides to be empty; the
+landing markup to use only local media; and both image-seed and landing plans to
+read back `unchanged`. Then perform the rendered staging/browser checks before
+claiming image parity. No production write is authorized by this procedure.
+
+### Staging image-seed apply evidence — 2026-11-12
+
+- Target: `https://test.tanzaniasensational.com/safaris/`; `blog_public=0`,
+  browser robots `noindex, nofollow`, staging administrator ID 1 had
+  `manage_options`, and `wp_posts`/`wp_postmeta` were InnoDB.
+- Private release: `/home/tanzhihb/ts-migration-releases/staging-20261112T181102Z-safari-image-seed-v3/`.
+  The five deployed import files matched local SHA-256 values; all three PHP
+  files passed `php -l`.
+- Fresh pre-write backup:
+  `/home/tanzhihb/ts-migration-backups/staging-20261112T181102Z-pre-safari-image-seed-v3`.
+  Directory/files were mode 700/600; all four payload hashes verified; SQL was
+  readable (2,714,882 bytes, 39 `CREATE TABLE`, 18 `INSERT`, standard dump
+  trailer); gzip/tar integrity passed (71 entries across both custom plugins).
+  Isolated restore rehearsal was not performed; owner approval to proceed without
+  it is recorded in the project ledger.
+- Dry-run hash before apply:
+  `72756126114db4e0c98eff7be8d8f581f6bb51f85081bd18e53667708cea6655`.
+  It found the eleven already-owned attachments (IDs 164–174) unchanged, nine
+  destination image fields to seed, landing page 27 to seed, and no legacy-tour
+  changes.
+- Apply returned `seeded`: 11 assets, 9 destination fields, landing page 27.
+  Preservation clone ID 177 has hash
+  `de6981177070fa5e86b15d4bfba038f61969821865eac1490debfa6629d1c246`; final
+  managed hash is
+  `fd29e9a677b1fd2568f48ce13303efdaeec04ab7db2b66a6acb22238460faf4e`.
+  Importer readback and route readback both reported `unchanged`. A fresh dry-run
+  confirmed all 11 assets, all nine destinations, and page 27 as `unchanged`.
+- Browser verification at desktop 1280×900, tablet 768×1024, and phone 390×844
+  found no horizontal overflow. All eleven exact-manifest alt texts rendered
+  from local `/wp-content/uploads/2026/11/` images; every image completed with
+  `naturalWidth > 0`. Hero and difference images used `object-fit: cover`.
+  Staging remained noindex. Production was not accessed for writes.
+- `wp core verify-checksums` passed but warned of an existing extra
+  `wp-admin/error_log` (mode 644, 706 bytes). Its public path returned `200
+  text/html` with a 745-byte body, not the file's 706-byte length; direct file
+  exposure was not established. It was left untouched for separate review.
+
+The operator rollback is separate and requires the returned seed-clone ID/hash
+and the post-apply managed hash, plus a fresh verified backup, administrator,
+explicit confirmation, exact staging origin, noindex, and InnoDB tables:
+
+```sh
+wp --path=/home/tanzhihb/test.tanzaniasensational.com \
+  --user=<verified-staging-admin-id> \
+  --require=/home/tanzhihb/ts-migration-releases/<release-id>/import/safari-image-seed-import-cli.php \
+  ts safari-images rollback --confirm-staging-write \
+  --backup-dir=/home/tanzhihb/ts-migration-backups/<fresh-backup-id> \
+  --backup-id=<image-seed-private-clone-id> \
+  --backup-hash=<image-seed-backup-hash-from-apply> \
+  --managed-hash=<post-apply-managed-hash>
+```
+
+Rollback locks and verifies the live landing plus all nine destination records,
+restores their exact post fields/raw metadata and ACF image fields from the
+verified clone, and checks both the restored records and retained clone before
+commit. It deliberately retains verified image attachments for safe re-apply;
+it does not delete upload files. Any drift or incomplete read-back stops the
+operation; if transactional recovery cannot be proven, the landing is
+quarantined as a draft. Unit tests with the WordPress stubs do not prove live
+database lock blocking or replace the staging backup and browser checks.
 
 ## Blog posts, archive, and Elementor template
 
