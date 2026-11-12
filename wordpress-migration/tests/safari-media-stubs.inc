@@ -77,7 +77,7 @@ if (!function_exists('add_post_meta')) {
     }
 }
 if (!function_exists('wp_generate_attachment_metadata')) {
-    function wp_generate_attachment_metadata($id, $file) { $image=getimagesize($file); $thumb=dirname($file).'/thumb-'.basename($file); if(!copy($file,$thumb))return false; return ['file' => basename($file), 'width' => $image[0] ?? 0, 'height' => $image[1] ?? 0, 'sizes' => ['thumbnail'=>['file'=>basename($thumb)]]]; }
+    function wp_generate_attachment_metadata($id, $file) { $image=getimagesize($file); $thumb=dirname($file).'/thumb-'.basename($file); if(!copy($file,$thumb))return false; $metadata=['file' => basename($file), 'width' => $image[0] ?? 0, 'height' => $image[1] ?? 0, 'sizes' => ['thumbnail'=>['file'=>basename($thumb)]]];if(!empty($GLOBALS['safari_premature_attachment_metadata']))$GLOBALS['safari_meta'][$id]['_wp_attachment_metadata']=$metadata;return $metadata; }
 }
 if (!function_exists('wp_upload_dir')) {
     function wp_upload_dir($time = null, $create_dir = true, $refresh_cache = false) { return ['basedir' => $GLOBALS['safari_upload_root'], 'baseurl' => 'https://test.invalid/uploads', 'path' => $GLOBALS['safari_upload_root'], 'url' => 'https://test.invalid/uploads', 'error' => false]; }
@@ -86,5 +86,5 @@ if (!function_exists('wp_get_attachment_metadata')) {
     function wp_get_attachment_metadata($id) { return $GLOBALS['safari_meta'][$id]['_wp_attachment_metadata'] ?? false; }
 }
 if (!function_exists('wp_update_attachment_metadata')) {
-    function wp_update_attachment_metadata($id, $metadata) { return update_post_meta($id, '_wp_attachment_metadata', $metadata); }
+    function wp_update_attachment_metadata($id, $metadata) { if(!empty($GLOBALS['safari_fail_attachment_metadata_update']))return false;if(($GLOBALS['safari_meta'][$id]['_wp_attachment_metadata']??null)===$metadata)return false;return update_post_meta($id, '_wp_attachment_metadata', $metadata); }
 }

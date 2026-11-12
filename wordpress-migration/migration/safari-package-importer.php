@@ -39,11 +39,11 @@ function ts_safari_unlink_upload_file(string $file): void {
     try{$base=ts_safari_hero_upload_base();$real=realpath($file);if(is_string($real)&&str_starts_with($real,$base.DIRECTORY_SEPARATOR)&&is_file($real))@unlink($real);}catch(Throwable $ignored){}
 }
 
-function ts_safari_cleanup_new_hero_attachment(int $attachment_id,string $file): void {
+function ts_safari_cleanup_new_hero_attachment(int $attachment_id,string $file,array $known_metadata=[]): void {
     $post=get_post($attachment_id);$base=ts_safari_hero_upload_base();$real=is_file($file)?realpath($file):false;
     if(($post&&($post->post_type??'')!=='attachment')||!is_string($real)||!str_starts_with($real,$base.DIRECTORY_SEPARATOR))throw new RuntimeException('Safari hero cleanup refused an unverified attachment path.');
     $files=[$real];$metadata=function_exists('wp_get_attachment_metadata')?wp_get_attachment_metadata($attachment_id):false;
-    if(is_array($metadata)){if(!empty($metadata['original_image']))$files[]=dirname($real).DIRECTORY_SEPARATOR.basename($metadata['original_image']);foreach($metadata['sizes']??[] as $size)if(!empty($size['file']))$files[]=dirname($real).DIRECTORY_SEPARATOR.basename($size['file']);}
+    foreach([$metadata,$known_metadata] as $media_metadata)if(is_array($media_metadata)){if(!empty($media_metadata['original_image']))$files[]=dirname($real).DIRECTORY_SEPARATOR.basename($media_metadata['original_image']);foreach($media_metadata['sizes']??[] as $size)if(!empty($size['file']))$files[]=dirname($real).DIRECTORY_SEPARATOR.basename($size['file']);}
     $deleted=wp_delete_attachment($attachment_id,true);
     if($deleted===false&&get_post($attachment_id))throw new RuntimeException('Safari hero attachment cleanup failed; owned draft requires manual recovery.');
     foreach(array_unique($files) as $path)if(is_file($path)&&!@unlink($path))throw new RuntimeException('Safari hero file cleanup failed; owned artifact requires manual recovery.');
@@ -75,13 +75,17 @@ function ts_safari_sideload_hero(string $url,string $slug): array {
     $file=realpath($handled['file']);$upload_base=ts_safari_hero_upload_base();if(!is_string($file)||!str_starts_with($file,$upload_base.DIRECTORY_SEPARATOR))throw new RuntimeException('Sideloaded safari hero path is outside the WordPress upload directory.');$stored_hash=hash_file('sha256',$file);if(!is_string($stored_hash)||!hash_equals($hash,$stored_hash)){if(is_file($file))@unlink($file);throw new RuntimeException('Sideloaded safari hero content verification failed.');}
     $id=wp_insert_attachment(['post_mime_type'=>'image/jpeg','post_title'=>sanitize_file_name(basename($u['path'])),'post_status'=>'draft','post_parent'=>0],$file,0,true);
     if(is_wp_error($id)||!is_numeric($id)||(int)$id<1){if(is_file($file))@unlink($file);throw new RuntimeException('Could not create safari hero attachment row.');}$id=(int)$id;
+    $generated_metadata=[];
     try {
         foreach(['_ts_safari_image_owner'=>'approved-safari-package-import-v1','_ts_safari_image_source'=>$url,'_ts_safari_image_package'=>$slug,'_ts_safari_image_hash'=>$hash,'_ts_safari_image_state'=>'reserved'] as $key=>$value)if(!add_post_meta($id,$key,$value,true))throw new RuntimeException('Could not store safari hero ownership metadata: '.$key);
-        $metadata=wp_generate_attachment_metadata($id,$file);if(!is_array($metadata)||$metadata===[]||(int)($metadata['width']??0)!==(int)$image[0]||(int)($metadata['height']??0)!==(int)$image[1]||wp_update_attachment_metadata($id,$metadata)===false)throw new RuntimeException('Could not create or verify safari hero attachment metadata.');
-        $verified=ts_safari_verify_hero_attachment($id,$url,$slug);if(($verified['sha256']??'')!==$hash||get_post_meta($id,'_ts_safari_image_state',true)!=='reserved'||(int)($metadata['width']??1)<1||(int)($metadata['height']??1)<1)throw new RuntimeException('Safari hero attachment ownership read-back failed.');
+        $generated_metadata=wp_generate_attachment_metadata($id,$file);if(!is_array($generated_metadata)||$generated_metadata===[]||(int)($generated_metadata['width']??0)!==(int)$image[0]||(int)($generated_metadata['height']??0)!==(int)$image[1])throw new RuntimeException('Could not generate valid safari hero attachment metadata.');
+        wp_update_attachment_metadata($id,$generated_metadata);$stored_metadata=wp_get_attachment_metadata($id);
+        if(!is_array($stored_metadata)||(int)($stored_metadata['width']??0)!==(int)$image[0]||(int)($stored_metadata['height']??0)!==(int)$image[1]||($stored_metadata['file']??null)!==($generated_metadata['file']??null)||!is_array($stored_metadata['sizes']??null))throw new RuntimeException('Could not persist or verify safari hero attachment metadata.');
+        foreach($generated_metadata['sizes']??[] as $size=>$details){$size_file=$details['file']??null;if(!is_string($size_file)||($stored_metadata['sizes'][$size]['file']??null)!==$size_file||!is_file(dirname($file).DIRECTORY_SEPARATOR.basename($size_file)))throw new RuntimeException('Could not verify generated safari hero image size: '.$size);}
+        $verified=ts_safari_verify_hero_attachment($id,$url,$slug);if(($verified['sha256']??'')!==$hash||get_post_meta($id,'_ts_safari_image_state',true)!=='reserved'||(int)($generated_metadata['width']??1)<1||(int)($generated_metadata['height']??1)<1)throw new RuntimeException('Safari hero attachment ownership read-back failed.');
         return ['id'=>$id,'created'=>true,'sha256'=>$hash,'file'=>$file];
     } catch(Throwable $e) {
-        try{ts_safari_cleanup_new_hero_attachment($id,$file);}catch(Throwable $cleanup){throw new RuntimeException($e->getMessage().' (new owned attachment cleanup is unverified; manual recovery required)',0,$cleanup);}
+        try{ts_safari_cleanup_new_hero_attachment($id,$file,is_array($generated_metadata)?$generated_metadata:[]);}catch(Throwable $cleanup){throw new RuntimeException($e->getMessage().' (new owned attachment cleanup is unverified; manual recovery required)',0,$cleanup);}
         throw $e;
     }
 }
