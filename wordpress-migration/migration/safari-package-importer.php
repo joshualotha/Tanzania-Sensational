@@ -99,14 +99,14 @@ function ts_safari_expected_fields(array $p, ?int $hero_id=null): array {
         'ts_tour_inclusions'=>array_map(static fn($x)=>['text'=>$x],$p['inclusions']), 'ts_tour_exclusions'=>array_map(static fn($x)=>['text'=>$x],$p['exclusions']),
     ];
 }
-function ts_safari_normalize_field_value(string $type, $value) {
+function ts_safari_normalize_field_value(string $type, $value, ?string $field_name=null) {
     if($type==='image')return is_numeric($value)&&(int)$value>0?(int)$value:[];
     if($type==='number'){if($value===null||$value==='')return [];return is_numeric($value)?(int)$value:$value;}
     if($type==='true_false'){if($value===null||$value==='')return [];return in_array($value,[true,1,'1','true'],true);}
     if($value===null||$value===false||$value==='')return [];
     if($type==='repeater'&&is_array($value)){
-        $schema=ts_safari_field_schema();$subtypes=[];foreach($schema as $name=>[$fieldType,$subs])if($name==='ts_tour_itinerary')$subtypes=$subs;elseif($name==='ts_tour_inclusions'||$name==='ts_tour_exclusions')$subtypes=$subs;
-        foreach($value as $i=>$row)if(is_array($row))foreach($row as $key=>$item)$value[$i][$key]=ts_safari_normalize_field_value($subtypes[$key]??'text',$item);
+        $schema=ts_safari_field_schema();$subtypes=$schema[$field_name][1]??null;if(!is_array($subtypes)||($schema[$field_name][0]??null)!=='repeater')throw new RuntimeException('Safari ACF repeater read-back requires its registered field name.');
+        foreach($value as $i=>$row)if(is_array($row)){$normalized=[];foreach($row as $key=>$item){$raw=(string)$key;$name=$raw;$subtype='text';foreach($subtypes as $subname=>$candidateType)if($raw===$subname||str_ends_with($raw,'_'.$subname)){$name=$subname;$subtype=$candidateType;break;}if(array_key_exists($name,$normalized))throw new RuntimeException('Duplicate Safari ACF repeater subfield read-back: '.$field_name.'.'.$name);$normalized[$name]=ts_safari_normalize_field_value($subtype,$item);}ksort($normalized);$value[$i]=$normalized;}
         return $value;
     }
     return $value;
@@ -115,7 +115,7 @@ function ts_safari_normalize_value($v){if($v===null||$v===false||$v==='')return 
 function ts_safari_expected_state(array $p,string $status='publish',?int $hero_id=null): array {
     return ['post_type'=>'ts_tour','post_status'=>$status,'post_name'=>$p['slug'],'post_title'=>$p['title'],'post_excerpt'=>$p['excerpt'],'post_content'=>'','fields'=>ts_safari_expected_fields($p,$hero_id)];
 }
-function ts_safari_state_hash(array $s): string {foreach($s['fields'] as $name=>$value){$type=ts_safari_field_schema()[$name][0]??'text';$s['fields'][$name]=ts_safari_normalize_field_value($type,$value);}ksort($s['fields']);$json=wp_json_encode($s,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_LINE_TERMINATORS);if(!is_string($json))throw new RuntimeException('Could not encode safari package state.');return hash('sha256',$json);}
+function ts_safari_state_hash(array $s): string {foreach($s['fields'] as $name=>$value){$type=ts_safari_field_schema()[$name][0]??'text';$s['fields'][$name]=ts_safari_normalize_field_value($type,$value,$name);}ksort($s['fields']);$json=wp_json_encode($s,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_LINE_TERMINATORS);if(!is_string($json))throw new RuntimeException('Could not encode safari package state.');return hash('sha256',$json);}
 function ts_safari_validate_manifest(array $m): void {
     if (($m['manifest_version']??null)!==1 || !isset($m['packages']) || !is_array($m['packages']) || array_column($m['packages'],'slug')!==ts_safari_allowed_slugs()) throw new RuntimeException('Safari manifest must contain exactly the two approved package slugs in order.');
     foreach ($m['packages'] as $p) {
