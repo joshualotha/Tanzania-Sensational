@@ -612,3 +612,12 @@ Chromium verified the homepage at desktop/mobile sizes and the query-selected
 booking panel; the booking CTA clipping has since been fixed and verified at the
 widths listed above. Do not treat that resolved clipping as an open defect; full
 visual comparisons and any other page-family findings remain open.
+
+## Safari landing/package staging publication — 2026-11-12
+
+- Published to the private, noindex staging origin `https://test.tanzaniasensational.com`; production was not accessed or changed. The reviewed importer release is `safari-907bc48`; local commit `907bc482dbec3230bc841b435fee7878c76deeaa` was pushed and read back from GitHub.
+- Before the staging content write, created `/home/tanzhihb/ts-migration-backups/staging-20261112T141445Z-pre-safari-landing-publish`. Verified directory mode `0700`, all five backup files `0600`, SHA256 checksums, plugin archive integrity, and a readable 2,644,951-byte SQL dump (38 `CREATE TABLE`, 18 `INSERT INTO`, completion trailer). An isolated restore rehearsal was not performed; the owner approved proceeding without it after the local Docker-context check was blocked. No retry was made.
+- WP-CLI apply/readback changed page 27 (`/safaris`) to the source-backed landing and preserved its full prior page/editor metadata in private draft clone 162. The clone and page snapshot hash are `c22972fe1504fcbdc3b3db8c2d3d6624a07c8cf257d6179cb6f1aa4a96bcbe4d`. The post-apply idempotency run reports the page and both packages unchanged.
+- The existing `/safaris/packages` archive renders five cards in order: Ultimate Fly-in, Expected Wildlife, then the preserved legacy tours. Published legacy IDs 12, 13, and 14 were read back unchanged. The two source-backed package posts are IDs 159 and 156; their source hero assets were sideloaded as attachments 158 and 155 respectively.
+- Browser readback confirmed the landing H1 `Into the Untamed.`, nine unique destination card links pointing to actual staging routes, and the source hero image loaded at 2000×1337. Both package detail pages loaded the exact source hero files: Expected Wildlife 640×480 and Ultimate Fly-in 640×438. All 13 unique image URLs in the approved manifests returned HTTP 200; destination media uses source-absolute URLs, not broken staging-relative `/storage/` paths.
+- `wp core verify-checksums` passed after apply. Remaining project-wide gates are tracked separately; this route/content publication does not close the broader visual, editor/email, or article-route work.
