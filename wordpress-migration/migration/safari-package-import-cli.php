@@ -1,7 +1,7 @@
 <?php
 if (!defined('WP_CLI') || !WP_CLI) { return; }
-require_once __DIR__ . '/safari-package-importer.php';
 WP_CLI::add_command('ts safari-packages rollback-landing', static function($args,$assoc) {
+    require_once __DIR__ . '/safari-package-importer.php';
     try {
         $apply=ts_safari_parse_cli_flag($assoc,'apply');
         $confirm=ts_safari_parse_cli_flag($assoc,'confirm-staging-write');
@@ -17,6 +17,7 @@ WP_CLI::add_command('ts safari-packages rollback-landing', static function($args
     } catch(Throwable $e) { WP_CLI::error($e->getMessage()); }
 }, ['shortdesc'=>'Restore page 27 from its verified private draft clone.']);
 WP_CLI::add_command('ts safari-packages import', static function($args,$assoc) {
+    require_once __DIR__ . '/safari-package-importer.php';
     try {
         $apply=ts_safari_parse_cli_flag($assoc,'apply'); $confirm=ts_safari_parse_cli_flag($assoc,'confirm-staging-write'); $backup=(string)($assoc['backup-dir']??'');
         $landingHash=(string)($assoc['landing-snapshot-hash']??'');

@@ -1,4 +1,5 @@
 <?php
+$cliPath=realpath(__DIR__.'/../migration/safari-package-import-cli.php');$probeCode='define("WP_CLI",true);class WP_CLI{public static function add_command($name,$callback,$args=[]){}}require '.var_export($cliPath,true).';echo "BOOTSTRAP-OK";';$pipes=[];$probe=proc_open([PHP_BINARY,'-r',$probeCode],[0=>['pipe','r'],1=>['pipe','w'],2=>['pipe','w']],$pipes);if(!is_resource($probe))throw new RuntimeException('Could not exercise pre-bootstrap WP-CLI require.');fclose($pipes[0]);$probeOutput=stream_get_contents($pipes[1]);$probeError=stream_get_contents($pipes[2]);fclose($pipes[1]);fclose($pipes[2]);$probeStatus=proc_close($probe);if($probeStatus!==0||trim($probeOutput)!=='BOOTSTRAP-OK')throw new RuntimeException('Safari CLI must load safely before WordPress bootstrap; output: '.trim((string)$probeError));
 define('ABSPATH', __DIR__ . '/wordpress-root/');
 define('WP_CLI', true);
 function home_url($path = '/') { return 'https://test.tanzaniasensational.com/'; }
