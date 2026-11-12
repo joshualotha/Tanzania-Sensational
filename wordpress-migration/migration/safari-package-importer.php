@@ -167,10 +167,10 @@ function ts_safari_landing_snapshot(array $page): array {
     if (is_array($elementor) && count($elementor)===1) $elementor=$elementor[0];
     if (!is_string($elementor) || $elementor === '') throw new RuntimeException('Safari landing page has no Elementor payload to preserve.');
     $tree = json_decode($elementor, true); if (!is_array($tree)) throw new RuntimeException('Safari landing Elementor payload is not valid JSON.');
-    $archiveWidgets=[]; $walk=static function($nodes) use (&$walk,&$archiveWidgets): void { if(!is_array($nodes))return; if(($nodes['widgetType']??'')==='TS_Tour_Archive')$archiveWidgets[]=$nodes; foreach($nodes as $value)if(is_array($value))$walk($value); }; $walk($tree);
-    if(count($archiveWidgets)!==1)throw new RuntimeException('Safari landing page must contain exactly one reviewed TS_Tour_Archive widget.');
+    $archiveWidgets=[]; $walk=static function($nodes) use (&$walk,&$archiveWidgets): void { if(!is_array($nodes))return; if(($nodes['widgetType']??'')==='ts_tour_archive')$archiveWidgets[]=$nodes; foreach($nodes as $value)if(is_array($value))$walk($value); }; $walk($tree);
+    if(count($archiveWidgets)!==1)throw new RuntimeException('Safari landing page must contain exactly one reviewed ts_tour_archive widget.');
     $settings=$archiveWidgets[0]['settings']??[]; $cta=$settings['show_cta']??null;
-    if((int)($settings['count']??0)!==-1||!in_array($cta,[true,1,'1','yes','on'],true))throw new RuntimeException('Safari landing TS_Tour_Archive widget settings differ from the reviewed count=-1 / CTA-enabled state.');
+    if((int)($settings['count']??0)!==-1||!in_array($cta,[true,1,'1','yes','on'],true))throw new RuntimeException('Safari landing ts_tour_archive widget settings differ from the reviewed count=-1 / CTA-enabled state.');
     $post=$page; unset($post['meta']); ksort($post); ksort($meta);
     $snapshot = ['post'=>$post,'meta'=>$meta];
     $json = wp_json_encode($snapshot, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_LINE_TERMINATORS);
@@ -398,6 +398,12 @@ function ts_safari_parse_cli_flag(array $assoc,string $name): bool {
     if($value===false||$value===0||$value==='0'||$value==='false')return false;
     throw new RuntimeException('Safari CLI flag has an unsupported boolean value: --'.$name);
 }
+function ts_safari_apply_landing_after_archive_verification(array $manifest,array $legacy_before,callable $apply_landing): array {
+    $archive=ts_safari_verify_archive($manifest,$legacy_before);
+    $landing=$apply_landing();
+    if(!is_array($landing))throw new RuntimeException('Safari landing apply did not return a verified result.');
+    return ['archive'=>$archive,'landing'=>$landing];
+}
 function ts_safari_import_run(bool $apply=false,bool $confirm=false,string $backup='',string $landing_snapshot_hash=''): array {
     if(!defined('ABSPATH')||!function_exists('home_url'))throw new RuntimeException('Must run inside WordPress.');
     $origin=home_url('/');$public=get_option('blog_public');$admin=current_user_can('manage_options');ts_safari_validate_run_mode($apply,$confirm,$admin,$origin,$public);
@@ -414,7 +420,8 @@ function ts_safari_import_run(bool $apply=false,bool $confirm=false,string $back
     $report=['origin'=>$origin,'blog_public'=>$public,'packages'=>$plan,'landing'=>$landingPlan,'routes'=>ts_safari_expected_route_plan()];if(!$apply)return $report;
     $applied=[];foreach($manifest['packages'] as $i=>$p)$applied[]=$plan[$i]['action']==='create'?ts_safari_apply_package($p):$plan[$i];
     $verified=ts_safari_plan($manifest);foreach($verified as $item)if($item['action']!=='unchanged')throw new RuntimeException('Safari post-apply read-back did not plan unchanged: '.$item['slug']);
-    $landingResult=$landingPlan['action']==='replace'?ts_safari_apply_landing(27,$landing,$landing_snapshot_hash):$landingPlan;
+    $sequenced=ts_safari_apply_landing_after_archive_verification($manifest,$legacyBefore,static fn()=>$landingPlan['action']==='replace'?ts_safari_apply_landing(27,$landing,$landing_snapshot_hash):$landingPlan);
+    $landingResult=$sequenced['landing'];
     $archive=ts_safari_verify_archive($manifest,$legacyBefore);
     $finalLanding=ts_safari_landing_plan($landing);if($finalLanding['action']!=='unchanged')throw new RuntimeException('Safari landing post-apply ownership read-back did not plan unchanged.');
     return ['applied'=>$applied,'verification'=>$verified,'landing'=>$landingResult,'landing_verification'=>$finalLanding,'archive'=>$archive,'routes'=>ts_safari_expected_route_plan()];

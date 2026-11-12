@@ -266,7 +266,11 @@ subfield schemas, unique ownership, snapshot integrity, and editor-drift checks.
 An unowned slug, ambiguous destination, changed snapshot, or unexpected package
 state is a hard stop. Confirm the output and use its `landing.snapshot_hash` in
 the apply command; the apply recomputes the full post/meta snapshot before any
-write and refuses if it differs.
+write and refuses if it differs. After both packages are read back as unchanged,
+verify the actual archive's exact five-slug set and source-first order, and confirm
+legacy post snapshots are unchanged, before replacing page 27. Repeat the archive
+readback after the landing commit. If the pre-replacement check fails, page 27
+remains untouched; committed packages remain owned and resumable.
 
 Before apply, create a fresh dated backup outside the public root, within the
 last 24 hours, with `database.sql`, `custom-plugins.tgz`, plugin/theme

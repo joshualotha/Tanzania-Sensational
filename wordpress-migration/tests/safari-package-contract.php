@@ -33,11 +33,11 @@ foreach (ts_safari_field_schema() as $name => [$type, $subs]) { $acf_fixture['fi
 ts_safari_validate_acf_schema(static fn(string $key) => $acf_fixture[$key] ?? null);
 $bad_acf=$acf_fixture; $bad_acf['field_ts_tour_itinerary']['sub_fields']=[];
 $throws(static fn()=>ts_safari_validate_acf_schema(static fn(string $key)=>$bad_acf[$key]??null),'reject malformed itinerary ACF repeater');
-$page=['ID'=>27,'post_type'=>'page','post_status'=>'publish','post_name'=>'safaris','post_title'=>'Safaris','post_content'=>'','post_excerpt'=>'','meta'=>['_elementor_data'=>'[{"widgetType":"TS_Tour_Archive","settings":{"count":-1,"show_cta":"yes"}}]','_elementor_edit_mode'=>'builder']];
+$page=['ID'=>27,'post_type'=>'page','post_status'=>'publish','post_name'=>'safaris','post_title'=>'Safaris','post_content'=>'','post_excerpt'=>'','meta'=>['_elementor_data'=>'[{"widgetType":"ts_tour_archive","settings":{"count":-1,"show_cta":"yes"}}]','_elementor_edit_mode'=>'builder']];
 $landing=ts_safari_landing_snapshot($page);ts_safari_guard_landing_snapshot($page,$landing['hash']);
-$wrong_widget=$page;$wrong_widget['meta']['_elementor_data']='[{"widgetType":"TS_Tour_Archive","settings":{"count":3,"show_cta":"yes"}}]';
+$wrong_widget=$page;$wrong_widget['meta']['_elementor_data']='[{"widgetType":"ts_tour_archive","settings":{"count":3,"show_cta":"yes"}}]';
 $throws(static fn()=>ts_safari_landing_snapshot($wrong_widget),'require exact reviewed archive widget settings before page replacement');
-$changed=$page;$changed['meta']['_elementor_data']='[{"widgetType":"TS_Tour_Archive","settings":{"count":3}}]';
+$changed=$page;$changed['meta']['_elementor_data']='[{"widgetType":"ts_tour_archive","settings":{"count":3}}]';
 $throws(static fn()=>ts_safari_guard_landing_snapshot($changed,$landing['hash']),'refuse if editor-owned page snapshot changed');
 $throws(static fn()=>ts_safari_landing_snapshot(['ID'=>27,'post_type'=>'page','post_name'=>'safaris','meta'=>[]]),'require exact payload before route migration');
 $landing_manifest=json_decode(file_get_contents($root.'/migration/safari-landing-manifest.json'),true,512,JSON_THROW_ON_ERROR);
