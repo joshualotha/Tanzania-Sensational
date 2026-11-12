@@ -1,6 +1,7 @@
 <?php
 /** Create-only, staging-gated importer for two source-verified safari packages. */
 if (!defined('ABSPATH')) { exit; }
+require_once __DIR__ . '/safari-image-seed-importer.php';
 
 function ts_safari_allowed_slugs(): array { return ['expected-wildlife-serengeti','ultimate-fly-in-northern-circuit']; }
 function ts_safari_field_schema(): array {
@@ -136,7 +137,7 @@ function ts_safari_validate_landing_manifest(array $m): void {
         foreach(['tag','title','description','slug','image','alt'] as $key) if(!is_string($card[$key]??null)||trim($card[$key])==='') throw new RuntimeException('Safari landing card field missing: '.$key);
         $source=wp_parse_url((string)($card['source_url']??'')); if(!is_array($source)||($source['scheme']??'')!=='https'||($source['host']??'')!=='tanzaniasensational.com'||($source['path']??'')!=='/safaris/destinations/'.$card['slug']||isset($source['port'])) throw new RuntimeException('Safari landing card route does not match source slug.');
         $image=wp_parse_url($card['image']);
-        if($card['slug']==='mahale') { if($card['image']!=='https://images.unsplash.com/photo-1520114878144-6123749968dd?w=2000&q=85&auto=format&fit=crop') throw new RuntimeException('Mahale must retain its exact verified source image URL.'); }
+        if($card['slug']==='mahale') { if($card['image']!=='https://images.unsplash.com/photo-1520114878144-6123749968dd?w=2000&q=85&auto=format&fit=crop'||$card['alt']!=='Mahale Mountains — Tanzania safari destination with wildlife and landscapes') throw new RuntimeException('Mahale image URL and alt text must exactly match the live source page.'); }
         elseif(!is_array($image)||($image['scheme']??'')!=='https'||($image['host']??'')!=='tanzaniasensational.com'||!str_starts_with($image['path']??'','/storage/destinations/')||($image['port']??443)!==443) throw new RuntimeException('Safari destination image must use a verified absolute source asset URL.');
         if(!is_array($image))throw new RuntimeException('Safari destination image URL is malformed.');
     }
@@ -150,18 +151,19 @@ function ts_safari_validate_landing_manifest(array $m): void {
 function ts_safari_resolve_destination_cards(array $manifest, callable $lookup): array {
     $cards=[]; foreach($manifest['destinations'] as $card) { $matches=$lookup($card['slug']); if(!is_array($matches)||count($matches)!==1) throw new RuntimeException('Safari destination mapping is missing or ambiguous: '.$card['slug']); $post=$matches[0]; if(($post->post_type??'')!=='ts_destination'||($post->post_status??'')!=='publish'||($post->post_name??'')!==$card['slug']) throw new RuntimeException('Safari destination mapping failed exact identity check: '.$card['slug']); $url=get_permalink($post); $u=wp_parse_url($url); if(!is_string($url)||!is_array($u)||($u['scheme']??'')!=='https'||($u['host']??'')!=='test.tanzaniasensational.com'||($u['port']??443)!==443) throw new RuntimeException('Safari destination permalink is not on the approved staging origin: '.$card['slug']); $card['permalink']=$url; $cards[]=$card; } return $cards;
 }
-function ts_safari_render_landing(array $m, ?array $resolved=null): string {
+function ts_safari_render_landing(array $m, ?array $resolved=null, array $image_urls=[]): string {
     ts_safari_validate_landing_manifest($m);
     $canonical=ts_safari_resolve_destination_cards($m,static fn($slug)=>get_posts(['post_type'=>'ts_destination','post_status'=>'publish','name'=>$slug,'numberposts'=>2,'suppress_filters'=>true]));
     $resolved=$resolved??$canonical;
     if(count($resolved)!==count($canonical))throw new RuntimeException('Safari landing requires the exact approved destination card set.');
     foreach($canonical as $index=>$expected){$candidate=$resolved[$index]??null;if(!is_array($candidate))throw new RuntimeException('Safari landing destination card is malformed.');foreach(['tag','title','description','slug','image','alt','source_url'] as $key)if(($candidate[$key]??null)!==($expected[$key]??null))throw new RuntimeException('Safari landing destination identity/content mismatch: '.$key);if(!is_string($candidate['permalink']??null)||!hash_equals($expected['permalink'],$candidate['permalink']))throw new RuntimeException('Safari landing destination permalink does not match its exact published post.');}
-    $resolved=$canonical;$e=static fn($v)=>htmlspecialchars((string)$v,ENT_QUOTES|ENT_SUBSTITUTE,'UTF-8');
-    $html='<div class="ts-safari-landing"><section class="premium-safari-hero"><div class="premium-safari-bg"><img src="'.$e($m['hero_image']).'" alt="African safari wilderness — lioness on the Serengeti plains at golden hour"><div class="premium-safari-overlay"></div></div><div class="container"><div class="premium-safari-hero-content"><span class="premium-eyebrow">'.$e($m['eyebrow']).'</span><h1 class="premium-hero-title">'.$e($m['h1']).'</h1><p class="premium-hero-subtitle">'.$e($m['intro']).'</p></div></div><div class="premium-stats-strip"><div class="premium-stats-grid">';
+    $resolved=$canonical;$e=static fn($v)=>htmlspecialchars((string)$v,ENT_QUOTES|ENT_SUBSTITUTE,'UTF-8');$heroImage=$image_urls['landing.hero']??$m['hero_image'];$differenceImage=$image_urls['landing.difference']??$m['difference_image'];
+    foreach($image_urls as $key=>$url){if(!is_string($key)||!is_string($url)||!preg_match('~^https://test\\.tanzaniasensational\\.com/wp-content/uploads/[A-Za-z0-9._/-]+$~',$url))throw new RuntimeException('Safari landing image URL is not a verified local staging media URL: '.(string)$key);}
+    $html='<div class="ts-safari-landing"><section class="premium-safari-hero"><div class="premium-safari-bg"><img src="'.$e($heroImage).'" alt="African safari wilderness — lioness on the Serengeti plains at golden hour"><div class="premium-safari-overlay"></div></div><div class="container"><div class="premium-safari-hero-content"><span class="premium-eyebrow">'.$e($m['eyebrow']).'</span><h1 class="premium-hero-title">'.$e($m['h1']).'</h1><p class="premium-hero-subtitle">'.$e($m['intro']).'</p></div></div><div class="premium-stats-strip"><div class="premium-stats-grid">';
     foreach($m['metrics'] as $metric) $html.='<div class="premium-stat-item"><span class="premium-stat-num">'.$e($metric['value']).'</span><span class="premium-stat-label">'.$e($metric['label']).'</span></div>';
     $html.='</div></div></section><section id="expeditions" class="premium-destinations-section"><div class="container"><div class="premium-dest-grid">';
-    foreach($resolved as $card) { $u=wp_parse_url($card['permalink']??''); if(!is_array($u)||($u['host']??'')!=='test.tanzaniasensational.com'||($u['scheme']??'')!=='https'||($u['port']??443)!==443) throw new RuntimeException('Unresolved or off-origin staging destination permalink.'); $html.='<div><a class="premium-dest-card" href="'.$e($card['permalink']).'"><div class="premium-dest-img-wrap"><img src="'.$e($card['image']).'" alt="'.$e($card['alt']).'" loading="lazy"><div class="premium-dest-img-overlay"></div></div><div class="premium-dest-content"><span class="premium-dest-tag">'.$e($card['tag']).'</span><h3 class="premium-dest-name">'.$e($card['title']).'</h3><p class="premium-dest-desc">'.$e($card['description']).'</p><div class="premium-dest-link"><span>Detailed Dossier</span></div></div></a></div>'; }
-    $t=$m['testimonial']; $html.='</div></div></section><section class="premium-reviews-band"><div class="container"><span class="premium-eyebrow">The Legacy</span><p class="premium-review-quote">“'.$e($t['quote']).'”</p><div class="premium-dest-tag">'.$e($t['attribution']).'</div></div></section><section class="premium-exp-band"><div class="premium-exp-bg"><img src="'.$e($m['difference_image']).'" alt="Tanzania safari experience — guide and traveler observing wildlife on the savanna" loading="lazy"><div class="premium-exp-overlay"></div></div><div class="container premium-exp-container"><div class="premium-exp-left"><span class="premium-eyebrow">The Difference</span><h2 class="premium-exp-title">Experience That Speaks.</h2><a class="premium-exp-cta" href="'.$e($m['journey_cta']['url']).'"><span>'.$e($m['journey_cta']['label']).'</span></a></div><div class="premium-exp-list">';
+    foreach($resolved as $card) { $u=wp_parse_url($card['permalink']??''); if(!is_array($u)||($u['host']??'')!=='test.tanzaniasensational.com'||($u['scheme']??'')!=='https'||($u['port']??443)!==443) throw new RuntimeException('Unresolved or off-origin staging destination permalink.');$cardImage=$image_urls['destination.'.$card['slug']]??$card['image'];$html.='<div><a class="premium-dest-card" href="'.$e($card['permalink']).'"><div class="premium-dest-img-wrap"><img src="'.$e($cardImage).'" alt="'.$e($card['alt']).'" loading="lazy"><div class="premium-dest-img-overlay"></div></div><div class="premium-dest-content"><span class="premium-dest-tag">'.$e($card['tag']).'</span><h3 class="premium-dest-name">'.$e($card['title']).'</h3><p class="premium-dest-desc">'.$e($card['description']).'</p><div class="premium-dest-link"><span>Detailed Dossier</span></div></div></a></div>'; }
+    $t=$m['testimonial']; $html.='</div></div></section><section class="premium-reviews-band"><div class="container"><span class="premium-eyebrow">The Legacy</span><p class="premium-review-quote">“'.$e($t['quote']).'”</p><div class="premium-dest-tag">'.$e($t['attribution']).'</div></div></section><section class="premium-exp-band"><div class="premium-exp-bg"><img src="'.$e($differenceImage).'" alt="Tanzania safari experience — guide and traveler observing wildlife on the savanna" loading="lazy"><div class="premium-exp-overlay"></div></div><div class="container premium-exp-container"><div class="premium-exp-left"><span class="premium-eyebrow">The Difference</span><h2 class="premium-exp-title">Experience That Speaks.</h2><a class="premium-exp-cta" href="'.$e($m['journey_cta']['url']).'"><span>'.$e($m['journey_cta']['label']).'</span></a></div><div class="premium-exp-list">';
     foreach($m['benefits'] as $benefit) $html.='<article class="premium-exp-item"><span class="premium-exp-num">'.$e($benefit['number']).'</span><div><h3 class="premium-exp-item-title">'.$e($benefit['title']).'</h3><p class="premium-exp-item-text">'.$e($benefit['description']).'</p></div></article>';
     return $html.'</div></div></section></div>';
 }
@@ -213,7 +215,7 @@ function ts_safari_read_landing_page(int $id): array {
     $post=get_post($id); if(!$post)return [];
     $meta=get_post_meta($id,'',false); return array_merge((array)$post,['meta'=>is_array($meta)?$meta:[]]);
 }
-function ts_safari_clone_landing(int $page_id, array $current, string $snapshot_json, string $snapshot_hash): int {
+function ts_safari_clone_landing(int $page_id, array $current, string $snapshot_json, string $snapshot_hash, bool $manage_transaction = true): int {
     global $wpdb;
     $snapshot=json_decode($snapshot_json,true);
     if(!is_array($snapshot)||!is_array($snapshot['meta']??null)||!is_array($snapshot['meta_rows']??null)||!hash_equals($snapshot_hash,hash('sha256',$snapshot_json)))throw new RuntimeException('Safari landing clone received an invalid preservation snapshot.');
@@ -221,8 +223,14 @@ function ts_safari_clone_landing(int $page_id, array $current, string $snapshot_
     foreach($reserved_keys as $key)if(array_key_exists($key,$snapshot['meta']))throw new RuntimeException('Safari landing source uses a reserved safari landing backup metadata key: '.$key);
     foreach($snapshot['meta_rows'] as $row){if(!is_array($row)||!is_string($row['meta_key']??null))throw new RuntimeException('Safari landing clone snapshot contains an invalid raw metadata row.');if(in_array($row['meta_key'],$reserved_keys,true))throw new RuntimeException('Safari landing source uses a reserved safari landing backup metadata key: '.$row['meta_key']);}
     ts_safari_require_transactional_tables();
-    if($wpdb->query('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ')===false||$wpdb->query('START TRANSACTION')===false)throw new RuntimeException('Could not start safari landing backup transaction.');
-    $active=true;$backup=0;
+    // When false, the caller already owns the row-locked transaction and handles its commit/rollback.
+    $active=false;
+    if($manage_transaction){
+        if($wpdb->query('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ')===false)throw new RuntimeException('Could not set safari landing backup transaction isolation.');
+        if($wpdb->query('START TRANSACTION')===false){$rollback=$wpdb->query('ROLLBACK');if($rollback===false)throw new RuntimeException('Safari landing backup transaction start failed and rollback could not be verified.');throw new RuntimeException('Could not start safari landing backup transaction.');}
+        $active=true;
+    }
+    $backup=0;
     try {
         $post_fields=$current;unset($post_fields['ID'],$post_fields['meta']);$post_fields['post_status']='draft';$post_fields['post_name']='safaris-preserved-backup-'.gmdate('YmdHis').'-'.wp_generate_password(6,false,false);
         $created=wp_insert_post(wp_slash($post_fields),true);
@@ -238,15 +246,22 @@ function ts_safari_clone_landing(int $page_id, array $current, string $snapshot_
         if($actual_source_rows!==$snapshot['meta_rows'])throw new RuntimeException('Safari page backup raw metadata rows differ from the source snapshot.');
         $savedSnapshot=get_post_meta($backup,'_ts_safari_landing_backup_snapshot',true);$savedHash=get_post_meta($backup,'_ts_safari_landing_backup_hash',true);
         if(!is_string($savedSnapshot)||!hash_equals($snapshot_json,$savedSnapshot)||!is_string($savedHash)||!hash_equals($snapshot_hash,$savedHash)||!hash_equals($snapshot_hash,hash('sha256',$savedSnapshot)))throw new RuntimeException('Safari page backup snapshot bytes or hash failed read-back.');
-        if($wpdb->query('COMMIT')===false)throw new RuntimeException('Safari landing backup transaction commit failed.');$active=false;clean_post_cache($backup);return $backup;
+        if($manage_transaction){if($wpdb->query('COMMIT')===false)throw new RuntimeException('Safari landing backup transaction commit failed.');$active=false;}
+        clean_post_cache($backup);return $backup;
     }catch(Throwable $e){
-        $rolled=$active?$wpdb->query('ROLLBACK'):false;clean_post_cache($backup);
+        $rolled=$active?$wpdb->query('ROLLBACK'):null;clean_post_cache($backup);
         if($active&&$rolled===false)throw new RuntimeException($e->getMessage().' (backup transaction rollback failed; inspect staging before retrying)',0,$e);
         throw $e;
     }
 }
 function ts_safari_landing_managed_hash(array $page): string {
-    $post=$page;unset($post['meta']);ksort($post);$meta=$page['meta']??[];unset($meta['_ts_safari_landing_managed_hash']);ksort($meta);$rows=array_values(array_filter(ts_safari_landing_raw_meta_rows((int)($page['ID']??0)),static fn($row)=>$row['meta_key']!=='_ts_safari_landing_managed_hash'));$json=wp_json_encode(['post'=>$post,'meta'=>$meta,'meta_rows'=>$rows],JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_LINE_TERMINATORS);if(!is_string($json))throw new RuntimeException('Could not encode managed safari landing state.');return hash('sha256',$json);
+    $post=$page;unset($post['meta']);ksort($post);
+    $derivedMetaKeys=['_ts_safari_landing_managed_hash','_elementor_page_assets','rank_math_og_content_image'];
+    $meta=$page['meta']??[];foreach($derivedMetaKeys as $key)unset($meta[$key]);ksort($meta);
+    // These plugin-owned caches can be added after the landing hash is saved. The full page snapshot still preserves their exact rows for rollback.
+    $rows=array_values(array_filter(ts_safari_landing_raw_meta_rows((int)($page['ID']??0)),static fn($row)=>!in_array($row['meta_key'],$derivedMetaKeys,true)));
+    $json=wp_json_encode(['post'=>$post,'meta'=>$meta,'meta_rows'=>$rows],JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_LINE_TERMINATORS);
+    if(!is_string($json))throw new RuntimeException('Could not encode managed safari landing state.');return hash('sha256',$json);
 }
 function ts_safari_lock_landing_page(int $page_id): array {
     global $wpdb;
@@ -433,8 +448,11 @@ function ts_safari_landing_plan(array $manifest): array {
     $resolved=ts_safari_resolve_destination_cards($manifest,static fn($slug)=>get_posts(['post_type'=>'ts_destination','post_status'=>'publish','name'=>$slug,'numberposts'=>2,'suppress_filters'=>true]));
     $html=ts_safari_render_landing($manifest,$resolved); $owner=get_post_meta(27,'_ts_safari_landing_owner',true);
     if($owner==='approved-safari-landing-import-v1') {
+        $imagePath=__DIR__.'/safari-image-seed-manifest.json';$imageManifest=json_decode((string)file_get_contents($imagePath),true,512,JSON_THROW_ON_ERROR);ts_safari_validate_image_seed_manifest($imageManifest,$manifest);$localUrls=[];
+        foreach($imageManifest['assets'] as $asset){$owned=ts_safari_image_seed_find_attachment($asset,$imageManifest['owner']);if($owned!==null)$localUrls[$asset['key']]=$owned['url'];}
+        $normalizedContent=ts_safari_image_seed_normalize_landing_content((string)($page['post_content']??''),$manifest,$imageManifest,$localUrls);
         $hash=get_post_meta(27,'_ts_safari_landing_snapshot_hash',true);$managedHash=get_post_meta(27,'_ts_safari_landing_managed_hash',true);$backup=(int)get_post_meta(27,'_ts_safari_landing_backup_id',true);
-        if(!preg_match('/^[a-f0-9]{64}$/',(string)$hash)||!preg_match('/^[a-f0-9]{64}$/',(string)$managedHash)||!hash_equals((string)$managedHash,ts_safari_landing_managed_hash($page))||($page['post_type']??'')!=='page'||($page['post_name']??'')!=='safaris'||($page['post_status']??'')!=='publish'||($page['post_title']??'')!==$manifest['h1']||($page['post_content']??'')!==$html||get_post_status($backup)!=='draft')throw new RuntimeException('Owned safari landing route drifted; refusing to overwrite.');
+        if(!preg_match('/^[a-f0-9]{64}$/',(string)$hash)||!preg_match('/^[a-f0-9]{64}$/',(string)$managedHash)||!hash_equals((string)$managedHash,ts_safari_landing_managed_hash($page))||($page['post_type']??'')!=='page'||($page['post_name']??'')!=='safaris'||($page['post_status']??'')!=='publish'||($page['post_title']??'')!==$manifest['h1']||$normalizedContent!==$html||get_post_status($backup)!=='draft')throw new RuntimeException('Owned safari landing route drifted; refusing to overwrite.');
         ts_safari_verify_landing_backup($backup,(string)$hash);
         return ['action'=>'unchanged','page_id'=>27,'backup_id'=>$backup,'snapshot_hash'=>$hash];
     }

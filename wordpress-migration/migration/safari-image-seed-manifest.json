@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "owner": "approved-safari-image-seed-v1",
+  "page_id": 27,
+  "assets": [
+    {
+      "key": "landing.hero",
+      "source_url": "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=2000&q=85&auto=format&fit=crop",
+      "alt": "African safari wilderness — lioness on the Serengeti plains at golden hour",
+      "title": "Safari landing hero"
+    },
+    {
+      "key": "landing.difference",
+      "source_url": "https://images.unsplash.com/photo-1650668302197-7f556c34cb91?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80",
+      "alt": "Tanzania safari experience — guide and traveler observing wildlife on the savanna",
+      "title": "Safari experience"
+    },
+    {
+      "key": "destination.serengeti",
+      "source_url": "https://tanzaniasensational.com/storage/destinations/iN2AJLH6qGrXROyPpNDmVDH56nw6fn5Z7di3BReU.jpg",
+      "alt": "Serengeti — Tanzania safari destination with wildlife and landscapes",
+      "title": "Serengeti"
+    },
+    {
+      "key": "destination.ngorongoro",
+      "source_url": "https://tanzaniasensational.com/storage/destinations/uM0eELO7KmOhaNpXL5imJmlduSCJP8DdOt448BZt.jpg",
+      "alt": "Ngorongoro Crater — Tanzania safari destination with wildlife and landscapes",
+      "title": "Ngorongoro Crater"
+    },
+    {
+      "key": "destination.tarangire",
+      "source_url": "https://tanzaniasensational.com/storage/destinations/7JLk0EEMPmSPMNrMXQxwmmIN43ruF7HoAWUlzRzA.jpg",
+      "alt": "Tarangire — Tanzania safari destination with wildlife and landscapes",
+      "title": "Tarangire"
+    },
+    {
+      "key": "destination.kilimanjaro",
+      "source_url": "https://tanzaniasensational.com/storage/destinations/1RFdWTsjKoD6DMO0WsTQIO0JTKxSDKrAzB6Jpygq.jpg",
+      "alt": "Mount Kilimanjaro — Tanzania safari destination with wildlife and landscapes",
+      "title": "Mount Kilimanjaro"
+    },
+    {
+      "key": "destination.lake-manyara",
+      "source_url": "https://tanzaniasensational.com/storage/destinations/aB8lrVjgmbOEMsNOiMTzraKZBASmvVx1OcC0VXSC.jpg",
+      "alt": "Lake Manyara — Tanzania safari destination with wildlife and landscapes",
+      "title": "Lake Manyara"
+    },
+    {
+      "key": "destination.zanzibar",
+      "source_url": "https://tanzaniasensational.com/storage/destinations/0VQX7YKtWYPc96KCmuaV6MAaaAv0kdQ6PUuPPDI0.jpg",
+      "alt": "Zanzibar — Tanzania safari destination with wildlife and landscapes",
+      "title": "Zanzibar"
+    },
+    {
+      "key": "destination.ruaha",
+      "source_url": "https://tanzaniasensational.com/storage/destinations/1aSUmPG8kM1sshnOiuo5x2LlBzRxiNjxO0RvkXvo.jpg",
+      "alt": "Ruaha National Park — Tanzania safari destination with wildlife and landscapes",
+      "title": "Ruaha National Park"
+    },
+    {
+      "key": "destination.nyerere",
+      "source_url": "https://tanzaniasensational.com/storage/destinations/Kytt2WqUUHpFiT935Zty4gRFhBorHsXXi3JUEyBJ.jpg",
+      "alt": "Nyerere National Park — Tanzania safari destination with wildlife and landscapes",
+      "title": "Nyerere National Park"
+    },
+    {
+      "key": "destination.mahale",
+      "source_url": "https://images.unsplash.com/photo-1520114878144-6123749968dd?w=2000&q=85&auto=format&fit=crop",
+      "alt": "Mahale Mountains — Tanzania safari destination with wildlife and landscapes",
+      "title": "Mahale Mountains"
+    }
+  ],
+  "landing": {
+    "hero_asset": "landing.hero",
+    "difference_asset": "landing.difference",
+    "destinations": [
+      {"slug":"serengeti","post_id":15,"asset_key":"destination.serengeti"},
+      {"slug":"ngorongoro","post_id":16,"asset_key":"destination.ngorongoro"},
+      {"slug":"tarangire","post_id":17,"asset_key":"destination.tarangire"},
+      {"slug":"kilimanjaro","post_id":51,"asset_key":"destination.kilimanjaro"},
+      {"slug":"lake-manyara","post_id":53,"asset_key":"destination.lake-manyara"},
+      {"slug":"zanzibar","post_id":61,"asset_key":"destination.zanzibar"},
+      {"slug":"ruaha","post_id":59,"asset_key":"destination.ruaha"},
+      {"slug":"nyerere","post_id":57,"asset_key":"destination.nyerere"},
+      {"slug":"mahale","post_id":55,"asset_key":"destination.mahale"}
+    ]
+  },
+  "legacy_tours": [],
+  "source_notes": [
+    "Seed only the exact images used by the current live safari landing page and its destination cards.",
+    "Legacy tour records are intentionally untouched because they do not have exact matching live-page image sources."
+  ]
+}
