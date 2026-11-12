@@ -33,7 +33,8 @@ foreach (ts_safari_field_schema() as $name => [$type, $subs]) { $acf_fixture['fi
 ts_safari_validate_acf_schema(static fn(string $key) => $acf_fixture[$key] ?? null);
 $bad_acf=$acf_fixture; $bad_acf['field_ts_tour_itinerary']['sub_fields']=[];
 $throws(static fn()=>ts_safari_validate_acf_schema(static fn(string $key)=>$bad_acf[$key]??null),'reject malformed itinerary ACF repeater');
-$page=['ID'=>27,'post_type'=>'page','post_status'=>'publish','post_name'=>'safaris','post_title'=>'Safaris','post_content'=>'','post_excerpt'=>'','meta'=>['_elementor_data'=>'[{"widgetType":"ts_tour_archive","settings":{"count":-1,"show_cta":"yes"}}]','_elementor_edit_mode'=>'builder']];
+class SafariPackageContractDB{public $postmeta='wp_postmeta';public $last_error='';function prepare($q,...$args){foreach($args as $v)$q=preg_replace('/%d/',(string)(int)$v,$q,1);return $q;}function get_results($q){$rows=[];foreach($GLOBALS['contract_meta'] as $k=>$values){if(!is_array($values))$values=[$values];foreach($values as $v)$rows[]=['meta_key'=>$k,'meta_value'=>(string)$v];}return $rows;}}$GLOBALS['wpdb']=new SafariPackageContractDB();
+$page=['ID'=>27,'post_type'=>'page','post_status'=>'publish','post_name'=>'safaris','post_title'=>'Safaris','post_content'=>'','post_excerpt'=>'','meta'=>['_elementor_data'=>'[{"widgetType":"ts_tour_archive","settings":{"count":-1,"show_cta":"yes"}}]','_elementor_edit_mode'=>'builder']];$GLOBALS['contract_meta']=$page['meta'];
 $landing=ts_safari_landing_snapshot($page);ts_safari_guard_landing_snapshot($page,$landing['hash']);
 $wrong_widget=$page;$wrong_widget['meta']['_elementor_data']='[{"widgetType":"ts_tour_archive","settings":{"count":3,"show_cta":"yes"}}]';
 $throws(static fn()=>ts_safari_landing_snapshot($wrong_widget),'require exact reviewed archive widget settings before page replacement');

@@ -165,7 +165,30 @@ function ts_safari_render_landing(array $m, ?array $resolved=null): string {
     foreach($m['benefits'] as $benefit) $html.='<article class="premium-exp-item"><span class="premium-exp-num">'.$e($benefit['number']).'</span><div><h3 class="premium-exp-item-title">'.$e($benefit['title']).'</h3><p class="premium-exp-item-text">'.$e($benefit['description']).'</p></div></article>';
     return $html.'</div></div></section></div>';
 }
-function ts_safari_expected_route_plan(): array { return ['landing_route'=>'/safaris','landing_page_id'=>27,'landing_action'=>'verified-clone-then-transactional-source-landing-replacement','landing_snapshot_meta'=>'_ts_safari_landing_backup_snapshot','landing_snapshot_hash_meta'=>'_ts_safari_landing_backup_hash','landing_source_h1'=>'Into the Untamed.','source_destination_card_count'=>9,'archive_route'=>'/safaris/packages','archive_action'=>'existing-ts_tour-post-type-rewrite','expected_published_package_count'=>5,'source_package_card_count'=>2,'archive_query'=>'five existing/new published ts_tour posts, new source pair first','single_template'=>'existing single-tour Elementor template','transaction_scope'=>'per-package then page-27 transaction','batch_atomic'=>false,'external_hook_side_effects_reversed'=>false,'resume'=>'completed packages unchanged; only remaining packages create; landing last','route_parity'=>'apply-required-not-verified']; }
+function ts_safari_expected_route_plan(): array { return ['landing_route'=>'/safaris','landing_page_id'=>27,'landing_action'=>'verified-clone-then-transactional-source-landing-replacement','landing_snapshot_meta'=>'_ts_safari_landing_backup_snapshot','landing_snapshot_hash_meta'=>'_ts_safari_landing_backup_hash','landing_source_h1'=>'Into the Untamed.','source_destination_card_count'=>9,'archive_route'=>'/safaris/packages','archive_action'=>'existing-ts_tour-post-type-rewrite','expected_published_package_count'=>5,'source_package_card_count'=>2,'archive_query'=>'five existing/new published ts_tour posts, new source pair first','single_template'=>'existing single-tour Elementor template','transaction_scope'=>'per-package; verified clone, page replacement, and rollback each use separate transactions','batch_atomic'=>false,'external_hook_side_effects_reversed'=>false,'resume'=>'completed packages unchanged; only remaining packages create; landing last','route_parity'=>'apply-required-not-verified']; }
+function ts_safari_landing_raw_meta_rows(int $post_id): array {
+    global $wpdb;
+    if($post_id<1||!isset($wpdb->postmeta)||!method_exists($wpdb,'prepare')||!method_exists($wpdb,'get_results'))throw new RuntimeException('Could not inspect exact safari landing metadata rows.');
+    $rows=$wpdb->get_results($wpdb->prepare("SELECT meta_key, meta_value FROM {$wpdb->postmeta} WHERE post_id=%d ORDER BY meta_id ASC",$post_id));
+    if(!is_array($rows)||!empty($wpdb->last_error))throw new RuntimeException('Could not read exact safari landing metadata rows.');
+    $out=[];
+    foreach($rows as $row){if(is_object($row))$row=(array)$row;if(!is_array($row)||!is_string($row['meta_key']??null)||!array_key_exists('meta_value',$row)||!is_string($row['meta_value']))throw new RuntimeException('Safari landing metadata row has an unsupported database shape.');$out[]=['meta_key'=>$row['meta_key'],'meta_value'=>$row['meta_value']];}
+    return $out;
+}
+function ts_safari_replace_raw_meta_rows(int $post_id,array $rows): void {
+    global $wpdb;
+    if($post_id<1||!isset($wpdb->postmeta)||!method_exists($wpdb,'delete')||!method_exists($wpdb,'insert'))throw new RuntimeException('Could not replace exact safari landing metadata rows.');
+    if($wpdb->delete($wpdb->postmeta,['post_id'=>$post_id],['%d'])===false)throw new RuntimeException('Could not clear safari landing metadata rows.');
+    foreach($rows as $row){if(!is_array($row)||!is_string($row['meta_key']??null)||!is_string($row['meta_value']??null))throw new RuntimeException('Safari landing snapshot contains an invalid raw metadata row.');if($wpdb->insert($wpdb->postmeta,['post_id'=>$post_id,'meta_key'=>$row['meta_key'],'meta_value'=>$row['meta_value']],['%d','%s','%s'])!==1)throw new RuntimeException('Could not restore exact safari landing metadata row: '.$row['meta_key']);}
+    clean_post_cache($post_id);
+    if(ts_safari_landing_raw_meta_rows($post_id)!==array_values($rows))throw new RuntimeException('Safari landing raw metadata rows failed read-back.');
+}
+function ts_safari_restore_landing_modified_fields(int $post_id,array $post): void {
+    global $wpdb;
+    if(!isset($post['post_modified'],$post['post_modified_gmt'])||!isset($wpdb->posts)||!method_exists($wpdb,'update'))throw new RuntimeException('Safari landing modified timestamps are missing or cannot be restored.');
+    if($wpdb->update($wpdb->posts,['post_modified'=>$post['post_modified'],'post_modified_gmt'=>$post['post_modified_gmt']],['ID'=>$post_id],['%s','%s'],['%d'])===false)throw new RuntimeException('Safari landing modified timestamps could not be restored.');
+    clean_post_cache($post_id);
+}
 function ts_safari_landing_snapshot(array $page): array {
     if ((int)($page['ID'] ?? 0) !== 27 || ($page['post_type'] ?? '') !== 'page' || ($page['post_name'] ?? '') !== 'safaris' || ($page['post_status']??'')!=='publish') throw new RuntimeException('Safari landing snapshot target is not the approved published page 27.');
     $meta = $page['meta'] ?? []; $elementor = $meta['_elementor_data'] ?? null;
@@ -177,7 +200,7 @@ function ts_safari_landing_snapshot(array $page): array {
     $settings=$archiveWidgets[0]['settings']??[]; $cta=$settings['show_cta']??null;
     if((int)($settings['count']??0)!==-1||!in_array($cta,[true,1,'1','yes','on'],true))throw new RuntimeException('Safari landing ts_tour_archive widget settings differ from the reviewed count=-1 / CTA-enabled state.');
     $post=$page; unset($post['meta']); ksort($post); ksort($meta);
-    $snapshot = ['post'=>$post,'meta'=>$meta];
+    $snapshot = ['post'=>$post,'meta'=>$meta,'meta_rows'=>ts_safari_landing_raw_meta_rows((int)$page['ID'])];
     $json = wp_json_encode($snapshot, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_LINE_TERMINATORS);
     if (!is_string($json)) throw new RuntimeException('Could not encode safari landing snapshot.');
     return ['json'=>$json,'hash'=>hash('sha256',$json)];
@@ -191,22 +214,39 @@ function ts_safari_read_landing_page(int $id): array {
     $meta=get_post_meta($id,'',false); return array_merge((array)$post,['meta'=>is_array($meta)?$meta:[]]);
 }
 function ts_safari_clone_landing(int $page_id, array $current, string $snapshot_json, string $snapshot_hash): int {
-    $post_fields=$current; unset($post_fields['ID'],$post_fields['meta']); $source_meta=$current['meta']??[];
-    $post_fields['post_status']='draft'; $post_fields['post_name']='safaris-preserved-backup-'.gmdate('YmdHis').'-'.wp_generate_password(6,false,false);
-    $backup=wp_insert_post(wp_slash($post_fields),true);
-    if(is_wp_error($backup)||!is_numeric($backup)||(int)$backup<1) throw new RuntimeException('Could not create private draft backup of safari page 27.'); $backup=(int)$backup;
-    foreach($source_meta as $key=>$values) { if(!is_array($values))$values=[$values]; foreach($values as $value) { $ok=add_post_meta($backup,$key,wp_slash($value),false); if(!$ok)throw new RuntimeException('Safari page backup meta write failed: '.$key); } }
-    if(update_post_meta($backup,'_ts_safari_landing_backup_snapshot',wp_slash($snapshot_json))===false||update_post_meta($backup,'_ts_safari_landing_backup_hash',$snapshot_hash)===false)throw new RuntimeException('Safari page backup snapshot metadata could not be stored.');
-    $read=ts_safari_read_landing_page($backup); $meta=$read['meta']??[];
-    if(($read['post_status']??'')!=='draft'||($read['post_name']??'')===($current['post_name']??'')) throw new RuntimeException('Safari page backup clone failed identity read-back.');
-    foreach($source_meta as $key=>$values) { if(!is_array($values))$values=[$values]; if(($meta[$key]??[])!==$values) throw new RuntimeException('Safari page backup metadata mismatch: '.$key); }
-    foreach($current as $key=>$value) if(!in_array($key,['ID','meta','post_status','post_name','post_modified','post_modified_gmt'],true) && ($read[$key]??null)!==$value) throw new RuntimeException('Safari page backup post-field mismatch: '.$key);
-    $savedSnapshot=get_post_meta($backup,'_ts_safari_landing_backup_snapshot',true);$savedHash=get_post_meta($backup,'_ts_safari_landing_backup_hash',true);
-    if(!is_string($savedSnapshot)||!hash_equals($snapshot_json,$savedSnapshot)||!is_string($savedHash)||!hash_equals($snapshot_hash,$savedHash)||!hash_equals($snapshot_hash,hash('sha256',$savedSnapshot))) throw new RuntimeException('Safari page backup snapshot bytes or hash failed read-back.');
-    return $backup;
+    global $wpdb;
+    $snapshot=json_decode($snapshot_json,true);
+    if(!is_array($snapshot)||!is_array($snapshot['meta']??null)||!is_array($snapshot['meta_rows']??null)||!hash_equals($snapshot_hash,hash('sha256',$snapshot_json)))throw new RuntimeException('Safari landing clone received an invalid preservation snapshot.');
+    $reserved_keys=['_ts_safari_landing_backup_snapshot','_ts_safari_landing_backup_hash'];
+    foreach($reserved_keys as $key)if(array_key_exists($key,$snapshot['meta']))throw new RuntimeException('Safari landing source uses a reserved safari landing backup metadata key: '.$key);
+    foreach($snapshot['meta_rows'] as $row){if(!is_array($row)||!is_string($row['meta_key']??null))throw new RuntimeException('Safari landing clone snapshot contains an invalid raw metadata row.');if(in_array($row['meta_key'],$reserved_keys,true))throw new RuntimeException('Safari landing source uses a reserved safari landing backup metadata key: '.$row['meta_key']);}
+    ts_safari_require_transactional_tables();
+    if($wpdb->query('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ')===false||$wpdb->query('START TRANSACTION')===false)throw new RuntimeException('Could not start safari landing backup transaction.');
+    $active=true;$backup=0;
+    try {
+        $post_fields=$current;unset($post_fields['ID'],$post_fields['meta']);$post_fields['post_status']='draft';$post_fields['post_name']='safaris-preserved-backup-'.gmdate('YmdHis').'-'.wp_generate_password(6,false,false);
+        $created=wp_insert_post(wp_slash($post_fields),true);
+        if(is_wp_error($created)||!is_numeric($created)||(int)$created<1)throw new RuntimeException('Could not create private draft backup of safari page 27.');$backup=(int)$created;
+        ts_safari_replace_raw_meta_rows($backup,$snapshot['meta_rows']);
+        ts_safari_restore_landing_modified_fields($backup,$current);
+        if(update_post_meta($backup,'_ts_safari_landing_backup_snapshot',wp_slash($snapshot_json))===false||update_post_meta($backup,'_ts_safari_landing_backup_hash',$snapshot_hash)===false)throw new RuntimeException('Safari page backup snapshot metadata could not be stored.');
+        $read=ts_safari_read_landing_page($backup);$meta=$read['meta']??[];
+        if(($read['post_status']??'')!=='draft'||($read['post_name']??'')===($current['post_name']??''))throw new RuntimeException('Safari page backup clone failed identity read-back.');
+        foreach(($current['meta']??[]) as $key=>$values){if(!is_array($values))$values=[$values];if(($meta[$key]??[])!==$values)throw new RuntimeException('Safari page backup metadata mismatch: '.$key);}
+        foreach($current as $key=>$value)if(!in_array($key,['ID','meta','post_status','post_name'],true)&&($read[$key]??null)!==$value)throw new RuntimeException('Safari page backup post-field mismatch: '.$key);
+        $actual_rows=ts_safari_landing_raw_meta_rows($backup);$actual_source_rows=array_values(array_filter($actual_rows,static fn($row)=>!in_array($row['meta_key'],['_ts_safari_landing_backup_snapshot','_ts_safari_landing_backup_hash'],true)));
+        if($actual_source_rows!==$snapshot['meta_rows'])throw new RuntimeException('Safari page backup raw metadata rows differ from the source snapshot.');
+        $savedSnapshot=get_post_meta($backup,'_ts_safari_landing_backup_snapshot',true);$savedHash=get_post_meta($backup,'_ts_safari_landing_backup_hash',true);
+        if(!is_string($savedSnapshot)||!hash_equals($snapshot_json,$savedSnapshot)||!is_string($savedHash)||!hash_equals($snapshot_hash,$savedHash)||!hash_equals($snapshot_hash,hash('sha256',$savedSnapshot)))throw new RuntimeException('Safari page backup snapshot bytes or hash failed read-back.');
+        if($wpdb->query('COMMIT')===false)throw new RuntimeException('Safari landing backup transaction commit failed.');$active=false;clean_post_cache($backup);return $backup;
+    }catch(Throwable $e){
+        $rolled=$active?$wpdb->query('ROLLBACK'):false;clean_post_cache($backup);
+        if($active&&$rolled===false)throw new RuntimeException($e->getMessage().' (backup transaction rollback failed; inspect staging before retrying)',0,$e);
+        throw $e;
+    }
 }
 function ts_safari_landing_managed_hash(array $page): string {
-    $post=$page;unset($post['meta']);ksort($post);$meta=$page['meta']??[];unset($meta['_ts_safari_landing_managed_hash']);ksort($meta);$json=wp_json_encode(['post'=>$post,'meta'=>$meta],JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_LINE_TERMINATORS);if(!is_string($json))throw new RuntimeException('Could not encode managed safari landing state.');return hash('sha256',$json);
+    $post=$page;unset($post['meta']);ksort($post);$meta=$page['meta']??[];unset($meta['_ts_safari_landing_managed_hash']);ksort($meta);$rows=array_values(array_filter(ts_safari_landing_raw_meta_rows((int)($page['ID']??0)),static fn($row)=>$row['meta_key']!=='_ts_safari_landing_managed_hash'));$json=wp_json_encode(['post'=>$post,'meta'=>$meta,'meta_rows'=>$rows],JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_LINE_TERMINATORS);if(!is_string($json))throw new RuntimeException('Could not encode managed safari landing state.');return hash('sha256',$json);
 }
 function ts_safari_lock_landing_page(int $page_id): array {
     global $wpdb;
@@ -257,15 +297,16 @@ function ts_safari_rollback_landing(int $page_id,int $backup_id,string $expected
     $current=ts_safari_read_landing_page($page_id);$owner=$current['meta']['_ts_safari_landing_owner'][0]??'';$saved=$current['meta']['_ts_safari_landing_snapshot_hash'][0]??'';$linked=(int)($current['meta']['_ts_safari_landing_backup_id'][0]??0);
     if($owner!=='approved-safari-landing-import-v1'||!hash_equals($expected_hash,(string)$saved)||$linked!==$backup_id)throw new RuntimeException('Current landing ownership does not match verified rollback clone.');
     $managed=$current['meta']['_ts_safari_landing_managed_hash'][0]??'';if(!is_string($managed)||!preg_match('/^[a-f0-9]{64}$/',$managed)||!hash_equals($managed,ts_safari_landing_managed_hash($current)))throw new RuntimeException('Safari landing editor drift detected; refusing rollback over unreviewed changes.');
-    $json=get_post_meta($backup_id,'_ts_safari_landing_backup_snapshot',true);$snapshot=json_decode($json,true);$post=$snapshot['post'];$meta=$snapshot['meta'];
+    $json=get_post_meta($backup_id,'_ts_safari_landing_backup_snapshot',true);$snapshot=json_decode($json,true);$post=$snapshot['post']??null;$meta_rows=$snapshot['meta_rows']??null;
+    if(!is_array($post)||!is_array($meta_rows))throw new RuntimeException('Safari landing rollback snapshot is missing exact post or metadata rows.');
     if($wpdb->query('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ')===false||$wpdb->query('START TRANSACTION')===false)throw new RuntimeException('Could not start safari landing rollback transaction.');
     $write_started=false;
     try {
         $locked=ts_safari_lock_landing_page($page_id);if(!hash_equals($managed,ts_safari_landing_managed_hash($locked)))throw new RuntimeException('Safari landing changed while rollback was waiting for its lock.');$write_started=true;
-        $fields=$post;unset($fields['ID'],$fields['post_modified'],$fields['post_modified_gmt']);$fields['ID']=$page_id;
+        $fields=$post;unset($fields['ID']);$fields['ID']=$page_id;
         $updated=wp_update_post(wp_slash($fields),true);if(is_wp_error($updated)||(int)$updated!==$page_id)throw new RuntimeException('Safari landing rollback post restore failed.');
-        foreach(array_keys(ts_safari_read_landing_page($page_id)['meta']) as $key)delete_post_meta($page_id,$key);
-        foreach($meta as $key=>$values){if(!is_array($values))$values=[$values];foreach($values as $value)if(!add_post_meta($page_id,$key,wp_slash($value),false))throw new RuntimeException('Safari landing rollback metadata restore failed: '.$key);}
+        ts_safari_restore_landing_modified_fields($page_id,$post);
+        ts_safari_replace_raw_meta_rows($page_id,$meta_rows);
         clean_post_cache($page_id);$restored=ts_safari_read_landing_page($page_id);$actual=ts_safari_landing_snapshot($restored);
         if(!hash_equals($expected_hash,$actual['hash']))throw new RuntimeException('Safari landing rollback read-back mismatch.');
         ts_safari_verify_landing_backup($backup_id,$expected_hash);
@@ -380,10 +421,12 @@ function ts_safari_verify_landing_backup(int $backup_id,string $expected_hash): 
     $json=get_post_meta($backup_id,'_ts_safari_landing_backup_snapshot',true);$savedHash=get_post_meta($backup_id,'_ts_safari_landing_backup_hash',true);
     if(!is_string($json)||!is_string($savedHash)||!hash_equals($expected_hash,$savedHash)||!hash_equals($expected_hash,hash('sha256',$json)))throw new RuntimeException('Safari landing backup snapshot bytes/hash drifted.');
     $snapshot=json_decode($json,true);$backup=ts_safari_read_landing_page($backup_id);
-    if(!is_array($snapshot)||!is_array($snapshot['post']??null)||!is_array($snapshot['meta']??null)||!$backup||!str_starts_with((string)($backup['post_name']??''),'safaris-preserved-backup-'))throw new RuntimeException('Safari landing backup identity or snapshot is invalid.');
-    foreach($snapshot['post'] as $key=>$value)if(!in_array($key,['ID','post_status','post_name','post_modified','post_modified_gmt'],true)&&($backup[$key]??null)!==$value)throw new RuntimeException('Safari landing backup post-field drift: '.$key);
+    if(!is_array($snapshot)||!is_array($snapshot['post']??null)||!is_array($snapshot['meta']??null)||!is_array($snapshot['meta_rows']??null)||!$backup||!str_starts_with((string)($backup['post_name']??''),'safaris-preserved-backup-'))throw new RuntimeException('Safari landing backup identity or snapshot is invalid.');
+    foreach($snapshot['post'] as $key=>$value)if(!in_array($key,['ID','post_status','post_name'],true)&&($backup[$key]??null)!==$value)throw new RuntimeException('Safari landing backup post-field drift: '.$key);
     $actualMeta=$backup['meta'];unset($actualMeta['_ts_safari_landing_backup_snapshot'],$actualMeta['_ts_safari_landing_backup_hash']);$expectedMeta=$snapshot['meta'];ksort($actualMeta);ksort($expectedMeta);
     if($actualMeta!==$expectedMeta)throw new RuntimeException('Safari landing backup metadata drifted from its full source snapshot.');
+    $actualRows=ts_safari_landing_raw_meta_rows($backup_id);$actualSourceRows=array_values(array_filter($actualRows,static fn($row)=>!in_array($row['meta_key'],['_ts_safari_landing_backup_snapshot','_ts_safari_landing_backup_hash'],true)));
+    if($actualSourceRows!==$snapshot['meta_rows'])throw new RuntimeException('Safari landing backup raw metadata rows drifted from its full source snapshot.');
 }
 function ts_safari_landing_plan(array $manifest): array {
     $page=ts_safari_read_landing_page(27); if(!$page)throw new RuntimeException('Safari landing page 27 is missing.');

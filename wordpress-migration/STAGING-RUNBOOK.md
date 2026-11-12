@@ -267,7 +267,7 @@ verified unchanged records), a `replace` or verified `unchanged` landing action,
 nine exact published destination mappings, and a landing snapshot SHA-256.
 It gates on the exact HTTPS staging origin, `blog_public=0`, exact post type /
 slug / published status for each destination, all ACF field and repeater
-subfield schemas, unique ownership, snapshot integrity, and editor-drift checks.
+subfield schemas, unique ownership, snapshot integrity, editor-drift checks, and absence of reserved importer backup keys in page metadata.
 An unowned slug, ambiguous destination, changed snapshot, or unexpected package
 state is a hard stop. Confirm the output and use its `landing.snapshot_hash` in
 the apply command; the apply recomputes the full post/meta snapshot before any
@@ -325,16 +325,24 @@ and locked in-transaction state before restoring. It refuses on any editor drift
 retain the clone and investigate rather than overwriting newer edits.
 
 The CLI creates/reads back each package transactionally first; only after both
-records plan `unchanged` does it clone page 27's full post and all meta (including
-the Elementor tree) into a private draft, verify that clone, then replace page
-27 within a transaction and remove Elementor rendering metadata from the live
-page. If rollback cannot be proved by a full read-back, the page is quarantined
-as a draft and the run stops for manual recovery. Packages are per-record, not
-batch-atomic: after interruption, completed packages must plan `unchanged`,
-only remaining records may plan `create`, and landing must still plan `replace`.
-The landing is applied last; a package-loop failure must leave the landing
-untouched. WordPress hooks can have external side effects that DB rollback does
-not reverse; stop and inspect those separately if an apply fails.
+records plan `unchanged` does it create a private draft clone of page 27's full
+post and metadata. The clone copies raw `wp_postmeta` rows in row order so ACF,
+Elementor, serialized values, and duplicate keys are preserved exactly; it then
+verifies the complete post, normalized metadata, raw metadata rows, and source
+snapshot before commit. The live page replacement is a separate transaction:
+it locks and re-reads page 27 plus its metadata immediately before mutation,
+refuses drift, replaces the public Elementor document, and verifies the committed
+state. The explicit `rollback-landing` command is separately gated and
+transactional; it restores post fields and raw metadata from the verified clone
+and reads back both the restored page and retained clone. Elementor rendering
+metadata is removed from the live page during replacement. If rollback cannot
+be proved by a full read-back, the page is quarantined as a draft and the run
+stops for manual recovery. Packages are per-record, not batch-atomic: after
+interruption, completed packages must plan `unchanged`, only remaining records
+may plan `create`, and landing must still plan `replace`. The landing is applied
+last; a package-loop failure must leave the landing untouched. WordPress hooks
+can have external side effects that DB rollback does not reverse; stop and
+inspect those separately if an apply fails.
 
 Post-apply read-back requires both package records unchanged, landing page 27
 owned and unchanged with a verified private backup, exactly five published
