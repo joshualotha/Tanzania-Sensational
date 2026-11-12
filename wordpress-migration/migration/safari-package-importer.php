@@ -102,7 +102,7 @@ function ts_safari_expected_fields(array $p, ?int $hero_id=null): array {
 function ts_safari_normalize_field_value(string $type, $value, ?string $field_name=null) {
     if($type==='image')return is_numeric($value)&&(int)$value>0?(int)$value:[];
     if($type==='number'){if($value===null||$value==='')return [];return is_numeric($value)?(int)$value:$value;}
-    if($type==='true_false'){if($value===null||$value==='')return [];return in_array($value,[true,1,'1','true'],true);}
+    if($type==='true_false'){if($value===null||$value===false||$value==='')return false;return in_array($value,[true,1,'1','true'],true);}
     if($value===null||$value===false||$value==='')return [];
     if($type==='repeater'&&is_array($value)){
         $schema=ts_safari_field_schema();$subtypes=$schema[$field_name][1]??null;if(!is_array($subtypes)||($schema[$field_name][0]??null)!=='repeater')throw new RuntimeException('Safari ACF repeater read-back requires its registered field name.');
