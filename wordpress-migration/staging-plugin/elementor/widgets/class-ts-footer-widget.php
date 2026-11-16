@@ -296,7 +296,7 @@ class TS_Footer_Widget extends Widget_Base {
                     </div>
                     <form class="footer-cta-form" action="<?php echo esc_url( $form_action ); ?>" method="get">
                         <div class="footer-input-wrap">
-                            <input type="email" name="email" placeholder="your@email.com" class="footer-email-input" required />
+                            <input type="email" name="email" placeholder="your@email.com" class="footer-email-input" aria-label="<?php esc_attr_e( 'Email address', 'tanzania-sensational' ); ?>" required />
                             <button type="submit" class="footer-submit-btn" aria-label="<?php esc_attr_e( 'Subscribe', 'tanzania-sensational' ); ?>">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                             </button>

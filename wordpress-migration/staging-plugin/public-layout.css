@@ -2985,3 +2985,10 @@ section {
   background: #25D366;
   border-radius: 50%;
   display: flex;
+}
+
+/* Preserve visible keyboard focus without shifting layout. */
+:where(a, button, input, select, textarea, summary, [role="button"], [role="link"], [tabindex]):focus-visible {
+  outline: 3px solid #1f5e5b;
+  outline-offset: 3px;
+}
