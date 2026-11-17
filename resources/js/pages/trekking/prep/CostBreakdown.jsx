@@ -2,12 +2,11 @@ import React from 'react';
 import { Link } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import { DollarSign, PieChart, Shield, Tent, Users, Plane, FileText, ArrowRight, Info } from 'lucide-react';
-import { usePage } from '@inertiajs/react';
+import { useVisuals } from '../../../context/VisualsContext';
 import '../../../styles/trekking-prep.css';
 
 const CostBreakdown = () => {
-    const { props } = usePage();
-    const visuals = props.visuals;
+    const visuals = useVisuals();
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 30 },

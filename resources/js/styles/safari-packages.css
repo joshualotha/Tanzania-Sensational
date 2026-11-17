@@ -168,14 +168,22 @@
 }
 
 .heritage-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 60px;
+}
+
+.heritage-grid > * {
+    flex: 0 1 calc(33.333% - 40px);
+    min-width: 300px;
+    max-width: 480px;
 }
 
 .heritage-card-solid {
     background: var(--white);
     border: 1px solid var(--border-light);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
     display: flex;
     flex-direction: column;
     text-decoration: none;
@@ -616,14 +624,14 @@
 }
 
 @media (max-width: 1200px) {
-    .heritage-grid {
-        grid-template-columns: 1fr 1fr;
+    .heritage-grid > * {
+        flex: 0 1 calc(50% - 30px);
     }
 }
 
 @media (max-width: 900px) {
-    .heritage-grid {
-        grid-template-columns: 1fr;
+    .heritage-grid > * {
+        flex: 0 1 100%;
     }
     .safari-det-body {
         grid-template-columns: 1fr;

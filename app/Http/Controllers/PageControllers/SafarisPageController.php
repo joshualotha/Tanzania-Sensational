@@ -24,7 +24,7 @@ class SafarisPageController extends Controller
 
         $heroImage = $this->heroImageFromVisuals(
             'safaris.listHero',
-            'https://images.unsplash.com/photo-1516422213484-2af298bf06ad?auto=format&fit=crop&q=80&w=1600'
+            'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=2000&q=85&auto=format&fit=crop'
         );
 
         return Inertia::render('SafarisPage', [
@@ -87,7 +87,7 @@ class SafarisPageController extends Controller
 
         $heroImage = $this->heroImageFromVisuals(
             'safaris.pillar.hero',
-            'https://images.unsplash.com/photo-1516422213484-2af298bf06ad?auto=format&fit=crop&q=80&w=1600'
+            'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=2000&q=85&auto=format&fit=crop'
         );
 
         return Inertia::render('safari/SafariPillar', [

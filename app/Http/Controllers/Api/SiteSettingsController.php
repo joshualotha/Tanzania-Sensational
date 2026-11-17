@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\SiteSetting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class SiteSettingsController extends Controller
 {
@@ -74,6 +75,9 @@ class SiteSettingsController extends Controller
                 );
             }
         }
+
+        Cache::forget('inertia:settings');
+        Cache::forget('inertia:contactSettings');
 
         return $this->index();
     }

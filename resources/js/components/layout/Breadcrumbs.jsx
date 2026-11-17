@@ -14,6 +14,22 @@ export const Breadcrumbs = () => {
     // Don't show breadcrumbs on homepage
     if (path === '/') return null;
 
+    // Pages with full-screen hero images — overlay breadcrumbs on the hero
+    const heroPages = [
+        '/trekking/kilimanjaro',
+        '/safaris/packages',
+        '/safaris',
+        '/zanzibar',
+        '/blog',
+        '/group-departures',
+        '/gear-checklist',
+        '/training-guide',
+        '/faq',
+        '/safari-addons',
+        '/booking',
+    ];
+    const isHeroPage = heroPages.some(p => path === p || path.startsWith(p + '/'));
+
     // Define breadcrumb labels for known paths
     const pageLabels = {
         '/about': 'About',
@@ -142,7 +158,7 @@ export const Breadcrumbs = () => {
     if (crumbs.length <= 1) return null;
 
     return (
-        <nav aria-label="Breadcrumb" className="breadcrumbs-nav">
+        <nav aria-label="Breadcrumb" className={'breadcrumbs-nav' + (isHeroPage ? ' breadcrumbs-over-hero' : '')}>
             <ol className="breadcrumbs-list">
                 {crumbs.map((crumb, index) => {
                     const isLast = index === crumbs.length - 1;

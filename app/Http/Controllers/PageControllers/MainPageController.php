@@ -40,9 +40,9 @@ class MainPageController extends Controller
 
         // Resolve hero image for <link rel="preload"> (LCP optimization)
         $heroFallbacks = [
-            'home' => 'https://images.unsplash.com/photo-1516422213484-2af298bf06ad?auto=format&fit=crop&q=80&w=1600',
+            'home' => 'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=2000&q=85&auto=format&fit=crop',
             'about' => 'https://images.unsplash.com/photo-1585409677983-0f6c41ca9c3b?auto=format&fit=crop&q=80&w=1600',
-            'contact' => 'https://images.unsplash.com/photo-1516422213484-2af298bf06ad?auto=format&fit=crop&q=80&w=1600',
+            'contact' => 'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=2000&q=85&auto=format&fit=crop',
         ];
         $heroImage = $this->heroImageFromVisuals(
             $page->slug . '.hero',

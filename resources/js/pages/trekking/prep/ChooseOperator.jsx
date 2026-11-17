@@ -1,13 +1,12 @@
 import React from 'react';
 import { Link } from '@inertiajs/react';
 import { motion } from 'framer-motion';
-import { Shield, Search, DollarSign, Users, FileText, CheckCircle, XCircle, ArrowRight } from 'lucide-react';
-import { usePage } from '@inertiajs/react';
+import { Shield, Search, DollarSign, Users, FileText, CheckCircle, XCircle, ArrowRight, Heart } from 'lucide-react';
+import { useVisuals } from '../../../context/VisualsContext';
 import '../../../styles/trekking-prep.css';
 
 const ChooseOperator = () => {
-    const { props } = usePage();
-    const visuals = props.visuals;
+    const visuals = useVisuals();
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 30 },

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
@@ -44,6 +45,7 @@ class VisualAssetController extends Controller
         ]);
 
         $asset = VisualAsset::create($validated);
+        Cache::forget('inertia:visuals');
         return response()->json($asset, 201);
     }
 
@@ -70,6 +72,7 @@ class VisualAssetController extends Controller
         ]);
 
         $asset->update($validated);
+        Cache::forget('inertia:visuals');
         return response()->json($asset);
     }
 
@@ -90,6 +93,7 @@ class VisualAssetController extends Controller
         }
 
         $asset->delete();
+        Cache::forget('inertia:visuals');
         return response()->json(null, 204);
     }
 }

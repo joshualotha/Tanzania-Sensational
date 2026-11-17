@@ -2,12 +2,12 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from '@inertiajs/react';
 import { Globe, FileBadge, ShieldAlert, BadgeCheck } from 'lucide-react';
-import { usePage } from '@inertiajs/react';
+import { useVisuals } from '../../../context/VisualsContext';
+import { visualsData } from '../../../data/visualsData';
 import '../../../styles/trekking-prep.css';
 
 const Visa = () => {
-    const { props } = usePage();
-    const visuals = props.visuals;
+    const visuals = useVisuals();
 
     const fadeInUp = {
         hidden: { opacity: 0, y: 30 },
