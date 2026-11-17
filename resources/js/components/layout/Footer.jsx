@@ -158,6 +158,7 @@ export const Footer = () => {
               <ul className="footer-links">
                 <li><Link href="/safaris">All Safaris</Link></li>
                 <li><Link href="/safaris/guide">Safari Guide</Link></li>
+                <li><a href="https://www.safarigo.com">SafariGo</a></li>
                 <li><Link href="/safaris/packages/1">The Great Migration</Link></li>
                 <li><Link href="/safaris/packages/2">The Pioneer's Route</Link></li>
                 <li><Link href="/safaris/packages/3">The Grand Canvas</Link></li>
