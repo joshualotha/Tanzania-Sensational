@@ -3,7 +3,8 @@ import { motion } from 'framer-motion';
 import { Link } from '@inertiajs/react';
 import { Backpack, ThermometerSnowflake, Ruler, Shirt, Check, Download, PackageOpen, ClipboardList } from 'lucide-react';
 import { jsPDF } from 'jspdf';
-import { usePage } from '@inertiajs/react';
+import { useVisuals } from '../../../context/VisualsContext';
+import { visualsData } from '../../../data/visualsData';
 import '../../../styles/trekking-prep.css';
 
 const GEAR_DATA = [
@@ -48,8 +49,7 @@ const GEAR_DATA = [
 ];
 
 const GearList = () => {
-    const { props } = usePage();
-    const visuals = props.visuals;
+    const visuals = useVisuals();
     const [checkedItems, setCheckedItems] = useState(() => {
         const saved = localStorage.getItem('trek_manifest_checked');
         return saved ? JSON.parse(saved) : [];

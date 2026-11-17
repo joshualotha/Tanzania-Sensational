@@ -109,6 +109,28 @@ class TrekkingPageController extends Controller
             abort(404);
         }
 
+        $route->load('itineraryDays', 'departures');
+
+        // "Variations" are sibling TrekkingRoute rows sharing the same base slug prefix
+        // e.g. lemosho-7-days, lemosho-8-days, lemosho-8-days-crater
+        $variations = TrekkingRoute::where('slug', 'LIKE', $slug . '-%')
+            ->orWhere('slug', $slug)
+            ->orderBy('duration')
+            ->get()
+            ->map(fn ($v) => [
+                'id'          => $v->id,
+                'slug'        => $v->slug,
+                'name'        => $v->name,
+                'duration'    => $v->duration,
+                'difficulty'  => $v->difficulty,
+                'base_price'  => $v->base_price,
+                'hero_image'  => $v->hero_image,
+                'description' => $v->description,
+            ]);
+
+        $routeData = $route->toArray();
+        $routeData['variations'] = $variations;
+
         // Map slug to page component name (using the base slug from the URL)
         $componentMap = [
             'lemosho' => 'trekking/kilimanjaro/Lemosho',
@@ -122,7 +144,7 @@ class TrekkingPageController extends Controller
         $component = $componentMap[$slug] ?? 'trekking/kilimanjaro/Lemosho';
 
         return Inertia::render($component, [
-            'route' => $route,
+            'route' => $routeData,
             'meta' => $this->buildMeta($route),
         ]);
     }

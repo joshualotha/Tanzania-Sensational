@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Page;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class PagesController extends Controller
 {
@@ -29,6 +30,8 @@ class PagesController extends Controller
         $page->fill($validated);
         $page->save();
 
+        Cache::forget('inertia:navData');
+
         return response()->json($page, 201);
     }
 
@@ -51,6 +54,8 @@ class PagesController extends Controller
 
         $page->fill($validated);
         $page->save();
+
+        Cache::forget('inertia:navData');
 
         return response()->json($page);
     }

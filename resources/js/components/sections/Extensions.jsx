@@ -35,7 +35,7 @@ export const Extensions = () => {
 
       <div className="extensions-grid">
         <div className="extension-card reveal">
-          <div className="extension-img" style={{ backgroundImage: `url('${visuals.getSingle('home.extensionKilimanjaro', visualsData.trekking.routes.lemosho)}')` }}></div>
+          <div className="extension-img" style={{ backgroundImage: `url('${visuals.getSingle('trekking.pillar.hero', visualsData.trekking.routes.lemosho)}')` }}></div>
           <div className="extension-overlay"></div>
           <div className="extension-content">
             <h3 className="extension-name">Kilimanjaro Trekking</h3>

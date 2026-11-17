@@ -1,9 +1,9 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Sun, CloudRain, Snowflake, ThermometerSun } from 'lucide-react';
-import { Link } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 import { usePage } from '@inertiajs/react';
-import { Calendar, Users, Map, DollarSign, ChevronRight, Mountain, Eye } from 'lucide-react';
+import { Calendar, Users, Map, DollarSign, ChevronRight, Mountain, Eye, Send } from 'lucide-react';
 import { visualsData } from '../../data/visualsData';
 import '../../styles/group-departures-premium.css';
 
@@ -16,13 +16,26 @@ const GroupDepartures = ({ departures }) => {
         return fallback;
     };
 
+    const getNextRecurringDate = (dateStr) => {
+        const date = new Date(dateStr);
+        const now = new Date();
+        if (date >= now) return date;
+        const next = new Date(date);
+        let attempts = 0;
+        while (next < now && attempts < 52) {
+            next.setDate(next.getDate() + 7);
+            attempts++;
+        }
+        return next >= now ? next : null;
+    };
+
     const rows = useMemo(() => {
-        return (departures || []).map((dep) => {
-            const start = dep.departure_date ? new Date(dep.departure_date) : null;
+        return (departures || [])
+            .map((dep) => {
+                const start = getNextRecurringDate(dep.departure_date);
+                if (!start) return null;
             const end = dep.return_date ? new Date(dep.return_date) : null;
-            const dateLabel = start
-                ? `${start.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} – ${(end || start).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}`
-                : 'TBA';
+            const dateLabel = `${start.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} – ${(end || start).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}`;
 
             const price = `$${Math.round((dep.price_cents || 0) / 100).toLocaleString()}`;
             const routeName = dep.trekking_route?.name ? `${dep.trekking_route.name} Route` : 'Route TBA';
@@ -51,6 +64,12 @@ const GroupDepartures = ({ departures }) => {
                 spotsLeft,
                 packageUrl,
             };
+        })
+        .filter(Boolean)
+        .sort((a, b) => {
+            const aDate = new Date(a.dateLabel.split('–')[0].trim());
+            const bDate = new Date(b.dateLabel.split('–')[0].trim());
+            return aDate - bDate;
         });
     }, [departures]);
 
@@ -118,8 +137,13 @@ const GroupDepartures = ({ departures }) => {
                         <motion.tbody variants={staggerContainer} initial="hidden" animate="visible">
                             {rows.length === 0 ? (
                                 <motion.tr className="dep-row" variants={fadeInUp}>
-                                    <td colSpan={6} style={{ padding: '30px', textAlign: 'center', color: '#7a6f65' }}>
-                                        No group departures are currently scheduled.
+                                    <td colSpan={6} style={{ padding: '40px 30px', textAlign: 'center' }}>
+                                        <p style={{ color: '#7a6f65', marginBottom: '20px', fontSize: '0.95rem' }}>
+                                            No group departures available at the moment.
+                                        </p>
+                                        <Link href="/contact" className="btn-heritage-gold" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                                            Request Private Expedition <Send size={14} />
+                                        </Link>
                                     </td>
                                 </motion.tr>
                             ) : (
@@ -168,8 +192,13 @@ const GroupDepartures = ({ departures }) => {
                     <div className="dep-cards mobile-only">
                         {rows.length === 0 ? (
                             <motion.div className="dep-card" variants={fadeInUp}>
-                                <div className="dep-card-body" style={{ textAlign: 'center', color: '#7a6f65', justifyContent: 'center' }}>
-                                    No group departures are currently scheduled.
+                                <div className="dep-card-body" style={{ textAlign: 'center', justifyContent: 'center', flexDirection: 'column', gap: '16px' }}>
+                                    <p style={{ color: '#7a6f65', fontSize: '0.95rem' }}>
+                                        No group departures available at the moment.
+                                    </p>
+                                    <Link href="/contact" className="btn-heritage-gold" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', justifyContent: 'center' }}>
+                                        Request Private Expedition <Send size={14} />
+                                    </Link>
                                 </div>
                             </motion.div>
                         ) : (

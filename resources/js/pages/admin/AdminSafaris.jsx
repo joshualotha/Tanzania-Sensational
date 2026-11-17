@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
     Plus, Search, Edit3, Trash2, Camera, Clock, 
-    ChevronRight, MapPin, DollarSign, X, Loader2, Save,
+    ChevronRight, MapPin, DollarSign, X, Loader2, Save, Upload,
     Shield, Briefcase, List, Info, Layers, Zap
 } from 'lucide-react';
 import { adminService, safariService } from '../../services/api';
@@ -16,6 +16,32 @@ export const AdminSafaris = () => {
     const [isCurating, setIsCurating] = useState(false);
     const [saving, setSaving] = useState(false);
     const [showCurator, setShowCurator] = useState(false);
+    const [uploadingImage, setUploadingImage] = useState(false);
+    const heroFileInputRef = useRef(null);
+
+    const handleHeroUpload = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        if (!file.type.startsWith('image/')) {
+            alert('Please select a valid image file.');
+            return;
+        }
+        if (file.size > 5 * 1024 * 1024) {
+            alert('Image size must be less than 5MB.');
+            return;
+        }
+        try {
+            setUploadingImage(true);
+            const response = await adminService.upload(file, 'safari-packages');
+            const imageUrl = response.data.url;
+            setSelectedSafari({...selectedSafari, hero_image: imageUrl});
+        } catch (error) {
+            console.error('Hero image upload failed:', error);
+            alert('Failed to upload image. Please try again.');
+        } finally {
+            setUploadingImage(false);
+        }
+    };
 
     useEffect(() => {
         fetchSafaris();
@@ -225,7 +251,53 @@ export const AdminSafaris = () => {
                                     <AdminInput label="Duration (Days)" type="number" value={selectedSafari.duration} onChange={v => setSelectedSafari({...selectedSafari, duration: v})} />
                                     <AdminInput label="Base Price ($)" type="number" value={selectedSafari.base_price} onChange={v => setSelectedSafari({...selectedSafari, base_price: v})} />
                                 </div>
+                                <label style={{ display: 'block', fontSize: '0.65rem', color: 'var(--text-dim-light)', fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>Hero Image</label>
+                                <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
+                                    <input
+                                        type="file"
+                                        ref={heroFileInputRef}
+                                        accept="image/*"
+                                        onChange={handleHeroUpload}
+                                        style={{ display: 'none' }}
+                                        disabled={uploadingImage}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => heroFileInputRef.current?.click()}
+                                        disabled={uploadingImage}
+                                        style={{
+                                            flex: 1,
+                                            padding: '10px',
+                                            background: uploadingImage ? 'rgba(201, 168, 76, 0.1)' : 'transparent',
+                                            border: '1px dashed var(--border)',
+                                            color: uploadingImage ? 'var(--gold-dim)' : 'var(--text-dim-light)',
+                                            fontSize: '0.7rem',
+                                            fontFamily: 'var(--font-mono)',
+                                            cursor: uploadingImage ? 'not-allowed' : 'pointer',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            gap: '8px'
+                                        }}
+                                    >
+                                        {uploadingImage ? (
+                                            <><Loader2 size={12} className="animate-spin" /> Uploading...</>
+                                        ) : (
+                                            <><Upload size={12} /> Upload Hero</>
+                                        )}
+                                    </button>
+                                </div>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
+                                    <div style={{ flex: 1, height: '1px', background: 'var(--border)' }}></div>
+                                    <span style={{ fontSize: '0.55rem', color: 'var(--text-dim-light)', fontFamily: 'var(--font-mono)' }}>OR USE URL</span>
+                                    <div style={{ flex: 1, height: '1px', background: 'var(--border)' }}></div>
+                                </div>
                                 <AdminInput label="Hero Visual URL" value={selectedSafari.hero_image} onChange={v => setSelectedSafari({...selectedSafari, hero_image: v})} />
+                                {selectedSafari.hero_image && (
+                                    <div style={{ height: '160px', background: '#000', border: '1px solid var(--border)', overflow: 'hidden', marginTop: '10px' }}>
+                                        <img src={selectedSafari.hero_image} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                    </div>
+                                )}
                             </div>
 
                             <div className="curator-section">

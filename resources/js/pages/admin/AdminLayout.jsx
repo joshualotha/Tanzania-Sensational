@@ -73,7 +73,7 @@ export const AdminLayout = () => {
         { path: '/ops-7f3d/gear-requests', label: 'Gear Requests', icon: Backpack, slug: 'GEAR' },
         { path: '/ops-7f3d/inquiries', label: 'Inquiries', icon: MessageSquare, slug: 'LEAD' },
         { path: '/ops-7f3d/pages', label: 'Pages', icon: BookOpen, slug: 'PAGES' },
-        { path: '/ops-7f3d/visuals', label: 'Media Library', icon: ImageIcon, slug: 'MEDIA' },
+        { path: '/ops-7f3d/visuals', label: 'Visual Assets', icon: ImageIcon, slug: 'MEDIA' },
     ];
 
     const isActivePath = (path) => {

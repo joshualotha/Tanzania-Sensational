@@ -48,6 +48,10 @@ button {
   position: relative;
 }
 
+.page-content-wrapper {
+  position: relative;
+}
+
 html {
   overflow-x: hidden;
 }
@@ -570,11 +574,11 @@ body::before {
   inset: 0;
   background:
     linear-gradient(175deg,
-      rgba(31, 41, 38, 0.15) 0%,
-      transparent 35%,
-      transparent 55%,
-      rgba(31, 41, 38, 0.3) 80%,
-      rgba(31, 41, 38, 0.6) 100%);
+      rgba(0, 0, 0, 0.45) 0%,
+      rgba(0, 0, 0, 0.15) 30%,
+      rgba(0, 0, 0, 0.15) 50%,
+      rgba(0, 0, 0, 0.50) 75%,
+      rgba(0, 0, 0, 0.75) 100%);
   z-index: 2;
 }
 
@@ -2018,6 +2022,39 @@ section {
   padding: 12px 64px;
   background: #f5f2ec;
   border-bottom: 1px solid rgba(140, 109, 82, 0.08);
+}
+
+.breadcrumbs-over-hero {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, transparent 100%);
+  border-bottom: none;
+}
+
+.breadcrumbs-over-hero .breadcrumbs-link {
+  color: rgba(255,255,255,0.75);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+
+.breadcrumbs-over-hero .breadcrumbs-link:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.1);
+}
+
+.breadcrumbs-over-hero .breadcrumbs-current {
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+
+.breadcrumbs-over-hero .breadcrumbs-separator {
+  color: rgba(255,255,255,0.5);
+}
+
+.breadcrumbs-over-hero .breadcrumbs-home-icon {
+  color: rgba(255,255,255,0.75);
 }
 
 .breadcrumbs-list {

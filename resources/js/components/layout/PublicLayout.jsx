@@ -37,8 +37,10 @@ const PublicLayout = (page) => {
             <div className="app-container">
                 <TopBar />
                 <Navbar />
-                <Breadcrumbs />
-                {page}
+                <div className="page-content-wrapper">
+                    <Breadcrumbs />
+                    {page}
+                </div>
                 <Footer />
                 <WhatsAppFloat />
             </div>

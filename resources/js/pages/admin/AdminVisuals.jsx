@@ -141,8 +141,8 @@ export const AdminVisuals = () => {
         <div className="admin-visuals-root">
             <header style={{ marginBottom: '40px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                 <div>
-                    <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--gold)', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '10px' }}>Media</h2>
-                    <h1 className="admin-page-title" style={{ fontSize: '2.4rem' }}>Theme Customizer</h1>
+                    <h2 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--gold)', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '10px' }}>Visual Assets</h2>
+                    <h1 className="admin-page-title" style={{ fontSize: '2.4rem' }}>Images & Media</h1>
                 </div>
                 <button className="admin-btn-secondary" onClick={() => fetchAssets()}>
                     <RefreshCw size={14} className={loading ? "animate-spin" : ""} /> Refresh

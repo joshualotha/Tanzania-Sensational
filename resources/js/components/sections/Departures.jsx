@@ -19,13 +19,36 @@ const itemVariants = {
   }
 };
 
+const getNextRecurringDate = (dateStr) => {
+  const date = new Date(dateStr);
+  const now = new Date();
+  if (date >= now) return date;
+  const next = new Date(date);
+  let attempts = 0;
+  while (next < now && attempts < 52) {
+    next.setDate(next.getDate() + 7);
+    attempts++;
+  }
+  return next >= now ? next : null;
+};
+
 export const Departures = () => {
   const [departures, setDepartures] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     departureService.getAll()
-      .then(res => setDepartures(Array.isArray(res.data) ? res.data : []))
+      .then(res => {
+        const all = Array.isArray(res.data) ? res.data : [];
+        const upcoming = all
+          .map(dep => ({
+            ...dep,
+            departure_date: getNextRecurringDate(dep.departure_date),
+          }))
+          .filter(dep => dep.departure_date !== null)
+          .sort((a, b) => new Date(a.departure_date) - new Date(b.departure_date));
+        setDepartures(upcoming);
+      })
       .catch(err => console.error("Failed to fetch departures", err))
       .finally(() => setLoading(false));
   }, []);
@@ -63,6 +86,15 @@ export const Departures = () => {
         <div className="departures-list-v3">
           {loading ? (
             [1, 2, 3].map(i => <div key={i} className="departure-skeleton-v3" />)
+          ) : departures.length === 0 ? (
+            <motion.div variants={itemVariants} style={{ textAlign: 'center', padding: '40px 20px', background: 'rgba(255,255,255,0.03)', borderRadius: '8px', border: '1px dashed rgba(255,255,255,0.1)' }}>
+              <p style={{ color: 'var(--text-dim-light)', fontSize: '0.95rem', marginBottom: '20px' }}>
+                No group departures available at the moment.
+              </p>
+              <Link href="/contact" className="btn-secondary-light">
+                Request Private Expedition
+              </Link>
+            </motion.div>
           ) : (
             departures.slice(0, 4).map((dep, i) => {
               const getRouteUrl = (slug) => {

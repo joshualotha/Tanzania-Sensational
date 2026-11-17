@@ -82,9 +82,16 @@
 
 /* ─── GRID ─── */
 .safari-home-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 28px;
+}
+
+.safari-home-grid > * {
+    flex: 0 1 calc(33.333% - 19px);
+    min-width: 300px;
+    max-width: 460px;
 }
 
 /* ─── CARD ─── */
@@ -93,6 +100,7 @@
     flex-direction: column;
     background: #F6F3EC;
     border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
     text-decoration: none;
     color: inherit;
     transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);

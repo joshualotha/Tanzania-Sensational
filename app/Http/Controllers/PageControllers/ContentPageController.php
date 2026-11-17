@@ -49,7 +49,7 @@ class ContentPageController extends Controller
      */
     public function show(Request $request, $page)
     {
-        $fixedSection = $request->route()->defaults('fixedSection', '');
+        $fixedSection = $request->route()->defaults['fixedSection'] ?? '';
         
         $slug = $fixedSection
             ? $fixedSection . '-' . $page
